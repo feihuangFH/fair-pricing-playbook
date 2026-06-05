@@ -1,0 +1,122 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "The Fair Pricing Playbook",
+    "section": "",
+    "text": "An open guide for building algorithmic pricing systems that are accurate, defensible, and fair. The playbook has four steps (one page each), with references at the bottom of every step.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#the-fair-pricing-playbook",
+    "href": "index.html#the-fair-pricing-playbook",
+    "title": "The Fair Pricing Playbook",
+    "section": "",
+    "text": "An open guide for building algorithmic pricing systems that are accurate, defensible, and fair. The playbook has four steps (one page each), with references at the bottom of every step.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#four-steps",
+    "href": "index.html#four-steps",
+    "title": "The Fair Pricing Playbook",
+    "section": "Four steps",
+    "text": "Four steps\n\n\n\nStep\nTopic\nQuestion\nPage\n\n\n\n\n1\nFairness metrics\nWhat is fair?\nDefine fairness\n\n\n2\nFair models\nHow to achieve fairness?\nDesign fair pricing\n\n\n3\nWelfare implications\nWho gains and loses?\nAssess impact\n\n\n4\nFairness testing\nDoes it work?\nAudit the system\n\n\n\n\n\n\n\n\n\nWho it is for\n\n\n\nActuaries, data scientists, compliance leaders, and regulators who need a structured, repeatable workflow.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#end-to-end-audit-flow",
+    "href": "index.html#end-to-end-audit-flow",
+    "title": "The Fair Pricing Playbook",
+    "section": "End-to-end audit flow",
+    "text": "End-to-end audit flow\nStep 4 follows an integrated Plan → Audit → Decide → Improve protocol (Huang and Hooker 2026). All design choices are fixed before examining data.\n\nPlan · Audit · Decide · Improve\n\n\n\n\n\n\n\nPhase\nActions\n\n\n\n\nPlan\nSelect criterion (PD or CDP), legitimate factors, tolerance bands, representative sample\n\n\nAudit\nCollect quotes; run statistical fairness tests with corrected inference\n\n\nDecide\nPass, insufficient information, or fail (equivalence testing)\n\n\nImprove\nRemediate and re-test; collect more data if unclear\n\n\n\nFull detail: Step 4: Audit the system.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#research-map",
+    "href": "index.html#research-map",
+    "title": "The Fair Pricing Playbook",
+    "section": "Research map",
+    "text": "Research map\n\n\n\n\n\n\n\nStep\nKey references\n\n\n\n\n1\nFrees and Huang (2023); Xin and Huang (2024); Krafcheck, Balnozan, and Huang (2026)\n\n\n2\nXin and Huang (2024)\n\n\n3\nHuang, Shimao, and Khern-am-nuai (2026); Huang and Shimao (2026)\n\n\n4\nHuang and Hooker (2026)",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#about-the-author",
+    "href": "index.html#about-the-author",
+    "title": "The Fair Pricing Playbook",
+    "section": "About the Author",
+    "text": "About the Author\n\n\n\n\n\nDr. Fei Huang\n\nSchool of Risk and Actuarial Studies, UNSW Business School\nEmail: feihuang@unsw.edu.au · Website: feihuang.org\n\nDr. Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.\nHer work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean’s Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "The Fair Pricing Playbook",
+    "section": "License",
+    "text": "License\nMaterials are licensed under CC BY 4.0. See LICENSE.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-cite",
+    "href": "index.html#how-to-cite",
+    "title": "The Fair Pricing Playbook",
+    "section": "How to cite",
+    "text": "How to cite\nIf you are using this playbook in your academic work, please find below an example for referencing it using the APA citation style.\nHuang, F. (2026). The Fair Pricing Playbook: A practical framework for fair algorithmic pricing (draft). https://fair.feihuang.org (GitHub Pages mirror: https://feihuangfh.github.io/fair-pricing-playbook; source: https://github.com/feihuangFH/fair-pricing-playbook).",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "Playbook/Step-3-Assess-Impact.html",
+    "href": "Playbook/Step-3-Assess-Impact.html",
+    "title": "Step 3: Assess impact",
+    "section": "",
+    "text": "Who gains and loses?\nQuantify firm profit and consumer welfare from pricing outputs (premium, approval, loss ratio, markups). Prediction-level fairness alone is insufficient (Huang, Shimao, and Khern-am-nuai 2026).\n\n\nCost modelling and welfare\nHuang, Shimao, and Khern-am-nuai (2026) connects fairness constraints on cost models to pricing, demand, participation, and welfare:\n\nInterventions can alter pricing even with modest accuracy changes\n\nStandard fairness metrics may reduce welfare for protected groups after selection effects\n\nDistinct firm vs consumer trade-offs by intervention type\n\n\n\nFull pricing process\nHuang and Shimao (2026) models the complete pipeline:\n\n\n\nStage\nRole\n\n\n\n\nCost modelling\nStep 2 technical premium\n\n\nDemand modelling\nWillingness to pay\n\n\nPrice optimisation\nMarket premium\n\n\nPolicy constraints\nFairness and accountability\n\n\n\n\nPricing rules\n\n\n\nRule\nDescription\n\n\n\n\nP0\nUnconstrained\n\n\nPA\nAccountable (decomposable base rates + relativities)\n\n\nPOB\nPrice optimisation ban\n\n\nPDP\nDemographic parity on premiums\n\n\nPAF\nActuarial group fairness\n\n\n\n\n\nKey findings\n\nPrice fairness vs markup fairness: tension; no rule achieves both.\n\nPDP closes price gaps but can widen markup disparities.\n\nPA reduces markup gaps with profit losses.\n\nPOB effects depend on market structure (voluntary/compulsory, competition).\n\n\n\n\nMeasures\n\n\n\nMeasure\nDefinition\n\n\n\n\nConsumer welfare\nWillingness to pay minus price paid\n\n\nFirm profit\nPrice charged minus expected cost\n\n\n\nReport by protected group: premium changes, approval rates, markup gaps.\n\n\nChecklist\n\n\n\n\n\n\n\nWelfare memo: firm profit and consumer welfare by group.\n\nPrice vs markup fairness distinguished.\n\nMarket structure documented.\n\nTrade-offs linked to Step 4 monitoring plan.\n\n\n\n\n\n\n\nReferences\nHuang, Shimao, and Khern-am-nuai (2026)\nHuang and Shimao (2026)\n\n\n\n\n\nReferences\n\nHuang, Fei, and Hajime Shimao. 2026. “Welfare Implications of Fair and Accountable Insurance Pricing.” Journal of Risk and Insurance. https://doi.org/10.1111/jori.70051.\n\n\nHuang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. “Do Fair Algorithms Improve Welfare? Evidence from the Insurance Market.” UNSW Business School Research Paper Forthcoming. https://doi.org/10.2139/ssrn.5112616.",
+    "crumbs": [
+      "Step 3: Assess impact"
+    ]
+  },
+  {
+    "objectID": "Playbook/Step-1-Define-Fairness.html",
+    "href": "Playbook/Step-1-Define-Fairness.html",
+    "title": "Step 1: Define fairness",
+    "section": "",
+    "text": "What is fair?\nAgree which fairness metrics apply, under which regulations, and on which outputs (premium, markup, approval) before building or auditing a model.\n\n\nPrinciples of fair differentiation\nInsurance pricing is built on differentiation. Frees and Huang (2023) asks which differentiations are appropriate:\n\n\n\nBalancing social justice and economic efficiency.\n\n\n\n\n\n\n\n\n\n\nLens\nEmphasis\nExamples\n\n\n\n\nSocial good\nSolidarity, access, mandatory cover\nCompulsory third-party auto\n\n\nEconomic commodity\nEfficiency, adverse selection\nVoluntary life\n\n\n\n\nRating factor principles\n\n\n\n\n\n\n\nPrinciple\nQuestion\n\n\n\n\nControl\nCan the policyholder influence the factor?\n\n\nMutability\nDoes it change over time or stay fixed?\n\n\nStatistical discrimination\nDoes it predict risk?\n\n\nCausality\nDoes it cause insured events?\n\n\nPast discrimination\nDoes use reinforce historical injustice?\n\n\nSocially valuable behaviour\nDoes pricing discourage beneficial actions?\n\n\n\nProxy discrimination and disparate impact are central grey areas (Frees and Huang 2023).\n\n\n\nRegulatory landscape\nXin and Huang (2024) maps regimes to modelling choices:\n\nRestriction or prohibition on protected variables\n\nProxy restrictions\n\nDisparate impact tests\n\nCommunity rating\n\n\n\n\nComparison between regulations, fairness criteria, and models.\n\n\n\n\nFairness criteria\nLet X_P be a protected attribute, X_{NP} other features, \\hat{Y} the predicted premium (Xin and Huang 2024).\n\n\n\nType\nCriterion\nIdea\n\n\n\n\nIndividual\nFTU\n\\hat{Y} does not use X_P\n\n\nIndividual\nCPV\nDiscrimination-free price averaging over X_P\n\n\nGroup\nDP\nEqual distribution of \\hat{Y} across groups\n\n\nGroup\nCDP\nParity within legitimate subgroups\n\n\nGroup\nSeparation / sufficiency\nEqualised errors or calibration\n\n\n\nKrafcheck, Balnozan, and Huang (2026) distinguishes individual (actuarial) fairness from group fairness; achieving both is often impossible, so document the trade-off.\n\n\nChecklist\n\n\n\n\n\n\n\nDocument applicable regulations.\n\nSelect primary fairness metric (e.g. CDP, PD).\n\nSpecify outcome \\hat{Y} and legitimate factors for CDP.\n\nClassify rating factors using differentiation principles.\n\n\n\n\n\n\n\nReferences\nFrees and Huang (2023)\nXin and Huang (2024)\nKrafcheck, Balnozan, and Huang (2026)\n\n\n\n\n\nReferences\n\nFrees, Edward W, and Fei Huang. 2023. “The Discriminating (Pricing) Actuary.” North American Actuarial Journal 27 (1): 2–24.\n\n\nKrafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. “Fairness Metrics for Life Insurance.” Society of Actuaries Research Institute. https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/.\n\n\nXin, Xi, and Fei Huang. 2024. “Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.” North American Actuarial Journal 28 (2): 285–319.",
+    "crumbs": [
+      "Step 1: Define fairness"
+    ]
+  },
+  {
+    "objectID": "Playbook/Step-2-Design-Fair-Pricing.html",
+    "href": "Playbook/Step-2-Design-Fair-Pricing.html",
+    "title": "Step 2: Design fair pricing",
+    "section": "",
+    "text": "How to achieve fairness?\nImplement anti-discrimination strategies at pre-processing, in-processing, or post-processing, linked to the fairness criteria from Step 1 (Xin and Huang 2024).\n\n\nModel–criterion mapping\n\n\n\n\n\n\n\n\nModel\nCriterion\nApproach\n\n\n\n\nM0 (full)\nbaseline\nUses X_P and X_{NP}\n\n\nMU (unawareness)\nFTU\n\\hat{Y} = f(X_{NP}) only\n\n\nMDP (debiased)\nDP\nPre-process X_{NP} to remove dependence on X_P\n\n\nMCDP\nCDP\nLegitimate X_{NP_{\\text{legit}}} retained; others debiased\n\n\nMC (control)\nCPV\nFit M0; average over X_P at prediction\n\n\n\n\n\nPre-processing (MDP, MCDP)\n\nDisparate impact remover: align group distributions of X_{NP}\n\nOrthogonal predictors: residualise X_{NP} on X_P\n\nMCDP allows group differences only through legitimate variables (e.g. claims history, vehicle type).\n\n\nPost-processing (MC)\n\\hat{Y}_{MC} = \\frac{1}{N}\\sum_{j=1}^N \\hat{f}_{M0}(X_{NP}, X_P = x_{p_j})\nProtected attributes used in training only; averaged out at prediction, giving better proxy control than MU alone.\n\n\nImplementation\n\nEmpirical comparison uses GLM and XGBoost on French auto data (Xin and Huang 2024)\n\nRetain baseline M0 for welfare and audit comparisons (Steps 3–4)\n\nDocument pre- / in- / post-processing choice and reproducible pipeline\n\n\n\nChecklist\n\n\n\n\n\n\n\nModel (M0 / MU / MDP / MCDP / MC) linked to Step 1 criterion.\n\nLegitimate vs non-legitimate variables listed.\n\nBaseline M0 retained.\n\nVersioned data, code, and parameters.\n\n\n\n\n\n\n\nReferences\nXin and Huang (2024)\n\n\n\n\n\nReferences\n\nXin, Xi, and Fei Huang. 2024. “Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.” North American Actuarial Journal 28 (2): 285–319.",
+    "crumbs": [
+      "Step 2: Design fair pricing"
+    ]
+  },
+  {
+    "objectID": "Playbook/Step-4-Audit-the-System.html",
+    "href": "Playbook/Step-4-Audit-the-System.html",
+    "title": "Step 4: Audit the system",
+    "section": "",
+    "text": "Does it work?\nRun a pre-committed audit protocol on pricing outputs. All design choices are fixed before examining data (Huang and Hooker 2026).\n\n\nEnd-to-end audit flow\nEnd-to-end flow for the fairness audit protocol (Huang and Hooker 2026):\n\nPlan · Audit · Decide · Improve\n\n\nPre-audit setup\n\nSelect criterion: proxy discrimination (PD) or conditional demographic parity (CDP)\n\nSpecify legitimate factors X_\\ell aligned with Step 1\n\nSet tolerance bands (e.g. 5% price gap, 0.80 adverse impact ratio)\n\nDesign representative quote sample and power calculations\n\n\n\nStatistical testing\nPricing algorithms are usually deterministic, so classical OLS/GLM standard errors are invalid. Huang and Hooker (2026) provides corrected variance for:\n\nCDP: test \\beta_A in P_i = \\mu_0 + \\beta_A \\mathbf{1}\\{A_i=a\\} + \\gamma^\\top X_{\\ell,i} + \\varepsilon_i\n\nPD: coefficient shift \\Delta = \\phi_j - \\phi'_j when protected attribute enters model\n\nUse equivalence testing (TOST) so models pass only when data affirm compliance within tolerance, not merely fail to reject disparity.\n\n\nThree outcomes\n\n\n\n\n\n\n\nOutcome\nAction\n\n\n\n\nPass\nDocument; proceed with monitoring\n\n\nInsufficient information\nCollect more data or escalate to remediation\n\n\nFail\nRemediate → re-test (return to Step 2 or Step 1)\n\n\n\n\n\nGovernance and monitoring\n\n\n\nRole\nResponsibility\n\n\n\n\nAccountable actuary\nAudit protocol sign-off\n\n\nIndependent reviewer\nReplicate corrected regressions\n\n\nModel owner\nRemediation on fail/unclear\n\n\n\nRe-audit on model change, regulatory update, or drift in CDP/PD statistics.\n\n\nChecklist\n\n\n\n\n\n\n\nPre-specified protocol (criterion, tolerance, sample).\n\nCorrected inference for deterministic outputs.\n\nCDP and/or PD tests with TOST decision rule.\n\nThree-outcome classification documented.\n\nRemediation and re-audit path assigned.\n\n\n\n\n\n\n\nReferences\nHuang and Hooker (2026)\nXin and Huang (2024)\n\n\n\n\n\nReferences\n\nHuang, Fei, and Giles Hooker. 2026. “Fairness Testing for Algorithmic Pricing.” https://arxiv.org/abs/2605.11614.\n\n\nXin, Xi, and Fei Huang. 2024. “Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.” North American Actuarial Journal 28 (2): 285–319.",
+    "crumbs": [
+      "Step 4: Audit the system"
+    ]
+  }
+]
