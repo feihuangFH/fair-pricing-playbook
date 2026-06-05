@@ -5,7 +5,7 @@ A four-step guide for fair algorithmic pricing: define fairness → design fair 
 
 Developed by [Fei Huang](https://www.feihuang.org) at UNSW Sydney.
 
-Please open the site at **[fair.feihuang.org](https://fair.feihuang.org)** (GitHub Pages mirror: [feihuangfh.github.io/fair-pricing-playbook](https://feihuangfh.github.io/fair-pricing-playbook); source: [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)).
+Please open the site at **[fair.feihuang.org](https://fair.feihuang.org)** (source: [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)).
 
 ## Pages
 
@@ -35,7 +35,7 @@ GitHub Pages should serve the `docs/` folder on the `main` branch. Set the custo
 
 ## How to cite
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for fair algorithmic pricing* (draft). [fair.feihuang.org](https://fair.feihuang.org) (GitHub Pages mirror: [feihuangfh.github.io/fair-pricing-playbook](https://feihuangfh.github.io/fair-pricing-playbook); source: [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)).
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for fair algorithmic pricing* (draft). [fair.feihuang.org](https://fair.feihuang.org) (source: [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)).
 
 ## License
 
