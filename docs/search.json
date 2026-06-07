@@ -307,8 +307,8 @@
     ]
   },
   {
-    "objectID": "index.html#the-fair-pricing-playbook",
-    "href": "index.html#the-fair-pricing-playbook",
+    "objectID": "index.html#pathway-towards-fairness",
+    "href": "index.html#pathway-towards-fairness",
     "title": "The Fair Pricing Playbook",
     "section": "",
     "text": "An open guide for building algorithmic pricing systems that are accurate, defensible, and fair.\n\nThe diagram shows how model design, welfare assessment, and fairness testing connect in one workflow. The site has two parts.\n\nFour steps — qualitative guidance on fairness in algorithmic pricing.\nCase studies — three insurance applications for practitioners who want technical depth.\n\nOpen the site at fair.feihuang.org (source: github.com/feihuangFH/fair-pricing-playbook).\n\n\n\n\n\n\nTwo ways to read\n\n\n\n\n\n\nReader\nPath\n\n\n\n\nGeneral (compliance, risk professionals, policy, management)\nRead the four steps below. Stop there.\n\n\nTechnical (data science, actuarial, research)\nRead the four steps, then open Case Studies.",
