@@ -51,7 +51,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Playbook/Step-3-Assess-Impact.html" rel="next">
+<link href="../Case Study 1/case_study1.html" rel="next">
 <link href="../Playbook/Step-1-Define-Fairness.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -154,7 +154,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-2-Design-Fair-Pricing.html">Step 2: Design fair pricing</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-2-Design-Fair-Pricing.html">Step 2: Design fair pricing</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -185,30 +185,59 @@ window.Quarto = {
  <span class="menu-text">Home</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pathway</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 1: Define fairness</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Step 2: Design fair pricing</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 1: Fair cost models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 3: Assess impact</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 2: Welfare implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 4: Audit the system</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 3: Fairness testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -219,20 +248,21 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-achieve-fairness" id="toc-how-to-achieve-fairness" class="nav-link active" data-scroll-target="#how-to-achieve-fairness">How to achieve fairness?</a></li>
-  <li><a href="#modelcriterion-mapping" id="toc-modelcriterion-mapping" class="nav-link" data-scroll-target="#modelcriterion-mapping">Model–criterion mapping</a></li>
+  <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
+  <li><a href="#how-to-achieve-fairness" id="toc-how-to-achieve-fairness" class="nav-link" data-scroll-target="#how-to-achieve-fairness">How to achieve fairness?</a></li>
+  <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
+  <li><a href="#model-criterion-mapping" id="toc-model-criterion-mapping" class="nav-link" data-scroll-target="#model-criterion-mapping">Model–criterion mapping</a></li>
   <li><a href="#pre-processing-mdp-mcdp" id="toc-pre-processing-mdp-mcdp" class="nav-link" data-scroll-target="#pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</a></li>
   <li><a href="#post-processing-mc" id="toc-post-processing-mc" class="nav-link" data-scroll-target="#post-processing-mc">Post-processing (MC)</a></li>
   <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-2-Design-Fair-Pricing.html">Step 2: Design fair pricing</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Step 2: Design fair pricing</h1>
 <p class="subtitle lead">A practical framework for fair algorithmic pricing</p>
@@ -258,29 +288,139 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Prerequisite
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="Step-1-Define-Fairness.html">Step 1: Define fairness</a>. Agree on the fairness criterion before choosing a model.</p>
+<p>Optional technical companion. <a href="../Case Study 1/case_study1.html">Case Study 1: Fair cost models</a> for reproducible insurance implementation (GLM and gradient boosting).</p>
+</div>
+</div>
+<section id="how-to-read-this-step" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-read-this-step">How to read this step</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>If your focus is…</th>
+<th>Start here</th>
+<th>Then read</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Governance and sign-off</td>
+<td><a href="#how-to-achieve-fairness">How to achieve fairness?</a></td>
+<td><a href="#implementation">Implementation</a> → <a href="#checklist">Checklist</a></td>
+</tr>
+<tr class="even">
+<td>Model development</td>
+<td><a href="#model-criterion-mapping">Model–criterion mapping</a> → <a href="#mini-glossary">Mini-glossary</a></td>
+<td><a href="#pre-processing-mdp-mcdp">Pre-processing</a> and <a href="#post-processing-mc">Post-processing</a></td>
+</tr>
+<tr class="odd">
+<td>Full empirical example</td>
+<td><a href="../Case Study 1/case_study1.html">Case Study 1</a></td>
+<td><a href="../Case Study 1/case_study1.html#fairness-accuracy-trade-off">Fairness–accuracy trade-off</a></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="how-to-achieve-fairness" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-achieve-fairness">How to achieve fairness?</h3>
+<p>Once Step 1 fixes the fairness criterion, choose where in the pipeline to enforce it: adjust inputs before modelling (pre-processing), constrain the model during training (in-processing), or adjust outputs after prediction (post-processing). Each approach maps to a standard model design (M0–MC below).</p>
 <p>Implement anti-discrimination strategies at pre-processing, in-processing, or post-processing, linked to the fairness criteria from Step 1 <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+For practitioners
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This step describes standard anti-discrimination model designs, not a single approved pipeline for every market. In your organisation you must decide:</p>
+<ul>
+<li>Which criterion from Step 1 is binding (CDP, DP, FTU, and so on)</li>
+<li>Which variables are legitimate rating factors under local law</li>
+<li>Which intervention stage fits your production system (pre-, in-, or post-processing)</li>
+<li>Whether to retain a baseline model (M0) for welfare and audit comparisons in Steps 3–4</li>
+</ul>
+<p>The <a href="../Case Study 1/case_study1.html">case study</a> shows one insurance implementation. Adapt data, variables, and packages to your jurisdiction.</p>
+</div>
+</div>
 </section>
-<section id="modelcriterion-mapping" class="level3">
-<h3 class="anchored" data-anchor-id="modelcriterion-mapping">Model–criterion mapping</h3>
+<section id="mini-glossary" class="level3">
+<h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
+<p>Model labels follow <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. M denotes a pricing model. DP and CDP are the fairness criteria demographic parity and conditional demographic parity.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 39%">
-<col style="width: 35%">
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0 (full model)</td>
+<td>Baseline that uses all variables, including protected attributes - kept for comparison, not for deployment when discrimination is prohibited</td>
+</tr>
+<tr class="even">
+<td>MU (unawareness)</td>
+<td>Model trained without the protected attribute. Targets fairness through unawareness (FTU)</td>
+</tr>
+<tr class="odd">
+<td>MDP (demographic parity)</td>
+<td>Model targeting demographic parity (DP): fit on debiased non-protected predictors <span class="math inline">X_{NP}^{\star}</span> so average predicted outcomes are approximately equal across protected groups</td>
+</tr>
+<tr class="even">
+<td>MCDP (conditional demographic parity)</td>
+<td>Model targeting conditional demographic parity (CDP): fit on legitimate predictors plus debiased non-legitimate predictors - group differences are allowed only through legitimate variables</td>
+</tr>
+<tr class="odd">
+<td>MC (CPV)</td>
+<td>Full model (M0) fitted, then predictions averaged over protected groups at scoring time. Targets controlling for the protected variable (CPV)</td>
+</tr>
+<tr class="even">
+<td>Pre-processing</td>
+<td>Change inputs before model training (used by MDP and MCDP)</td>
+</tr>
+<tr class="odd">
+<td>Post-processing</td>
+<td>Change outputs after model training (used by MC)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="model-criterion-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="model-criterion-mapping">Model–criterion mapping</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 52%">
+<col style="width: 27%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Model</th>
-<th>Criterion</th>
+<th>Fairness criterion</th>
 <th>Approach</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>M0 (full)</td>
-<td>baseline</td>
+<td>(baseline)</td>
 <td>Uses <span class="math inline">X_P</span> and <span class="math inline">X_{NP}</span></td>
 </tr>
 <tr class="even">
@@ -289,72 +429,90 @@ window.Quarto = {
 <td><span class="math inline">\hat{Y} = f(X_{NP})</span> only</td>
 </tr>
 <tr class="odd">
-<td>MDP (debiased)</td>
+<td>MDP (demographic parity)</td>
 <td>DP</td>
-<td>Pre-process <span class="math inline">X_{NP}</span> to remove dependence on <span class="math inline">X_P</span></td>
+<td>Pre-process all <span class="math inline">X_{NP}</span> to <span class="math inline">X_{NP}^{\star}</span>, removing dependence on <span class="math inline">X_P</span></td>
 </tr>
 <tr class="even">
-<td>MCDP</td>
+<td>MCDP (conditional demographic parity)</td>
 <td>CDP</td>
-<td>Legitimate <span class="math inline">X_{NP_{\text{legit}}}</span> retained; others debiased</td>
+<td>Retain legitimate <span class="math inline">X_{NP_{\text{legit}}}</span>. Debias non-legitimate <span class="math inline">X_{NP_{\text{not}}}</span> to <span class="math inline">X_{NP_{\text{not}}}^{\star}</span></td>
 </tr>
 <tr class="odd">
 <td>MC (control)</td>
 <td>CPV</td>
-<td>Fit M0; average over <span class="math inline">X_P</span> at prediction</td>
+<td>Fit M0. Average over <span class="math inline">X_P</span> at prediction</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="pre-processing-mdp-mcdp" class="level3">
 <h3 class="anchored" data-anchor-id="pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</h3>
+<p>Both MDP and MCDP use pre-processing to debias predictors before fitting <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <ul>
-<li>Disparate impact remover: align group distributions of <span class="math inline">X_{NP}</span><br>
-</li>
-<li>Orthogonal predictors: residualise <span class="math inline">X_{NP}</span> on <span class="math inline">X_P</span></li>
+<li>Disparate impact remover. Align group distributions of <span class="math inline">X_{NP}</span></li>
+<li>Orthogonal predictors. Residualise <span class="math inline">X_{NP}</span> on <span class="math inline">X_P</span></li>
 </ul>
-<p>MCDP allows group differences only through legitimate variables (e.g.&nbsp;claims history, vehicle type).</p>
+<p>MDP debiases all non-protected predictors to target demographic parity (DP). MCDP debiases only non-legitimate predictors while retaining legitimate variables unchanged, to target conditional demographic parity (CDP). Business-justified features that regulation accepts as grounds for price variation.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Insurance example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Legitimate features might include claims history or vehicle type. A credit-based score used only as a proxy for a protected attribute would typically be debiased under MCDP.</p>
+</div>
+</div>
 </section>
 <section id="post-processing-mc" class="level3">
 <h3 class="anchored" data-anchor-id="post-processing-mc">Post-processing (MC)</h3>
 <p><span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})</span></p>
-<p>Protected attributes used in training only; averaged out at prediction, giving better proxy control than MU alone.</p>
+<p>Protected attributes used in training only. Averaged out at prediction, giving better proxy control than MU alone.</p>
 </section>
 <section id="implementation" class="level3">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <ul>
-<li>Empirical comparison uses GLM and XGBoost on French auto data <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span><br>
-</li>
-<li>Retain baseline M0 for welfare and audit comparisons (Steps 3–4)<br>
-</li>
-<li>Document pre- / in- / post-processing choice and reproducible pipeline</li>
+<li>Link each model (M0 / MU / MDP / MCDP / MC) to the criterion chosen in Step 1</li>
+<li>Retain baseline M0 for welfare and audit comparisons (Steps 3–4)</li>
+<li>Document pre- / in- / post-processing choice and a reproducible pipeline</li>
 </ul>
 </section>
 <section id="checklist" class="level3">
 <h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
-<div class="callout callout-style-simple callout-important no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul class="task-list">
-<li><label><input type="checkbox">Model (M0 / MU / MDP / MCDP / MC) linked to Step 1 criterion.<br>
-</label></li>
-<li><label><input type="checkbox">Legitimate vs non-legitimate variables listed.<br>
-</label></li>
-<li><label><input type="checkbox">Baseline M0 retained.<br>
-</label></li>
-<li><label><input type="checkbox">Versioned data, code, and parameters.<br>
-</label></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="references" class="level3">
-<h3 class="anchored" data-anchor-id="references">References</h3>
-<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Typical owner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model (M0 / MU / MDP / MCDP / MC) linked to Step 1 criterion</td>
+<td>Actuarial / Data science</td>
+</tr>
+<tr class="even">
+<td>Legitimate vs non-legitimate variables listed and signed off</td>
+<td>Legal / Compliance + Actuarial</td>
+</tr>
+<tr class="odd">
+<td>Baseline M0 retained for downstream comparisons</td>
+<td>Model risk</td>
+</tr>
+<tr class="even">
+<td>Versioned data, code, and parameters</td>
+<td>Data science / MLOps</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -792,8 +950,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Playbook/Step-3-Assess-Impact.html" class="pagination-link" aria-label="Step 3: Assess impact">
-        <span class="nav-page-text">Step 3: Assess impact</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../Case Study 1/case_study1.html" class="pagination-link" aria-label="↳ Case study 1: Fair cost models">
+        <span class="nav-page-text">↳ Case study 1: Fair cost models</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

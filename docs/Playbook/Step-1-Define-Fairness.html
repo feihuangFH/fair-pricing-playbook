@@ -154,7 +154,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Step 1: Define fairness</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Step 1: Define fairness</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -185,30 +185,59 @@ window.Quarto = {
  <span class="menu-text">Home</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pathway</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Step 1: Define fairness</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 2: Design fair pricing</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 1: Fair cost models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 3: Assess impact</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 2: Welfare implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 4: Audit the system</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 3: Fairness testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -219,19 +248,20 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-fair" id="toc-what-is-fair" class="nav-link active" data-scroll-target="#what-is-fair">What is fair?</a></li>
+  <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
+  <li><a href="#what-is-fair" id="toc-what-is-fair" class="nav-link" data-scroll-target="#what-is-fair">What is fair?</a></li>
   <li><a href="#principles-of-fair-differentiation" id="toc-principles-of-fair-differentiation" class="nav-link" data-scroll-target="#principles-of-fair-differentiation">Principles of fair differentiation</a></li>
   <li><a href="#regulatory-landscape" id="toc-regulatory-landscape" class="nav-link" data-scroll-target="#regulatory-landscape">Regulatory landscape</a></li>
+  <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#fairness-criteria" id="toc-fairness-criteria" class="nav-link" data-scroll-target="#fairness-criteria">Fairness criteria</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Step 1: Define fairness</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Step 1: Define fairness</h1>
 <p class="subtitle lead">A practical framework for fair algorithmic pricing</p>
@@ -257,99 +287,226 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Before you start
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This step sets the fairness standard for everything that follows. Steps 2–4 in the pathway each have an optional technical companion in the <a href="../index.html#case-studies">case studies</a> (insurance applications with code and data).</p>
+</div>
+</div>
+<section id="how-to-read-this-step" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-read-this-step">How to read this step</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>If your focus is…</th>
+<th>Start here</th>
+<th>Then read</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Compliance and policy</td>
+<td><a href="#what-is-fair">What is fair?</a></td>
+<td><a href="#regulatory-landscape">Regulatory landscape</a> → <a href="#checklist">Checklist</a></td>
+</tr>
+<tr class="even">
+<td>Product and pricing strategy</td>
+<td><a href="#principles-of-fair-differentiation">Principles of fair differentiation</a></td>
+<td><a href="#fairness-criteria">Fairness criteria</a> → <a href="#checklist">Checklist</a></td>
+</tr>
+<tr class="odd">
+<td>Technical implementation</td>
+<td><a href="#mini-glossary">Mini-glossary</a> → <a href="#fairness-criteria">Fairness criteria</a></td>
+<td><a href="Step-2-Design-Fair-Pricing.html">Step 2</a> and <a href="../Case Study 1/case_study1.html">Case Study 1</a></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="what-is-fair" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-fair">What is fair?</h3>
-<p>Agree which fairness metrics apply, under which regulations, and on which outputs (premium, markup, approval) before building or auditing a model.</p>
+<p>Fairness is an overloaded word. A useful place to start is the question posed by <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span>: what are the principles for assessing the appropriateness of insurance differentiation?</p>
+<p>There is no single answer that fits every product and jurisdiction. The point is to keep this question in view as you move through regulation, rating variables, and quantitative criteria in the sections below.</p>
+<section id="three-lenses-on-fairness" class="level4">
+<h4 class="anchored" data-anchor-id="three-lenses-on-fairness">Three lenses on fairness</h4>
+<p>Different stakeholders often mean different things by “fair.”</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 40%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lens</th>
+<th>What it emphasises</th>
+<th>Examples in insurance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Anti-discrimination</td>
+<td>Legal obligation to avoid unfair treatment</td>
+<td>Direct use of protected variables, disparate impact, proxy discrimination</td>
+</tr>
+<tr class="even">
+<td>Competing ethical notions</td>
+<td>Actuarial fairness, social justice, choice-sensitive fairness</td>
+<td>Risk-based pricing vs cross-subsidy or community rating</td>
+</tr>
+<tr class="odd">
+<td>Consumer trust</td>
+<td>Promises made in contracts and disclosures</td>
+<td>Codes of practice, product disclosure, consistency between quoted and filed rates</td>
+</tr>
+</tbody>
+</table>
+<p>These lenses overlap but do not always agree. A price can be actuarially fair yet fail a disparate-impact test, or satisfy regulators yet erode consumer trust.</p>
+</section>
+<section id="where-differentiation-happens" class="level4">
+<h4 class="anchored" data-anchor-id="where-differentiation-happens">Where differentiation happens</h4>
+<p>Insurance pricing is not the only place fairness matters. Differentiation also arises in issuance, renewal, cancellation, coverage terms, marketing, and claims handling <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. Step 1 focuses on underwriting and pricing, but the fairness criterion you choose here should be consistent with how the firm treats customers across the policy lifecycle.</p>
+<p>Many rating variables are routine. Others, such as ethnicity, heritage, or religion, are forbidden in most markets. The hard cases are variables that are legal on their face but may act as proxies for protected attributes, especially under machine learning and large-scale data analytics.</p>
+</section>
 </section>
 <section id="principles-of-fair-differentiation" class="level3">
 <h3 class="anchored" data-anchor-id="principles-of-fair-differentiation">Principles of fair differentiation</h3>
-<p>Insurance pricing is built on differentiation. <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> asks which differentiations are appropriate:</p>
+<p>Algorithmic pricing is built on differentiation. Customers with different expected costs or willingness to pay may receive different prices. The question is which differentiations are appropriate <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="plot/social_econ.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption>Balancing social justice and economic efficiency.</figcaption>
 </figure>
 </div>
+<section id="social-good-or-economic-commodity" class="level4">
+<h4 class="anchored" data-anchor-id="social-good-or-economic-commodity">Social good or economic commodity?</h4>
+<p>Fairness depends on product context. The same rating factor can look appropriate in one market and problematic in another.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 23%">
-<col style="width: 38%">
-<col style="width: 38%">
+<col style="width: 13%">
+<col style="width: 22%">
+<col style="width: 42%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Lens</th>
 <th>Emphasis</th>
+<th>Risk pooling logic</th>
 <th>Examples</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Social good</td>
-<td>Solidarity, access, mandatory cover</td>
-<td>Compulsory third-party auto</td>
+<td>Solidarity, access, universal service</td>
+<td>Subsidising solidarity (higher-risk groups supported by lower-risk groups)</td>
+<td>Mandatory coverage, limited risk classification, community rating</td>
 </tr>
 <tr class="even">
 <td>Economic commodity</td>
-<td>Efficiency, adverse selection</td>
-<td>Voluntary life</td>
+<td>Efficiency, adverse selection, moral hazard</td>
+<td>Chance solidarity (pooling among similar risks)</td>
+<td>Voluntary products priced by supply and demand with finer risk segmentation</td>
 </tr>
 </tbody>
 </table>
-<section id="rating-factor-principles" class="level4">
-<h4 class="anchored" data-anchor-id="rating-factor-principles">Rating factor principles</h4>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Insurance examples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Compulsory third-party motor insurance, catastrophe cover in some jurisdictions, and health insurance are often treated as serving a broader public interest. Premiums may be flattened or pooled across groups.</p>
+<p>Voluntary life insurance and voluntary motor cover behave more like competitively priced products. Finer risk classification is usually accepted to limit adverse selection.</p>
+<p>Long-term care and disability insurance often sit between the two lenses. Your product’s regulatory status and consumer expectations should guide which column applies.</p>
+</div>
+</div>
+</section>
+<section id="pricing-feature-principles" class="level4">
+<h4 class="anchored" data-anchor-id="pricing-feature-principles">Pricing feature principles</h4>
+<p>When judging whether a rating factor is appropriate, <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> propose six principles. Use them to classify variables before modelling.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 52%">
-<col style="width: 47%">
+<col style="width: 31%">
+<col style="width: 28%">
+<col style="width: 40%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Principle</th>
 <th>Question</th>
+<th>Illustration</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Control</td>
-<td>Can the policyholder influence the factor?</td>
+<td>Can the customer influence the feature?</td>
+<td>Owning a sports car is partly controllable. Gender, race, and nationality are not.</td>
 </tr>
 <tr class="even">
 <td>Mutability</td>
 <td>Does it change over time or stay fixed?</td>
+<td>Age changes. Many sensitive attributes are fixed at birth.</td>
 </tr>
 <tr class="odd">
 <td>Statistical discrimination</td>
-<td>Does it predict risk?</td>
+<td>Does it predict cost or risk?</td>
+<td>Predictive value is necessary but not sufficient for fair use.</td>
 </tr>
 <tr class="even">
 <td>Causality</td>
-<td>Does it cause insured events?</td>
+<td>Does it cause the priced outcome?</td>
+<td>A variable known to cause the insured event (e.g.&nbsp;certain health conditions in life insurance) is easier to defend.</td>
 </tr>
 <tr class="odd">
 <td>Past discrimination</td>
 <td>Does use reinforce historical injustice?</td>
+<td>Skin colour has a heavier history of misuse than eye colour.</td>
 </tr>
 <tr class="even">
 <td>Socially valuable behaviour</td>
 <td>Does pricing discourage beneficial actions?</td>
+<td>Penalising participation in genetic testing may discourage research and prevention.</td>
 </tr>
 </tbody>
 </table>
-<p>Proxy discrimination and disparate impact are central grey areas <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
+<p>Proxy discrimination and disparate impact sit in the grey area where a legal variable may still reproduce protected-group disparities <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Indirect discrimination
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Direct discrimination on protected attributes is prohibited in most jurisdictions. Indirect discrimination through proxies, correlated variables, or opaque algorithms is less clearly defined and harder to audit.</p>
+<p>Before modelling, agree how your organisation will define, assess, and mitigate indirect discrimination. Steps 2–4 implement that policy. Step 1 fixes the standard.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="regulatory-landscape" class="level3">
 <h3 class="anchored" data-anchor-id="regulatory-landscape">Regulatory landscape</h3>
 <p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regimes to modelling choices:</p>
 <ul>
-<li>Restriction or prohibition on protected variables<br>
-</li>
-<li>Proxy restrictions<br>
-</li>
-<li>Disparate impact tests<br>
-</li>
-<li>Community rating</li>
+<li>Restriction or prohibition on protected variables</li>
+<li>Proxy restrictions</li>
+<li>Disparate impact tests</li>
+<li>Flat or community pricing</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -357,11 +514,83 @@ window.Quarto = {
 <figcaption>Comparison between regulations, fairness criteria, and models.</figcaption>
 </figure>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Insurance example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Many jurisdictions restrict use of race, gender, or ethnicity in pricing. Some require insurers to test for proxy discrimination or disparate impact in quoted premiums.</p>
+</div>
+</div>
+<p>Regulation often works through input-based rules (which variables or pricing procedures are allowed) and output-based rules (quantitative fairness tests on premiums or costs). The <a href="#fairness-criteria">fairness criteria</a> you adopt should be consistent with the regime you operate under.</p>
+</section>
+<section id="mini-glossary" class="level3">
+<h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Protected attribute (<span class="math inline">X_P</span>)</td>
+<td>A characteristic the law or policy treats as off-limits for direct discrimination (e.g.&nbsp;race, gender, ethnicity)</td>
+</tr>
+<tr class="even">
+<td>Other features (<span class="math inline">X_{NP}</span>)</td>
+<td>Rating variables not treated as protected</td>
+</tr>
+<tr class="odd">
+<td>Predicted outcome (<span class="math inline">\hat{Y}</span>)</td>
+<td>The model output you will test. Often an estimated cost or a quoted premium</td>
+</tr>
+<tr class="even">
+<td>FTU (fairness through unawareness)</td>
+<td>The model never uses the protected attribute</td>
+</tr>
+<tr class="odd">
+<td>CPV (controlling for the protected variable)</td>
+<td>A discrimination-free price obtained by averaging full-model predictions over the protected attribute in the population, so the final score does not depend on an individual’s protected status <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. In Step 2 this is implemented by post-processing (model MC)</td>
+</tr>
+<tr class="even">
+<td>DP (demographic parity)</td>
+<td>Average prices (or costs) are equal across protected groups</td>
+</tr>
+<tr class="odd">
+<td>CDP (conditional demographic parity)</td>
+<td>Prices are equal across groups after controlling for legitimate risk factors</td>
+</tr>
+<tr class="even">
+<td>PD (proxy discrimination)</td>
+<td>A non-protected variable acts as a stand-in for a protected attribute</td>
+</tr>
+<tr class="odd">
+<td>Legitimate factors</td>
+<td>Risk-related variables regulators accept as grounds for price variation</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="fairness-criteria" class="level3">
 <h3 class="anchored" data-anchor-id="fairness-criteria">Fairness criteria</h3>
-<p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, <span class="math inline">\hat{Y}</span> the predicted premium <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, and <span class="math inline">\hat{Y}</span> the predicted price (or cost estimate used to set price) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 47%">
+<col style="width: 26%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Type</th>
@@ -378,7 +607,7 @@ window.Quarto = {
 <tr class="even">
 <td>Individual</td>
 <td>CPV</td>
-<td>Discrimination-free price averaging over <span class="math inline">X_P</span></td>
+<td>Discrimination-free price: average full-model predictions over <span class="math inline">X_P</span> at scoring time</td>
 </tr>
 <tr class="odd">
 <td>Group</td>
@@ -397,35 +626,48 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> distinguishes individual (actuarial) fairness from group fairness; achieving both is often impossible, so document the trade-off.</p>
+<p>Many criteria are association-based (independence, separation, sufficiency) or causality-based (counterfactual fairness). Not all transfer cleanly to insurance pricing. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> distinguishes individual fairness from group fairness. Achieving both is often impossible, so the trade-off between criteria is itself part of the fairness discussion.</p>
 </section>
 <section id="checklist" class="level3">
 <h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
-<div class="callout callout-style-simple callout-important no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul class="task-list">
-<li><label><input type="checkbox">Document applicable regulations.<br>
-</label></li>
-<li><label><input type="checkbox">Select primary fairness metric (e.g.&nbsp;CDP, PD).<br>
-</label></li>
-<li><label><input type="checkbox">Specify outcome <span class="math inline">\hat{Y}</span> and legitimate factors for CDP.<br>
-</label></li>
-<li><label><input type="checkbox">Classify rating factors using differentiation principles.<br>
-</label></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="references" class="level3">
-<h3 class="anchored" data-anchor-id="references">References</h3>
-<p><span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span></p>
-<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span></p>
-<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Typical owner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Discuss which fairness lenses matter for your product (legal, ethical, consumer trust)</td>
+<td>Executive sponsor / Product</td>
+</tr>
+<tr class="even">
+<td>Document applicable regulations and filing requirements</td>
+<td>Legal / Compliance</td>
+</tr>
+<tr class="odd">
+<td>Identify relevant fairness metrics (e.g.&nbsp;CDP, PD) for your context</td>
+<td>Product / Policy</td>
+</tr>
+<tr class="even">
+<td>Specify outcome <span class="math inline">\hat{Y}</span> and legitimate factors for CDP</td>
+<td>Actuarial / Model risk</td>
+</tr>
+<tr class="odd">
+<td>Classify pricing features using differentiation principles</td>
+<td>Actuarial / Data science</td>
+</tr>
+<tr class="even">
+<td>Define how indirect discrimination will be assessed and escalated</td>
+<td>Legal / Model risk</td>
+</tr>
+</tbody>
+</table>
 
 
 
