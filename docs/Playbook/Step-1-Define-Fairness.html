@@ -250,10 +250,9 @@ window.Quarto = {
   <ul>
   <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
   <li><a href="#what-is-fair" id="toc-what-is-fair" class="nav-link" data-scroll-target="#what-is-fair">What is fair?</a></li>
-  <li><a href="#principles-of-fair-differentiation" id="toc-principles-of-fair-differentiation" class="nav-link" data-scroll-target="#principles-of-fair-differentiation">Principles of fair differentiation</a></li>
-  <li><a href="#regulatory-landscape" id="toc-regulatory-landscape" class="nav-link" data-scroll-target="#regulatory-landscape">Regulatory landscape</a></li>
-  <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
-  <li><a href="#fairness-criteria" id="toc-fairness-criteria" class="nav-link" data-scroll-target="#fairness-criteria">Fairness criteria</a></li>
+  <li><a href="#anti-discrimination" id="toc-anti-discrimination" class="nav-link" data-scroll-target="#anti-discrimination">Anti-discrimination</a></li>
+  <li><a href="#competing-ethical-notions" id="toc-competing-ethical-notions" class="nav-link" data-scroll-target="#competing-ethical-notions">Competing ethical notions</a></li>
+  <li><a href="#consumer-trust" id="toc-consumer-trust" class="nav-link" data-scroll-target="#consumer-trust">Consumer trust</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -297,7 +296,7 @@ Before you start
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This step sets the fairness standard for everything that follows. Steps 2–4 in the pathway each have an optional technical companion in the <a href="../index.html#case-studies">case studies</a> (insurance applications with code and data).</p>
+<p>This step sets the fairness standard for everything that follows. Steps 2–4 in the pathway each pair with a <a href="../index.html#case-studies">case study</a> (insurance applications with code and data).</p>
 </div>
 </div>
 <section id="how-to-read-this-step" class="level3">
@@ -313,12 +312,12 @@ Before you start
 <tbody>
 <tr class="odd">
 <td>Compliance and policy</td>
-<td><a href="#what-is-fair">What is fair?</a></td>
+<td><a href="#anti-discrimination">Anti-discrimination</a></td>
 <td><a href="#regulatory-landscape">Regulatory landscape</a> → <a href="#checklist">Checklist</a></td>
 </tr>
 <tr class="even">
 <td>Product and pricing strategy</td>
-<td><a href="#principles-of-fair-differentiation">Principles of fair differentiation</a></td>
+<td><a href="#competing-ethical-notions">Competing ethical notions</a></td>
 <td><a href="#fairness-criteria">Fairness criteria</a> → <a href="#checklist">Checklist</a></td>
 </tr>
 <tr class="odd">
@@ -332,107 +331,39 @@ Before you start
 <section id="what-is-fair" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-fair">What is fair?</h3>
 <p>Fairness is an overloaded word. A useful place to start is the question posed by <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span>: what are the principles for assessing the appropriateness of insurance differentiation?</p>
-<p>There is no single answer that fits every product and jurisdiction. The point is to keep this question in view as you move through regulation, rating variables, and quantitative criteria in the sections below.</p>
-<section id="three-lenses-on-fairness" class="level4">
-<h4 class="anchored" data-anchor-id="three-lenses-on-fairness">Three lenses on fairness</h4>
-<p>Different stakeholders often mean different things by “fair.”</p>
+<p>There is no single answer that fits every product and jurisdiction. The point is to keep this question in view as you work through the three lenses below. Most of this step develops the first two. The third deserves attention even when it is not the main technical focus.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 40%">
-<col style="width: 46%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Lens</th>
 <th>What it emphasises</th>
-<th>Examples in insurance</th>
+<th>Where to read</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Anti-discrimination</td>
 <td>Legal obligation to avoid unfair treatment</td>
-<td>Direct use of protected variables, disparate impact, proxy discrimination</td>
+<td><a href="#pricing-feature-principles">Pricing feature principles</a> through <a href="#fairness-criteria">Fairness criteria</a></td>
 </tr>
 <tr class="even">
 <td>Competing ethical notions</td>
-<td>Actuarial fairness, social justice, choice-sensitive fairness</td>
-<td>Risk-based pricing vs cross-subsidy or community rating</td>
+<td>Actuarial fairness, social justice, and how risk should be pooled</td>
+<td><a href="#principles-of-fair-differentiation">Principles of fair differentiation</a> through <a href="#actuarial-fairness">Actuarial fairness</a></td>
 </tr>
 <tr class="odd">
 <td>Consumer trust</td>
-<td>Promises made in contracts and disclosures</td>
-<td>Codes of practice, product disclosure, consistency between quoted and filed rates</td>
+<td>Promises made in contracts, disclosures, and market conduct</td>
+<td><a href="#consumer-trust">Consumer trust</a> (brief)</td>
 </tr>
 </tbody>
 </table>
 <p>These lenses overlap but do not always agree. A price can be actuarially fair yet fail a disparate-impact test, or satisfy regulators yet erode consumer trust.</p>
 </section>
-<section id="where-differentiation-happens" class="level4">
-<h4 class="anchored" data-anchor-id="where-differentiation-happens">Where differentiation happens</h4>
-<p>Insurance pricing is not the only place fairness matters. Differentiation also arises in issuance, renewal, cancellation, coverage terms, marketing, and claims handling <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. Step 1 focuses on underwriting and pricing, but the fairness criterion you choose here should be consistent with how the firm treats customers across the policy lifecycle.</p>
+<section id="anti-discrimination" class="level3">
+<h3 class="anchored" data-anchor-id="anti-discrimination">Anti-discrimination</h3>
+<p>This lens asks whether pricing complies with anti-discrimination law and whether rating variables and model outputs meet recognised fairness tests. The sections below cover how to judge individual rating factors, how regulation maps to those tests, and the quantitative criteria used in later steps.</p>
 <p>Many rating variables are routine. Others, such as ethnicity, heritage, or religion, are forbidden in most markets. The hard cases are variables that are legal on their face but may act as proxies for protected attributes, especially under machine learning and large-scale data analytics.</p>
-</section>
-</section>
-<section id="principles-of-fair-differentiation" class="level3">
-<h3 class="anchored" data-anchor-id="principles-of-fair-differentiation">Principles of fair differentiation</h3>
-<p>Algorithmic pricing is built on differentiation. Customers with different expected costs or willingness to pay may receive different prices. The question is which differentiations are appropriate <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="plot/social_econ.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<figcaption>Balancing social justice and economic efficiency.</figcaption>
-</figure>
-</div>
-<section id="social-good-or-economic-commodity" class="level4">
-<h4 class="anchored" data-anchor-id="social-good-or-economic-commodity">Social good or economic commodity?</h4>
-<p>Fairness depends on product context. The same rating factor can look appropriate in one market and problematic in another.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 22%">
-<col style="width: 42%">
-<col style="width: 22%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Lens</th>
-<th>Emphasis</th>
-<th>Risk pooling logic</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Social good</td>
-<td>Solidarity, access, universal service</td>
-<td>Subsidising solidarity (higher-risk groups supported by lower-risk groups)</td>
-<td>Mandatory coverage, limited risk classification, community rating</td>
-</tr>
-<tr class="even">
-<td>Economic commodity</td>
-<td>Efficiency, adverse selection, moral hazard</td>
-<td>Chance solidarity (pooling among similar risks)</td>
-<td>Voluntary products priced by supply and demand with finer risk segmentation</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Insurance examples
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Compulsory third-party motor insurance, catastrophe cover in some jurisdictions, and health insurance are often treated as serving a broader public interest. Premiums may be flattened or pooled across groups.</p>
-<p>Voluntary life insurance and voluntary motor cover behave more like competitively priced products. Finer risk classification is usually accepted to limit adverse selection.</p>
-<p>Long-term care and disability insurance often sit between the two lenses. Your product’s regulatory status and consumer expectations should guide which column applies.</p>
-</div>
-</div>
-</section>
 <section id="pricing-feature-principles" class="level4">
 <h4 class="anchored" data-anchor-id="pricing-feature-principles">Pricing feature principles</h4>
 <p>When judging whether a rating factor is appropriate, <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> propose six principles. Use them to classify variables before modelling.</p>
@@ -482,25 +413,36 @@ Insurance examples
 </tr>
 </tbody>
 </table>
-<p>Proxy discrimination and disparate impact sit in the grey area where a legal variable may still reproduce protected-group disparities <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
+<p>Whether a variable is acceptable depends on line of business and jurisdiction, not on the six principles alone <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Credit-based insurance scores, gender in pricing, and genetic information illustrate how the same factor can be routine in one market and restricted in another.</p>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Indirect discrimination
+Direct and indirect discrimination
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Direct discrimination on protected attributes is prohibited in most jurisdictions. Indirect discrimination through proxies, correlated variables, or opaque algorithms is less clearly defined and harder to audit.</p>
-<p>Before modelling, agree how your organisation will define, assess, and mitigate indirect discrimination. Steps 2–4 implement that policy. Step 1 fixes the standard.</p>
+<p>Following <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>, direct discrimination (or disparate treatment) occurs when a person is treated less favourably because a protected characteristic differs. If the protected attribute is not used in rating, this form can be avoided entirely.</p>
+<p>Indirect discrimination arises after direct discrimination is ruled out. A person may still be treated disproportionately because protected status is inferred through an apparently neutral practice. Two channels matter in modern pricing:</p>
+<ul>
+<li>Identifiable proxies: facially neutral variables that stand in for a protected attribute (for example, geographic area correlated with race, or variables correlated with gender)</li>
+<li>Unidentifiable proxies: opaque models that combine many variables and reproduce protected-group disparities without a single obvious surrogate</li>
+</ul>
+<p>EU and Australian law often define indirect discrimination through three elements: a facially neutral practice applied in the same way to everyone, a link to a protected characteristic in law, and disproportionate impact on that group. In the United States, disparate impact plays a parallel role and is usually treated as a subset of indirect discrimination focused on unintentional group-level harm.</p>
+<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
+<p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Steps 2–4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
 </div>
 </div>
 </section>
+<section id="risk-based-pricing" class="level4">
+<h4 class="anchored" data-anchor-id="risk-based-pricing">Risk-based and non-risk differentiation</h4>
+<p>Not every price difference reflects expected claim cost. <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> distinguishes risk-based differentiation (premiums that differ because expected losses differ) from non-risk differentiation (premiums that differ for the same underlying risk, for example because of retention modelling, willingness to pay, or price optimization).</p>
+<p>Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Several U.S. states restrict price optimization for this reason. <a href="Step-3-Assess-Impact.html">Step 3</a> examines welfare effects when pricing moves beyond technical costs.</p>
 </section>
-<section id="regulatory-landscape" class="level3">
-<h3 class="anchored" data-anchor-id="regulatory-landscape">Regulatory landscape</h3>
+<section id="regulatory-landscape" class="level4">
+<h4 class="anchored" data-anchor-id="regulatory-landscape">Regulatory landscape</h4>
 <p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regimes to modelling choices:</p>
 <ul>
 <li>Restriction or prohibition on protected variables</li>
@@ -527,10 +469,10 @@ Insurance example
 <p>Many jurisdictions restrict use of race, gender, or ethnicity in pricing. Some require insurers to test for proxy discrimination or disparate impact in quoted premiums.</p>
 </div>
 </div>
-<p>Regulation often works through input-based rules (which variables or pricing procedures are allowed) and output-based rules (quantitative fairness tests on premiums or costs). The <a href="#fairness-criteria">fairness criteria</a> you adopt should be consistent with the regime you operate under.</p>
+<p>Regulation often works through input-based rules (which variables or pricing procedures are allowed) and output-based rules (quantitative fairness tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. The <a href="#fairness-criteria">fairness criteria</a> you adopt should be consistent with the regime you operate under.</p>
 </section>
-<section id="mini-glossary" class="level3">
-<h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
+<section id="mini-glossary" class="level4">
+<h4 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 27%">
@@ -582,8 +524,8 @@ Insurance example
 </tbody>
 </table>
 </section>
-<section id="fairness-criteria" class="level3">
-<h3 class="anchored" data-anchor-id="fairness-criteria">Fairness criteria</h3>
+<section id="fairness-criteria" class="level4">
+<h4 class="anchored" data-anchor-id="fairness-criteria">Fairness criteria</h4>
 <p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, and <span class="math inline">\hat{Y}</span> the predicted price (or cost estimate used to set price) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <table class="caption-top table">
 <colgroup>
@@ -628,6 +570,82 @@ Insurance example
 </table>
 <p>Many criteria are association-based (independence, separation, sufficiency) or causality-based (counterfactual fairness). Not all transfer cleanly to insurance pricing. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> distinguishes individual fairness from group fairness. Achieving both is often impossible, so the trade-off between criteria is itself part of the fairness discussion.</p>
 </section>
+</section>
+<section id="competing-ethical-notions" class="level3">
+<h3 class="anchored" data-anchor-id="competing-ethical-notions">Competing ethical notions</h3>
+<p>This lens asks which differentiations are appropriate in the first place, given how a product is positioned in the market. It is less about legal tests than about solidarity, efficiency, and the social role of insurance. Insurance pricing is not the only place fairness matters. Differentiation also arises in issuance, renewal, cancellation, coverage terms, marketing, and claims handling <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. Refusing to issue or renew cover, or restricting benefits, can harm disadvantaged groups more sharply than premium differences alone.</p>
+<section id="principles-of-fair-differentiation" class="level4">
+<h4 class="anchored" data-anchor-id="principles-of-fair-differentiation">Principles of fair differentiation</h4>
+<p>Algorithmic pricing is built on differentiation. Customers with different expected costs or willingness to pay may receive different prices. The question is which differentiations are appropriate <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/social_econ.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Balancing social justice and economic efficiency.</figcaption>
+</figure>
+</div>
+</section>
+<section id="social-good-or-economic-commodity" class="level4">
+<h4 class="anchored" data-anchor-id="social-good-or-economic-commodity">Social good or economic commodity?</h4>
+<p>Fairness depends on product context. The same rating factor can look appropriate in one market and problematic in another.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 38%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Position</th>
+<th>Emphasis</th>
+<th>Risk pooling logic</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Social good</td>
+<td>Solidarity, access, universal service</td>
+<td>Subsidising solidarity (higher-risk groups supported by lower-risk groups)</td>
+<td>Mandatory coverage, limited risk classification, community rating</td>
+</tr>
+<tr class="even">
+<td>Economic commodity</td>
+<td>Efficiency, adverse selection, moral hazard</td>
+<td>Chance solidarity (pooling among similar risks)</td>
+<td>Voluntary products priced by supply and demand with finer risk segmentation</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Insurance examples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Compulsory third-party motor insurance, catastrophe cover in some jurisdictions, and health insurance are often treated as serving a broader public interest. Premiums may be flattened or pooled across groups.</p>
+<p>Voluntary life insurance and voluntary motor cover behave more like competitively priced products. Finer risk classification is usually accepted to limit adverse selection.</p>
+<p>Long-term care and disability insurance often sit between the two positions. Your product’s regulatory status and consumer expectations should guide which column applies.</p>
+</div>
+</div>
+</section>
+<section id="actuarial-fairness" class="level4">
+<h4 class="anchored" data-anchor-id="actuarial-fairness">Actuarial fairness</h4>
+<p>Actuarial fairness is the idea that each policyholder should pay for their own risk and only their own risk <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. It is the dominant logic when insurance is sold as a commercial product by a stock insurer, where the pool is a collection of bilateral contracts rather than a shared community.</p>
+<p>The fairness standard shifts with who owns the pool. Government schemes and social insurance often accept cross-subsidy between groups. Mutual, group, and takaful arrangements can carry stronger solidarity expectations than stock-company markets, even when firms compete on similar rating factors. The social good vs economic commodity table above is one way to read this tension. Risk-based pricing and cross-subsidy are both defensible in different product contexts.</p>
+</section>
+</section>
+<section id="consumer-trust" class="level3">
+<h3 class="anchored" data-anchor-id="consumer-trust">Consumer trust</h3>
+<p>The third lens is about whether pricing honours what the firm has promised customers and what the market expects, not only whether a model passes a legal or statistical test.</p>
+<p>Insurers make implicit and explicit commitments through product disclosure, marketing, codes of practice, and the consistency between quoted and filed rates. Insurance contracts also rely on utmost good faith: customers are expected to answer underwriting questions honestly, while insurers hold far more data and modelling capability <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. That imbalance matters for trust. Consumers often struggle to compare policies or verify that a quoted premium reflects risk rather than retention or shopping behaviour.</p>
+<p>A price can be compliant yet feel unfair if it diverges from those promises, changes without clear explanation, or uses information gathered for underwriting in ways customers did not expect. Non-risk differentiation, including price optimization that penalises loyal or less price-sensitive customers, is a recurring source of consumer concern <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Big data and machine learning can widen the gap if insurers can segment more finely while customers lack equivalent tools to compare offers.</p>
+<p>Conversely, transparent communication about why prices differ (for example, risk-based rating on controllable factors) can support trust even where premiums are not equal across groups. Compliance with anti-discrimination rules is necessary but not sufficient for this lens. Product, legal, and communications teams should align on what customers are told about how prices are set and how that aligns with the technical choices in the sections above.</p>
+</section>
 <section id="checklist" class="level3">
 <h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
 <table class="caption-top table">
@@ -659,12 +677,20 @@ Insurance example
 <td>Actuarial / Model risk</td>
 </tr>
 <tr class="odd">
-<td>Classify pricing features using differentiation principles</td>
+<td>Classify pricing features using differentiation principles (note line of business and jurisdiction)</td>
 <td>Actuarial / Data science</td>
 </tr>
 <tr class="even">
+<td>Separate risk-based from non-risk pricing practices in disclosures and governance</td>
+<td>Product / Actuarial</td>
+</tr>
+<tr class="odd">
 <td>Define how indirect discrimination will be assessed and escalated</td>
 <td>Legal / Model risk</td>
+</tr>
+<tr class="even">
+<td>Align customer-facing disclosures with pricing methodology</td>
+<td>Product / Communications</td>
 </tr>
 </tbody>
 </table>
