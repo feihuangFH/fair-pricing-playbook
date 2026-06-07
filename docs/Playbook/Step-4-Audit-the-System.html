@@ -300,7 +300,8 @@ Prerequisite
 </div>
 <div class="callout-body-container callout-body">
 <p><a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a>. Design and welfare analysis should be complete before auditing a deployed system.</p>
-<p>Optional technical companion. <a href="../Case Study 3/case_study3.html">Case Study 3: Fairness testing</a> for conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
+<p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.</p>
+<p><a href="../Case Study 3/case_study3.html">Case Study 3: Fairness testing</a> implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
 </div>
 </div>
 <section id="how-to-read-this-step" class="level3">
@@ -326,7 +327,7 @@ Prerequisite
 </tr>
 <tr class="odd">
 <td>Statistical implementation</td>
-<td><a href="#mini-glossary">Mini-glossary</a> → <a href="#statistical-testing">Statistical testing</a></td>
+<td><a href="#deterministic-pricing">Deterministic pricing</a> → <a href="#tost-equivalence">Why TOST matters</a></td>
 <td><a href="../Case Study 3/case_study3.html">Case Study 3</a></td>
 </tr>
 </tbody>
@@ -346,7 +347,7 @@ Example criteria (CDP and PD)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
+<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref"><strong>doradoi-2023-concerning?</strong></a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref"><strong>nydfs-2024-proposed?</strong></a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
@@ -404,7 +405,7 @@ For practitioners
 </tr>
 <tr class="odd">
 <td>HC3 / corrected SE</td>
-<td>Adjusted standard errors for deterministic or dependent pricing outputs</td>
+<td>Sandwich standard errors for deterministic pricing outputs. Classical OLS defaults are unreliable when residuals are approximation error</td>
 </tr>
 </tbody>
 </table>
@@ -430,11 +431,58 @@ For practitioners
 </section>
 <section id="statistical-testing" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-testing">Statistical testing</h3>
-<p>Pricing algorithms are usually deterministic: the same inputs produce the same price. Residuals then reflect approximation error, not sampling noise, so classical regression standard errors can be invalid in both direction and magnitude <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>Fairness audits typically regress quoted premiums on a protected attribute and legitimate rating factors, then read off confidence intervals for the protected-group effect. That workflow is only valid if the standard errors are correct. For algorithmic pricing, deterministic outputs invalidate classical variance formulas, and CDP calls for equivalence testing rather than conventional significance testing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<section id="deterministic-pricing" class="level4">
+<h4 class="anchored" data-anchor-id="deterministic-pricing">Deterministic pricing and corrected inference</h4>
+<p>Pricing algorithms are usually deterministic. The same profile always returns the same price, so the audit response is a fixed function of the inputs, not a random draw <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>The audit still fits a linear regression to approximate a nonlinear pricing function. The residuals are therefore approximation error. They show how the true pricing function departs from the linear audit model. They are not independent sampling noise. The classical formula <span class="math inline">\hat\sigma^2 (X^\top X)^{-1}</span> assumes i.i.d. errors with constant variance. Neither assumption holds, so classical standard errors can be wrong in both direction and magnitude. In the Illinois application in <span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span>, corrected standard errors for some insurers differ from classical ones by large factors. You cannot know which direction applies without computing both.</p>
+<p>The practical fix is a sandwich estimator such as HC3, which builds the covariance from observation-level squared residuals rather than a single <span class="math inline">\hat\sigma^2</span> scale. Sandwich estimators are familiar from heteroskedasticity-robust regression, but the rationale here is different. There is no stochastic error term to begin with <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. HC3 is the default in the audit protocol because it also down-weights high-leverage profiles, which matters when audit quotes are not uniformly spread across territories or risk levels.</p>
+<p>Proxy discrimination adds a second correction. The PD test compares a coefficient across two regressions fitted to the same premium vector. Treating those estimates as independent overstates the variance of the shift and makes the test conservative. A full cross-covariance correction is needed <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>Getting the variance wrong changes the audit verdict. Confidence intervals that are too narrow can turn a genuine gap into a fail. Intervals that are too wide can turn a compliant system into insufficient information. Corrected inference should be pre-specified before examining outcomes.</p>
 <ul>
-<li>Conditional demographic parity (CDP). regress the pricing outcome on the protected attribute and legitimate factors. Test whether the protected-group coefficient lies within pre-specified ratio and level-gap bands using equivalence testing (TOST). A pass requires positive evidence of compliance within tolerance - not merely failing to detect a disparity.</li>
-<li>Proxy discrimination (PD). compare a rating variable’s coefficient in a restricted model (without the protected attribute) and an extended model (with it). Use the corrected cross-covariance for the coefficient shift - treating the two regressions as independent overstates uncertainty and can miss proxy behaviour. PD uses a two-part rule (statistical significance plus a minimum relative shift), not TOST in the same form as CDP.</li>
+<li>Conditional demographic parity (CDP). Regress the pricing outcome on the protected attribute and legitimate factors. Test whether the protected-group coefficient lies within pre-specified ratio and level-gap bands using equivalence testing (TOST). A pass requires positive evidence of compliance within tolerance, not merely failing to detect a disparity.</li>
+<li>Proxy discrimination (PD). Compare a rating variable’s coefficient in a restricted model (without the protected attribute) and an extended model (with it). Use the corrected cross-covariance for the coefficient shift. PD uses a two-part rule (statistical significance plus a minimum relative shift), not TOST in the same form as CDP.</li>
 </ul>
+</section>
+<section id="tost-equivalence" class="level4">
+<h4 class="anchored" data-anchor-id="tost-equivalence">Why TOST matters</h4>
+<p>Conventional significance testing asks whether a price gap is detectably different from zero. That is a poor fit for compliance auditing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 19%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Null hypothesis</th>
+<th>What a “pass” means</th>
+<th>Large samples</th>
+<th>Small samples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Significance testing</td>
+<td>Gap <span class="math inline">= 0</span></td>
+<td>Failed to detect a violation (not necessarily fair)</td>
+<td>Flag trivial gaps as violations</td>
+<td>Miss genuine gaps</td>
+</tr>
+<tr class="even">
+<td>TOST equivalence testing</td>
+<td>Gap <span class="math inline">\geq</span> tolerance</td>
+<td>Positive evidence the gap is within tolerance</td>
+<td>Narrower CIs help confirm fairness</td>
+<td>Wide CIs yield insufficient information</td>
+</tr>
+</tbody>
+</table>
+<p>Regulatory tolerance bands already define an equivalence region. Colorado’s 5% price-gap discussion maps to a level margin <span class="math inline">\delta</span>. The familiar 0.80 adverse-impact ratio maps to a ratio margin <span class="math inline">\tau</span>. TOST places the burden on the firm to demonstrate compliance within those bands, which matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref"><strong>doradoi-2023-concerning?</strong></a>)</span>.</p>
+<p>For CDP, a pass requires the confidence interval for the protected-group effect to lie entirely inside both the level-gap band <span class="math inline">(-\delta, +\delta)</span> and the log-ratio band implied by <span class="math inline">\tau</span>. A fail requires the interval to lie entirely outside. If the interval is too wide to settle either case, the verdict is insufficient information. That outcome is not a pass and should trigger more data or a pre-specified escalation step.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -448,6 +496,7 @@ Technical detail
 <p>Regression formulas, corrected standard errors, and TOST decision rules are worked through in <a href="../Case Study 3/case_study3.html">Case Study 3</a>.</p>
 </div>
 </div>
+</section>
 </section>
 <section id="three-outcomes" class="level3">
 <h3 class="anchored" data-anchor-id="three-outcomes">Three outcomes</h3>
@@ -467,18 +516,18 @@ Technical detail
 <tbody>
 <tr class="odd">
 <td>Pass</td>
-<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance</td>
+<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance)</td>
 <td>Document. Proceed with monitoring</td>
 </tr>
 <tr class="even">
 <td>Insufficient information</td>
-<td>Interval too wide to confirm pass or fail - reflects limited data, not a pass</td>
+<td>Interval too wide to confirm pass or fail. Reflects limited data, not a pass</td>
 <td>Collect more data or follow a pre-specified escalation procedure</td>
 </tr>
 <tr class="odd">
 <td>Fail</td>
-<td>Confidence interval lies entirely outside the tolerance band (material disparity</td>
-<td>Remediate → re-test (return to Step 2 or Step 1)</td>
+<td>Confidence interval lies entirely outside the tolerance band (material disparity)</td>
+<td>Remediate, then re-test (return to Step 2 or Step 1)</td>
 </tr>
 </tbody>
 </table>
@@ -565,14 +614,8 @@ Insurance example
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
-Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
-</div>
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
-</div>
-<div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
-New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
