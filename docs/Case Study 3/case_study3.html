@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang">
+<meta name="dcterms.date" content="2026-06-07">
+
+<title>Case Study 3: Fairness Testing for Algorithmic Pricing – The Fair Pricing Playbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Playbook/Step-4-Audit-the-System.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Case Study 3/case_study3.html">↳ Case study 3: Fairness testing</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Fair Pricing Playbook</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pathway</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 1: Define fairness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 2: Design fair pricing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 1: Fair cost models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 3: Assess impact</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 2: Welfare implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 4: Audit the system</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">↳ Case study 3: Fairness testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#how-to-read-this-case-study" id="toc-how-to-read-this-case-study" class="nav-link" data-scroll-target="#how-to-read-this-case-study">How to Read This Case Study</a></li>
+  <li><a href="#audit-protocol" id="toc-audit-protocol" class="nav-link" data-scroll-target="#audit-protocol">Audit protocol</a></li>
+  <li><a href="#case-study-setup" id="toc-case-study-setup" class="nav-link" data-scroll-target="#case-study-setup">Case Study Setup</a>
+  <ul class="collapse">
+  <li><a href="#data-and-audit-setting" id="toc-data-and-audit-setting" class="nav-link" data-scroll-target="#data-and-audit-setting">Data and audit setting</a></li>
+  <li><a href="#audit-parameters" id="toc-audit-parameters" class="nav-link" data-scroll-target="#audit-parameters">Audit parameters</a></li>
+  <li><a href="#import-packages-and-define-audit-parameters" id="toc-import-packages-and-define-audit-parameters" class="nav-link" data-scroll-target="#import-packages-and-define-audit-parameters">Import packages and define audit parameters</a></li>
+  <li><a href="#supporting-functions" id="toc-supporting-functions" class="nav-link" data-scroll-target="#supporting-functions">Supporting functions</a></li>
+  </ul></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#conditional-demographic-parity-audit" id="toc-conditional-demographic-parity-audit" class="nav-link" data-scroll-target="#conditional-demographic-parity-audit">Conditional Demographic Parity Audit</a>
+  <ul class="collapse">
+  <li><a href="#audit-model" id="toc-audit-model" class="nav-link" data-scroll-target="#audit-model">Audit model</a></li>
+  <li><a href="#classical-versus-hc3-standard-errors" id="toc-classical-versus-hc3-standard-errors" class="nav-link" data-scroll-target="#classical-versus-hc3-standard-errors">Classical versus HC3 standard errors</a></li>
+  <li><a href="#cdp-decision-rule-using-tost" id="toc-cdp-decision-rule-using-tost" class="nav-link" data-scroll-target="#cdp-decision-rule-using-tost">CDP decision rule using TOST</a></li>
+  </ul></li>
+  <li><a href="#proxy-discrimination-audit" id="toc-proxy-discrimination-audit" class="nav-link" data-scroll-target="#proxy-discrimination-audit">Proxy Discrimination Audit</a>
+  <ul class="collapse">
+  <li><a href="#coefficient-shift-idea" id="toc-coefficient-shift-idea" class="nav-link" data-scroll-target="#coefficient-shift-idea">Coefficient-shift idea</a></li>
+  <li><a href="#standard-versus-corrected-standard-errors" id="toc-standard-versus-corrected-standard-errors" class="nav-link" data-scroll-target="#standard-versus-corrected-standard-errors">Standard versus corrected standard errors</a></li>
+  </ul></li>
+  <li><a href="#appendix-supporting-materials" id="toc-appendix-supporting-materials" class="nav-link" data-scroll-target="#appendix-supporting-materials">Appendix: Supporting Materials</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="case_study3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Case Study 3/case_study3.html">↳ Case study 3: Fairness testing</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Case Study 3: Fairness Testing for Algorithmic Pricing</h1>
+<p class="subtitle lead">A practical framework for fair algorithmic pricing</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 7, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pathway companion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read <a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a> first for the qualitative audit protocol. This case study implements CDP and proxy-discrimination testing on Illinois auto insurance quotes.</p>
+</div>
+</div>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Regulatory agencies have increasingly required firms to assess whether algorithmic pricing systems produce unfair outcomes for protected groups. For example, recent regulatory proposals in Colorado and New York <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span> require insurers to evaluate whether pricing algorithms and predictive models produce discriminatory pricing outcomes.</p>
+<p>Many fairness audits rely on regression-based methods. A common approach is to compare pricing outcomes across protected groups after controlling for legitimate risk factors and then evaluate whether any remaining disparity falls within an acceptable tolerance.</p>
+<p>This case study illustrates how regression-based fairness audits can be conducted for deterministic pricing outputs. It is based on the empirical analysis in <em>Fairness Testing for Algorithmic Pricing</em> by <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>. In particular, we focus on two fairness criteria that are closely related to current regulatory proposals:</p>
+<ul>
+<li><strong>Conditional demographic parity (CDP).</strong> after controlling for legitimate risk factors, do pricing outcomes differ systematically across protected groups?</li>
+<li><strong>Proxy discrimination (PD).</strong> does a rating variable act as a statistical proxy for a protected attribute?</li>
+</ul>
+<p>A distinctive feature of algorithmic pricing systems is that they are often deterministic. The same profile submitted to the same algorithm produces the same price. As a result, residuals from an audit regression represent approximation error rather than sampling variability. This distinction has important implications for statistical inference and forms the central motivation for the empirical analysis in this case study.</p>
+<p>To illustrate the audit framework, we use the ProPublica Illinois auto insurance dataset <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>, which contains quoted premiums from multiple insurers across Illinois zip codes.</p>
+<p>The analysis is designed to show <strong>how to run a regression-based fairness audit</strong>, not to deliver filing-ready compliance conclusions for any named insurer.</p>
+</section>
+<section id="how-to-read-this-case-study" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-this-case-study">How to Read This Case Study</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>If your focus is…</th>
+<th>Start here</th>
+<th>Then read</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Audit workflow and regulatory logic</td>
+<td><a href="#audit-protocol">Audit protocol</a></td>
+<td><a href="#conditional-demographic-parity-audit">CDP audit</a> → <a href="#proxy-discrimination-audit">PD audit</a></td>
+</tr>
+<tr class="even">
+<td>What the Illinois results show</td>
+<td><a href="#data-preparation">Data preparation</a></td>
+<td><a href="#conditional-demographic-parity-audit">CDP audit</a> and <a href="#proxy-discrimination-audit">PD audit</a> summary tables and figures</td>
+</tr>
+<tr class="odd">
+<td>Implementation detail</td>
+<td><a href="#notation">Notation</a> → <a href="#case-study-setup">Case Study Setup</a></td>
+<td><a href="#appendix-supporting-materials">Supporting Materials</a> and code chunks (folded by default)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="audit-protocol" class="level2">
+<h2 class="anchored" data-anchor-id="audit-protocol">Audit protocol</h2>
+<p><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> organises fairness testing as an end-to-end <strong>Plan → Audit → Decide → Improve</strong> workflow. Design choices should be fixed <strong>before</strong> examining outcomes.</p>
+<p><img src="../Playbook/plot/audit-flow.png" class="img-fluid" style="width:90.0%" alt="Audit flow: Plan, Audit, Decide, Improve with Pass, Insufficient Information, or Fail"></p>
+<section id="plan-pre-audit-setup" class="level4">
+<h4 class="anchored" data-anchor-id="plan-pre-audit-setup">Plan (pre-audit setup)</h4>
+<ol type="1">
+<li><strong>Select a fairness criterion.</strong> CDP for system-level price gaps after controlling for legitimate factors. PD when a specific rating variable may proxy the protected attribute.</li>
+<li><strong>Specify the protected attribute</strong> <span class="math inline">A</span>. Here, a majority-minority zip-code indicator (a proxied attribute at zip level).</li>
+<li><strong>Specify legitimate rating factors</strong> <span class="math inline">X_\ell</span>. Here, log state risk and a Chicago indicator.</li>
+<li><strong>Pre-specify tolerances and decision rules.</strong> Significance level, TOST margins for CDP, substantive shift threshold for PD (see <a href="#audit-parameters">Audit parameters</a>).</li>
+<li><strong>Design a representative quote sample.</strong> Standardised profiles submitted within a short window.</li>
+</ol>
+</section>
+<section id="audit" class="level4">
+<h4 class="anchored" data-anchor-id="audit">Audit</h4>
+<p>Collect deterministic pricing outputs and run the criterion-specific regression tests using <strong>corrected standard errors</strong> (HC3 for CDP. Cross-covariance for PD coefficient shifts).</p>
+</section>
+<section id="decide-three-outcomes" class="level4">
+<h4 class="anchored" data-anchor-id="decide-three-outcomes">Decide (three outcomes)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Verdict</th>
+<th>Meaning</th>
+<th>Typical next step</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pass</strong></td>
+<td>Confidence interval lies <strong>entirely within</strong> the tolerance band (positive evidence of compliance</td>
+<td>Document and monitor</td>
+</tr>
+<tr class="even">
+<td><strong>Fail</strong></td>
+<td>Confidence interval lies <strong>entirely outside</strong> the tolerance band (material disparity</td>
+<td>Remediation and re-test</td>
+</tr>
+<tr class="odd">
+<td><strong>Insufficient information</strong></td>
+<td>Interval is too wide to confirm pass or fail</td>
+<td>Collect more data, then re-audit</td>
+</tr>
+</tbody>
+</table>
+<p>PD uses a <strong>two-part rule</strong> (statistical significance plus a minimum relative shift) rather than TOST. See <a href="#proxy-discrimination-audit">Proxy discrimination audit</a>.</p>
+</section>
+<section id="improve" class="level4">
+<h4 class="anchored" data-anchor-id="improve">Improve</h4>
+<p>Failed or unclear audits trigger review of driver variables, model recalibration, or expanded sampling before re-testing.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+For practitioners
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study applies <strong>one illustrative audit design</strong> from <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> to Illinois auto quotes. In your own market you must choose:</p>
+<ul>
+<li><strong>Fairness criterion</strong> (CDP, PD, or another rule required by law)</li>
+<li><strong>Protected attribute</strong> <span class="math inline">A</span> (directly observed or responsibly proxied)</li>
+<li><strong>Legitimate rating factors</strong> <span class="math inline">X_\ell</span> (as recognised by your regulator)</li>
+<li><strong>Tolerance margins</strong> (for example, Colorado’s 5% price-gap discussion and standard 0.80 adverse-impact ratio)</li>
+<li><strong>Suspected proxy variables</strong> for PD screens</li>
+</ul>
+<p>Quoted premiums here are <strong>deterministic algorithm outputs</strong>, so classical OLS standard errors are generally <strong>not valid</strong>. Use the corrected estimators shown below. Results are a <strong>teaching illustration</strong> using zip-level data and a proxied protected attribute, not a definitive regulatory finding about any company.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Scope of this case study
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>ProPublica Illinois auto quotes, company-level audits</li>
+<li>Protected attribute: majority-minority zip-code indicator</li>
+<li>Legitimate factors: <code>state_risk</code>, <code>chicago</code></li>
+<li>CDP via log-premium regression + TOST. PD illustration for <code>log_risk</code></li>
+<li>Corrected inference (HC3. PD cross-covariance)</li>
+</ul>
+<p><strong>Not covered here.</strong> GLM audit specifications, formal sample-size planning, multi-proxy screens, or insurer-specific filing conclusions. See <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> for the full framework.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="case-study-setup" class="level2">
+<h2 class="anchored" data-anchor-id="case-study-setup">Case Study Setup</h2>
+<section id="data-and-audit-setting" class="level3">
+<h3 class="anchored" data-anchor-id="data-and-audit-setting">Data and audit setting</h3>
+<p>The empirical analysis is conducted at the company level. For each insurer, we observe quoted premiums across Illinois zip codes. The goal is to illustrate how regression-based fairness audits can be applied to deterministic pricing outputs.</p>
+<p>The key variables are:</p>
+<ul>
+<li><code>combined_premium</code>, annual combined liability premium</li>
+<li><code>minority</code>, indicator equal to 1 if the zip code is majority-minority</li>
+<li><code>state_risk</code>, aggregate loss cost per insured vehicle</li>
+<li><code>chicago</code>, indicator for Chicago zip codes</li>
+<li><code>companies_name</code>, insurer name</li>
+</ul>
+<p>In the analysis below, each insurer is audited separately. The protected attribute is represented by the majority-minority zip-code indicator (<span class="math inline">A_z = 1</span>), while <code>state_risk</code> and <code>chicago</code> are used as legitimate rating factors (<span class="math inline">X_\ell</span>). Symbols are defined in <a href="#notation">Notation</a>.</p>
+</section>
+<section id="audit-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="audit-parameters">Audit parameters</h3>
+<p>The table below maps pre-specified audit parameters to their regulatory interpretation. Values are fixed in code before running company-level tests.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Code value</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Significance level</td>
+<td><code>ALPHA = 0.05</code></td>
+<td>90% confidence intervals for TOST (<span class="math inline">1 - 2\alpha</span>)</td>
+</tr>
+<tr class="even">
+<td>Minimum zip codes per company</td>
+<td><code>MIN_OBS = 50</code></td>
+<td>Exclude thin company samples from company-level tests</td>
+</tr>
+<tr class="odd">
+<td>CDP dollar tolerance</td>
+<td><code>DELTA_PCT = 0.05</code></td>
+<td>5% of mean premium (Colorado draft guidance)</td>
+</tr>
+<tr class="even">
+<td>CDP ratio tolerance</td>
+<td><code>TAU = 0.80</code></td>
+<td>Standard 0.80 adverse-impact ratio band</td>
+</tr>
+<tr class="odd">
+<td>PD substantive threshold</td>
+<td><code>RHO_MIN = 0.10</code></td>
+<td>Flag only if relative coefficient shift <span class="math inline">\geq 10\%</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="import-packages-and-define-audit-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="import-packages-and-define-audit-parameters">Import packages and define audit parameters</h3>
+<p>The following code imports the required Python packages and sets the parameters above.</p>
+<div id="setup" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show setup code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>DATA_PATH   <span class="op">=</span> <span class="st">"il-per-zip.csv"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>MIN_OBS     <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ALPHA       <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Z_CRIT      <span class="op">=</span> stats.norm.ppf(<span class="fl">1.0</span> <span class="op">-</span> ALPHA)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># CDP TOST tolerance margins</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>DELTA_PCT   <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>TAU         <span class="op">=</span> <span class="fl">0.80</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>LOG_TAU     <span class="op">=</span> np.log(<span class="fl">1.0</span> <span class="op">/</span> TAU)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># PD substantive shift threshold</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>RHO_MIN     <span class="op">=</span> <span class="fl">0.10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="supporting-functions" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-functions">Supporting functions</h3>
+<p>The following functions implement the calculations used throughout the CDP and PD audits. The code is folded for readability but can be expanded if desired.</p>
+<div id="supporting-functions" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show supporting functions code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ols_fit(X, y):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    OLS estimator: beta_hat = (X'X)^(-1) X'y.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    XtX_inv <span class="op">=</span> np.linalg.inv(X.T <span class="op">@</span> X)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    beta    <span class="op">=</span> XtX_inv <span class="op">@</span> (X.T <span class="op">@</span> y)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    resid   <span class="op">=</span> y <span class="op">-</span> X <span class="op">@</span> beta</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> beta, resid, XtX_inv</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cov_classical(resid, XtX_inv, n, p):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Classical OLS covariance: sigma^2 * (X'X)^(-1).</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    sigma2 <span class="op">=</span> <span class="bu">float</span>(resid <span class="op">@</span> resid) <span class="op">/</span> (n <span class="op">-</span> p)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sigma2 <span class="op">*</span> XtX_inv, sigma2</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cov_hc3(X, resid, XtX_inv):</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">    HC3 sandwich covariance estimator.</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    h    <span class="op">=</span> np.einsum(<span class="st">'ij,jk,ik-&gt;i'</span>, X, XtX_inv, X)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    w    <span class="op">=</span> resid <span class="op">/</span> (<span class="fl">1.0</span> <span class="op">-</span> h)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    meat <span class="op">=</span> (X <span class="op">*</span> w[:, np.newaxis]).T <span class="op">@</span> (X <span class="op">*</span> w[:, np.newaxis])</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> XtX_inv <span class="op">@</span> meat <span class="op">@</span> XtX_inv</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cov_shift_full(X_res, X_ext, fz, j<span class="op">=</span><span class="dv">1</span>, k<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">    Correct variance of the coefficient shift for proxy discrimination.</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">    X_res : restricted model matrix, excluding the protected attribute.</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">    X_ext : extended model matrix, including the protected attribute.</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">    fz    : deterministic response vector.</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">    j, k  : column indices for the suspected proxy variable in the two models.</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(fz)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    XtX_inv_res <span class="op">=</span> np.linalg.inv(X_res.T <span class="op">@</span> X_res)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    XtX_inv_ext <span class="op">=</span> np.linalg.inv(X_ext.T <span class="op">@</span> X_ext)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    sc_res <span class="op">=</span> X_res <span class="op">*</span> fz[:, np.newaxis]</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    sc_ext <span class="op">=</span> X_ext <span class="op">*</span> fz[:, np.newaxis]</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    meat_res  <span class="op">=</span> (sc_res.T <span class="op">@</span> sc_res) <span class="op">/</span> n</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    meat_res <span class="op">-=</span> np.outer(sc_res.mean(axis<span class="op">=</span><span class="dv">0</span>), sc_res.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    sw_res    <span class="op">=</span> XtX_inv_res <span class="op">@</span> meat_res <span class="op">@</span> XtX_inv_res</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    var_res   <span class="op">=</span> sw_res[j, j]</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    meat_ext  <span class="op">=</span> (sc_ext.T <span class="op">@</span> sc_ext) <span class="op">/</span> n</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    meat_ext <span class="op">-=</span> np.outer(sc_ext.mean(axis<span class="op">=</span><span class="dv">0</span>), sc_ext.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    sw_ext    <span class="op">=</span> XtX_inv_ext <span class="op">@</span> meat_ext <span class="op">@</span> XtX_inv_ext</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    var_ext   <span class="op">=</span> sw_ext[k, k]</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    var_ind <span class="op">=</span> var_res <span class="op">+</span> var_ext</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    cross_meat  <span class="op">=</span> (sc_res.T <span class="op">@</span> sc_ext) <span class="op">/</span> n</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    cross_meat <span class="op">-=</span> np.outer(sc_res.mean(axis<span class="op">=</span><span class="dv">0</span>), sc_ext.mean(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    cross       <span class="op">=</span> <span class="bu">float</span>(XtX_inv_res[j, :] <span class="op">@</span> cross_meat <span class="op">@</span> XtX_inv_ext[:, k])</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    var_full <span class="op">=</span> <span class="bu">max</span>(var_res <span class="op">+</span> var_ext <span class="op">-</span> <span class="fl">2.0</span> <span class="op">*</span> cross, <span class="fl">0.0</span>)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> var_full, var_ind</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tost_verdict(beta_A, se_hc3, mean_premium, alpha<span class="op">=</span>ALPHA,</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>                 delta_pct<span class="op">=</span>DELTA_PCT, tau<span class="op">=</span>TAU):</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="co">    Three-outcome TOST decision for CDP: Pass, Fail, or</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="co">    Insufficient Information.</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> stats.norm.ppf(<span class="fl">1.0</span> <span class="op">-</span> alpha)</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>    ci_lo <span class="op">=</span> beta_A <span class="op">-</span> z <span class="op">*</span> se_hc3</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    ci_hi <span class="op">=</span> beta_A <span class="op">+</span> z <span class="op">*</span> se_hc3</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    log_tau <span class="op">=</span> np.log(<span class="fl">1.0</span> <span class="op">/</span> tau)</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> delta_pct <span class="op">*</span> mean_premium</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>    ratio_inside <span class="op">=</span> (ci_lo <span class="op">&gt;</span> <span class="op">-</span>log_tau) <span class="kw">and</span> (ci_hi <span class="op">&lt;</span> log_tau)</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    ratio_outside <span class="op">=</span> (ci_lo <span class="op">&gt;=</span> log_tau) <span class="kw">or</span> (ci_hi <span class="op">&lt;=</span> <span class="op">-</span>log_tau)</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    gap_lo <span class="op">=</span> mean_premium <span class="op">*</span> (np.exp(ci_lo) <span class="op">-</span> <span class="fl">1.0</span>)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    gap_hi <span class="op">=</span> mean_premium <span class="op">*</span> (np.exp(ci_hi) <span class="op">-</span> <span class="fl">1.0</span>)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    level_inside <span class="op">=</span> (gap_lo <span class="op">&gt;</span> <span class="op">-</span>delta) <span class="kw">and</span> (gap_hi <span class="op">&lt;</span> delta)</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    level_outside <span class="op">=</span> (gap_lo <span class="op">&gt;=</span> delta) <span class="kw">or</span> (gap_hi <span class="op">&lt;=</span> <span class="op">-</span>delta)</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ratio_inside <span class="kw">and</span> level_inside:</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        verdict <span class="op">=</span> <span class="st">"PASS"</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> ratio_outside <span class="kw">or</span> level_outside:</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>        verdict <span class="op">=</span> <span class="st">"FAIL"</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>        verdict <span class="op">=</span> <span class="st">"INSUFFICIENT INFORMATION"</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> verdict, ci_lo, ci_hi, gap_lo, gap_hi</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pd_verdict(shift, phi_res, z_full, z_crit<span class="op">=</span>Z_CRIT, rho_min<span class="op">=</span>RHO_MIN):</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="co">    Two-part proxy-discrimination decision rule.</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    rel_pct <span class="op">=</span> <span class="bu">abs</span>(shift <span class="op">/</span> phi_res) <span class="op">*</span> <span class="fl">100.0</span> <span class="cf">if</span> phi_res <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> np.nan</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    flag    <span class="op">=</span> (<span class="bu">abs</span>(z_full) <span class="op">&gt;</span> z_crit) <span class="kw">and</span> (rel_pct <span class="op">&gt;=</span> rho_min <span class="op">*</span> <span class="fl">100.0</span>)</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> flag, rel_pct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
+<div id="cell-load-data" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show data loading code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_data(path):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    required <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"companies_name"</span>, <span class="st">"minority"</span>, <span class="st">"state_risk"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"combined_premium"</span>, <span class="st">"chicago"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    missing <span class="op">=</span> required <span class="op">-</span> <span class="bu">set</span>(df.columns)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> missing:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"Missing columns in CSV: </span><span class="sc">{</span>missing<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.copy()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"minority_flag"</span>] <span class="op">=</span> df[<span class="st">"minority"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"log_risk"</span>] <span class="op">=</span> np.log(df[<span class="st">"state_risk"</span>])</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"log_premium"</span>] <span class="op">=</span> np.log(df[<span class="st">"combined_premium"</span>])</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"excess_premium"</span>] <span class="op">=</span> df[<span class="st">"combined_premium"</span>] <span class="op">/</span> df[<span class="st">"state_risk"</span>]</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"chicago"</span>] <span class="op">=</span> df[<span class="st">"chicago"</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> prepare_data(DATA_PATH)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of observations: </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of variables: </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of observations: 31382
+Number of variables: 15</code></pre>
+</div>
+<div id="load-data" class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">zipcode</th>
+<th data-quarto-table-cell-role="th">chicago</th>
+<th data-quarto-table-cell-role="th">minority</th>
+<th data-quarto-table-cell-role="th">companies_name</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">bi_policy_premium</th>
+<th data-quarto-table-cell-role="th">pd_policy_premium</th>
+<th data-quarto-table-cell-role="th">state_risk</th>
+<th data-quarto-table-cell-role="th">white_non_hisp_pct</th>
+<th data-quarto-table-cell-role="th">risk_difference</th>
+<th data-quarto-table-cell-role="th">combined_premium</th>
+<th data-quarto-table-cell-role="th">minority_flag</th>
+<th data-quarto-table-cell-role="th">log_risk</th>
+<th data-quarto-table-cell-role="th">log_premium</th>
+<th data-quarto-table-cell-role="th">excess_premium</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>60002</td>
+<td>0.0</td>
+<td>False</td>
+<td>State Farm Fire &amp; Cas Co</td>
+<td>STATE FARM GRP</td>
+<td>414</td>
+<td>0.0</td>
+<td>200.692503</td>
+<td>88.6</td>
+<td>213.307497</td>
+<td>414.0</td>
+<td>0</td>
+<td>5.301774</td>
+<td>6.025866</td>
+<td>2.062857</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>60002</td>
+<td>0.0</td>
+<td>False</td>
+<td>Metropolitan Grp Prop &amp; Cas Ins Co</td>
+<td>METROPOLITAN GRP</td>
+<td>321</td>
+<td>244.0</td>
+<td>200.692503</td>
+<td>88.6</td>
+<td>364.307497</td>
+<td>565.0</td>
+<td>0</td>
+<td>5.301774</td>
+<td>6.336826</td>
+<td>2.815252</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>60002</td>
+<td>0.0</td>
+<td>False</td>
+<td>Progressive Direct Ins Co</td>
+<td>PROGRESSIVE GRP</td>
+<td>360</td>
+<td>176.0</td>
+<td>200.692503</td>
+<td>88.6</td>
+<td>335.307497</td>
+<td>536.0</td>
+<td>0</td>
+<td>5.301774</td>
+<td>6.284134</td>
+<td>2.670752</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>60002</td>
+<td>0.0</td>
+<td>False</td>
+<td>American Family Mut Ins Co</td>
+<td>AMERICAN FAMILY INS GRP</td>
+<td>458</td>
+<td>0.0</td>
+<td>200.692503</td>
+<td>88.6</td>
+<td>257.307497</td>
+<td>458.0</td>
+<td>0</td>
+<td>5.301774</td>
+<td>6.126869</td>
+<td>2.282098</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>60002</td>
+<td>0.0</td>
+<td>False</td>
+<td>Garrison Prop &amp; Cas Ins Co</td>
+<td>UNITED SERV AUTOMOBILE ASSN GRP</td>
+<td>171</td>
+<td>171.0</td>
+<td>200.692503</td>
+<td>88.6</td>
+<td>141.307497</td>
+<td>342.0</td>
+<td>0</td>
+<td>5.301774</td>
+<td>5.834811</td>
+<td>1.704100</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The dataset contains zip-code-company observations. Before running company-level audits, we first summarise the unconditional differences between majority-minority and non-majority-minority zip codes.</p>
+<div id="cell-summary-statistics" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show summary statistics code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> table_summary_stats(df):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    non_mm <span class="op">=</span> df[df[<span class="st">"minority_flag"</span>] <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    mm <span class="op">=</span> df[df[<span class="st">"minority_flag"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> var, label, scale <span class="kw">in</span> [</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"combined_premium"</span>, <span class="st">"Combined premium ($)"</span>, <span class="dv">1</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"state_risk"</span>, <span class="st">"State risk ($)"</span>, <span class="dv">1</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"excess_premium"</span>, <span class="st">"Excess premium ($)"</span>, <span class="dv">1</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"minority"</span>, <span class="st">"Pct minority (%)"</span>, <span class="dv">100</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ]:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        full <span class="op">=</span> df[var] <span class="op">*</span> scale</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        non_mm_var <span class="op">=</span> non_mm[var] <span class="op">*</span> scale</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        mm_var <span class="op">=</span> mm[var] <span class="op">*</span> scale</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Variable"</span>: label,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Mean"</span>: <span class="bu">round</span>(full.mean(), <span class="dv">1</span>),</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SD"</span>: <span class="bu">round</span>(full.std(), <span class="dv">1</span>),</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Max"</span>: <span class="bu">round</span>(full.<span class="bu">max</span>(), <span class="dv">1</span>),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Non-majority-minority zips"</span>: <span class="bu">round</span>(non_mm_var.mean(), <span class="dv">1</span>),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Majority-minority zips"</span>: <span class="bu">round</span>(mm_var.mean(), <span class="dv">1</span>),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Ratio"</span>: <span class="bu">round</span>(mm_var.mean() <span class="op">/</span> non_mm_var.mean(), <span class="dv">3</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(rows)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="op">=</span> table_summary_stats(df)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>display(summary_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="summary-statistics" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Variable</th>
+<th data-quarto-table-cell-role="th">Mean</th>
+<th data-quarto-table-cell-role="th">SD</th>
+<th data-quarto-table-cell-role="th">Max</th>
+<th data-quarto-table-cell-role="th">Non-majority-minority zips</th>
+<th data-quarto-table-cell-role="th">Majority-minority zips</th>
+<th data-quarto-table-cell-role="th">Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Combined premium ($)</td>
+<td>370.2</td>
+<td>147.7</td>
+<td>1345.0</td>
+<td>355.9</td>
+<td>482.2</td>
+<td>1.355</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>State risk ($)</td>
+<td>162.7</td>
+<td>50.9</td>
+<td>297.5</td>
+<td>160.6</td>
+<td>179.2</td>
+<td>1.116</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Excess premium ($)</td>
+<td>2.5</td>
+<td>1.3</td>
+<td>15.0</td>
+<td>2.5</td>
+<td>2.8</td>
+<td>1.121</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Pct minority (%)</td>
+<td>11.3</td>
+<td>31.6</td>
+<td>100.0</td>
+<td>0.0</td>
+<td>100.0</td>
+<td>inf</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The unconditional premium difference is not itself a fairness-audit conclusion, because majority-minority and non-majority-minority zip codes may differ in risk and geography. The regression audit below controls for state risk and a Chicago indicator.</p>
+</div>
+</div>
+</section>
+<section id="notation" class="level2">
+<h2 class="anchored" data-anchor-id="notation">Notation</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Variable in this case study</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">P_{kz}</span></td>
+<td>Quoted premium for company <span class="math inline">k</span> in zip <span class="math inline">z</span></td>
+<td><code>combined_premium</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">A_z</span></td>
+<td>Protected attribute</td>
+<td><code>minority_flag</code> (1 = majority-minority zip)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">X_{\ell,z}</span></td>
+<td>Legitimate rating factors</td>
+<td><code>log_risk</code>, <code>chicago</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\beta_{A,k}</span></td>
+<td>Conditional log-premium gap on <span class="math inline">A</span> for company <span class="math inline">k</span></td>
+<td>CDP regression coefficient</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\Delta_\mu</span></td>
+<td>Conditional mean premium gap</td>
+<td>Implied from <span class="math inline">\beta_{A,k}</span> at mean premium</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">R_\mu</span></td>
+<td>Conditional premium ratio across groups</td>
+<td><span class="math inline">\exp(\beta_{A,k})</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\phi</span>, <span class="math inline">\phi'</span></td>
+<td>Coefficient on suspected proxy in restricted / extended PD models</td>
+<td>Coefficient on <code>log_risk</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\Delta_{PD}</span></td>
+<td>Proxy coefficient shift <span class="math inline">\phi - \phi'</span></td>
+<td>PD test statistic</td>
+</tr>
+<tr class="odd">
+<td>HC3 SE</td>
+<td>Corrected standard error for deterministic outputs</td>
+<td><code>se_hc3</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\delta</span></td>
+<td>Dollar tolerance for CDP</td>
+<td><code>DELTA_PCT</code> <span class="math inline">\times</span> mean premium</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\tau</span></td>
+<td>Adverse-impact ratio tolerance</td>
+<td><code>TAU = 0.80</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\rho_{\min}</span></td>
+<td>Minimum relative PD shift to flag</td>
+<td><code>RHO_MIN = 0.10</code></td>
+</tr>
+</tbody>
+</table>
+<p>Rule abbreviations. <strong>CDP</strong> = conditional demographic parity. <strong>PD</strong> = proxy discrimination. <strong>TOST</strong> = two one-sided tests (equivalence testing).</p>
+</section>
+<section id="conditional-demographic-parity-audit" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-demographic-parity-audit">Conditional Demographic Parity Audit</h2>
+<section id="audit-model" class="level3">
+<h3 class="anchored" data-anchor-id="audit-model">Audit model</h3>
+<p>The CDP audit evaluates whether pricing outcomes differ across protected groups after controlling for legitimate rating factors. For each company <span class="math inline">k</span>, we fit the audit regression (see <a href="#notation">Notation</a>)</p>
+<p><span class="math display">
+\log(P_{kz}) = \mu_{0k} + \beta_{A,k} A_z
++ \gamma_{1k} \log(\text{state risk}_z)
++ \gamma_{2k} \text{Chicago}_z + r_{kz},
+</span></p>
+<p>where <span class="math inline">P_{kz}</span> is the quoted premium for company <span class="math inline">k</span> in zip code <span class="math inline">z</span>, and <span class="math inline">A_z</span> is the majority-minority zip-code indicator. The coefficient <span class="math inline">\beta_{A,k}</span> measures the conditional log-premium gap for company <span class="math inline">k</span>.</p>
+<div id="design-matrices" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show design matrix code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_design_matrices(grp):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(grp)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    ones <span class="op">=</span> np.ones(n)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> grp[<span class="st">"minority_flag"</span>].values.astype(<span class="bu">float</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    lr <span class="op">=</span> grp[<span class="st">"log_risk"</span>].values</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> grp[<span class="st">"chicago"</span>].values</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    X_cdp <span class="op">=</span> np.column_stack([ones, A, lr, C])</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    X_res <span class="op">=</span> np.column_stack([ones, lr, C])</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    X_ext <span class="op">=</span> np.column_stack([ones, lr, C, A])</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    fz <span class="op">=</span> grp[<span class="st">"log_premium"</span>].values</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X_cdp, X_res, X_ext, fz, n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="classical-versus-hc3-standard-errors" class="level3">
+<h3 class="anchored" data-anchor-id="classical-versus-hc3-standard-errors">Classical versus HC3 standard errors</h3>
+<p>The first issue is whether the usual classical OLS standard error is appropriate. Since quoted premiums are deterministic outputs, the residuals are approximation errors rather than independent stochastic noise. We therefore compare the usual classical standard error with the HC3 sandwich standard error. HC3 is a finite-sample heteroskedasticity-consistent sandwich estimator proposed by <span class="citation" data-cites="mackinnon-white-1985">MacKinnon and White (<a href="#ref-mackinnon-white-1985" role="doc-biblioref">1985</a>)</span> and used here as the default corrected standard error.</p>
+<div id="cell-analyse-cdp-company" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show CDP analysis code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyse_cdp_company(company, grp):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    X_cdp, X_res, X_ext, fz, n <span class="op">=</span> build_design_matrices(grp)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    p_cdp <span class="op">=</span> X_cdp.shape[<span class="dv">1</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># CDP regression</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    beta_cdp, resid_cdp, XtX_inv_cdp <span class="op">=</span> ols_fit(X_cdp, fz)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    cov_cl, sigma2 <span class="op">=</span> cov_classical(resid_cdp, XtX_inv_cdp, n, p_cdp)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    cov_hc <span class="op">=</span> cov_hc3(X_cdp, resid_cdp, XtX_inv_cdp)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    beta_A <span class="op">=</span> <span class="bu">float</span>(beta_cdp[<span class="dv">1</span>])</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    se_cl <span class="op">=</span> <span class="bu">float</span>(np.sqrt(cov_cl[<span class="dv">1</span>, <span class="dv">1</span>]))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    se_hc3 <span class="op">=</span> <span class="bu">float</span>(np.sqrt(cov_hc[<span class="dv">1</span>, <span class="dv">1</span>]))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    rho <span class="op">=</span> se_hc3 <span class="op">/</span> se_cl</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    ss_tot <span class="op">=</span> <span class="bu">float</span>(np.<span class="bu">sum</span>((fz <span class="op">-</span> fz.mean()) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    r2 <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> <span class="bu">float</span>(resid_cdp <span class="op">@</span> resid_cdp) <span class="op">/</span> ss_tot</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    mean_prem_log <span class="op">=</span> fz.mean()</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    mean_prem_usd <span class="op">=</span> <span class="bu">float</span>(np.exp(mean_prem_log))</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    verdict, ci_lo, ci_hi, gap_lo, gap_hi <span class="op">=</span> tost_verdict(</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        beta_A, se_hc3, mean_prem_usd</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    ratio <span class="op">=</span> <span class="bu">float</span>(np.exp(beta_A))</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    gap_dollars <span class="op">=</span> <span class="bu">float</span>(mean_prem_usd <span class="op">*</span> (np.exp(beta_A) <span class="op">-</span> <span class="fl">1.0</span>))</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    cdp_rec <span class="op">=</span> {</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"company"</span>: company,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"n"</span>: n,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"beta_A"</span>: beta_A,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"se_classical"</span>: se_cl,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"se_hc3"</span>: se_hc3,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rho"</span>: rho,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"r2"</span>: r2,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    audit_rec <span class="op">=</span> {</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"company"</span>: company,</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"gap_usd"</span>: gap_dollars,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ratio"</span>: ratio,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_lo"</span>: ci_lo,</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_hi"</span>: ci_hi,</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"gap_lo"</span>: gap_lo,</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"gap_hi"</span>: gap_hi,</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">"verdict"</span>: verdict,</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cdp_rec, audit_rec</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>cdp_records <span class="op">=</span> []</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>audit_records <span class="op">=</span> []</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> company, grp <span class="kw">in</span> df.groupby(<span class="st">"companies_name"</span>):</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(grp) <span class="op">&gt;=</span> MIN_OBS:</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        cdp_rec, audit_rec <span class="op">=</span> analyse_cdp_company(company, grp)</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>        cdp_records.append(cdp_rec)</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        audit_records.append(audit_rec)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>cdp_results <span class="op">=</span> pd.DataFrame(cdp_records).sort_values(<span class="st">"company"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>audit_results <span class="op">=</span> pd.DataFrame(audit_records).sort_values(<span class="st">"company"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of companies audited: </span><span class="sc">{</span><span class="bu">len</span>(cdp_results)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>cdp_results.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of companies audited: 34</code></pre>
+</div>
+<div id="analyse-cdp-company" class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">company</th>
+<th data-quarto-table-cell-role="th">n</th>
+<th data-quarto-table-cell-role="th">beta_A</th>
+<th data-quarto-table-cell-role="th">se_classical</th>
+<th data-quarto-table-cell-role="th">se_hc3</th>
+<th data-quarto-table-cell-role="th">rho</th>
+<th data-quarto-table-cell-role="th">r2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Allstate Fire &amp; Cas Ins Co</td>
+<td>923</td>
+<td>0.215017</td>
+<td>0.016442</td>
+<td>0.018462</td>
+<td>1.122903</td>
+<td>0.437081</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Allstate Ind Co</td>
+<td>923</td>
+<td>0.317649</td>
+<td>0.022141</td>
+<td>0.024226</td>
+<td>1.094157</td>
+<td>0.507276</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>American Family Mut Ins Co</td>
+<td>923</td>
+<td>0.150669</td>
+<td>0.012237</td>
+<td>0.010640</td>
+<td>0.869509</td>
+<td>0.502472</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>American Standard Ins Co of WI</td>
+<td>923</td>
+<td>0.136981</td>
+<td>0.013006</td>
+<td>0.010412</td>
+<td>0.800583</td>
+<td>0.430596</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Country Mut Ins Co</td>
+<td>923</td>
+<td>0.260289</td>
+<td>0.017204</td>
+<td>0.020499</td>
+<td>1.191543</td>
+<td>0.349394</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The next table summarises the company-level comparison between classical and HC3 standard errors.</p>
+<div id="cell-cdp-se-summary" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show CDP standard error summary code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>se_summary <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of companies"</span>: [<span class="bu">len</span>(cdp_results)],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Min HC3/classical SE ratio"</span>: [cdp_results[<span class="st">"rho"</span>].<span class="bu">min</span>()],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean HC3/classical SE ratio"</span>: [cdp_results[<span class="st">"rho"</span>].mean()],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Max HC3/classical SE ratio"</span>: [cdp_results[<span class="st">"rho"</span>].<span class="bu">max</span>()],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Companies with |ratio - 1| &gt; 0.15"</span>: [</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        (<span class="bu">abs</span>(cdp_results[<span class="st">"rho"</span>] <span class="op">-</span> <span class="dv">1</span>) <span class="op">&gt;</span> <span class="fl">0.15</span>).<span class="bu">sum</span>()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>display(se_summary.<span class="bu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="cdp-se-summary" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Number of companies</th>
+<th data-quarto-table-cell-role="th">Min HC3/classical SE ratio</th>
+<th data-quarto-table-cell-role="th">Mean HC3/classical SE ratio</th>
+<th data-quarto-table-cell-role="th">Max HC3/classical SE ratio</th>
+<th data-quarto-table-cell-role="th">Companies with |ratio - 1| &gt; 0.15</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>34</td>
+<td>0.685</td>
+<td>1.065</td>
+<td>1.775</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The table below reports selected companies where the HC3 correction has the largest and smallest effect on the standard error for the protected-attribute coefficient.</p>
+<div id="cell-cdp-se-selected" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show selected CDP standard error results code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>selected_se <span class="op">=</span> pd.concat([</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    cdp_results.nsmallest(<span class="dv">3</span>, <span class="st">"rho"</span>),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    cdp_results.nlargest(<span class="dv">3</span>, <span class="st">"rho"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>]).drop_duplicates(subset<span class="op">=</span><span class="st">"company"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>selected_se <span class="op">=</span> selected_se[[</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"company"</span>, <span class="st">"n"</span>, <span class="st">"beta_A"</span>, <span class="st">"se_classical"</span>, <span class="st">"se_hc3"</span>, <span class="st">"rho"</span>, <span class="st">"r2"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>]].copy()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>selected_se <span class="op">=</span> selected_se.<span class="bu">round</span>({</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"beta_A"</span>: <span class="dv">3</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"se_classical"</span>: <span class="dv">3</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"se_hc3"</span>: <span class="dv">3</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rho"</span>: <span class="dv">3</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"r2"</span>: <span class="dv">3</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>display(selected_se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="cdp-se-selected" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">company</th>
+<th data-quarto-table-cell-role="th">n</th>
+<th data-quarto-table-cell-role="th">beta_A</th>
+<th data-quarto-table-cell-role="th">se_classical</th>
+<th data-quarto-table-cell-role="th">se_hc3</th>
+<th data-quarto-table-cell-role="th">rho</th>
+<th data-quarto-table-cell-role="th">r2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>Trumbull Ins Co</td>
+<td>923</td>
+<td>0.130</td>
+<td>0.012</td>
+<td>0.009</td>
+<td>0.685</td>
+<td>0.405</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">26</td>
+<td>State Farm Fire &amp; Cas Co</td>
+<td>923</td>
+<td>0.222</td>
+<td>0.017</td>
+<td>0.013</td>
+<td>0.753</td>
+<td>0.450</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">27</td>
+<td>State Farm Mut Auto Ins Co</td>
+<td>923</td>
+<td>0.222</td>
+<td>0.017</td>
+<td>0.013</td>
+<td>0.753</td>
+<td>0.450</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Economy Preferred Ins Co</td>
+<td>923</td>
+<td>0.308</td>
+<td>0.017</td>
+<td>0.030</td>
+<td>1.775</td>
+<td>0.476</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>Metropolitan Cas Ins Co</td>
+<td>923</td>
+<td>0.308</td>
+<td>0.017</td>
+<td>0.029</td>
+<td>1.679</td>
+<td>0.482</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Farmers Automobile Ins Assoc</td>
+<td>923</td>
+<td>0.294</td>
+<td>0.024</td>
+<td>0.040</td>
+<td>1.660</td>
+<td>0.675</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-fig-cdp-se-ratio" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show CDP standard error ratio plot code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> cdp_results.sort_values(<span class="st">"rho"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(plot_df)), plot_df[<span class="st">"rho"</span>], marker<span class="op">=</span><span class="st">"o"</span>, linestyle<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">1.0</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Company, sorted by SE ratio"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"HC3 SE / classical SE"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Classical standard errors can under- or over-estimate uncertainty"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-cdp-se-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cdp-se-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="case_study3_files/figure-html/fig-cdp-se-ratio-output-1.png" width="758" height="422" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cdp-se-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Ratio of HC3 to classical standard errors for the protected-attribute coefficient.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A ratio above 1 means the classical standard error is smaller than the HC3 standard error. A ratio below 1 means the classical standard error is larger. The direction is not known in advance. This is why the corrected standard error should be computed rather than assumed.</p>
+</div>
+</div>
+</section>
+<section id="cdp-decision-rule-using-tost" class="level3">
+<h3 class="anchored" data-anchor-id="cdp-decision-rule-using-tost">CDP decision rule using TOST</h3>
+<p>A conventional significance test asks whether the conditional disparity is exactly zero. However, regulatory fairness audits are typically concerned with a different question: whether any disparity is small enough to fall within a pre-specified tolerance.</p>
+<p>To address this, we use an equivalence-testing framework known as Two One-Sided Tests (TOST) <span class="citation" data-cites="schuirmann-1987-comparison">(<a href="#ref-schuirmann-1987-comparison" role="doc-biblioref">Schuirmann 1987</a>)</span>. Under TOST, the burden is not to show that the disparity is exactly zero, but to demonstrate that it is sufficiently small to fall within an acceptable range.</p>
+<p>Here we use two tolerance conditions:</p>
+<ol type="1">
+<li>the confidence interval for the log-premium gap must lie within the log-ratio band corresponding to an adverse-impact ratio of 0.80. And</li>
+<li>the implied dollar gap must lie within 5% of the mean premium.</li>
+</ol>
+<p>A company <strong>passes</strong> only if both confidence intervals lie entirely within the tolerance bands. It <strong>fails</strong> if either interval lies entirely outside. Otherwise the verdict is <strong>insufficient information</strong> the sample is too imprecise to confirm compliance or a material disparity (<span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>).</p>
+<div id="cell-cdp-verdict-summary" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show CDP verdict summary code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cdp_summary <span class="op">=</span> (</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    audit_results[<span class="st">"verdict"</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    .rename_axis(<span class="st">"Verdict"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">"Number of companies"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>display(cdp_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="cdp-verdict-summary" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Verdict</th>
+<th data-quarto-table-cell-role="th">Number of companies</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>FAIL</td>
+<td>34</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-cdp-verdict-selected" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Show selected CDP verdict results code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>selected_cdp <span class="op">=</span> pd.concat([</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    audit_results.nsmallest(<span class="dv">3</span>, <span class="st">"gap_usd"</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    audit_results.nlargest(<span class="dv">3</span>, <span class="st">"gap_usd"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>]).drop_duplicates(subset<span class="op">=</span><span class="st">"company"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>selected_cdp <span class="op">=</span> selected_cdp[[</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"company"</span>, <span class="st">"gap_usd"</span>, <span class="st">"ratio"</span>, <span class="st">"ci_lo"</span>, <span class="st">"ci_hi"</span>, <span class="st">"verdict"</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>]].copy()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>selected_cdp <span class="op">=</span> selected_cdp.<span class="bu">round</span>({</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gap_usd"</span>: <span class="dv">0</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ratio"</span>: <span class="dv">3</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ci_lo"</span>: <span class="dv">3</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ci_hi"</span>: <span class="dv">3</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>display(selected_cdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="cdp-verdict-selected" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">company</th>
+<th data-quarto-table-cell-role="th">gap_usd</th>
+<th data-quarto-table-cell-role="th">ratio</th>
+<th data-quarto-table-cell-role="th">ci_lo</th>
+<th data-quarto-table-cell-role="th">ci_hi</th>
+<th data-quarto-table-cell-role="th">verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31</td>
+<td>USAA Cas Ins Co</td>
+<td>18.0</td>
+<td>1.095</td>
+<td>0.075</td>
+<td>0.105</td>
+<td>FAIL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>United Serv Automobile Assn</td>
+<td>19.0</td>
+<td>1.099</td>
+<td>0.078</td>
+<td>0.111</td>
+<td>FAIL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>Trumbull Ins Co</td>
+<td>28.0</td>
+<td>1.138</td>
+<td>0.116</td>
+<td>0.144</td>
+<td>FAIL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Allstate Ind Co</td>
+<td>231.0</td>
+<td>1.374</td>
+<td>0.278</td>
+<td>0.357</td>
+<td>FAIL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>Metropolitan Grp Prop &amp; Cas Ins Co</td>
+<td>162.0</td>
+<td>1.323</td>
+<td>0.240</td>
+<td>0.320</td>
+<td>FAIL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>Metropolitan Cas Ins Co</td>
+<td>140.0</td>
+<td>1.361</td>
+<td>0.260</td>
+<td>0.355</td>
+<td>FAIL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-fig-cdp-gap" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Show CDP premium gap plot code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> audit_results.sort_values(<span class="st">"gap_usd"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(plot_df)), plot_df[<span class="st">"gap_usd"</span>], marker<span class="op">=</span><span class="st">"o"</span>, linestyle<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.0</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Company, sorted by estimated gap"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Estimated dollar gap"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Conditional premium gap for majority-minority zip codes"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-cdp-gap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cdp-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="case_study3_files/figure-html/fig-cdp-gap-output-1.png" width="758" height="422" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cdp-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Estimated conditional dollar premium gap across companies.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Unlike conventional significance testing, TOST requires positive evidence that the disparity is sufficiently small. <strong>Insufficient information</strong> is not a pass. It means the audit cannot yet close and more data or a pre-specified escalation step may be needed.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="proxy-discrimination-audit" class="level2">
+<h2 class="anchored" data-anchor-id="proxy-discrimination-audit">Proxy Discrimination Audit</h2>
+<section id="coefficient-shift-idea" class="level3">
+<h3 class="anchored" data-anchor-id="coefficient-shift-idea">Coefficient-shift idea</h3>
+<p>Proxy discrimination asks whether a rating variable acts as a statistical substitute for the protected attribute. In this illustration, the suspected proxy variable is <code>log_risk</code>.</p>
+<p>We compare two regressions:</p>
+<p><span class="math display">
+\text{Restricted model: } \log(P_i) = \mu + \phi \log(\text{risk}_i) + \gamma \text{Chicago}_i + r_i,
+</span></p>
+<p><span class="math display">
+\text{Extended model: } \log(P_i) = \mu' + \phi' \log(\text{risk}_i) + \gamma' \text{Chicago}_i + \kappa A_i + r'_i.
+</span></p>
+<p>The coefficient shift is</p>
+<p><span class="math display">
+\Delta_{PD} = \phi - \phi'.
+</span></p>
+<p>If the coefficient on <code>log_risk</code> changes meaningfully after adding the protected attribute, this suggests that <code>log_risk</code> was absorbing some protected-group variation in the restricted model.</p>
+</section>
+<section id="standard-versus-corrected-standard-errors" class="level3">
+<h3 class="anchored" data-anchor-id="standard-versus-corrected-standard-errors">Standard versus corrected standard errors</h3>
+<p>The usual independent-samples formula treats the two coefficient estimates as independent. That is not appropriate here because both regressions are fitted to the same deterministic premium vector. The corrected standard error includes the cross-covariance between the two estimates.</p>
+<div id="cell-analyse-pd-company" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Show proxy discrimination analysis code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyse_pd_company(company, grp):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    X_cdp, X_res, X_ext, fz, n <span class="op">=</span> build_design_matrices(grp)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># PD coefficient-shift test for log_risk</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    beta_res, _, _ <span class="op">=</span> ols_fit(X_res, fz)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    beta_ext, _, _ <span class="op">=</span> ols_fit(X_ext, fz)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    phi_res <span class="op">=</span> <span class="bu">float</span>(beta_res[<span class="dv">1</span>])</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    phi_ext <span class="op">=</span> <span class="bu">float</span>(beta_ext[<span class="dv">1</span>])</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    shift <span class="op">=</span> phi_res <span class="op">-</span> phi_ext</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    var_full, var_ind <span class="op">=</span> cov_shift_full(X_res, X_ext, fz, j<span class="op">=</span><span class="dv">1</span>, k<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    se_full <span class="op">=</span> <span class="bu">float</span>(np.sqrt(var_full))</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    se_ind <span class="op">=</span> <span class="bu">float</span>(np.sqrt(var_ind))</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    z_ind <span class="op">=</span> shift <span class="op">/</span> se_ind <span class="cf">if</span> se_ind <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> np.nan</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    z_full <span class="op">=</span> shift <span class="op">/</span> se_full <span class="cf">if</span> se_full <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> np.nan</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    flag, rel_pct <span class="op">=</span> pd_verdict(shift, phi_res, z_full)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    pd_rec <span class="op">=</span> {</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"company"</span>: company,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"shift"</span>: rel_pct,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"se_ind"</span>: se_ind,</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"se_full"</span>: se_full,</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ratio_se"</span>: se_full <span class="op">/</span> se_ind <span class="cf">if</span> se_ind <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> np.nan,</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"z_ind"</span>: z_ind,</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"z_full"</span>: z_full,</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flag"</span>: <span class="st">"FLAG"</span> <span class="cf">if</span> flag <span class="cf">else</span> <span class="st">""</span>,</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd_rec</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>pd_records <span class="op">=</span> []</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> company, grp <span class="kw">in</span> df.groupby(<span class="st">"companies_name"</span>):</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(grp) <span class="op">&gt;=</span> MIN_OBS:</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>        pd_rec <span class="op">=</span> analyse_pd_company(company, grp)</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>        pd_records.append(pd_rec)</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>pd_results <span class="op">=</span> pd.DataFrame(pd_records).sort_values(<span class="st">"company"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of companies audited: </span><span class="sc">{</span><span class="bu">len</span>(pd_results)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>pd_results.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of companies audited: 34</code></pre>
+</div>
+<div id="analyse-pd-company" class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">company</th>
+<th data-quarto-table-cell-role="th">shift</th>
+<th data-quarto-table-cell-role="th">se_ind</th>
+<th data-quarto-table-cell-role="th">se_full</th>
+<th data-quarto-table-cell-role="th">ratio_se</th>
+<th data-quarto-table-cell-role="th">z_ind</th>
+<th data-quarto-table-cell-role="th">z_full</th>
+<th data-quarto-table-cell-role="th">flag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Allstate Fire &amp; Cas Ins Co</td>
+<td>9.681743</td>
+<td>0.026227</td>
+<td>0.002163</td>
+<td>0.082484</td>
+<td>0.756896</td>
+<td>9.176298</td>
+<td></td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Allstate Ind Co</td>
+<td>10.485194</td>
+<td>0.027659</td>
+<td>0.002327</td>
+<td>0.084133</td>
+<td>1.060300</td>
+<td>12.602721</td>
+<td>FLAG</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>American Family Mut Ins Co</td>
+<td>7.735429</td>
+<td>0.026078</td>
+<td>0.002129</td>
+<td>0.081637</td>
+<td>0.533416</td>
+<td>6.534027</td>
+<td></td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>American Standard Ins Co of WI</td>
+<td>8.000026</td>
+<td>0.028534</td>
+<td>0.002315</td>
+<td>0.081120</td>
+<td>0.443219</td>
+<td>5.463756</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Country Mut Ins Co</td>
+<td>10.575810</td>
+<td>0.024418</td>
+<td>0.002025</td>
+<td>0.082924</td>
+<td>0.984158</td>
+<td>11.868223</td>
+<td>FLAG</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-pd-summary" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Show proxy discrimination summary code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pd_summary <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of companies"</span>: [<span class="bu">len</span>(pd_results)],</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Significant using independent SE"</span>: [(<span class="bu">abs</span>(pd_results[<span class="st">"z_ind"</span>]) <span class="op">&gt;</span> Z_CRIT).<span class="bu">sum</span>()],</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Significant using corrected SE"</span>: [(<span class="bu">abs</span>(pd_results[<span class="st">"z_full"</span>]) <span class="op">&gt;</span> Z_CRIT).<span class="bu">sum</span>()],</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Flagged using corrected two-part rule"</span>: [(pd_results[<span class="st">"flag"</span>] <span class="op">==</span> <span class="st">"FLAG"</span>).<span class="bu">sum</span>()],</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Min corrected/independent SE ratio"</span>: [pd_results[<span class="st">"ratio_se"</span>].<span class="bu">min</span>()],</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean corrected/independent SE ratio"</span>: [pd_results[<span class="st">"ratio_se"</span>].mean()],</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Max corrected/independent SE ratio"</span>: [pd_results[<span class="st">"ratio_se"</span>].<span class="bu">max</span>()]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>pd_summary <span class="op">=</span> pd_summary.<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>display(pd_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="pd-summary" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Number of companies</th>
+<th data-quarto-table-cell-role="th">Significant using independent SE</th>
+<th data-quarto-table-cell-role="th">Significant using corrected SE</th>
+<th data-quarto-table-cell-role="th">Flagged using corrected two-part rule</th>
+<th data-quarto-table-cell-role="th">Min corrected/independent SE ratio</th>
+<th data-quarto-table-cell-role="th">Mean corrected/independent SE ratio</th>
+<th data-quarto-table-cell-role="th">Max corrected/independent SE ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>34</td>
+<td>0</td>
+<td>34</td>
+<td>16</td>
+<td>0.08</td>
+<td>0.082</td>
+<td>0.085</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The table below shows selected companies with the largest relative coefficient shifts. The final flag requires both statistical significance and a relative shift of at least 10%.</p>
+<div id="cell-pd-selected" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Show selected proxy discrimination results code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>selected_pd <span class="op">=</span> pd_results.nlargest(<span class="dv">10</span>, <span class="st">"shift"</span>)[[</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"company"</span>, <span class="st">"shift"</span>, <span class="st">"se_ind"</span>, <span class="st">"se_full"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ratio_se"</span>, <span class="st">"z_ind"</span>, <span class="st">"z_full"</span>, <span class="st">"flag"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>]].copy()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>selected_pd <span class="op">=</span> selected_pd.<span class="bu">round</span>({</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shift"</span>: <span class="dv">1</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"se_ind"</span>: <span class="dv">4</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"se_full"</span>: <span class="dv">4</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ratio_se"</span>: <span class="dv">3</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"z_ind"</span>: <span class="dv">2</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"z_full"</span>: <span class="dv">2</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>display(selected_pd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="pd-selected" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">company</th>
+<th data-quarto-table-cell-role="th">shift</th>
+<th data-quarto-table-cell-role="th">se_ind</th>
+<th data-quarto-table-cell-role="th">se_full</th>
+<th data-quarto-table-cell-role="th">ratio_se</th>
+<th data-quarto-table-cell-role="th">z_ind</th>
+<th data-quarto-table-cell-role="th">z_full</th>
+<th data-quarto-table-cell-role="th">flag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Farmers Automobile Ins Assoc</td>
+<td>22.2</td>
+<td>0.0253</td>
+<td>0.0022</td>
+<td>0.085</td>
+<td>1.07</td>
+<td>12.59</td>
+<td>FLAG</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Economy Preferred Ins Co</td>
+<td>16.5</td>
+<td>0.0248</td>
+<td>0.0021</td>
+<td>0.084</td>
+<td>1.15</td>
+<td>13.71</td>
+<td>FLAG</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>Metropolitan Cas Ins Co</td>
+<td>15.5</td>
+<td>0.0258</td>
+<td>0.0022</td>
+<td>0.084</td>
+<td>1.10</td>
+<td>13.20</td>
+<td>FLAG</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>Travelers Home &amp; Marine Ins Co</td>
+<td>14.6</td>
+<td>0.0247</td>
+<td>0.0020</td>
+<td>0.083</td>
+<td>0.78</td>
+<td>9.46</td>
+<td>FLAG</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>Travelers Commercial Ins Co</td>
+<td>14.6</td>
+<td>0.0246</td>
+<td>0.0020</td>
+<td>0.083</td>
+<td>0.79</td>
+<td>9.51</td>
+<td>FLAG</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">20</td>
+<td>Metropolitan Prop &amp; Cas Ins Co</td>
+<td>12.5</td>
+<td>0.0245</td>
+<td>0.0021</td>
+<td>0.085</td>
+<td>1.34</td>
+<td>15.73</td>
+<td>FLAG</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31</td>
+<td>USAA Cas Ins Co</td>
+<td>11.5</td>
+<td>0.0229</td>
+<td>0.0018</td>
+<td>0.080</td>
+<td>0.36</td>
+<td>4.53</td>
+<td>FLAG</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>Owners Ins Co</td>
+<td>11.4</td>
+<td>0.0255</td>
+<td>0.0022</td>
+<td>0.084</td>
+<td>1.14</td>
+<td>13.48</td>
+<td>FLAG</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">33</td>
+<td>United Serv Automobile Assn</td>
+<td>11.1</td>
+<td>0.0228</td>
+<td>0.0018</td>
+<td>0.081</td>
+<td>0.38</td>
+<td>4.75</td>
+<td>FLAG</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>Geico Gen Ins Co</td>
+<td>11.1</td>
+<td>0.0245</td>
+<td>0.0020</td>
+<td>0.081</td>
+<td>0.62</td>
+<td>7.65</td>
+<td>FLAG</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-fig-pd-z" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Show proxy discrimination z-statistics plot code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> pd_results.sort_values(<span class="st">"z_full"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(plot_df)), plot_df[<span class="st">"z_ind"</span>], marker<span class="op">=</span><span class="st">"o"</span>, linestyle<span class="op">=</span><span class="st">""</span>, label<span class="op">=</span><span class="st">"Independent SE"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(plot_df)), plot_df[<span class="st">"z_full"</span>], marker<span class="op">=</span><span class="st">"x"</span>, linestyle<span class="op">=</span><span class="st">""</span>, label<span class="op">=</span><span class="st">"Corrected SE"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.axhline(Z_CRIT, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="op">-</span>Z_CRIT, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Company, sorted by corrected z-statistic"</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"z-statistic"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correcting the covariance changes the proxy-discrimination test"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-pd-z" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pd-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="case_study3_files/figure-html/fig-pd-z-output-1.png" width="758" height="422" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pd-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Proxy-discrimination z-statistics under independent and corrected standard errors.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The proxy-discrimination example shows why the dependence between the two regressions matters. If the cross-covariance is ignored, the standard error of the coefficient shift can be overstated, making the test too conservative.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="appendix-supporting-materials" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-supporting-materials">Appendix: Supporting Materials</h2>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<ul>
+<li><a href="il-per-zip.csv">il-per-zip.csv</a>, ProPublica Illinois zip-code quote data used in the audits</li>
+</ul>
+</section>
+<section id="reference" class="level3">
+<h3 class="anchored" data-anchor-id="reference">Reference</h3>
+<ul>
+<li><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>, full inferential theory, audit protocol, and Illinois validation</li>
+<li><a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a>. qualitative audit pathway companion</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
+Colorado Division of Insurance. 2023. <span>“CONCERNING QUANTITATIVE TESTING OF EXTERNAL CONSUMER DATA AND INFORMATION SOURCES, ALGORITHMS, AND PREDICTIVE MODELS USED FOR LIFE INSURANCE UNDERWRITING FOR UNFAIRLY DISCRIMINATORY OUTCOMES.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view
+" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view
+</a>.
+</div>
+<div id="ref-huanghooker2026fairness" class="csl-entry" role="listitem">
+Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span>
+</div>
+<div id="ref-larson-etal-2017-minority" class="csl-entry" role="listitem">
+Larson, Jeff, Julia Angwin, Lauren Kirchner, and Surya Mattu. 2017. <span>“Minority Neighborhoods Pay Higher Car Insurance Premiums Than White Areas with the Same Risk.”</span> ProPublica and Consumer Reports. <a href="https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk">https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk</a>.
+</div>
+<div id="ref-mackinnon-white-1985" class="csl-entry" role="listitem">
+MacKinnon, James G, and Halbert White. 1985. <span>“Some Heteroskedasticity-Consistent Covariance Matrix Estimators with Improved Finite Sample Properties.”</span> <em>Journal of Econometrics</em> 29 (3): 305–25.
+</div>
+<div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
+</div>
+<div id="ref-schuirmann-1987-comparison" class="csl-entry" role="listitem">
+Schuirmann, Donald J. 1987. <span>“A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.”</span> <em>Journal of Pharmacokinetics and Biopharmaceutics</em> 15 (6): 657–80.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Playbook/Step-4-Audit-the-System.html" class="pagination-link" aria-label="Step 4: Audit the system">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Step 4: Audit the system</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
