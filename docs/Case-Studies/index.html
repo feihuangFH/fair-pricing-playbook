@@ -8,7 +8,7 @@
 
 <meta name="author" content="Fei Huang, UNSW Sydney">
 
-<title>Step 4: Audit the system – The Fair Pricing Playbook</title>
+<title>Introduction – The Fair Pricing Playbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,8 +31,6 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Case Study 3/case_study3.html" rel="next">
-<link href="../Case Study 2/case_study2.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -99,49 +77,6 @@ gtag('js', new Date());
 gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -154,7 +89,9 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      The Fair Pricing Playbook
+      </li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -226,7 +163,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link active">
+  <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 4: Audit the system</span></a>
   </div>
 </li>
@@ -244,28 +181,14 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
-  <li><a href="#does-it-work" id="toc-does-it-work" class="nav-link" data-scroll-target="#does-it-work">Does it work?</a></li>
-  <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
-  <li><a href="#end-to-end-audit-flow" id="toc-end-to-end-audit-flow" class="nav-link" data-scroll-target="#end-to-end-audit-flow">End-to-end audit flow</a></li>
-  <li><a href="#pre-audit-setup" id="toc-pre-audit-setup" class="nav-link" data-scroll-target="#pre-audit-setup">Pre-audit setup</a></li>
-  <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical testing</a></li>
-  <li><a href="#three-outcomes" id="toc-three-outcomes" class="nav-link" data-scroll-target="#three-outcomes">Three outcomes</a></li>
-  <li><a href="#governance-and-monitoring" id="toc-governance-and-monitoring" class="nav-link" data-scroll-target="#governance-and-monitoring">Governance and monitoring</a></li>
-  <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Step 4: Audit the system</h1>
+<h1 class="title">Introduction</h1>
 <p class="subtitle lead">A practical framework for fair algorithmic pricing</p>
 </div>
 
@@ -289,292 +212,11 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Prerequisite
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a>. Design and welfare analysis should be complete before auditing a deployed system.</p>
-<p>Optional technical companion. <a href="../Case Study 3/case_study3.html">Case Study 3: Fairness testing</a> for conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
-</div>
-</div>
-<section id="how-to-read-this-step" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-read-this-step">How to read this step</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>If your focus is…</th>
-<th>Start here</th>
-<th>Then read</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Compliance workflow</td>
-<td><a href="#does-it-work">Does it work?</a> → <a href="#end-to-end-audit-flow">End-to-end audit flow</a></td>
-<td><a href="#three-outcomes">Three outcomes</a> → <a href="#checklist">Checklist</a></td>
-</tr>
-<tr class="even">
-<td>Governance and sign-off</td>
-<td><a href="#pre-audit-setup">Pre-audit setup</a> → <a href="#governance-and-monitoring">Governance and monitoring</a></td>
-<td><a href="#checklist">Checklist</a></td>
-</tr>
-<tr class="odd">
-<td>Statistical implementation</td>
-<td><a href="#mini-glossary">Mini-glossary</a> → <a href="#statistical-testing">Statistical testing</a></td>
-<td><a href="../Case Study 3/case_study3.html">Case Study 3</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="does-it-work" class="level3">
-<h3 class="anchored" data-anchor-id="does-it-work">Does it work?</h3>
-<p>An audit tests whether a deployed pricing system meets the fairness standard from Step 1. Fix the protocol - criterion, legitimate factors, tolerance bands, sample design - before looking at outcomes. Then classify each test as pass, fail, or insufficient information.</p>
-<p>Run a pre-committed audit protocol on pricing outputs. All design choices are fixed before examining data <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Example criteria (CDP and PD)
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-important no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-For practitioners
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This step describes a regression-based audit protocol, not a substitute for legal advice or a regulator’s full examination. In your market you must pre-specify:</p>
-<ul>
-<li>Fairness criterion conditional demographic parity (CDP) for system-level price gaps after legitimate controls. Proxy discrimination (PD) when screening a suspect rating variable. Or another rule from Step 1 if required by law</li>
-<li>Protected attribute directly observed or responsibly proxied</li>
-<li>Legitimate rating factors as recognised by your regulator</li>
-<li>Response variable quoted premium, pure premium, or loss ratio, matching the regulatory question</li>
-<li>Tolerance margins for CDP, for example a 5% price-gap band and 0.80 adverse-impact ratio</li>
-<li>Corrected inference deterministic algorithm outputs usually require adjusted standard errors (HC3 for CDP. Cross-covariance for PD), not classical OLS defaults</li>
-</ul>
-<p>The <a href="../Case Study 3/case_study3.html">case study</a> applies one illustrative design to Illinois auto quotes. Adapt criteria, data, and escalation rules to your jurisdiction.</p>
-</div>
-</div>
-</section>
-<section id="mini-glossary" class="level3">
-<h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 72%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Term</th>
-<th>Plain language</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Conditional demographic parity (CDP)</td>
-<td>After controlling for legitimate risk factors, are average prices equal across protected groups?</td>
-</tr>
-<tr class="even">
-<td>Proxy discrimination (PD)</td>
-<td>Does a rating variable’s role change when a protected attribute enters the model?</td>
-</tr>
-<tr class="odd">
-<td>Legitimate factors (<span class="math inline">X_\ell</span>)</td>
-<td>Risk-related controls the regulator accepts in an audit regression</td>
-</tr>
-<tr class="even">
-<td>TOST</td>
-<td>Equivalence testing - pass only if evidence shows the disparity is within tolerance (used for CDP)</td>
-</tr>
-<tr class="odd">
-<td>HC3 / corrected SE</td>
-<td>Adjusted standard errors for deterministic or dependent pricing outputs</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="end-to-end-audit-flow" class="level3">
-<h3 class="anchored" data-anchor-id="end-to-end-audit-flow">End-to-end audit flow</h3>
-<p>End-to-end flow for the fairness audit protocol <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>:</p>
-<p><img src="plot/audit-flow.png" class="img-fluid" style="width:100.0%" alt="End-to-end fairness audit flow: Plan, Audit, Decide, Improve"></p>
-<p>All design choices must be fixed before examining data. Post-hoc changes to criteria, margins, or samples undermine auditability and stated error control.</p>
-</section>
-<section id="pre-audit-setup" class="level3">
-<h3 class="anchored" data-anchor-id="pre-audit-setup">Pre-audit setup</h3>
-<ol type="1">
-<li>Select a fairness criterion proxy discrimination (PD) when auditing specific rating variables suspected of proxying the protected attribute. Conditional demographic parity (CDP) when evaluating the system-level price gap after controlling for legitimate risk factors. Other criteria from Step 1 may apply in your jurisdiction.</li>
-<li>Specify the protected attribute <span class="math inline">A</span> - document the attribute and, if proxied, the inference method and its limitations.</li>
-<li>Specify legitimate rating factors <span class="math inline">X_\ell</span> aligned with Step 1 and regulatory guidance.</li>
-<li>Define the response variable <span class="math inline">P</span> - quoted premium, pure premium, or loss ratio. The choice sets the economic meaning of any disparity.</li>
-<li>Set tolerance margins for CDP: level-gap margin <span class="math inline">\delta</span>, ratio margin <span class="math inline">\tau</span> (e.g.&nbsp;5% gap, 0.80 adverse impact ratio), significance level <span class="math inline">\alpha</span>. For PD: <span class="math inline">\alpha</span> and minimum relative shift <span class="math inline">\rho_{\min}</span> (e.g.&nbsp;10%).</li>
-<li>Specify the standard error estimator HC3 for CDP by default. Full cross-covariance for the PD coefficient-shift test.</li>
-<li>Design a representative quote sample stratified profiles submitted within a short time window. Plan sample size for adequate power (insufficient data yields insufficient information, not a pass).</li>
-<li>Define test scope e.g.&nbsp;per company, per product. Document whether multiple proxy variables are tested and how multiplicity is handled.</li>
-</ol>
-</section>
-<section id="statistical-testing" class="level3">
-<h3 class="anchored" data-anchor-id="statistical-testing">Statistical testing</h3>
-<p>Pricing algorithms are usually deterministic: the same inputs produce the same price. Residuals then reflect approximation error, not sampling noise, so classical regression standard errors can be invalid in both direction and magnitude <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
-<ul>
-<li>Conditional demographic parity (CDP). regress the pricing outcome on the protected attribute and legitimate factors. Test whether the protected-group coefficient lies within pre-specified ratio and level-gap bands using equivalence testing (TOST). A pass requires positive evidence of compliance within tolerance - not merely failing to detect a disparity.</li>
-<li>Proxy discrimination (PD). compare a rating variable’s coefficient in a restricted model (without the protected attribute) and an extended model (with it). Use the corrected cross-covariance for the coefficient shift - treating the two regressions as independent overstates uncertainty and can miss proxy behaviour. PD uses a two-part rule (statistical significance plus a minimum relative shift), not TOST in the same form as CDP.</li>
-</ul>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Technical detail
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Regression formulas, corrected standard errors, and TOST decision rules are worked through in <a href="../Case Study 3/case_study3.html">Case Study 3</a>.</p>
-</div>
-</div>
-</section>
-<section id="three-outcomes" class="level3">
-<h3 class="anchored" data-anchor-id="three-outcomes">Three outcomes</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 34%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Outcome</th>
-<th>Meaning</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Pass</td>
-<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance</td>
-<td>Document. Proceed with monitoring</td>
-</tr>
-<tr class="even">
-<td>Insufficient information</td>
-<td>Interval too wide to confirm pass or fail - reflects limited data, not a pass</td>
-<td>Collect more data or follow a pre-specified escalation procedure</td>
-</tr>
-<tr class="odd">
-<td>Fail</td>
-<td>Confidence interval lies entirely outside the tolerance band (material disparity</td>
-<td>Remediate → re-test (return to Step 2 or Step 1)</td>
-</tr>
-</tbody>
-</table>
-<p>On fail or unclear CDP results, a PD screen can identify candidate driver variables. Remediation may include recalibration, fairness constraints at retraining, or ongoing monitoring with re-audit triggers.</p>
-</section>
-<section id="governance-and-monitoring" class="level3">
-<h3 class="anchored" data-anchor-id="governance-and-monitoring">Governance and monitoring</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Role</th>
-<th>Responsibility</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Accountable technical owner</td>
-<td>Audit protocol sign-off</td>
-</tr>
-<tr class="even">
-<td>Independent reviewer</td>
-<td>Replicate audit analysis</td>
-</tr>
-<tr class="odd">
-<td>Model owner</td>
-<td>Remediation on fail or unclear result</td>
-</tr>
-</tbody>
-</table>
-<p>Re-audit on model change, regulatory update, or drift in audit statistics. Store the complete quote dataset and a reproducibility manifest.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Insurance example
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The accountable technical owner may be a chief actuary or model validation lead. Regulators in several US states now require documented fairness testing of pricing algorithms.</p>
-</div>
-</div>
-</section>
-<section id="checklist" class="level3">
-<h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 28%">
-<col style="width: 71%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Task</th>
-<th>Typical owner</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Pre-specified protocol (criterion, response, tolerance, sample)</td>
-<td>Compliance / Model risk</td>
-</tr>
-<tr class="even">
-<td>Corrected inference for deterministic outputs</td>
-<td>Actuarial / Data science</td>
-</tr>
-<tr class="odd">
-<td>CDP (TOST) and/or PD (two-part) tests applied as pre-specified</td>
-<td>Actuarial / Data science</td>
-</tr>
-<tr class="even">
-<td>Three-outcome classification documented (insufficient information ≠ pass)</td>
-<td>Compliance</td>
-</tr>
-<tr class="odd">
-<td>Remediation and re-audit path assigned</td>
-<td>Model owner + Legal</td>
-</tr>
-</tbody>
-</table>
+<p>This page has moved to the <a href="../index.html#case-studies">home page</a>.</p>
 
 
 
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
-Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
-</div>
-<div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
-Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
-</div>
-<div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
-New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -995,21 +637,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../Case Study 2/case_study2.html" class="pagination-link" aria-label="↳ Case study 2: Welfare implications">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">↳ Case study 2: Welfare implications</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../Case Study 3/case_study3.html" class="pagination-link" aria-label="↳ Case study 3: Fairness testing">
-        <span class="nav-page-text">↳ Case study 3: Fairness testing</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

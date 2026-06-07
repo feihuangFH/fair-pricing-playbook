@@ -141,30 +141,59 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
  <span class="menu-text">Home</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pathway</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 1: Define fairness</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 2: Design fair pricing</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 1: Fair cost models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 3: Assess impact</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 2: Welfare implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 4: Audit the system</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 3: Fairness testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -202,44 +231,49 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 
 <section id="the-fair-pricing-playbook" class="level2">
 <h2 class="anchored" data-anchor-id="the-fair-pricing-playbook">The Fair Pricing Playbook</h2>
-<p>An open guide for building algorithmic pricing systems that are accurate, defensible, and fair. The playbook has four steps (one page each), with references at the bottom of every step.</p>
+<p>An open guide for building algorithmic pricing systems that are accurate, defensible, and fair. The site has two parts:</p>
+<ol type="1">
+<li>Pathway. Four qualitative steps on fairness in algorithmic pricing (no code required).</li>
+<li>Case studies. Three technical, reproducible insurance applications for practitioners who want to go deeper.</li>
+</ol>
 <p>Open the site at <a href="https://fair.feihuang.org">fair.feihuang.org</a> (source: <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a>).</p>
 </section>
-<section id="four-steps" class="level2">
-<h2 class="anchored" data-anchor-id="four-steps">Four steps</h2>
+<section id="how-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use">How to use this site</h2>
+<p>Read in order from top to bottom. Each row pairs a pathway step with an optional technical case study (insurance data, code, and full results).</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Step</th>
-<th>Topic</th>
+<th>#</th>
+<th>Pathway (qualitative)</th>
+<th>Case study (technical)</th>
 <th>Question</th>
-<th>Page</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>Fairness metrics</td>
+<td><a href="Playbook/Step-1-Define-Fairness.html">Step 1: Define fairness</a></td>
+<td></td>
 <td>What is fair?</td>
-<td><a href="Playbook/Step-1-Define-Fairness.html">Define fairness</a></td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>Fair models</td>
+<td><a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2: Design fair pricing</a></td>
+<td><a href="Case Study 1/case_study1.html">1: Fair cost models</a></td>
 <td>How to achieve fairness?</td>
-<td><a href="Playbook/Step-2-Design-Fair-Pricing.html">Design fair pricing</a></td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>Welfare implications</td>
+<td><a href="Playbook/Step-3-Assess-Impact.html">Step 3: Assess impact</a></td>
+<td><a href="Case Study 2/case_study2.html">2: Welfare implications</a></td>
 <td>Who gains and loses?</td>
-<td><a href="Playbook/Step-3-Assess-Impact.html">Assess impact</a></td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>Fairness testing</td>
+<td><a href="Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a></td>
+<td><a href="Case Study 3/case_study3.html">3: Fairness testing</a></td>
 <td>Does it work?</td>
-<td><a href="Playbook/Step-4-Audit-the-System.html">Audit the system</a></td>
 </tr>
 </tbody>
 </table>
@@ -249,19 +283,105 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Who it is for
+Two ways to read
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Actuaries, data scientists, compliance leaders, and regulators who need a structured, repeatable workflow.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Reader</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>General (compliance, policy, management)</td>
+<td>Follow the Pathway column only (Steps 1–4). No code required.</td>
+</tr>
+<tr class="even">
+<td>Technical (data science, actuarial, research)</td>
+<td>Read each pathway step, then the matching case study. See <a href="#case-studies">Case studies</a> below for methods, data, and software.</td>
+</tr>
+</tbody>
+</table>
+<p>In the sidebar, each case study appears directly under its pathway step (Steps 2–4).</p>
 </div>
 </div>
+</section>
+<section id="case-studies" class="level2">
+<h2 class="anchored" data-anchor-id="case-studies">Case studies</h2>
+<p>The three case studies supplement the pathway. They are written for a technical audience (practitioners who want reproducible code, data workflows, and full empirical results. Insurance is used throughout as the running example, but the methods apply more broadly to algorithmic pricing.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Case study</th>
+<th>Pathway step</th>
+<th>Question</th>
+<th>Methods</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="Case Study 1/case_study1.html">1: Fair cost models</a></td>
+<td><a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2</a></td>
+<td>How do fairness criteria change predictive models?</td>
+<td>GLM, XGBoost, disparate impact removal</td>
+<td>French motor insurance</td>
+</tr>
+<tr class="even">
+<td><a href="Case Study 2/case_study2.html">2: Welfare implications</a></td>
+<td><a href="Playbook/Step-3-Assess-Impact.html">Step 3</a></td>
+<td>Who gains and loses once prices respond to demand?</td>
+<td>Cost modelling, demand, price optimisation</td>
+<td>French motor insurance</td>
+</tr>
+<tr class="odd">
+<td><a href="Case Study 3/case_study3.html">3: Fairness testing</a></td>
+<td><a href="Playbook/Step-4-Audit-the-System.html">Step 4</a></td>
+<td>Does a deployed pricing system pass a fairness audit?</td>
+<td>Regression audits, TOST, corrected inference</td>
+<td>ProPublica Illinois auto quotes</td>
+</tr>
+</tbody>
+</table>
+<p>Suggested reading order. <a href="Playbook/Step-1-Define-Fairness.html">Step 1</a> (concepts for all studies) → Step 2 + Case Study 1 → Step 3 + Case Study 2 → Step 4 + Case Study 3. Case Study 2 builds on the modelling ideas in Case Study 1, but each study can be read on its own once you know the relevant pathway step.</p>
+<p>Case Study 1 compares pricing models (M0, MU, MDP, MCDP, MC) under different fairness criteria, evaluates fairness–accuracy trade-offs, and examines proxy sensitivity.</p>
+<p>Case Study 2 models the full pricing pipeline (expected cost, pricing rules, demand, welfare, and profit) and compares alternative regulations (P0, PA, POB, PDP, PAF).</p>
+<p>Case Study 3 implements a pre-committed audit protocol for conditional demographic parity and proxy discrimination, with corrected standard errors for deterministic algorithmic outputs.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Case study</th>
+<th>Language</th>
+<th>Key packages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>R</td>
+<td><code>tidyverse</code>, <code>xgboost</code>, <code>fairmodels</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>R</td>
+<td><code>tidyverse</code>, pre-computed optimisation outputs</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Python</td>
+<td><code>pandas</code>, <code>numpy</code>, <code>statsmodels</code></td>
+</tr>
+</tbody>
+</table>
+<p>Source code and data references are embedded in each case study.</p>
 </section>
 <section id="end-to-end-audit-flow" class="level2">
 <h2 class="anchored" data-anchor-id="end-to-end-audit-flow">End-to-end audit flow</h2>
 <p>Step 4 follows an integrated Plan → Audit → Decide → Improve protocol <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. All design choices are fixed before examining data.</p>
 <p><img src="Playbook/plot/audit-flow.png" class="img-fluid" style="width:100.0%" alt="End-to-end fairness audit flow: Plan, Audit, Decide, Improve"></p>
-<p>Plan · Audit · Decide · Improve</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 43%">
@@ -280,7 +400,7 @@ Who it is for
 </tr>
 <tr class="even">
 <td>Audit</td>
-<td>Collect quotes; run statistical fairness tests with corrected inference</td>
+<td>Collect prices. Run statistical fairness tests with corrected inference</td>
 </tr>
 <tr class="odd">
 <td>Decide</td>
@@ -288,7 +408,7 @@ Who it is for
 </tr>
 <tr class="even">
 <td>Improve</td>
-<td>Remediate and re-test; collect more data if unclear</td>
+<td>Remediate and re-test. Collect more data if unclear</td>
 </tr>
 </tbody>
 </table>
@@ -329,10 +449,11 @@ Who it is for
 </section>
 <section id="about-the-author" class="level2">
 <h2 class="anchored" data-anchor-id="about-the-author">About the Author</h2>
-<div class="columns about-author">
+<div class="columns.about-author">
 <div class="column" style="width:30%;">
 <p><img src="Fei_Huang.jpeg" class="about-author-photo img-fluid"></p>
-</div><div class="column" style="width:70%;">
+</div>
+<div class="column" style="width:70%;">
 <section id="dr.-fei-huang" class="level4">
 <h4 class="anchored" data-anchor-id="dr.-fei-huang"><a href="https://www.unsw.edu.au/staff/fei-huang">Dr.&nbsp;Fei Huang</a></h4>
 <div class="about-author-contact">
@@ -344,6 +465,10 @@ Who it is for
 </section>
 </div>
 </div>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Thank you to Xi Xin for his support in preparing these resources.</p>
 </section>
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
