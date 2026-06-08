@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Fei Huang">
-<meta name="dcterms.date" content="2026-06-07">
+<meta name="dcterms.date" content="2026-06-08">
 
 <title>Case Study 3: Fairness Testing for Algorithmic Pricing – The Fair Pricing Playbook</title>
 <style>
@@ -339,7 +339,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 7, 2026</p>
+      <p class="date">June 8, 2026</p>
     </div>
   </div>
   
@@ -368,14 +368,14 @@ Before you start
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>Regulatory agencies have increasingly required firms to assess whether algorithmic pricing systems produce unfair outcomes for protected groups. For example, recent regulatory proposals in Colorado and New York <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span> require insurers to evaluate whether pricing algorithms and predictive models produce discriminatory pricing outcomes.</p>
 <p>Many fairness audits rely on regression-based methods. A common approach is to compare pricing outcomes across protected groups after controlling for legitimate risk factors and then evaluate whether any remaining disparity falls within an acceptable tolerance.</p>
-<p>This case study illustrates how regression-based fairness audits can be conducted for deterministic pricing outputs. It is based on the empirical analysis in <em>Fairness Testing for Algorithmic Pricing</em> by <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>. In particular, we focus on two fairness criteria that are closely related to current regulatory proposals:</p>
+<p>This case study illustrates how regression-based fairness audits can be conducted for deterministic pricing outputs. It is based on <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>. In particular, we focus on two fairness criteria that are closely related to current regulatory proposals:</p>
 <ul>
-<li><strong>Conditional demographic parity (CDP).</strong> after controlling for legitimate risk factors, do pricing outcomes differ systematically across protected groups?</li>
-<li><strong>Proxy discrimination (PD).</strong> does a rating variable act as a statistical proxy for a protected attribute?</li>
+<li>Conditional demographic parity (CDP). after controlling for legitimate risk factors, do pricing outcomes differ systematically across protected groups?</li>
+<li>Proxy discrimination (PD). does a rating variable act as a statistical proxy for a protected attribute?</li>
 </ul>
 <p>A distinctive feature of algorithmic pricing systems is that they are often deterministic. The same profile submitted to the same algorithm produces the same price. As a result, residuals from an audit regression represent approximation error rather than sampling variability. This distinction has important implications for statistical inference and forms the central motivation for the empirical analysis in this case study.</p>
 <p>To illustrate the audit framework, we use the ProPublica Illinois auto insurance dataset <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>, which contains quoted premiums from multiple insurers across Illinois zip codes.</p>
-<p>The analysis is designed to show <strong>how to run a regression-based fairness audit</strong>, not to deliver filing-ready compliance conclusions for any named insurer.</p>
+<p>The analysis is designed to show how to run a regression-based fairness audit, not to deliver filing-ready compliance conclusions for any named insurer.</p>
 </section>
 <section id="how-to-read-this-case-study" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-this-case-study">How to Read This Case Study</h2>
@@ -408,21 +408,21 @@ Before you start
 </section>
 <section id="audit-protocol" class="level2">
 <h2 class="anchored" data-anchor-id="audit-protocol">Audit protocol</h2>
-<p><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> organises fairness testing as an end-to-end <strong>Plan → Audit → Decide → Improve</strong> workflow. Design choices should be fixed <strong>before</strong> examining outcomes.</p>
+<p><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> organises fairness testing as an end-to-end Plan → Audit → Decide → Improve workflow. Design choices should be fixed before examining outcomes.</p>
 <p><img src="../Playbook/plot/audit-flow.png" class="img-fluid" style="width:90.0%" alt="Audit flow: Plan, Audit, Decide, Improve with Pass, Insufficient Information, or Fail"></p>
 <section id="plan-pre-audit-setup" class="level4">
 <h4 class="anchored" data-anchor-id="plan-pre-audit-setup">Plan (pre-audit setup)</h4>
 <ol type="1">
-<li><strong>Select a fairness criterion.</strong> CDP for system-level price gaps after controlling for legitimate factors. PD when a specific rating variable may proxy the protected attribute.</li>
-<li><strong>Specify the protected attribute</strong> <span class="math inline">A</span>. Here, a majority-minority zip-code indicator (a proxied attribute at zip level).</li>
-<li><strong>Specify legitimate rating factors</strong> <span class="math inline">X_\ell</span>. Here, log state risk and a Chicago indicator.</li>
-<li><strong>Pre-specify tolerances and decision rules.</strong> Significance level, TOST margins for CDP, substantive shift threshold for PD (see <a href="#audit-parameters">Audit parameters</a>).</li>
-<li><strong>Design a representative quote sample.</strong> Standardised profiles submitted within a short window.</li>
+<li>Select a fairness criterion. CDP for system-level price gaps after controlling for legitimate factors. PD when a specific rating variable may proxy the protected attribute.</li>
+<li>Specify the protected attribute <span class="math inline">A</span>. Here, a majority-minority zip-code indicator (a proxied attribute at zip level).</li>
+<li>Specify legitimate rating factors <span class="math inline">X_\ell</span>. Here, log state risk and a Chicago indicator.</li>
+<li>Pre-specify tolerances and decision rules. Significance level, TOST margins for CDP, substantive shift threshold for PD (see <a href="#audit-parameters">Audit parameters</a>).</li>
+<li>Design a representative quote sample. Standardised profiles submitted within a short window.</li>
 </ol>
 </section>
 <section id="audit" class="level4">
 <h4 class="anchored" data-anchor-id="audit">Audit</h4>
-<p>Collect deterministic pricing outputs and run the criterion-specific regression tests using <strong>corrected standard errors</strong> (HC3 for CDP. Cross-covariance for PD coefficient shifts).</p>
+<p>Collect deterministic pricing outputs and run the criterion-specific regression tests using corrected standard errors (HC3 for CDP. Cross-covariance for PD coefficient shifts).</p>
 </section>
 <section id="decide-three-outcomes" class="level4">
 <h4 class="anchored" data-anchor-id="decide-three-outcomes">Decide (three outcomes)</h4>
@@ -441,23 +441,23 @@ Before you start
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Pass</strong></td>
-<td>Confidence interval lies <strong>entirely within</strong> the tolerance band (positive evidence of compliance</td>
+<td>Pass</td>
+<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance</td>
 <td>Document and monitor</td>
 </tr>
 <tr class="even">
-<td><strong>Fail</strong></td>
-<td>Confidence interval lies <strong>entirely outside</strong> the tolerance band (material disparity</td>
+<td>Fail</td>
+<td>Confidence interval lies entirely outside the tolerance band (material disparity</td>
 <td>Remediation and re-test</td>
 </tr>
 <tr class="odd">
-<td><strong>Insufficient information</strong></td>
+<td>Insufficient information</td>
 <td>Interval is too wide to confirm pass or fail</td>
 <td>Collect more data, then re-audit</td>
 </tr>
 </tbody>
 </table>
-<p>PD uses a <strong>two-part rule</strong> (statistical significance plus a minimum relative shift) rather than TOST. See <a href="#proxy-discrimination-audit">Proxy discrimination audit</a>.</p>
+<p>PD uses a two-part rule (statistical significance plus a minimum relative shift) rather than TOST. See <a href="#proxy-discrimination-audit">Proxy discrimination audit</a>.</p>
 </section>
 <section id="improve" class="level4">
 <h4 class="anchored" data-anchor-id="improve">Improve</h4>
@@ -472,15 +472,15 @@ For practitioners
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This case study applies <strong>one illustrative audit design</strong> from <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> to Illinois auto quotes. In your own market you must choose:</p>
+<p>This case study applies one illustrative audit design from <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> to Illinois auto quotes. In your own market you must choose:</p>
 <ul>
-<li><strong>Fairness criterion</strong> (CDP, PD, or another rule required by law)</li>
-<li><strong>Protected attribute</strong> <span class="math inline">A</span> (directly observed or responsibly proxied)</li>
-<li><strong>Legitimate rating factors</strong> <span class="math inline">X_\ell</span> (as recognised by your regulator)</li>
-<li><strong>Tolerance margins</strong> (for example, Colorado’s 5% price-gap discussion and standard 0.80 adverse-impact ratio)</li>
-<li><strong>Suspected proxy variables</strong> for PD screens</li>
+<li>Fairness criterion (CDP, PD, or another rule required by law)</li>
+<li>Protected attribute <span class="math inline">A</span> (directly observed or responsibly proxied)</li>
+<li>Legitimate rating factors <span class="math inline">X_\ell</span> (as recognised by your regulator)</li>
+<li>Tolerance margins (for example, Colorado’s 5% price-gap discussion and standard 0.80 adverse-impact ratio)</li>
+<li>Suspected proxy variables for PD screens</li>
 </ul>
-<p>Quoted premiums here are <strong>deterministic algorithm outputs</strong>, so classical OLS standard errors are generally <strong>not valid</strong>. Use the corrected estimators shown below. Results are a <strong>teaching illustration</strong> using zip-level data and a proxied protected attribute, not a definitive regulatory finding about any company.</p>
+<p>Quoted premiums here are deterministic algorithm outputs, so classical OLS standard errors are generally not valid. Use the corrected estimators shown below. Results are a teaching illustration using zip-level data and a proxied protected attribute, not a definitive regulatory finding about any company.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
@@ -500,7 +500,7 @@ Scope of this case study
 <li>CDP via log-premium regression + TOST. PD illustration for <code>log_risk</code></li>
 <li>Corrected inference (HC3. PD cross-covariance)</li>
 </ul>
-<p><strong>Not covered here.</strong> GLM audit specifications, formal sample-size planning, multi-proxy screens, or insurer-specific filing conclusions. See <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> for the full framework.</p>
+<p>Not covered here. GLM audit specifications, formal sample-size planning, multi-proxy screens, or insurer-specific filing conclusions. See <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> for the full framework.</p>
 </div>
 </div>
 </section>
@@ -1057,7 +1057,7 @@ Note
 </tr>
 </tbody>
 </table>
-<p>Rule abbreviations. <strong>CDP</strong> = conditional demographic parity. <strong>PD</strong> = proxy discrimination. <strong>TOST</strong> = two one-sided tests (equivalence testing).</p>
+<p>Rule abbreviations. CDP = conditional demographic parity. PD = proxy discrimination. TOST = two one-sided tests (equivalence testing).</p>
 </section>
 <section id="conditional-demographic-parity-audit" class="level2">
 <h2 class="anchored" data-anchor-id="conditional-demographic-parity-audit">Conditional Demographic Parity Audit</h2>
@@ -1441,7 +1441,7 @@ Note
 <li>the confidence interval for the log-premium gap must lie within the log-ratio band corresponding to an adverse-impact ratio of 0.80. And</li>
 <li>the implied dollar gap must lie within 5% of the mean premium.</li>
 </ol>
-<p>A company <strong>passes</strong> only if both confidence intervals lie entirely within the tolerance bands. It <strong>fails</strong> if either interval lies entirely outside. Otherwise the verdict is <strong>insufficient information</strong> the sample is too imprecise to confirm compliance or a material disparity (<span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>).</p>
+<p>A company passes only if both confidence intervals lie entirely within the tolerance bands. It fails if either interval lies entirely outside. Otherwise the verdict is insufficient information the sample is too imprecise to confirm compliance or a material disparity (<span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>).</p>
 <div id="cell-cdp-verdict-summary" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show CDP verdict summary code</summary>
@@ -1613,7 +1613,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Unlike conventional significance testing, TOST requires positive evidence that the disparity is sufficiently small. <strong>Insufficient information</strong> is not a pass. It means the audit cannot yet close and more data or a pre-specified escalation step may be needed.</p>
+<p>Unlike conventional significance testing, TOST requires positive evidence that the disparity is sufficiently small. Insufficient information is not a pass. It means the audit cannot yet close and more data or a pre-specified escalation step may be needed.</p>
 </div>
 </div>
 </section>
