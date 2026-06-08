@@ -960,7 +960,7 @@ Q_i(p_i)\left(p_i - \hat{c}_i\right).
 <ul>
 <li>Source. French private motor insurance data from the <code>CASdatasets</code> package (<code>pg15training</code> family), as in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>.</li>
 <li>Protected attribute. <code>Gender</code> (coded as <code>s = 0</code> for male, <code>s = 1</code> for female in the implementation).</li>
-<li>Sample sizes. Cost modelling uses the full 100,000-policy dataset analysed in the paper. Welfare analysis uses a 2,000-policyholder subsample because the price optimisation is slow at full scale. The bundled CSVs contain those 2,000 policyholders, selected as the first 2,000 rows after merging cost-model outputs (<code>df.iloc[:2000]</code> in <code>welfare_analysis_french.py</code>).</li>
+<li>Sample sizes. Cost modelling uses the full 100,000-policy dataset analysed in the paper. Welfare analysis uses a 2,000-policyholder subsample because the price optimisation is slow at full scale. The bundled CSVs contain 2,000 policyholders.</li>
 <li>Traditional rating variables in <code>French_individual_traditional.csv</code>: <code>Age.ct</code>, <code>Bonus</code>, <code>Density</code>, <code>GroupOne</code>, <code>Insurancescore</code>, and a <code>Gender</code> dummy (plus intercept). These enter the accountable pricing rule (PA).</li>
 </ul>
 </section>
