@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Fei Huang">
-<meta name="dcterms.date" content="2026-06-07">
+<meta name="dcterms.date" content="2026-06-08">
 
 <title>Case Study 2: Welfare Implications of Fair Insurance Pricing – The Fair Pricing Playbook</title>
 <style>
@@ -354,7 +354,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 7, 2026</p>
+      <p class="date">June 8, 2026</p>
     </div>
   </div>
   
@@ -383,9 +383,9 @@ Before you start
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>In Case Study 1, the focus was on fairness in cost modelling: how insurers estimate expected claim costs under different fairness constraints. This case study moves one step further along the insurance pricing pipeline. Even after expected costs have been estimated, insurers still need to convert those cost estimates into premiums.</p>
 <p>In practice, premiums are not determined solely by expected claim costs. Insurers may also account for consumer demand, price sensitivity, and regulatory constraints when setting prices. As a result, fairness in cost modelling does not necessarily translate into fairness in final premiums, and fairness in premiums does not necessarily imply favourable welfare outcomes for consumers.</p>
-<p>This case study is based on <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>, *Welfare Implications of Fair and Accountable Insurance Pricing<strong>. It </strong>extends** the cost-modelling focus of <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> (Case Study 1) to the full pricing pipeline. The paper develops an empirical framework for evaluating fair and accountable insurance pricing by modelling the complete pricing process, including cost modelling, demand modelling, price optimisation, consumer welfare, and insurer profit. It shows that different pricing regulations can create a fundamental tension between fairness in premiums and fairness in markups. Policies that reduce one type of disparity may amplify another, and regulations that appear favourable under fairness metrics may impose profit losses or produce market-dependent welfare effects.</p>
+<p>This case study is based on <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>. It extends the cost-modelling focus of <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> (Case Study 1) to the full pricing pipeline. The paper develops an empirical framework for evaluating fair and accountable insurance pricing by modelling the complete pricing process, including cost modelling, demand modelling, price optimisation, consumer welfare, and insurer profit. It shows that different pricing regulations can create a fundamental tension between fairness in premiums and fairness in markups. Policies that reduce one type of disparity may amplify another, and regulations that appear favourable under fairness metrics may impose profit losses or produce market-dependent welfare effects.</p>
 <p>Using French motor insurance data, this case study illustrates how alternative pricing regulations affect premiums, markups, consumer welfare, and insurer profit. The main aim is to understand why pricing regulations should be evaluated not only by whether they satisfy a fairness criterion, but also by how they affect consumers and insurers once demand responses and pricing behaviour are taken into account.</p>
-<p>The analysis is designed for <strong>policy evaluation</strong>. It shows what can happen when different regulatory constraints are applied, not what every insurer should implement in every market.</p>
+<p>The analysis is designed for policy evaluation. It shows what can happen when different regulatory constraints are applied, not what every insurer should implement in every market.</p>
 </section>
 <section id="how-to-read-this-case-study" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-this-case-study">How to Read This Case Study</h2>
@@ -434,14 +434,14 @@ For practitioners
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <strong>cost modelling</strong>, <strong>demand modelling</strong>, and <strong>price optimisation</strong> steps shown here are a <strong>standard illustrative example</strong> from <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>. In practice, you should choose methods that fit your <strong>jurisdiction</strong>, <strong>product</strong>, <strong>data quality</strong>, and <strong>market conditions</strong> not adopt this pipeline by default.</p>
+<p>The cost modelling, demand modelling, and price optimisation steps shown here are a standard illustrative example from <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>. In practice, you should choose methods that fit your jurisdiction, product, data quality, and market conditions not adopt this pipeline by default.</p>
 <ul>
-<li><strong>Cost modelling.</strong> frequency–severity models (here, XGBoost with Poisson and gamma deviance) are one common approach. GLMs and other actuarial methods may be preferred where interpretability, filing requirements, or governance rules require them.</li>
-<li><strong>Demand modelling.</strong> The discrete-choice setup is useful for welfare analysis. Many pricing teams use simpler elasticity or conversion models, or may not use an explicit demand model where regulation requires cost-based pricing.</li>
-<li><strong>Price optimisation.</strong> Setting prices to maximise profit using demand information is <strong>restricted or prohibited in some jurisdictions</strong> (for example, under price optimisation bans in parts of the United States). We include this step here for <strong>policy analysis</strong>: to compare how alternative pricing rules affect premiums, markups, welfare, and profit. It is not a recommendation that every firm should optimise prices in every market.</li>
-<li><strong>Claim cost vs commercial premium.</strong> As in <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> and <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>, <span class="math inline">\hat{c}_i</span> and <span class="math inline">p_i</span> here refer to <strong>expected claim cost</strong> (pure premium / technical price), not a filed commercial rate. In practice, insurers add <strong>expense loadings</strong>, <strong>cost of capital</strong>, <strong>reinsurance</strong> charges, <strong>profit margin</strong>, and other components when setting prices. Fairness at the technical stage does not automatically guarantee fairness in final rates unless those loadings are applied consistently across groups. A complete fair-pricing review should cover both technical rating and office-premium construction.</li>
+<li>Cost modelling. frequency–severity models (here, XGBoost with Poisson and gamma deviance) are one common approach. GLMs and other actuarial methods may be preferred where interpretability, filing requirements, or governance rules require them.</li>
+<li>Demand modelling. The discrete-choice setup is useful for welfare analysis. Many pricing teams use simpler elasticity or conversion models, or may not use an explicit demand model where regulation requires cost-based pricing.</li>
+<li>Price optimisation. Setting prices to maximise profit using demand information is restricted or prohibited in some jurisdictions (for example, under price optimisation bans in parts of the United States). We include this step here for policy analysis: to compare how alternative pricing rules affect premiums, markups, welfare, and profit. It is not a recommendation that every firm should optimise prices in every market.</li>
+<li>Claim cost vs commercial premium. As in <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> and <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>, <span class="math inline">\hat{c}_i</span> and <span class="math inline">p_i</span> here refer to expected claim cost (pure premium / technical price), not a filed commercial rate. In practice, insurers add expense loadings, cost of capital, reinsurance charges, profit margin, and other components when setting prices. Fairness at the technical stage does not automatically guarantee fairness in final rates unless those loadings are applied consistently across groups. A complete fair-pricing review should cover both technical rating and office-premium construction.</li>
 </ul>
-<p>The practical takeaway is to evaluate <strong>regulatory options and their consequences</strong>. The technical choices in this case study are inputs to that comparison, not a universal pricing manual.</p>
+<p>The practical takeaway is to evaluate regulatory options and their consequences. The technical choices in this case study are inputs to that comparison, not a universal pricing manual.</p>
 </div>
 </div>
 <p>The original paper considers both an uninsured outside option and several competitive outside-option settings. To keep the analysis concise and focused on the main ideas, this case study considers the uninsured setting, in which consumers may either purchase the offered insurance policy or remain uninsured. Interested readers may explore competitive settings using the supporting materials in the appendix.</p>
@@ -458,11 +458,11 @@ Scope of this case study
 <ul>
 <li>French motor data (<code>pg15training</code> family), gender as protected attribute</li>
 <li>Uninsured outside option (voluntary insurance)</li>
-<li>Cost model <strong>C0</strong> (unconstrained) with pricing rules P0, PA, POB, PDP, PAF</li>
-<li><strong>Expected claim cost only</strong> premiums and markups are built from predicted claim costs. Expense loadings, cost of capital, reinsurance, and profit margin are not modelled separately (as in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span> and <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>)</li>
+<li>Cost model C0 (unconstrained) with pricing rules P0, PA, POB, PDP, PAF</li>
+<li>Expected claim cost only premiums and markups are built from predicted claim costs. Expense loadings, cost of capital, reinsurance, and profit margin are not modelled separately (as in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span> and <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>)</li>
 <li>Pre-computed optimisation outputs for interpretation</li>
 </ul>
-<p>This case study uses a <strong>2,000-policyholder teaching subsample</strong> so that readers can load and explore results quickly.</p>
+<p>Cost modelling follows the paper on the full 100,000-policy dataset. Welfare analysis uses a 2,000-policyholder subsample because the price optimisation is slow at full scale.</p>
 </div>
 </div>
 </section>
@@ -493,7 +493,7 @@ Scope of this case study
 </tr>
 <tr class="odd">
 <td><span class="math inline">\hat{c}_i</span></td>
-<td>Insurer’s estimated <strong>marginal claim cost</strong> (pure premium / technical price) for policyholder <span class="math inline">i</span>. Excludes expense, capital, reinsurance, and profit loadings</td>
+<td>Insurer’s estimated marginal claim cost (pure premium / technical price) for policyholder <span class="math inline">i</span>. Excludes expense, capital, reinsurance, and profit loadings</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">p_i</span></td>
@@ -668,7 +668,7 @@ Scope of this case study
 </section>
 <section id="price-optimisation-details" class="level2">
 <h2 class="anchored" data-anchor-id="price-optimisation-details">Price Optimisation Details</h2>
-<p>This section describes one way to link cost estimates, consumer demand, and regulatory constraints into final premiums. As noted above, <strong>price optimisation is included for policy analysis</strong>, not because it is permitted or appropriate in every jurisdiction.</p>
+<p>This section describes one way to link cost estimates, consumer demand, and regulatory constraints into final premiums. As noted above, price optimisation is included for policy analysis, not because it is permitted or appropriate in every jurisdiction.</p>
 <p>The empirical results in this case study are based on pre-computed optimisation outputs. This is because the original price optimisation problem is computationally intensive. Depending on the pricing rule being considered, the optimisation may involve thousands of pricing parameters, fairness constraints, or non-convex objective functions. Re-running the full optimisation therefore requires substantially more computation than is appropriate for a teaching case study.</p>
 <p>This section explains how the optimisation outputs were obtained in the illustrative workflow. The code chunks are provided for transparency, but they are not executed in this case study. Readers who wish to re-run the optimisation can refer to <code>welfare_analysis_french.py</code> and <code>utils.py</code> in the appendix. For data sources, parameter values, formal pricing-rule definitions, and welfare measurement, see <a href="#how-the-empirical-market-was-constructed">How the empirical market was constructed</a>.</p>
 <section id="inputs-to-the-optimisation" class="level3">
@@ -703,9 +703,9 @@ Scope of this case study
 <section id="demand-model" class="level3">
 <h3 class="anchored" data-anchor-id="demand-model">Demand model</h3>
 <p>The demand model describes how consumers respond to the premium offered by the insurer. Each consumer chooses between the insurer’s product and an outside option. The purchase probability is modelled using a discrete-choice framework, where the probability of choosing the insurer’s product depends on its value relative to the value of the outside option.</p>
-<p>This demand specification is a <strong>research example</strong> for welfare measurement. In practice, you may use a different demand model, or omit explicit demand modelling where regulation requires premiums to follow cost-based rules (as under POB in this case study, or under price optimisation bans in some jurisdictions).</p>
+<p>This demand specification is a research example for welfare measurement. In practice, you may use a different demand model, or omit explicit demand modelling where regulation requires premiums to follow cost-based rules (as under POB in this case study, or under price optimisation bans in some jurisdictions).</p>
 <p>The value of an insurance product depends on the premium, the out-of-pocket losses borne by the consumer, and the consumer’s risk aversion. Following <span class="citation" data-cites="cohen2007estimating">Cohen and Einav (<a href="#ref-cohen2007estimating" role="doc-biblioref">2007</a>)</span> and <span class="citation" data-cites="jin2021buying">Jin and Vasserman (<a href="#ref-jin2021buying" role="doc-biblioref">2021</a>)</span>, insurance values are approximated using a mean-variance representation of expected utility and are then translated into purchase probabilities through the discrete-choice framework. The original implementation computes this through <code>loss_to_value_j()</code> and <code>choice_prob()</code> in <code>utils.py</code>, with TensorFlow-based counterparts in <code>welfare_analysis_french.py</code>.</p>
-<p>The following code is a simplified sketch of the demand calculation. It is not copied directly from the original scripts, but it follows the same calculation in the single-product setting considered in this case study. The teaching sketch omits <strong>product inertia</strong> <span class="math inline">\eta_i</span> (switching cost. See <a href="#notation">Notation</a>). The full implementation in <code>construct_outside_option()</code> subtracts <span class="math inline">\eta_i</span> from the outside-option value when <code>flag_inertia=True</code>, using coefficients from <span class="citation" data-cites="jin2021buying">Jin and Vasserman (<a href="#ref-jin2021buying" role="doc-biblioref">2021</a>)</span>. See <a href="#how-the-empirical-market-was-constructed">How the empirical market was constructed</a> for the complete demand setup.</p>
+<p>The following code is a simplified sketch of the demand calculation. It is not copied directly from the original scripts, but it follows the same calculation in the single-product setting considered in this case study. The teaching sketch omits product inertia <span class="math inline">\eta_i</span> (switching cost. See <a href="#notation">Notation</a>). The full implementation in <code>construct_outside_option()</code> subtracts <span class="math inline">\eta_i</span> from the outside-option value when <code>flag_inertia=True</code>, using coefficients from <span class="citation" data-cites="jin2021buying">Jin and Vasserman (<a href="#ref-jin2021buying" role="doc-biblioref">2021</a>)</span>. See <a href="#how-the-empirical-market-was-constructed">How the empirical market was constructed</a> for the complete demand setup.</p>
 <div id="demand-model-sketch" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show demand model sketch</summary>
@@ -767,34 +767,34 @@ Scope of this case study
 </section>
 <section id="pricing-rules" class="level3">
 <h3 class="anchored" data-anchor-id="pricing-rules">Pricing rules</h3>
-<p>The notation below follows <a href="#notation">Notation</a>. The insurer chooses premiums to maximise expected profit, subject to the pricing rule being considered. Different pricing rules restrict how premiums may be determined and therefore lead to different optimisation problems. Rules such as <strong>POB</strong> (price linked to cost) and <strong>PA</strong> (accountable rating structure) are closer to how many regulated markets operate. <strong>P0</strong> (unconstrained optimisation) is included mainly as a benchmark for policy comparison.</p>
+<p>The notation below follows <a href="#notation">Notation</a>. The insurer chooses premiums to maximise expected profit, subject to the pricing rule being considered. Different pricing rules restrict how premiums may be determined and therefore lead to different optimisation problems. Rules such as POB (price linked to cost) and PA (accountable rating structure) are closer to how many regulated markets operate. P0 (unconstrained optimisation) is included mainly as a benchmark for policy comparison.</p>
 <p>Each rule maximises aggregate expected profit</p>
 <p><span class="math display">
 \sum_i Q_i(p_i)\left(p_i - \hat{c}_i\right)
 </span></p>
 <p>subject to the rule-specific restriction below. In the result files, scenarios are labelled <code>{cost_model}-{price_model}</code> (for example, <code>C0-PDP</code>).</p>
-<p><strong>P0 (unconstrained pricing).</strong> One premium per policyholder:</p>
+<p>P0 (unconstrained pricing). One premium per policyholder:</p>
 <p><span class="math display">
 p_i^{*} = \arg\max_{p_i} Q_i(p_i)\left(p_i - \hat{c}_i\right).
 </span></p>
-<p><strong>PA (accountable pricing).</strong> Premiums follow a multiplicative rating structure:</p>
+<p>PA (accountable pricing). Premiums follow a multiplicative rating structure:</p>
 <p><span class="math display">
 p_i = B \cdot f_s(s_i) \prod_{k} \exp\left(\beta_k X_{ik}\right).
 </span></p>
-<p><strong>POB (price optimisation ban).</strong> Premiums are linear in estimated cost:</p>
+<p>POB (price optimisation ban). Premiums are linear in estimated cost:</p>
 <p><span class="math display">
 p_i = \beta_0 + \beta_c \hat{c}_i.
 </span></p>
-<p><strong>PDP (demographic parity).</strong> Same objective as P0, with equal average premiums across gender groups:</p>
+<p>PDP (demographic parity). Same objective as P0, with equal average premiums across gender groups:</p>
 <p><span class="math display">
 \mathrm{E}\left[p_i \mid s = 0\right] = \mathrm{E}\left[p_i \mid s = 1\right],
 </span></p>
 <p>enforced via a penalty term (tolerance <span class="math inline">\varepsilon = 0.01</span>).</p>
-<p><strong>PAF (actuarial group fairness).</strong> Same objective as P0, with equal average premiums across gender groups within each cost stratum <span class="math inline">g</span>:</p>
+<p>PAF (actuarial group fairness). Same objective as P0, with equal average premiums across gender groups within each cost stratum <span class="math inline">g</span>:</p>
 <p><span class="math display">
 \mathrm{E}\left[p_i \mid s, g\right] = \mathrm{E}\left[p_i \mid s^{\prime}, g\right].
 </span></p>
-<p>Estimated costs are split into <strong>four quartile groups</strong> for PAF (highest risk above the 75th percentile down to lowest risk at or below the 25th percentile). Demographic parity in average premium is enforced within each stratum.</p>
+<p>Estimated costs are split into four quartile groups for PAF (highest risk above the 75th percentile down to lowest risk at or below the 25th percentile). Demographic parity in average premium is enforced within each stratum.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -954,25 +954,25 @@ Q_i(p_i)\left(p_i - \hat{c}_i\right).
 </section>
 <section id="how-the-empirical-market-was-constructed" class="level2">
 <h2 class="anchored" data-anchor-id="how-the-empirical-market-was-constructed">How the Empirical Market Was Constructed</h2>
-<p>This section documents how the pre-computed outputs were built in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>. It records the <strong>data, parameters, and file mapping</strong> used in the bundled results. Treat it as a transparent description of one worked example, not a checklist every practitioner must follow. Adapt cost models, demand assumptions, and pricing steps to your jurisdiction and business context.</p>
+<p>This section documents how the pre-computed outputs were built in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>. It records the data, parameters, and file mapping used in the bundled results. Treat it as a transparent description of one worked example, not a checklist every practitioner must follow. Adapt cost models, demand assumptions, and pricing steps to your jurisdiction and business context.</p>
 <section id="data-and-sample" class="level3">
 <h3 class="anchored" data-anchor-id="data-and-sample">Data and sample</h3>
 <ul>
-<li><strong>Source.</strong> French private motor insurance data from the <code>CASdatasets</code> package (<code>pg15training</code> family), as in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>.</li>
-<li><strong>Protected attribute.</strong> <code>Gender</code> (coded as <code>s = 0</code> for male, <code>s = 1</code> for female in the implementation).</li>
-<li><strong>Teaching subsample.</strong> The paper analyses 100,000 policies. The bundled CSVs contain <strong>2,000 policyholders</strong>, selected as the first 2,000 rows after merging cost-model outputs (<code>df.iloc[:2000]</code> in <code>welfare_analysis_french.py</code>).</li>
-<li><strong>Traditional rating variables</strong> in <code>French_individual_traditional.csv</code>: <code>Age.ct</code>, <code>Bonus</code>, <code>Density</code>, <code>GroupOne</code>, <code>Insurancescore</code>, and a <code>Gender</code> dummy (plus intercept). These enter the accountable pricing rule (PA).</li>
+<li>Source. French private motor insurance data from the <code>CASdatasets</code> package (<code>pg15training</code> family), as in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>.</li>
+<li>Protected attribute. <code>Gender</code> (coded as <code>s = 0</code> for male, <code>s = 1</code> for female in the implementation).</li>
+<li>Sample sizes. Cost modelling uses the full 100,000-policy dataset analysed in the paper. Welfare analysis uses a 2,000-policyholder subsample because the price optimisation is slow at full scale. The bundled CSVs contain those 2,000 policyholders, selected as the first 2,000 rows after merging cost-model outputs (<code>df.iloc[:2000]</code> in <code>welfare_analysis_french.py</code>).</li>
+<li>Traditional rating variables in <code>French_individual_traditional.csv</code>: <code>Age.ct</code>, <code>Bonus</code>, <code>Density</code>, <code>GroupOne</code>, <code>Insurancescore</code>, and a <code>Gender</code> dummy (plus intercept). These enter the accountable pricing rule (PA).</li>
 </ul>
 </section>
 <section id="stage-1-cost-modelling" class="level3">
 <h3 class="anchored" data-anchor-id="stage-1-cost-modelling">Stage 1: Cost modelling</h3>
 <p>The insurer estimates expected claim cost <span class="math inline">\hat{c}_i</span> for each policyholder before pricing. The frequency–severity XGBoost setup below is the case study’s chosen example. Other valid approaches include GLMs, credibility models, or fairness-constrained cost models (as in Case Study 1).</p>
 <ol type="1">
-<li><strong>Frequency</strong> is modelled with Poisson regression (Poisson deviance loss for XGBoost).</li>
-<li><strong>Severity</strong> is modelled with gamma regression (gamma deviance loss for XGBoost).</li>
-<li><strong>Simulation.</strong> Accident sequences are drawn from the compound Poisson–gamma model via <code>sample_accidents()</code>. Expected cost is <code>loss_to_expected_claim(d=0,...)</code>.</li>
+<li>Frequency is modelled with Poisson regression (Poisson deviance loss for XGBoost).</li>
+<li>Severity is modelled with gamma regression (gamma deviance loss for XGBoost).</li>
+<li>Simulation. Accident sequences are drawn from the compound Poisson–gamma model via <code>sample_accidents()</code>. Expected cost is <code>loss_to_expected_claim(d=0,...)</code>.</li>
 </ol>
-<p>In the bundled case study, cost models are <strong>pre-fit</strong>. The script <code>read_cost_results()</code> merges stored frequency and severity parameters (<code>lambda_*</code>, <code>alpha_*</code>, <code>beta_*</code>) from the cost-modelling pipeline. The label <strong>C0</strong> denotes an <strong>unconstrained</strong> cost model: no fairness constraint at the cost stage. With C0, the firm uses model <code>M1_telem0_xgb</code> for marginal cost <span class="math inline">\hat{c}_i</span>.</p>
+<p>In the bundled case study, cost models are pre-fit. The script <code>read_cost_results()</code> merges stored frequency and severity parameters (<code>lambda_*</code>, <code>alpha_*</code>, <code>beta_*</code>) from the cost-modelling pipeline. The label C0 denotes an unconstrained cost model: no fairness constraint at the cost stage. With C0, the firm uses model <code>M1_telem0_xgb</code> for marginal cost <span class="math inline">\hat{c}_i</span>.</p>
 <p>Result files name each scenario <code>{cost_model}-{price_model}</code> (for example, <code>C0-P0</code> = unconstrained cost + unconstrained pricing).</p>
 </section>
 <section id="stage-2-consumer-and-demand-construction" class="level3">
@@ -1044,20 +1044,20 @@ Q_i(p_i) = \frac{\exp\left(v_{ij}/\sigma\right)}{\exp\left(v_{ij}/\sigma\right) 
 <section id="stage-4-numerical-optimisation" class="level3">
 <h3 class="anchored" data-anchor-id="stage-4-numerical-optimisation">Stage 4: Numerical optimisation</h3>
 <ul>
-<li><strong>Solver.</strong> TensorFlow + Adam <span class="citation" data-cites="kingma2014adam">(<a href="#ref-kingma2014adam" role="doc-biblioref">Kingma and Ba 2014</a>)</span>, class <code>PriceOptimizationProblem</code> in <code>welfare_analysis_french.py</code>.</li>
-<li><strong>Iterations.</strong> up to <code>n_iter = 3000</code> with exponential learning-rate decay (rule-specific initial rates: higher for P0/PDP/PAF/POB, lower for PA).</li>
-<li><strong>Initial prices.</strong> P0 starts at <span class="math inline">1.5\hat{c}_i</span>. PA from regression of <span class="math inline">\log(1.5\hat{c}_i)</span> on features. POB from regressing P0 prices on costs. PDP and PAF from P0 prices adjusted to satisfy their fairness constraints.</li>
-<li><strong>Convergence.</strong> Objective stability and constraint satisfaction (group-level tolerance 0.01 for PDP and PAF), following the numerical setup in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>.</li>
+<li>Solver. TensorFlow + Adam <span class="citation" data-cites="kingma2014adam">(<a href="#ref-kingma2014adam" role="doc-biblioref">Kingma and Ba 2014</a>)</span>, class <code>PriceOptimizationProblem</code> in <code>welfare_analysis_french.py</code>.</li>
+<li>Iterations. up to <code>n_iter = 3000</code> with exponential learning-rate decay (rule-specific initial rates: higher for P0/PDP/PAF/POB, lower for PA).</li>
+<li>Initial prices. P0 starts at <span class="math inline">1.5\hat{c}_i</span>. PA from regression of <span class="math inline">\log(1.5\hat{c}_i)</span> on features. POB from regressing P0 prices on costs. PDP and PAF from P0 prices adjusted to satisfy their fairness constraints.</li>
+<li>Convergence. Objective stability and constraint satisfaction (group-level tolerance 0.01 for PDP and PAF), following the numerical setup in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>.</li>
 </ul>
 </section>
 <section id="stage-5-welfare-and-profit" class="level3">
 <h3 class="anchored" data-anchor-id="stage-5-welfare-and-profit">Stage 5: Welfare and profit</h3>
 <p>Welfare symbols (<span class="math inline">\mathrm{CE}_{ij}</span>, <span class="math inline">W_i</span>, <span class="math inline">\Pi</span>) are defined in <a href="#notation">Notation</a>.</p>
-<p><strong>Profit</strong> (already used in the results section):</p>
+<p>Profit (already used in the results section):</p>
 <p><span class="math display">
 \Pi = \sum_i Q_i(p_i)\left(p_i - \hat{c}_i\right).
 </span></p>
-<p><strong>Consumer welfare</strong> uses certainty equivalence (CE). For each policyholder, CE solves</p>
+<p>Consumer welfare uses certainty equivalence (CE). For each policyholder, CE solves</p>
 <p><span class="math display">
 u_i(w_i + \mathrm{CE}_{ij}) = \mathrm{E}\left[u_i(w_i + h_i)\right].
 </span></p>
@@ -1065,11 +1065,11 @@ u_i(w_i + \mathrm{CE}_{ij}) = \mathrm{E}\left[u_i(w_i + h_i)\right].
 <p><span class="math display">
 \mathrm{CE}_{ij} = \frac{1 - \sqrt{1 - 2\gamma_i v_{ij}}}{\gamma_i}.
 </span></p>
-<p><strong>Ex-ante welfare</strong> for policyholder <span class="math inline">i</span> combines purchase and outside-option CEs:</p>
+<p>Ex-ante welfare for policyholder <span class="math inline">i</span> combines purchase and outside-option CEs:</p>
 <p><span class="math display">
 W_i = Q_i(p_i)\,\mathrm{CE}^{\mathrm{purchase}}_{i} + \left(1 - Q_i(p_i)\right)\mathrm{CE}^{\mathrm{outside}}_{i}.
 </span></p>
-<p>The summary file reports portfolio means <code>welfare</code>, <code>welfare0</code> (male), and <code>welfare1</code> (female). <strong>Markup</strong> is</p>
+<p>The summary file reports portfolio means <code>welfare</code>, <code>welfare0</code> (male), and <code>welfare1</code> (female). Markup is</p>
 <p><span class="math display">
 \mathrm{Markup}_i = \frac{p_i}{\hat{c}_i} - 1.
 </span></p>
@@ -1077,9 +1077,9 @@ W_i = Q_i(p_i)\,\mathrm{CE}^{\mathrm{purchase}}_{i} + \left(1 - Q_i(p_i)\right)\
 </section>
 <section id="data-and-pre-computed-outputs" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-pre-computed-outputs">Data and Pre-computed Outputs</h2>
-<p>The empirical exercise uses French motor insurance data from the <code>pg15training</code> family. Gender is treated as the protected attribute throughout the analysis. As noted above, the bundled files contain a <strong>2,000-policyholder teaching subsample</strong> of the 100,000-policy dataset analysed in the paper.</p>
-<p>The original optimisation procedure produces both model-level and individual-level outputs. To keep the case study computationally accessible, we work directly with these pre-computed outputs rather than re-running the full price optimisation. <strong>Practitioners can work from the summary tables and figures below</strong> to discuss regulatory trade-offs without implementing the full pipeline.</p>
-<p>In the result files, each model is labelled <code>{cost_model}-{price_model}</code>. Here <strong>C0</strong> is the unconstrained cost model and <strong>P0</strong>, <strong>PA</strong>, <strong>POB</strong>, <strong>PDP</strong>, and <strong>PAF</strong> are the pricing rules defined above.</p>
+<p>The empirical exercise uses French motor insurance data from the <code>pg15training</code> family. Gender is treated as the protected attribute throughout the analysis. As noted above, cost modelling is based on the 100,000-policy dataset analysed in the paper. Welfare analysis uses a 2,000-policyholder subsample because the price optimisation is slow at full scale.</p>
+<p>The original optimisation procedure produces both model-level and individual-level outputs. To keep the case study computationally accessible, we work directly with these pre-computed outputs rather than re-running the full price optimisation. Practitioners can work from the summary tables and figures below to discuss regulatory trade-offs without implementing the full pipeline.</p>
+<p>In the result files, each model is labelled <code>{cost_model}-{price_model}</code>. Here C0 is the unconstrained cost model and P0, PA, POB, PDP, and PAF are the pricing rules defined above.</p>
 <div id="setup-and-load-data" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show data loading code</summary>
@@ -1581,7 +1581,7 @@ Figure&nbsp;3: Cumulative distribution of markups under unconstrained pricing.
 <section id="pricing-regulations" class="level2">
 <h2 class="anchored" data-anchor-id="pricing-regulations">Pricing Regulations</h2>
 <p>The case study compares five pricing rules considered in <span class="citation" data-cites="huang2026welfare">Huang and Shimao (<a href="#ref-huang2026welfare" role="doc-biblioref">2026</a>)</span>. Their formal definitions, equations, and regulatory interpretation are in <a href="#pricing-rules">Pricing rules</a>.</p>
-<p>Among these regulations, <code>PDP</code> and <code>PAF</code> are the two rules that explicitly incorporate fairness considerations with respect to the protected attribute. <code>PDP</code> targets equality in average premiums across gender groups over the portfolio. <code>PAF</code> imposes the same equality <strong>within each of four cost quartiles</strong> (risk groups defined by the 25th, 50th, and 75th percentiles of <span class="math inline">\hat{c}_i</span>), so fairness is conditional on estimated cost rather than unconditional across the portfolio.</p>
+<p>Among these regulations, <code>PDP</code> and <code>PAF</code> are the two rules that explicitly incorporate fairness considerations with respect to the protected attribute. <code>PDP</code> targets equality in average premiums across gender groups over the portfolio. <code>PAF</code> imposes the same equality within each of four cost quartiles (risk groups defined by the 25th, 50th, and 75th percentiles of <span class="math inline">\hat{c}_i</span>), so fairness is conditional on estimated cost rather than unconditional across the portfolio.</p>
 <p>As we will see below, these alternative notions of fairness can lead to very different outcomes in terms of premiums, markups, welfare, and insurer profit.</p>
 </section>
 <section id="preparing-regulation-level-summaries" class="level2">
@@ -1899,7 +1899,7 @@ Figure&nbsp;5: Mean markup by gender under alternative pricing rules.
 </section>
 <section id="welfare-change-by-gender" class="level3">
 <h3 class="anchored" data-anchor-id="welfare-change-by-gender">Welfare Change by Gender</h3>
-<p>Welfare is measured by <strong>certainty equivalence</strong> (CE): the sure dollar amount that makes a consumer indifferent to the uncertain outcome of purchasing or not purchasing insurance. Portfolio welfare in the summary file is the mean of <span class="math inline">W_i</span> across policyholders (defined in <a href="#stage-5-welfare-and-profit">Stage 5: Welfare and profit</a>).</p>
+<p>Welfare is measured by certainty equivalence (CE): the sure dollar amount that makes a consumer indifferent to the uncertain outcome of purchasing or not purchasing insurance. Portfolio welfare in the summary file is the mean of <span class="math inline">W_i</span> across policyholders (defined in <a href="#stage-5-welfare-and-profit">Stage 5: Welfare and profit</a>).</p>
 <p>The next figure compares welfare changes relative to the unconstrained pricing benchmark <code>P0</code>. Bar colour denotes the pricing rule (see legend). Within each rule, the left bar is male and the lighter right bar is female.</p>
 <div id="cell-fig-welfare-change" class="cell" data-execution_count="21">
 <details class="code-fold">
