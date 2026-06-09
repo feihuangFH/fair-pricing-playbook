@@ -311,7 +311,7 @@ window.Quarto = {
   <li><a href="#appendix-supporting-materials" id="toc-appendix-supporting-materials" class="nav-link" data-scroll-target="#appendix-supporting-materials">Appendix: Supporting Materials</a>
   <ul class="collapse">
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
+  <li><a href="#reference" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="case_study3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -374,11 +374,12 @@ Before you start
 <li>Proxy discrimination (PD). does a rating variable act as a statistical proxy for a protected attribute?</li>
 </ul>
 <p>A distinctive feature of algorithmic pricing systems is that they are often deterministic. The same profile submitted to the same algorithm produces the same price. As a result, residuals from an audit regression represent approximation error rather than sampling variability. This distinction has important implications for statistical inference and forms the central motivation for the empirical analysis in this case study.</p>
-<p>To illustrate the audit framework, we use the ProPublica Illinois auto insurance dataset <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>, which contains quoted premiums from multiple insurers across Illinois zip codes.</p>
+<p>To illustrate the audit framework, we use the ProPublica Illinois auto insurance dataset <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>, which contains quoted premiums from multiple insurers across Illinois zip codes. The dataset (<code>il-per-zip.csv</code>) is included in the accompanying materials for this case study.</p>
 <p>The analysis is designed to show how to run a regression-based fairness audit, not to deliver filing-ready compliance conclusions for any named insurer.</p>
 </section>
 <section id="how-to-read-this-case-study" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-this-case-study">How to Read This Case Study</h2>
+<p>Not every section is needed for every reader. The table below suggests a practical reading order.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -408,60 +409,9 @@ Before you start
 </section>
 <section id="audit-protocol" class="level2">
 <h2 class="anchored" data-anchor-id="audit-protocol">Audit protocol</h2>
-<p><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> organises fairness testing as an end-to-end Plan → Audit → Decide → Improve workflow. Design choices should be fixed before examining outcomes.</p>
+<p>This case study applies the Plan → Audit → Decide → Improve workflow from <a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a>. Design choices are fixed before examining outcomes. The sections below show how that protocol is implemented on Illinois auto quotes.</p>
 <p><img src="../Playbook/plot/audit-flow.png" class="img-fluid" style="width:90.0%" alt="Audit flow: Plan, Audit, Decide, Improve with Pass, Insufficient Information, or Fail"></p>
-<section id="plan-pre-audit-setup" class="level4">
-<h4 class="anchored" data-anchor-id="plan-pre-audit-setup">Plan (pre-audit setup)</h4>
-<ol type="1">
-<li>Select a fairness criterion. CDP for system-level price gaps after controlling for legitimate factors. PD when a specific rating variable may proxy the protected attribute.</li>
-<li>Specify the protected attribute <span class="math inline">A</span>. Here, a majority-minority zip-code indicator (a proxied attribute at zip level).</li>
-<li>Specify legitimate rating factors <span class="math inline">X_\ell</span>. Here, log state risk and a Chicago indicator.</li>
-<li>Pre-specify tolerances and decision rules. Significance level, TOST margins for CDP, substantive shift threshold for PD (see <a href="#audit-parameters">Audit parameters</a>).</li>
-<li>Design a representative quote sample. Standardised profiles submitted within a short window.</li>
-</ol>
-</section>
-<section id="audit" class="level4">
-<h4 class="anchored" data-anchor-id="audit">Audit</h4>
-<p>Collect deterministic pricing outputs and run the criterion-specific regression tests using corrected standard errors (HC3 for CDP. Cross-covariance for PD coefficient shifts).</p>
-</section>
-<section id="decide-three-outcomes" class="level4">
-<h4 class="anchored" data-anchor-id="decide-three-outcomes">Decide (three outcomes)</h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Verdict</th>
-<th>Meaning</th>
-<th>Typical next step</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Pass</td>
-<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance</td>
-<td>Document and monitor</td>
-</tr>
-<tr class="even">
-<td>Fail</td>
-<td>Confidence interval lies entirely outside the tolerance band (material disparity</td>
-<td>Remediation and re-test</td>
-</tr>
-<tr class="odd">
-<td>Insufficient information</td>
-<td>Interval is too wide to confirm pass or fail</td>
-<td>Collect more data, then re-audit</td>
-</tr>
-</tbody>
-</table>
-<p>PD uses a two-part rule (statistical significance plus a minimum relative shift) rather than TOST. See <a href="#proxy-discrimination-audit">Proxy discrimination audit</a>.</p>
-</section>
-<section id="improve" class="level4">
-<h4 class="anchored" data-anchor-id="improve">Improve</h4>
-<p>Failed or unclear audits trigger review of driver variables, model recalibration, or expanded sampling before re-testing.</p>
+<p>For this illustration we use CDP for system-level price gaps (with TOST) and PD for the suspected proxy variable <code>log_risk</code>. Protected attribute: majority-minority zip-code indicator. Legitimate factors: log state risk and a Chicago indicator. Tolerances and decision rules are in <a href="#audit-parameters">Audit parameters</a>. Pass, fail, and insufficient-information outcomes follow the three-outcome framework in Step 4.</p>
 <div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2029,8 +1979,8 @@ Note
 <li><a href="il-per-zip.csv">il-per-zip.csv</a>, ProPublica Illinois zip-code quote data used in the audits</li>
 </ul>
 </section>
-<section id="reference" class="level3">
-<h3 class="anchored" data-anchor-id="reference">Reference</h3>
+<section id="further-reading" class="level3">
+<h3 class="anchored" data-anchor-id="further-reading">Further reading</h3>
 <ul>
 <li><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>, full inferential theory, audit protocol, and Illinois validation</li>
 <li><a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a>, qualitative audit pathway for this case study</li>
