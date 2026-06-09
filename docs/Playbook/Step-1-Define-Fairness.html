@@ -473,6 +473,7 @@ Insurance example
 </section>
 <section id="mini-glossary" class="level4">
 <h4 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h4>
+<p>Symbols and terms used across Steps 1–4. Fairness criteria (FTU, CPV, DP, CDP) are defined formally in the <a href="#fairness-criteria">next section</a>.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 27%">
@@ -498,22 +499,6 @@ Insurance example
 <td>The model output you will test. Often an estimated cost or a quoted premium</td>
 </tr>
 <tr class="even">
-<td>FTU (fairness through unawareness)</td>
-<td>The model never uses the protected attribute</td>
-</tr>
-<tr class="odd">
-<td>CPV (controlling for the protected variable)</td>
-<td>A discrimination-free price obtained by averaging full-model predictions over the protected attribute in the population, so the final score does not depend on an individual’s protected status <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. In Step 2 this is implemented by post-processing (model MC)</td>
-</tr>
-<tr class="even">
-<td>DP (demographic parity)</td>
-<td>Average prices (or costs) are equal across protected groups</td>
-</tr>
-<tr class="odd">
-<td>CDP (conditional demographic parity)</td>
-<td>Prices are equal across groups after controlling for legitimate risk factors</td>
-</tr>
-<tr class="even">
 <td>PD (proxy discrimination)</td>
 <td>A non-protected variable acts as a stand-in for a protected attribute</td>
 </tr>
@@ -529,37 +514,37 @@ Insurance example
 <p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, and <span class="math inline">\hat{Y}</span> the predicted price (or cost estimate used to set price) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 26%">
-<col style="width: 47%">
-<col style="width: 26%">
+<col style="width: 20%">
+<col style="width: 37%">
+<col style="width: 41%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Type</th>
 <th>Criterion</th>
-<th>Idea</th>
+<th>Definition</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Individual</td>
 <td>FTU</td>
-<td><span class="math inline">\hat{Y}</span> does not use <span class="math inline">X_P</span></td>
+<td><span class="math inline">\hat{Y}</span> does not use <span class="math inline">X_P</span> (fairness through unawareness)</td>
 </tr>
 <tr class="even">
 <td>Individual</td>
 <td>CPV</td>
-<td>Discrimination-free price: average full-model predictions over <span class="math inline">X_P</span> at scoring time</td>
+<td>Discrimination-free price: average full-model predictions over <span class="math inline">X_P</span> at scoring time (controlling for the protected variable)</td>
 </tr>
 <tr class="odd">
 <td>Group</td>
 <td>DP</td>
-<td>Equal distribution of <span class="math inline">\hat{Y}</span> across groups</td>
+<td>Equal distribution of <span class="math inline">\hat{Y}</span> across groups (demographic parity)</td>
 </tr>
 <tr class="even">
 <td>Group</td>
 <td>CDP</td>
-<td>Parity within legitimate subgroups</td>
+<td>Parity within legitimate subgroups (conditional demographic parity)</td>
 </tr>
 <tr class="odd">
 <td>Group</td>
@@ -648,6 +633,7 @@ Insurance examples
 </section>
 <section id="checklist" class="level3">
 <h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
+<p>Use this checklist to confirm Step 1 decisions before moving to model design. Assign an owner for each item and record sign-off.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 28%">

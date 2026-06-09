@@ -249,7 +249,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
-  <li><a href="#how-to-achieve-fairness" id="toc-how-to-achieve-fairness" class="nav-link" data-scroll-target="#how-to-achieve-fairness">How to achieve fairness?</a></li>
+  <li><a href="#how-can-fair-pricing-be-achieved" id="toc-how-can-fair-pricing-be-achieved" class="nav-link" data-scroll-target="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></li>
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#model-criterion-mapping" id="toc-model-criterion-mapping" class="nav-link" data-scroll-target="#model-criterion-mapping">Model–criterion mapping</a></li>
   <li><a href="#pre-processing-mdp-mcdp" id="toc-pre-processing-mdp-mcdp" class="nav-link" data-scroll-target="#pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</a></li>
@@ -300,7 +300,7 @@ Prerequisite
 <div class="callout-body-container callout-body">
 <p><a href="Step-1-Define-Fairness.html">Step 1: Define fairness</a>. Agree on the fairness criterion before choosing a model.</p>
 <p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers how to build models that meet legal and statistical fairness criteria (FTU, DP, CDP, CPV, and related designs). Questions about solidarity, actuarial fairness, and consumer trust still matter, but the technical work here is about compliant cost modelling and mitigation of direct and indirect discrimination.</p>
-<p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair cost models</a> provides an insurance implementation (GLM and gradient boosting).</p>
+<p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair cost models</a> provides an insurance implementation (GLMs and XGBoost).</p>
 </div>
 </div>
 <section id="how-to-read-this-step" class="level3">
@@ -316,7 +316,7 @@ Prerequisite
 <tbody>
 <tr class="odd">
 <td>Governance and sign-off</td>
-<td><a href="#how-to-achieve-fairness">How to achieve fairness?</a></td>
+<td><a href="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></td>
 <td><a href="#implementation">Implementation</a> → <a href="#checklist">Checklist</a></td>
 </tr>
 <tr class="even">
@@ -332,8 +332,8 @@ Prerequisite
 </tbody>
 </table>
 </section>
-<section id="how-to-achieve-fairness" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-achieve-fairness">How to achieve fairness?</h3>
+<section id="how-can-fair-pricing-be-achieved" class="level3">
+<h3 class="anchored" data-anchor-id="how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</h3>
 <p>Once Step 1 fixes the fairness criterion, choose where in the pipeline to enforce it: adjust inputs before modelling (pre-processing), constrain the model during training (in-processing), or adjust outputs after prediction (post-processing). Each approach maps to a standard model design (M0–MC below).</p>
 <p>Implement anti-discrimination strategies at pre-processing, in-processing, or post-processing, linked to the fairness criteria from Step 1 <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
@@ -407,42 +407,42 @@ For practitioners
 <h3 class="anchored" data-anchor-id="model-criterion-mapping">Model–criterion mapping</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 52%">
-<col style="width: 27%">
+<col style="width: 25%">
+<col style="width: 39%">
+<col style="width: 35%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Model</th>
-<th>Fairness criterion</th>
+<th>Criterion</th>
 <th>Approach</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>M0 (full)</td>
-<td>(baseline)</td>
+<td>Baseline</td>
 <td>Uses <span class="math inline">X_P</span> and <span class="math inline">X_{NP}</span></td>
 </tr>
 <tr class="even">
-<td>MU (unawareness)</td>
+<td>MU</td>
 <td>FTU</td>
 <td><span class="math inline">\hat{Y} = f(X_{NP})</span> only</td>
 </tr>
 <tr class="odd">
-<td>MDP (demographic parity)</td>
+<td>MDP</td>
 <td>DP</td>
-<td>Pre-process all <span class="math inline">X_{NP}</span> to <span class="math inline">X_{NP}^{\star}</span>, removing dependence on <span class="math inline">X_P</span></td>
+<td>Pre-process all <span class="math inline">X_{NP}</span> to <span class="math inline">X_{NP}^{\star}</span></td>
 </tr>
 <tr class="even">
-<td>MCDP (conditional demographic parity)</td>
+<td>MCDP</td>
 <td>CDP</td>
-<td>Retain legitimate <span class="math inline">X_{NP_{\text{legit}}}</span>. Debias non-legitimate <span class="math inline">X_{NP_{\text{not}}}</span> to <span class="math inline">X_{NP_{\text{not}}}^{\star}</span></td>
+<td>Retain legitimate predictors; debias non-legitimate predictors</td>
 </tr>
 <tr class="odd">
-<td>MC (control)</td>
+<td>MC</td>
 <td>CPV</td>
-<td>Fit M0. Average over <span class="math inline">X_P</span> at prediction</td>
+<td>Fit M0; average over <span class="math inline">X_P</span> at prediction</td>
 </tr>
 </tbody>
 </table>
@@ -465,7 +465,7 @@ Insurance example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Legitimate features might include claims history or vehicle type. A credit-based score used only as a proxy for a protected attribute would typically be debiased under MCDP.</p>
+<p>Legitimate features might include claims history or vehicle type. An Insurance Score used only as a proxy for a protected attribute would typically be debiased under MCDP.</p>
 </div>
 </div>
 </section>
@@ -484,6 +484,7 @@ Insurance example
 </section>
 <section id="checklist" class="level3">
 <h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
+<p>Use this checklist to confirm model design choices before welfare analysis. Assign an owner for each item and record sign-off.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 28%">

@@ -249,7 +249,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
-  <li><a href="#does-it-work" id="toc-does-it-work" class="nav-link" data-scroll-target="#does-it-work">Does it work?</a></li>
+  <li><a href="#how-do-we-test-fairness" id="toc-how-do-we-test-fairness" class="nav-link" data-scroll-target="#how-do-we-test-fairness">How do we test fairness?</a></li>
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#end-to-end-audit-flow" id="toc-end-to-end-audit-flow" class="nav-link" data-scroll-target="#end-to-end-audit-flow">End-to-end audit flow</a></li>
   <li><a href="#pre-audit-setup" id="toc-pre-audit-setup" class="nav-link" data-scroll-target="#pre-audit-setup">Pre-audit setup</a></li>
@@ -317,7 +317,7 @@ Prerequisite
 <tbody>
 <tr class="odd">
 <td>Compliance workflow</td>
-<td><a href="#does-it-work">Does it work?</a> → <a href="#end-to-end-audit-flow">End-to-end audit flow</a></td>
+<td><a href="#how-do-we-test-fairness">How do we test fairness?</a> → <a href="#end-to-end-audit-flow">End-to-end audit flow</a></td>
 <td><a href="#three-outcomes">Three outcomes</a> → <a href="#checklist">Checklist</a></td>
 </tr>
 <tr class="even">
@@ -333,8 +333,8 @@ Prerequisite
 </tbody>
 </table>
 </section>
-<section id="does-it-work" class="level3">
-<h3 class="anchored" data-anchor-id="does-it-work">Does it work?</h3>
+<section id="how-do-we-test-fairness" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-we-test-fairness">How do we test fairness?</h3>
 <p>An audit tests whether a deployed pricing system meets the fairness standard from Step 1. Fix the protocol - criterion, legitimate factors, tolerance bands, sample design - before looking at outcomes. Then classify each test as pass, fail, or insufficient information.</p>
 <p>Run a pre-committed audit protocol on pricing outputs. All design choices are fixed before examining data <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -347,7 +347,7 @@ Example criteria (CDP and PD)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref"><strong>doradoi-2023-concerning?</strong></a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref"><strong>nydfs-2024-proposed?</strong></a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
+<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
@@ -481,7 +481,7 @@ For practitioners
 </tr>
 </tbody>
 </table>
-<p>Regulatory tolerance bands already define an equivalence region. Colorado’s 5% price-gap discussion maps to a level margin <span class="math inline">\delta</span>. The familiar 0.80 adverse-impact ratio maps to a ratio margin <span class="math inline">\tau</span>. TOST places the burden on the firm to demonstrate compliance within those bands, which matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref"><strong>doradoi-2023-concerning?</strong></a>)</span>.</p>
+<p>Regulatory tolerance bands already define an equivalence region. Colorado’s 5% price-gap discussion maps to a level margin <span class="math inline">\delta</span>. The familiar 0.80 adverse-impact ratio maps to a ratio margin <span class="math inline">\tau</span>. TOST places the burden on the firm to demonstrate compliance within those bands, which matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>)</span>.</p>
 <p>For CDP, a pass requires the confidence interval for the protected-group effect to lie entirely inside both the level-gap band <span class="math inline">(-\delta, +\delta)</span> and the log-ratio band implied by <span class="math inline">\tau</span>. A fail requires the interval to lie entirely outside. If the interval is too wide to settle either case, the verdict is insufficient information. That outcome is not a pass and should trigger more data or a pre-specified escalation step.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -564,7 +564,7 @@ Technical detail
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Insurance example
+Practical note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -574,6 +574,7 @@ Insurance example
 </section>
 <section id="checklist" class="level3">
 <h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
+<p>This checklist covers audit execution. Roles, monitoring, and remediation ownership are in <a href="#governance-and-monitoring">Governance and monitoring</a>.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 28%">
@@ -602,10 +603,6 @@ Insurance example
 <td>Three-outcome classification documented (insufficient information ≠ pass)</td>
 <td>Compliance</td>
 </tr>
-<tr class="odd">
-<td>Remediation and re-audit path assigned</td>
-<td>Model owner + Legal</td>
-</tr>
 </tbody>
 </table>
 
@@ -614,8 +611,14 @@ Insurance example
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
+Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
+</div>
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
+</div>
+<div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

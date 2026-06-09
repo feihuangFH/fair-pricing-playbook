@@ -9,7 +9,7 @@
 <meta name="author" content="Fei Huang">
 <meta name="dcterms.date" content="2026-06-08">
 
-<title>Case Study 1: Antidiscrimination Insurance Pricing – The Fair Pricing Playbook</title>
+<title>Case Study 1: Fair cost models – The Fair Pricing Playbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -7453,7 +7453,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Pathway</a></li><li class="breadcrumb-item"><a href="../Case Study 1/case_study1.html">↳ Case study 1: Fair cost models</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Case Study 1: Antidiscrimination Insurance Pricing</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Case Study 1: Fair cost models</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 <p class="subtitle lead">A practical framework for fair algorithmic pricing</p>
 </div>
 
@@ -7511,6 +7511,7 @@ Before you start
 </section>
 <section id="how-to-read-this-case-study" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-this-case-study">How to Read This Case Study</h2>
+<p>Not every section is needed for every reader. The table below suggests a practical reading order.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -7537,9 +7538,16 @@ Before you start
 </tr>
 </tbody>
 </table>
-<div id="for-practitioners.callout-important" data-appearance="simple" data-icon="false">
-<section id="for-practitioners" class="level3">
-<h3 class="anchored" data-anchor-id="for-practitioners">For practitioners</h3>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+For practitioners
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>This case study applies one illustrative antidiscrimination design from <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> to French motor data. In your market you must decide:</p>
 <ul>
 <li>Fairness criterion (FTU, DP, CDP, CPV) and how it maps to regulation</li>
@@ -7549,7 +7557,8 @@ Before you start
 </ul>
 <p>Pure premium vs commercial rate. Following the paper, <span class="math inline">\hat{Y}</span> is expected claim cost (frequency × severity), not a filed commercial premium. <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> treat this as approximately the price charged when expense and profit loadings are ignored. In practice, insurers also add acquisition and administrative expense, cost of capital, reinsurance, profit margin, and taxes. Fairness at the pure-premium stage does not guarantee fairness in final rates if those loadings differ across groups. Once cost models are set, <a href="../Case Study 2/case_study2.html">Case Study 2</a> illustrates how demand and pricing rules can further change premiums and welfare.</p>
 <p>Portfolio-level adjustments align total predicted premium across some models with the unawareness benchmark so comparisons focus on redistribution, not portfolio level. Adapt this step to your governance needs.</p>
-</section>
+</div>
+</div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -9513,7 +9522,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
 <div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Case Study 1: Antidiscrimination Insurance Pricing&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Case Study 1: Fair cost models&quot;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Fei Huang&quot;</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> last-modified</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
