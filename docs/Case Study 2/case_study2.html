@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Fei Huang">
-<meta name="dcterms.date" content="2026-06-09">
+<meta name="dcterms.date" content="2026-06-10">
 
 <title>Case Study 2: Welfare Implications of Fair Insurance Pricing – The Fair Pricing Playbook</title>
 <style>
@@ -247,7 +247,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">↳ Case study 1: Fair cost models</span></a>
+ <span class="menu-text">↳ Case study 1: Fair models</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -354,7 +354,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 9, 2026</p>
+      <p class="date">June 10, 2026</p>
     </div>
   </div>
   
@@ -376,7 +376,7 @@ Before you start
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Read <a href="../Playbook/Step-3-Assess-Impact.html">Step 3: Assess impact</a> first for the qualitative framework. <a href="case_study1.html">Case Study 1</a> covers fair cost models. This case study extends the pipeline to welfare and price optimisation.</p>
+<p>Read <a href="../Playbook/Step-3-Assess-Impact.html">Step 3: Assess impact</a> first for the qualitative framework. <a href="case_study1.html">Case Study 1</a> covers fair models at the cost stage. This case study extends the pipeline to welfare and price optimisation.</p>
 </div>
 </div>
 <section id="background" class="level2">
@@ -675,7 +675,7 @@ Scope of this case study
 <h3 class="anchored" data-anchor-id="inputs-to-the-optimisation">Inputs to the optimisation</h3>
 <p>The first input to the pricing optimisation is an estimate of the expected claim cost for each policyholder. These cost estimates are obtained from the cost modelling stage and represent the insurer’s estimate of the marginal cost of providing coverage.</p>
 <p>In this case study, claim frequency and claim severity are modelled separately using XGBoost. That is one standard actuarial approach. Your own cost models should follow filing rules, data availability, and model-risk standards in your market. Poisson deviance loss is used for claim frequency, while Gamma deviance loss is used for claim severity. The fitted models are then used to simulate claim outcomes and estimate the expected claim cost for each policyholder. These estimated costs serve as the cost inputs to the pricing optimisation.</p>
-<div id="optimisation-inputs-sketch" class="cell" data-execution_count="1">
+<div id="optimisation-inputs-sketch" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show cost model input sketch</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sketch only.</span></span>
@@ -706,7 +706,7 @@ Scope of this case study
 <p>This demand specification is a research example for welfare measurement. In practice, you may use a different demand model, or omit explicit demand modelling where regulation requires premiums to follow cost-based rules (as under POB in this case study, or under price optimisation bans in some jurisdictions).</p>
 <p>The value of an insurance product depends on the premium, the out-of-pocket losses borne by the consumer, and the consumer’s risk aversion. Following <span class="citation" data-cites="cohen2007estimating">Cohen and Einav (<a href="#ref-cohen2007estimating" role="doc-biblioref">2007</a>)</span> and <span class="citation" data-cites="jin2021buying">Jin and Vasserman (<a href="#ref-jin2021buying" role="doc-biblioref">2021</a>)</span>, insurance values are approximated using a mean-variance representation of expected utility and are then translated into purchase probabilities through the discrete-choice framework. The original implementation computes this through <code>loss_to_value_j()</code> and <code>choice_prob()</code> in <code>utils.py</code>, with TensorFlow-based counterparts in <code>welfare_analysis_french.py</code>.</p>
 <p>The following code is a simplified sketch of the demand calculation. It is not copied directly from the original scripts, but it follows the same calculation in the single-product setting considered in this case study. The teaching sketch omits product inertia <span class="math inline">\eta_i</span> (switching cost. See <a href="#notation">Notation</a>). The full implementation in <code>construct_outside_option()</code> subtracts <span class="math inline">\eta_i</span> from the outside-option value when <code>flag_inertia=True</code>, using coefficients from <span class="citation" data-cites="jin2021buying">Jin and Vasserman (<a href="#ref-jin2021buying" role="doc-biblioref">2021</a>)</span>. See <a href="#how-the-empirical-market-was-constructed">How the empirical market was constructed</a> for the complete demand setup.</p>
-<div id="demand-model-sketch" class="cell" data-execution_count="2">
+<div id="demand-model-sketch" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show demand model sketch</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Corresponding original functions:</span></span>
@@ -744,7 +744,7 @@ Scope of this case study
 </div>
 <p>In this sketch, <code>price</code> is the premium charged by the insurer, <code>deductible</code> determines the consumer’s out-of-pocket losses, and <code>loss_sample</code> contains simulated claim outcomes. The parameter <code>risk_gamma</code> is the coefficient of absolute risk aversion. The terms <code>u_intercept</code> and <code>u_price_coeff</code> are consumer-level utility parameters used to construct the deterministic component of utility. The parameter <code>logit_sigma</code> controls how strongly consumers respond to differences between the value of the insurer’s product and the value of the outside option.</p>
 <p>In the uninsured outside-option setting, a consumer who does not purchase the insurer’s product pays no premium but bears all losses out of pocket. This corresponds to the voluntary insurance scenario considered in the paper. In the implementation, this outside option is constructed using zero premium and an infinite deductible.</p>
-<div id="outside-option-sketch" class="cell" data-execution_count="3">
+<div id="outside-option-sketch" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show uninsured outside-option sketch</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Corresponding original function:</span></span>
@@ -837,7 +837,7 @@ p_i = \beta_0 + \beta_c \hat{c}_i.
 </tbody>
 </table>
 <p>The illustrative implementation generates premiums from a vector of optimisation parameters. A simplified sketch is shown below.</p>
-<div id="pricing-rules-sketch" class="cell" data-execution_count="4">
+<div id="pricing-rules-sketch" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show pricing rule sketch</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Corresponding original function:</span></span>
@@ -878,7 +878,7 @@ Q_i(p_i)\left(p_i - \hat{c}_i\right).
 <p>Where <span class="math inline">Q_i(p_i)</span> is the probability that policyholder <span class="math inline">i</span> purchases the insurer’s product when offered premium <span class="math inline">p_i</span>, <span class="math inline">p_i</span> is the premium, and <span class="math inline">\hat{c}_i</span> is the estimated marginal cost. The insurer’s objective is to maximise the sum of expected profits across all policyholders.</p>
 <p>Some pricing rules introduce additional fairness requirements. In the optimisation framework, these requirements are incorporated through penalty terms that reduce the objective value when the relevant fairness condition is violated.</p>
 <p>The following code illustrates the basic structure of the optimisation objective.</p>
-<div id="objective-function-sketch" class="cell" data-execution_count="5">
+<div id="objective-function-sketch" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show optimisation objective sketch</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Corresponding original function:</span></span>
@@ -916,7 +916,7 @@ Q_i(p_i)\left(p_i - \hat{c}_i\right).
 <h3 class="anchored" data-anchor-id="optimisation-loop">Optimisation loop</h3>
 <p>The optimisation problem is solved numerically using gradient-based methods. This is necessary because the objective function depends on consumer demand, purchase probabilities, and pricing constraints, which generally lead to a high-dimensional and non-convex optimisation problem.</p>
 <p>The implementation uses TensorFlow together with the Adam optimiser <span class="citation" data-cites="kingma2014adam">(<a href="#ref-kingma2014adam" role="doc-biblioref">Kingma and Ba 2014</a>)</span> to update the pricing parameters iteratively. The simplified structure is shown below.</p>
-<div id="optimisation-loop-sketch" class="cell" data-execution_count="6">
+<div id="optimisation-loop-sketch" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show optimisation loop sketch</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Corresponding original components:</span></span>
@@ -1080,7 +1080,7 @@ W_i = Q_i(p_i)\,\mathrm{CE}^{\mathrm{purchase}}_{i} + \left(1 - Q_i(p_i)\right)\
 <p>The empirical exercise uses French motor insurance data from the <code>pg15training</code> family. Gender is treated as the protected attribute throughout the analysis. As noted above, cost modelling is based on the 100,000-policy dataset analysed in the paper. Welfare analysis uses a 2,000-policyholder subsample because the price optimisation is slow at full scale.</p>
 <p>The original optimisation procedure produces both model-level and individual-level outputs. To keep the case study computationally accessible, we work directly with these pre-computed outputs rather than re-running the full price optimisation. Practitioners can work from the summary tables and figures below to discuss regulatory trade-offs without implementing the full pipeline.</p>
 <p>In the result files, each model is labelled <code>{cost_model}-{price_model}</code>. Here C0 is the unconstrained cost model and P0, PA, POB, PDP, and PAF are the pricing rules defined above.</p>
-<div id="setup-and-load-data" class="cell" data-execution_count="7">
+<div id="setup-and-load-data" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show data loading code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1118,7 +1118,7 @@ Individual results: (2000, 34)</code></pre>
 </div>
 </div>
 <p>The traditional dataset contains the explanatory variables used in the pricing exercise.</p>
-<div id="cell-inspect-traditional-data" class="cell" data-execution_count="8">
+<div id="cell-inspect-traditional-data" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show traditional data preview</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>traditional.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1203,7 +1203,7 @@ Individual results: (2000, 34)</code></pre>
 <li><code>welfare_result_individual.csv</code>, which contains policyholder-level outcomes under each pricing rule.</li>
 </ul>
 <p>The available model-level summary measures are:</p>
-<div id="cell-inspect-summary-columns" class="cell" data-execution_count="9">
+<div id="cell-inspect-summary-columns" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show summary output variables</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>summary.columns.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1227,7 +1227,7 @@ Individual results: (2000, 34)</code></pre>
 </div>
 </div>
 <p>The individual-level output contains premiums, purchase probabilities, welfare measures, and other quantities for each policyholder under the different pricing rules.</p>
-<div id="cell-inspect-individual-data" class="cell" data-execution_count="10">
+<div id="cell-inspect-individual-data" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show individual-level output preview</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>individual.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1397,7 +1397,7 @@ Individual results: (2000, 34)</code></pre>
 <h2 class="anchored" data-anchor-id="baseline-outcomes-under-unconstrained-pricing">Baseline Outcomes Under Unconstrained Pricing</h2>
 <p>We begin by examining the unconstrained pricing rule (P0), which serves as the benchmark for the subsequent comparisons. The distributions of estimated cost, premium, and markup provide useful insight into the relationship between risk, pricing, and consumer outcomes under profit-maximising pricing.</p>
 <p>These distributions also illustrate one of the central themes of this case study: fairness in prices and fairness in markups may lead to very different conclusions.</p>
-<div id="prepare-baseline" class="cell" data-execution_count="11">
+<div id="prepare-baseline" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show baseline data preparation</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge individual-level results with the traditional variables.</span></span>
@@ -1441,7 +1441,7 @@ Individual results: (2000, 34)</code></pre>
 </details>
 </div>
 <p>The following helper function produces empirical cumulative distribution plots, which are used throughout this section to compare the distributions of estimated costs, premiums, and markups across groups.</p>
-<div id="ecdf-function" class="cell" data-execution_count="12">
+<div id="ecdf-function" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show ECDF plotting function</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_ecdf_by_gender(</span>
@@ -1488,7 +1488,7 @@ Individual results: (2000, 34)</code></pre>
 </div>
 <section id="estimated-cost-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="estimated-cost-distribution">Estimated Cost Distribution</h3>
-<div id="cell-fig-baseline-cost" class="cell" data-execution_count="13">
+<div id="cell-fig-baseline-cost" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show code for estimated cost distribution</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plot_ecdf_by_gender(</span>
@@ -1518,7 +1518,7 @@ Figure&nbsp;1: Cumulative distribution of estimated costs under unconstrained pr
 </section>
 <section id="premium-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="premium-distribution">Premium Distribution</h3>
-<div id="cell-fig-baseline-price" class="cell" data-execution_count="14">
+<div id="cell-fig-baseline-price" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show code for premium distribution</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plot_ecdf_by_gender(</span>
@@ -1548,7 +1548,7 @@ Figure&nbsp;2: Cumulative distribution of premiums under unconstrained pricing.
 </section>
 <section id="markup-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="markup-distribution">Markup Distribution</h3>
-<div id="cell-fig-baseline-markup" class="cell" data-execution_count="15">
+<div id="cell-fig-baseline-markup" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show code for markup distribution</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_ecdf_by_gender(</span>
@@ -1587,7 +1587,7 @@ Figure&nbsp;3: Cumulative distribution of markups under unconstrained pricing.
 <section id="preparing-regulation-level-summaries" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-regulation-level-summaries">Preparing Regulation-level Summaries</h2>
 <p>The following code prepares a regulation-level summary from the pre-computed optimisation outputs. The resulting table contains the key quantities used throughout the remainder of the case study, including mean premiums, mean markups, welfare changes, and profit changes under alternative pricing regulations.</p>
-<div id="prepare-regulation-summary" class="cell" data-execution_count="16">
+<div id="prepare-regulation-summary" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Show regulation summary preparation</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>reg_summary <span class="op">=</span> summary.loc[models].copy()</span>
@@ -1702,7 +1702,7 @@ Figure&nbsp;3: Cumulative distribution of markups under unconstrained pricing.
 <span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a>    add_pricing_rule_legend(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-regulation-summary-table" class="cell" data-execution_count="17">
+<div id="cell-regulation-summary-table" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Show regulation summary table</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>reg_summary[</span>
@@ -1815,7 +1815,7 @@ Figure&nbsp;3: Cumulative distribution of markups under unconstrained pricing.
 <p>The following figures compare the five pricing regulations in terms of premiums, markups, consumer welfare, and insurer profit. Together, these comparisons illustrate how different regulatory approaches can lead to very different outcomes for consumers and insurers.</p>
 <section id="mean-premium-by-gender" class="level3">
 <h3 class="anchored" data-anchor-id="mean-premium-by-gender">Mean Premium by Gender</h3>
-<div id="cell-fig-mean-price" class="cell" data-execution_count="18">
+<div id="cell-fig-mean-price" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Show code for mean premium comparison</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">5.5</span>))</span>
@@ -1859,7 +1859,7 @@ Figure&nbsp;4: Mean premium by gender under alternative pricing rules.
 <p><span class="math display">
 \mathrm{Markup}_i = \frac{p_i}{\hat{c}_i} - 1.
 </span></p>
-<div id="cell-fig-mean-markup" class="cell" data-execution_count="19">
+<div id="cell-fig-mean-markup" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>Show code for mean markup comparison</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">5.5</span>))</span>
@@ -1901,7 +1901,7 @@ Figure&nbsp;5: Mean markup by gender under alternative pricing rules.
 <h3 class="anchored" data-anchor-id="welfare-change-by-gender">Welfare Change by Gender</h3>
 <p>Welfare is measured by certainty equivalence (CE): the sure dollar amount that makes a consumer indifferent to the uncertain outcome of purchasing or not purchasing insurance. Portfolio welfare in the summary file is the mean of <span class="math inline">W_i</span> across policyholders (defined in <a href="#stage-5-welfare-and-profit">Stage 5: Welfare and profit</a>).</p>
 <p>The next figure compares welfare changes relative to the unconstrained pricing benchmark <code>P0</code>. Bar colour denotes the pricing rule (see legend). Within each rule, the left bar is male and the lighter right bar is female.</p>
-<div id="cell-fig-welfare-change" class="cell" data-execution_count="20">
+<div id="cell-fig-welfare-change" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>Show code for welfare comparison</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
@@ -1963,7 +1963,7 @@ Figure&nbsp;6: Welfare change by gender relative to unconstrained pricing.
 </section>
 <section id="consumer-welfare-versus-insurer-profit" class="level3">
 <h3 class="anchored" data-anchor-id="consumer-welfare-versus-insurer-profit">Consumer Welfare versus Insurer Profit</h3>
-<div id="cell-fig-welfare-profit" class="cell" data-execution_count="21">
+<div id="cell-fig-welfare-profit" class="cell" data-execution_count="22">
 <details class="code-fold">
 <summary>Show code for welfare-profit trade-off</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">5.5</span>))</span>

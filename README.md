@@ -17,7 +17,7 @@ Please open the site at **[fair.feihuang.org](https://fair.feihuang.org)** (sour
 ## Case Studies (technical)
 
 - [Overview on home page](https://fair.feihuang.org/index.html#case-studies)
-- [1: Fair cost models](https://fair.feihuang.org/Case%20Study%201/case_study1.html)
+- [1: Fair models](https://fair.feihuang.org/Case%20Study%201/case_study1.html)
 - [2: Welfare implications](https://fair.feihuang.org/Case%20Study%202/case_study2.html)
 - [3: Fairness testing](https://fair.feihuang.org/Case%20Study%203/case_study3.html)
 
