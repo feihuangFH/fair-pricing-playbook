@@ -445,12 +445,13 @@ Scope of this case study
 <div class="callout-body-container callout-body">
 <ul>
 <li>ProPublica Illinois auto quotes, company-level audits</li>
-<li>Protected attribute: majority-minority zip-code indicator</li>
+<li>Protected attribute: majority-minority zip-code indicator (a geographic proxy, not observed race)</li>
 <li>Legitimate factors: <code>state_risk</code>, <code>chicago</code></li>
 <li>CDP via log-premium regression + TOST. PD illustration for <code>log_risk</code></li>
 <li>Corrected inference (HC3. PD cross-covariance)</li>
 </ul>
-<p>Not covered here. GLM audit specifications, formal sample-size planning, multi-proxy screens, or insurer-specific filing conclusions. See <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> for the full framework.</p>
+<p>The majority-minority zip indicator is a geographic proxy. For BISG or BIFSG-based regulatory designs, see <a href="../Playbook/Step-4-Audit-the-System.html#proxied-protected-attributes">Step 4: Proxied protected attributes</a> and <span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span> on how proxy measurement distorts regression-based disparity estimates.</p>
+<p>Not covered here. GLM audit specifications, formal sample-size planning, multi-proxy screens, BISG/BIFSG inference, or insurer-specific filing conclusions. See <span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span> for the audit protocol and <span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span> for proxy-race measurement limits.</p>
 </div>
 </div>
 </section>
@@ -1987,7 +1988,9 @@ Note
 <h3 class="anchored" data-anchor-id="further-reading">Further reading</h3>
 <ul>
 <li><span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>, full inferential theory, audit protocol, and Illinois validation</li>
+<li><span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>, how proxy-imputed race distorts regression-based disparity estimates</li>
 <li><a href="../Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a>, qualitative audit pathway for this case study</li>
+<li><a href="../Playbook/Step-4-Audit-the-System.html#proxied-protected-attributes">Step 4: Proxied protected attributes</a>, limits when the protected attribute is inferred rather than observed</li>
 </ul>
 
 
@@ -2015,6 +2018,9 @@ New York State Department of Financial Services. 2024. <span>“Proposed Insuran
 </div>
 <div id="ref-schuirmann-1987-comparison" class="csl-entry" role="listitem">
 Schuirmann, Donald J. 1987. <span>“A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.”</span> <em>Journal of Pharmacokinetics and Biopharmaceutics</em> 15 (6): 657–80.
+</div>
+<div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
