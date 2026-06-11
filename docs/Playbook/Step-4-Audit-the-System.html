@@ -253,6 +253,7 @@ window.Quarto = {
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#end-to-end-audit-flow" id="toc-end-to-end-audit-flow" class="nav-link" data-scroll-target="#end-to-end-audit-flow">End-to-end audit flow</a></li>
   <li><a href="#pre-audit-setup" id="toc-pre-audit-setup" class="nav-link" data-scroll-target="#pre-audit-setup">Pre-audit setup</a></li>
+  <li><a href="#proxied-protected-attributes" id="toc-proxied-protected-attributes" class="nav-link" data-scroll-target="#proxied-protected-attributes">Proxied protected attributes</a></li>
   <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical testing</a></li>
   <li><a href="#three-outcomes" id="toc-three-outcomes" class="nav-link" data-scroll-target="#three-outcomes">Three outcomes</a></li>
   <li><a href="#governance-and-monitoring" id="toc-governance-and-monitoring" class="nav-link" data-scroll-target="#governance-and-monitoring">Governance and monitoring</a></li>
@@ -329,6 +330,11 @@ Prerequisite
 <td>Statistical implementation</td>
 <td><a href="#deterministic-pricing">Deterministic pricing</a> → <a href="#tost-equivalence">Why TOST matters</a></td>
 <td><a href="../Case Study 3/case_study3.html">Case Study 3</a></td>
+</tr>
+<tr class="even">
+<td>Proxied protected attributes (BISG, BIFSG, zip)</td>
+<td><a href="#proxied-protected-attributes">Proxied protected attributes</a></td>
+<td><a href="../Case Study 3/case_study3.html">Case Study 3</a> scope note</td>
 </tr>
 </tbody>
 </table>
@@ -407,6 +413,10 @@ For practitioners
 <td>HC3 / corrected SE</td>
 <td>Sandwich standard errors for deterministic pricing outputs. Classical OLS defaults are unreliable when residuals are approximation error</td>
 </tr>
+<tr class="even">
+<td>Proxy-imputed protected class</td>
+<td>Race or ethnicity inferred from name, geography, or similar when direct collection is restricted (e.g.&nbsp;BISG, BIFSG, zip composition)</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -428,6 +438,12 @@ For practitioners
 <li>Design a representative quote sample stratified profiles submitted within a short time window. Plan sample size for adequate power (insufficient data yields insufficient information, not a pass).</li>
 <li>Define test scope e.g.&nbsp;per company, per product. Document whether multiple proxy variables are tested and how multiplicity is handled.</li>
 </ol>
+</section>
+<section id="proxied-protected-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="proxied-protected-attributes">Proxied protected attributes</h3>
+<p>When race or ethnicity cannot be observed directly, regulators and firms sometimes infer it using BISG, BIFSG, zip composition, or similar methods. If that proxy enters the audit regression as a categorical protected attribute, the coefficient on the proxy group is not the same estimand as a true-group disparity <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
+<p>Misclassification mixes group effects. Estimated gaps can shrink toward the majority group even when overall proxy accuracy looks high. Proxy errors can also correlate with geography, socioeconomic conditions, and pricing residuals after legitimate controls are applied. Disparities can then be attenuated or amplified relative to analyses based on observed protected-class labels.</p>
+<p>Treat proxy-based CDP coefficients as diagnostic signals, not definitive proof of compliance or discrimination. Document the proxy method, its confusion structure where available, and these limits in the audit protocol. Colorado’s draft BIFSG testing framework and New York Circular Letter No.&nbsp;7 both contemplate inferred protected-class status in regression-based assessments <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed xin2026proxyrace">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
 </section>
 <section id="statistical-testing" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-testing">Statistical testing</h3>
@@ -619,6 +635,9 @@ Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pr
 </div>
 <div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
 New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
+</div>
+<div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
