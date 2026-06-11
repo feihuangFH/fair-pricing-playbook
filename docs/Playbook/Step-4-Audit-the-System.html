@@ -573,7 +573,7 @@ Regulatory example
 </div>
 </div>
 <p>Industry reports such as <span class="citation" data-cites="soa2021interpretableml">Society of Actuaries (<a href="#ref-soa2021interpretableml" role="doc-biblioref">2021</a>)</span> catalog similar tools for actuaries and summarize NAIC review practices, but they are practitioner guidance, not regulatory requirements.</p>
-<p>Treat partial dependence plots as an optional supplement for ML model documentation, not a substitute for outcome-based testing. A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> show that partial dependence plots can be manipulated. For example, they can hide age- or race-related patterns while retaining almost all predictions on real data. Where plots are used in filing or internal review, pair them with outcome audits, independent replication, and individual conditional expectation curves where appropriate.</p>
+<p>Treat partial dependence plots as an optional supplement for ML model documentation, not a substitute for outcome-based testing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> argue that black-box models plus interpretability plots should be a last resort: prefer interpretable models such as GLMs or GAMs when they achieve comparable predictive performance (see <a href="Step-2-Design-Fair-Pricing.html">Step 2</a>). A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. The same paper shows that partial dependence plots and permutation-based variable-importance plots can both be manipulated to hide age- or race-related patterns while retaining almost all predictions on real data. Where plots are used in filing or internal review, pair them with outcome audits and examine the underlying data. Enhance partial dependence plots with individual conditional expectation curves shown in full, including percentile bands, which can help reveal anomalies that averaging hides.</p>
 </section>
 <section id="governance-and-monitoring" class="level3">
 <h3 class="anchored" data-anchor-id="governance-and-monitoring">Governance and monitoring</h3>
@@ -600,7 +600,7 @@ Regulatory example
 </tbody>
 </table>
 <p>Re-audit on model change, regulatory update, or drift in audit statistics. Store the complete quote dataset and a reproducibility manifest.</p>
-<p>If filing documentation relies on partial dependence plots for ML models, treat them as supplementary narrative evidence only. Outcome-based CDP and proxy-discrimination tests remain the primary compliance path (see <a href="#feature-importance-check">Feature importance check</a>).</p>
+<p>If filing documentation relies on partial dependence plots or variable-importance plots for ML models, treat them as supplementary narrative evidence only. Outcome-based CDP and proxy-discrimination tests remain the primary compliance path (see <a href="#feature-importance-check">Feature importance check</a>).</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
