@@ -256,6 +256,7 @@ window.Quarto = {
   <li><a href="#proxied-protected-attributes" id="toc-proxied-protected-attributes" class="nav-link" data-scroll-target="#proxied-protected-attributes">Proxied protected attributes</a></li>
   <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical testing</a></li>
   <li><a href="#three-outcomes" id="toc-three-outcomes" class="nav-link" data-scroll-target="#three-outcomes">Three outcomes</a></li>
+  <li><a href="#feature-importance-check" id="toc-feature-importance-check" class="nav-link" data-scroll-target="#feature-importance-check">Feature importance check</a></li>
   <li><a href="#governance-and-monitoring" id="toc-governance-and-monitoring" class="nav-link" data-scroll-target="#governance-and-monitoring">Governance and monitoring</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
   </ul>
@@ -335,6 +336,11 @@ Prerequisite
 <td>Proxied protected attributes (BISG, BIFSG, zip)</td>
 <td><a href="#proxied-protected-attributes">Proxied protected attributes</a></td>
 <td><a href="../Case Study 3/case_study3.html">Case Study 3</a> scope note</td>
+</tr>
+<tr class="odd">
+<td>ML filing documentation (alternative)</td>
+<td><a href="#feature-importance-check">Feature importance check</a></td>
+<td><a href="#governance-and-monitoring">Governance and monitoring</a></td>
 </tr>
 </tbody>
 </table>
@@ -547,7 +553,27 @@ Technical detail
 </tr>
 </tbody>
 </table>
-<p>On fail or unclear CDP results, a PD screen can identify candidate driver variables. Remediation may include recalibration, fairness constraints at retraining, or ongoing monitoring with re-audit triggers.</p>
+<p>On fail or unclear CDP results, a proxy-discrimination screen can identify candidate driver variables. Remediation may include recalibration, fairness constraints at retraining, or ongoing monitoring with re-audit triggers.</p>
+</section>
+<section id="feature-importance-check" class="level3">
+<h3 class="anchored" data-anchor-id="feature-importance-check">Feature importance check</h3>
+<p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in <a href="../Case Study 3/case_study3.html">Case Study 3</a>.</p>
+<p>Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Regulatory example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> discusses variable-level filing review in US insurance. The clearest regulatory source is NAIC guidance (<span class="citation" data-cites="naic2020predictivemodels naic2022treebased">(<a href="#ref-naic2020predictivemodels" role="doc-biblioref">National Association of Insurance Commissioners 2020</a>, <a href="#ref-naic2022treebased" role="doc-biblioref">2022</a>)</span>): when state regulators review tree-based auto and homeowners rate filings, they may request partial dependence plots and variable-importance plots describing each predictor’s relationship to the target (frequency, severity, loss costs, or expenses), with rational explanations especially for variables of concern. This is review guidance, not a quantitative outcome fairness test like CDP or proxy discrimination.</p>
+</div>
+</div>
+<p>Industry reports such as <span class="citation" data-cites="soa2021interpretableml">Society of Actuaries (<a href="#ref-soa2021interpretableml" role="doc-biblioref">2021</a>)</span> catalog similar tools for actuaries and summarize NAIC review practices, but they are practitioner guidance, not regulatory requirements.</p>
+<p>Treat partial dependence plots as an optional supplement for ML model documentation, not a substitute for outcome-based testing. A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> show that partial dependence plots can be manipulated. For example, they can hide age- or race-related patterns while retaining almost all predictions on real data. Where plots are used in filing or internal review, pair them with outcome audits, independent replication, and individual conditional expectation curves where appropriate.</p>
 </section>
 <section id="governance-and-monitoring" class="level3">
 <h3 class="anchored" data-anchor-id="governance-and-monitoring">Governance and monitoring</h3>
@@ -574,6 +600,7 @@ Technical detail
 </tbody>
 </table>
 <p>Re-audit on model change, regulatory update, or drift in audit statistics. Store the complete quote dataset and a reproducibility manifest.</p>
+<p>If filing documentation relies on partial dependence plots for ML models, treat them as supplementary narrative evidence only. Outcome-based CDP and proxy-discrimination tests remain the primary compliance path (see <a href="#feature-importance-check">Feature importance check</a>).</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -633,11 +660,23 @@ Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing o
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
 </div>
+<div id="ref-naic2020predictivemodels" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2020. <span>“Regulatory Review of Predictive Models.”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf</a>.
+</div>
+<div id="ref-naic2022treebased" class="csl-entry" role="listitem">
+———. 2022. <span>“Regulatory Review of Predictive Models: Appendix b-Trees (Tree-Based Models).”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf</a>.
+</div>
 <div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
 New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
 </div>
+<div id="ref-soa2021interpretableml" class="csl-entry" role="listitem">
+Society of Actuaries. 2021. <span>“Interpretable Machine Learning for Insurance: An Introduction with Examples.”</span> <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf" class="uri">https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
+</div>
+<div id="ref-xin2025partialdependenceplots" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
 <div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
-Xin, Xi, Giles Hooker, and Fei Huang. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
+———. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
