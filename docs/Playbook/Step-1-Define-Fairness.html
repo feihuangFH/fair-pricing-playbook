@@ -343,7 +343,7 @@ Before you start
 <tbody>
 <tr class="odd">
 <td>Anti-discrimination</td>
-<td>Legal obligation to avoid unfair treatment</td>
+<td>Legal obligation to avoid unfair treatment and unjustified disparate outcomes</td>
 <td><a href="#pricing-feature-principles">Pricing feature principles</a> through <a href="#fairness-criteria">Fairness criteria</a></td>
 </tr>
 <tr class="even">
@@ -362,7 +362,7 @@ Before you start
 </section>
 <section id="anti-discrimination" class="level3">
 <h3 class="anchored" data-anchor-id="anti-discrimination">Anti-discrimination</h3>
-<p>This lens asks whether pricing complies with anti-discrimination law and whether rating variables and model outputs meet recognised fairness tests. The sections below cover how to judge individual rating factors, how regulation maps to those tests, and the quantitative criteria used in later steps.</p>
+<p>This lens asks whether pricing complies with anti-discrimination law on both how people are rated and what outcomes groups receive, and whether rating variables and model outputs meet recognised fairness tests. The sections below cover how to judge individual rating factors, how regulation maps to those tests, and the quantitative criteria used in later steps.</p>
 <p>Many rating variables are routine. Others, such as ethnicity, heritage, or religion, are forbidden in most markets. The hard cases are variables that are legal on their face but may act as proxies for protected attributes, especially under machine learning and large-scale data analytics.</p>
 <section id="pricing-feature-principles" class="level4">
 <h4 class="anchored" data-anchor-id="pricing-feature-principles">Pricing feature principles</h4>
@@ -430,7 +430,7 @@ Direct and indirect discrimination
 <li>Identifiable proxies: facially neutral variables that stand in for a protected attribute (for example, geographic area correlated with race, or variables correlated with gender)</li>
 <li>Unidentifiable proxies: opaque models that combine many variables and reproduce protected-group disparities without a single obvious surrogate</li>
 </ul>
-<p>EU and Australian law often define indirect discrimination through three elements: a facially neutral practice applied in the same way to everyone, a link to a protected characteristic in law, and disproportionate impact on that group. In the United States, disparate impact plays a parallel role and is usually treated as a subset of indirect discrimination focused on unintentional group-level harm.</p>
+<p>EU and Australian law often define indirect discrimination through three elements: a facially neutral provision, criterion, or practice; a connection to a protected characteristic in law; and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role: a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination; legitimacy and justification also matter.</p>
 <p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
 <p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation; see <a href="Step-4-Audit-the-System.html#proxied-protected-attributes">Step 4</a> and <span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>. Steps 2–4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
 </div>
