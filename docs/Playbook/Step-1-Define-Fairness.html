@@ -333,7 +333,7 @@ Before you start
 </section>
 <section id="anti-discrimination" class="level3">
 <h3 class="anchored" data-anchor-id="anti-discrimination">Anti-discrimination</h3>
-<p>This lens asks whether pricing complies with anti-discrimination law on both how people are rated and what outcomes groups receive, and whether rating variables and model outputs meet recognised fairness tests. The sections below cover how to judge individual rating factors, how regulation maps to those tests, and the quantitative criteria used in later steps.</p>
+<p>This lens asks whether pricing complies with anti-discrimination law on both how people are rated and what outcomes groups receive, and whether rating variables and model outputs meet recognised fairness tests. The sections below cover how to judge individual rating factors and the quantitative criteria used in later steps.</p>
 <p>Many rating variables are routine. Others, such as ethnicity, heritage, or religion, are forbidden in most markets. The hard cases are variables that are legal on their face but may act as proxies for protected attributes, especially under machine learning and large-scale data analytics.</p>
 <section id="pricing-feature-principles" class="level4">
 <h4 class="anchored" data-anchor-id="pricing-feature-principles">Pricing feature principles</h4>
@@ -452,7 +452,11 @@ Direct and indirect discrimination
 </section>
 <section id="fairness-criteria" class="level4">
 <h4 class="anchored" data-anchor-id="fairness-criteria">Fairness criteria</h4>
+<p>The criteria below are <strong>illustrative examples</strong> used in this playbook and in much insurance fairness work. They are not an exhaustive list. Your jurisdiction, product line, and regulator may require a different criterion.</p>
 <p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, and <span class="math inline">\hat{Y}</span> the predicted price (or cost estimate used to set price) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<section id="playbook-criteria" class="level5">
+<h5 class="anchored" data-anchor-id="playbook-criteria">Playbook criteria</h5>
+<p>These are the criteria <strong>implemented in Steps 2–4</strong> of this playbook <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -494,38 +498,113 @@ Direct and indirect discrimination
 </tr>
 </tbody>
 </table>
-<p>Many criteria are association-based (independence, separation, sufficiency) or causality-based (counterfactual fairness). Not all transfer cleanly to insurance pricing. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> distinguishes individual fairness from group fairness. Achieving both is often impossible, so the trade-off between criteria is itself part of the fairness discussion.</p>
 </section>
-<section id="regulatory-landscape" class="level4">
-<h4 class="anchored" data-anchor-id="regulatory-landscape">Regulatory landscape</h4>
-<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regimes to modelling choices:</p>
-<ul>
-<li>Restriction or prohibition on protected variables</li>
-<li>Proxy restrictions</li>
-<li>Disparate impact tests</li>
-<li>Flat or community pricing</li>
-</ul>
+<section id="broader-taxonomy" class="level5">
+<h5 class="anchored" data-anchor-id="broader-taxonomy">Broader taxonomy</h5>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> survey a wider set of criteria for life insurance. The taxonomy distinguishes <strong>individual</strong> and <strong>group</strong> fairness:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="plot/regulations_fairness_models.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption>Comparison between regulations, fairness criteria, and models.</figcaption>
+<p><img src="plot/fairness1.png" class="img-fluid figure-img" style="width:85.0%" alt="Fairness criteria taxonomy: individual fairness and group fairness branches"></p>
+<figcaption>Fairness criteria taxonomy showing individual fairness (fairness through unawareness, fairness through awareness, no omitted-variable bias) and group fairness (independence, separation, sufficiency).</figcaption>
 </figure>
 </div>
-<p>Model labels in the table (M0, MU, MC, MDP, MCDP) are defined in <a href="Step-2-Design-Fair-Pricing.html#mini-glossary">Step 2: Design fair pricing</a>.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Insurance example
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Many jurisdictions restrict use of race, gender, or ethnicity in pricing. Some require insurers to test for proxy discrimination (PD) or disparate impact in quoted premiums.</p>
-</div>
-</div>
-<p>Regulation often works through input-based rules (which variables or pricing procedures are allowed) and output-based rules (quantitative fairness tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. The <a href="#fairness-criteria">fairness criteria</a> you adopt should be consistent with the regime you operate under.</p>
+<p><strong>Individual fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness through unawareness</td>
+<td>Leave protected or sensitive variables out of the model</td>
+</tr>
+<tr class="even">
+<td>Fairness through awareness</td>
+<td>Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices</td>
+</tr>
+<tr class="odd">
+<td>No omitted-variable bias</td>
+<td>Diagnose proxy relationships with protected attributes and adjust for their effect on outputs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Independence</td>
+<td><span class="math inline">\hat{Y}</span> is statistically independent of the protected attribute</td>
+</tr>
+<tr class="even">
+<td>Separation</td>
+<td>After conditioning on the true outcome, <span class="math inline">\hat{Y}</span> is independent of the protected attribute</td>
+</tr>
+<tr class="odd">
+<td>Sufficiency</td>
+<td>After conditioning on <span class="math inline">\hat{Y}</span>, the true outcome is independent of the protected attribute</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-the-frameworks-relate" class="level5">
+<h5 class="anchored" data-anchor-id="how-the-frameworks-relate">How the frameworks relate</h5>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Playbook criterion</th>
+<th>Related criterion in <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness through unawareness (FTU)</td>
+<td>Fairness through unawareness</td>
+</tr>
+<tr class="even">
+<td>Controlling for the protected variable (CPV)</td>
+<td>Related to fairness through awareness / discrimination-free pricing</td>
+</tr>
+<tr class="odd">
+<td>Demographic parity (DP)</td>
+<td>Closely related to independence</td>
+</tr>
+<tr class="even">
+<td>Conditional demographic parity (CDP)</td>
+<td>Playbook-specific; used in Steps 2–4 and audits</td>
+</tr>
+<tr class="odd">
+<td>Separation / sufficiency</td>
+<td>Same names in the SoA taxonomy</td>
+</tr>
+</tbody>
+</table>
+<p>Achieving individual and group fairness simultaneously is often impossible <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. The trade-off between criteria is itself part of the fairness discussion.</p>
+</section>
+<section id="choosing-a-criterion-for-your-regime" class="level5">
+<h5 class="anchored" data-anchor-id="choosing-a-criterion-for-your-regime">Choosing a criterion for your regime</h5>
+<p>Regulation can constrain <strong>inputs</strong> (which variables or pricing procedures are allowed) or <strong>outputs</strong> (quantitative tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV); disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Match the criterion you adopt to your regime before modelling in <a href="Step-2-Design-Fair-Pricing.html">Step 2</a>.</p>
+</section>
 </section>
 </section>
 <section id="competing-ethical-notions" class="level3">
