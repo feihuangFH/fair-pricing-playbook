@@ -432,17 +432,19 @@ For practitioners
 <p>Conventional significance testing asks whether a price gap is detectably different from zero. That is a poor fit for compliance auditing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 17%">
 <col style="width: 21%">
-<col style="width: 26%">
-<col style="width: 19%">
-<col style="width: 19%">
+<col style="width: 21%">
+<col style="width: 15%">
+<col style="width: 15%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Approach</th>
 <th>Null hypothesis</th>
 <th>What a “pass” means</th>
+<th>Who must prove what</th>
 <th>Large samples</th>
 <th>Small samples</th>
 </tr>
@@ -452,6 +454,7 @@ For practitioners
 <td>Significance testing</td>
 <td>Gap <span class="math inline">= 0</span></td>
 <td>Failed to detect a violation (not necessarily fair)</td>
+<td>Regulator or reviewer must detect a violation</td>
 <td>Flag trivial gaps as violations</td>
 <td>Miss genuine gaps</td>
 </tr>
@@ -459,12 +462,14 @@ For practitioners
 <td>TOST equivalence testing</td>
 <td>Gap <span class="math inline">\geq</span> tolerance</td>
 <td>Positive evidence the gap is within tolerance</td>
+<td>Insurer must demonstrate compliance within tolerance</td>
 <td>Narrower CIs help confirm fairness</td>
 <td>Wide CIs yield insufficient information</td>
 </tr>
 </tbody>
 </table>
-<p>Regulatory tolerance bands already define an equivalence region. Colorado’s 5% price-gap discussion maps to a level margin <span class="math inline">\delta</span>. The familiar 0.80 adverse-impact ratio maps to a ratio margin <span class="math inline">\tau</span>. TOST places the burden on the firm to demonstrate compliance within those bands, which matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>)</span>.</p>
+<p>Under significance testing, the practical burden falls on the regulator or reviewer to find a material violation. A non-significant result only means no gap was detected in that sample. It does not show that pricing is fair. Under TOST, the burden shifts to the insurer (or model owner) to provide positive evidence that any gap lies within pre-specified tolerance bands. Insufficient information is not a pass.</p>
+<p>Regulatory tolerance bands already define an equivalence region. Colorado’s 5% price-gap discussion maps to a level margin <span class="math inline">\delta</span>. The familiar 0.80 adverse-impact ratio maps to a ratio margin <span class="math inline">\tau</span>. TOST matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>)</span>. Exact legal allocation of burden varies by jurisdiction. This describes one audit design, not legal advice.</p>
 <p>For CDP, a pass requires the confidence interval for the protected-group effect to lie entirely inside both the level-gap band <span class="math inline">(-\delta, +\delta)</span> and the log-ratio band implied by <span class="math inline">\tau</span>. A fail requires the interval to lie entirely outside. If the interval is too wide to settle either case, the verdict is insufficient information. That outcome is not a pass and should trigger more data or a pre-specified escalation step.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
