@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang">
+<meta name="dcterms.date" content="2026-06-16">
+<meta name="keywords" content="algorithmic pricing, insurance, fairness, anti-discrimination, welfare analysis, audit, responsible AI">
+
+<title>The Fair Pricing Playbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Playbook/Step-1-Define-Fairness.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./report.html">Report</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Fair Pricing Playbook</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./report.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Report</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pathway</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 1: Define fairness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 2: Design fair pricing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 1: Fair models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 3: Assess impact</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 2: Welfare implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 4: Audit the system</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">↳ Case study 3: Fairness testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract"><span class="header-section-number">1</span> Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a></li>
+  <li><a href="#background-and-related-literature" id="toc-background-and-related-literature" class="nav-link" data-scroll-target="#background-and-related-literature"><span class="header-section-number">3</span> Background and Related Literature</a></li>
+  <li><a href="#framework-overview" id="toc-framework-overview" class="nav-link" data-scroll-target="#framework-overview"><span class="header-section-number">4</span> Framework Overview</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"><span class="header-section-number">5</span> Methodology</a></li>
+  <li><a href="#case-studies" id="toc-case-studies" class="nav-link" data-scroll-target="#case-studies"><span class="header-section-number">6</span> Case Studies</a></li>
+  <li><a href="#contributions" id="toc-contributions" class="nav-link" data-scroll-target="#contributions"><span class="header-section-number">7</span> Contributions</a></li>
+  <li><a href="#limitations-and-scope" id="toc-limitations-and-scope" class="nav-link" data-scroll-target="#limitations-and-scope"><span class="header-section-number">8</span> Limitations and Scope</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">9</span> Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements"><span class="header-section-number">10</span> Acknowledgements</a></li>
+  <li><a href="#data-availability-and-reproducibility" id="toc-data-availability-and-reproducibility" class="nav-link" data-scroll-target="#data-availability-and-reproducibility"><span class="header-section-number">11</span> Data Availability and Reproducibility</a></li>
+  <li><a href="#access-versioning-and-citation" id="toc-access-versioning-and-citation" class="nav-link" data-scroll-target="#access-versioning-and-citation"><span class="header-section-number">12</span> Access, Versioning, and Citation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">13</span> References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Fair Pricing Playbook</h1>
+<p class="subtitle lead">A practical framework for developing, evaluating, and auditing fair algorithmic pricing systems</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://www.feihuang.org">Fei Huang</a> <a href="mailto:feihuang@unsw.edu.au" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-3406-5948" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            School of Risk and Actuarial Studies, UNSW Business School, UNSW Sydney
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 16, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>algorithmic pricing, insurance, fairness, anti-discrimination, welfare analysis, audit, responsible AI</p>
+  </div>
+</div>
+
+</header>
+
+
+<section id="abstract" class="level3" data-number="1">
+<h3 data-number="1" class="anchored" data-anchor-id="abstract"><span class="header-section-number">1</span> Abstract</h3>
+<p>Algorithmic pricing is now common in insurance and financial services, but practical guidance for translating fairness principles into deployable workflows remains fragmented. This report presents The Fair Pricing Playbook, a four-step framework linking fairness definition, model design, welfare assessment, and post-deployment audit into one end-to-end process. The framework centers the anti-discrimination lens while keeping actuarial fairness, solidarity, and consumer trust visible in governance decisions.</p>
+<p>Three technical case studies provide implementation evidence. Case Study 1 applies five anti-discrimination model designs (M0, MU, MDP, MCDP, and MC) to French motor insurance data using GLMs and XGBoost, comparing fairness and predictive accuracy across criteria. Case Study 2 extends the analysis to the full pricing pipeline and evaluates five pricing regulations (P0, PA, POB, PDP, PAF) in terms of consumer welfare and firm profit by gender on a 2,000-policyholder French subsample. Case Study 3 implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected statistical inference on Illinois auto insurance quote data, showing that classical OLS standard errors can be substantially wrong for deterministic pricing outputs.</p>
+<p>The goal is operational clarity: how to choose a fairness criterion, map it to modeling interventions, evaluate market consequences, and run statistically valid compliance audits. The full playbook, including interactive case studies, implementation checklists, and reproducible code, is available at <a href="https://fair.feihuang.org">fair.feihuang.org</a>.</p>
+<p><strong>Keywords:</strong> algorithmic pricing, insurance, fairness, anti-discrimination, welfare analysis, audit, responsible AI.</p>
+</section>
+<section id="introduction" class="level3" data-number="2">
+<h3 data-number="2" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2</span> Introduction</h3>
+<p>AI-driven pricing systems are now widely used in insurance and other financial services. Their appeal is clear. They offer better risk segmentation, faster decisions, and potentially better matching between risk and price. At the same time, these systems can reproduce or amplify discriminatory patterns through proxy variables, complex model interactions, and opaque optimization pipelines. This creates a governance gap between predictive performance and fairness accountability.</p>
+<p>In regulated settings, fairness is not a single model constraint. It is a sequence of decisions spanning criterion selection, model design, market behavior, and post-deployment testing <span class="citation" data-cites="frees2023discriminating">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. A model can satisfy one fairness notion and still produce adverse outcomes once final prices incorporate loadings, demand response, and regulatory rules <span class="citation" data-cites="huang2026welfarealgorithms">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span>. Likewise, an audit can fail if statistical inference is mis-specified even when design intent is sound <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>Regulatory attention has intensified across jurisdictions. In the United States, Colorado’s Division of Insurance and New York’s Department of Financial Services have each issued proposals requiring insurers to evaluate whether algorithmic pricing systems produce discriminatory pricing outcomes <span class="citation" data-cites="doradoi-2023-concerning">New York State Department of Financial Services (<a href="#ref-nydfs-2024-proposed" role="doc-biblioref">2024</a>)</span>. These proposals operationalize fairness tests, including conditional demographic parity and proxy discrimination, that map directly to the audit methodology in Step 4 of this framework.</p>
+<p>This report introduces The Fair Pricing Playbook, a practical four-step framework linking these decisions into one auditable workflow. Section 2 situates the work in related literature. Section 3 gives the framework overview. Section 4 presents the methodology for each step in depth, including formal definitions, model taxonomies, welfare measures, and audit statistics. Section 5 describes the companion case studies in detail, including data, implementation choices, and illustrative findings. Section 6 summarizes contributions, and Section 7 discusses limitations.</p>
+</section>
+<section id="background-and-related-literature" class="level3" data-number="3">
+<h3 data-number="3" class="anchored" data-anchor-id="background-and-related-literature"><span class="header-section-number">3</span> Background and Related Literature</h3>
+<section id="fairness-in-insurance-pricing" class="level4" data-number="3.1">
+<h4 data-number="3.1" class="anchored" data-anchor-id="fairness-in-insurance-pricing"><span class="header-section-number">3.1</span> Fairness in Insurance Pricing</h4>
+<p>What makes a price fair? <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> frame the question as follows, what are the principles for assessing the appropriateness of insurance differentiation? They distinguish risk-based differentiation, where premiums differ because expected losses differ, from non-risk differentiation, where prices diverge for the same underlying risk due to retention modeling, willingness to pay, or price optimization. Risk-based rating is typically defended on efficiency grounds. Non-risk differentiation raises fairness concerns when it reproduces group disparities or penalizes loyalty.</p>
+<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> formalize anti-discrimination principles for insurance pricing, distinguishing direct discrimination (explicit use of protected attributes) from indirect discrimination (disparate outcomes through proxy variables or complex model interactions). They propose a taxonomy of model designs (M0, MU, MDP, MCDP, MC) that links specific fairness criteria to concrete modeling interventions. They also show that omitting protected attributes (fairness through unawareness) does not prevent indirect discrimination if correlated proxies remain.</p>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> extend this taxonomy to life insurance, surveying a broader set of individual and group fairness criteria and mapping them to the independence, separation, and sufficiency frameworks from the algorithmic fairness literature. A key finding is that individual and group fairness criteria are often mutually incompatible, satisfying one typically requires violating another.</p>
+</section>
+<section id="welfare-and-market-effects-of-fairness-interventions" class="level4" data-number="3.2">
+<h4 data-number="3.2" class="anchored" data-anchor-id="welfare-and-market-effects-of-fairness-interventions"><span class="header-section-number">3.2</span> Welfare and Market Effects of Fairness Interventions</h4>
+<p>A separate literature examines what happens to consumers and insurers when fairness constraints are applied. <span class="citation" data-cites="huang2026welfarealgorithms">Huang, Shimao, and Khern-am-nuai (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> show that fairness interventions at the cost-model stage do not translate uniformly into welfare improvements at the market stage. Using a discrete-choice demand framework applied to French motor insurance data, they find that some standard fairness metrics can <em>reduce</em> welfare for the protected group after selection effects and demand response are taken into account, and that firm-versus-consumer trade-offs vary substantially by intervention type.</p>
+<p><span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span> develop a complete pricing pipeline model that incorporates cost modeling, demand modeling, price optimization, and regulatory constraints, and evaluate five pricing regulations (P0, PA, POB, PDP, PAF) in terms of premium gaps, markup gaps, consumer welfare, and insurer profit. A central finding is that premium fairness and markup fairness are in tension, no single regulation achieves both simultaneously. PDP closes premium gaps but can widen markup disparities for the group it is designed to protect.</p>
+</section>
+<section id="audit-methodology-for-algorithmic-pricing" class="level4" data-number="3.3">
+<h4 data-number="3.3" class="anchored" data-anchor-id="audit-methodology-for-algorithmic-pricing"><span class="header-section-number">3.3</span> Audit Methodology for Algorithmic Pricing</h4>
+<p><span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span> develop the audit methodology used in Step 4. They identify a key statistical problem. Deterministic pricing algorithms always return the same price for the same input profile, so audit regression residuals represent model approximation error rather than independent sampling variability. Classical OLS standard errors, which assume i.i.d. errors, can be wrong in both magnitude and direction. They prescribe HC3 sandwich standard errors for CDP audits and a full cross-covariance correction for proxy-discrimination tests. They also argue for equivalence testing (TOST) rather than conventional significance testing for compliance auditing, because a non-significant result under conventional testing is not positive evidence of fairness. It only means a gap was not detected.</p>
+<p><span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span> examine the consequences of using proxied protected attributes (BISG, BIFSG, zip-code composition) in audit regressions. Proxy misclassification mixes group effects, and estimated gaps can be attenuated toward the majority group even when overall proxy accuracy appears high. Proxy errors can correlate with geography and pricing residuals, further distorting disparity estimates.</p>
+</section>
+<section id="positioning" class="level4" data-number="3.4">
+<h4 data-number="3.4" class="anchored" data-anchor-id="positioning"><span class="header-section-number">3.4</span> Positioning</h4>
+<p>Compared with these contributions, the playbook’s role is integrative. It provides an operational bridge from policy framing to modeling choices, welfare analysis, and audit execution for practitioners across compliance, actuarial, data science, and governance functions, assembling the decisions that must be made in sequence and in a coherent order to produce a defensible fair-pricing system.</p>
+</section>
+</section>
+<section id="framework-overview" class="level3" data-number="4">
+<h3 data-number="4" class="anchored" data-anchor-id="framework-overview"><span class="header-section-number">4</span> Framework Overview</h3>
+<p>The framework has four linked steps. Table 1 summarizes each step, the governing question it answers, and the type of output it produces.</p>
+<table class="caption-top table">
+<caption>Table 1. The four steps of the Fair Pricing Playbook.</caption>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 40%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Topic</th>
+<th>Governing question</th>
+<th>Primary output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Define fairness</td>
+<td>What does fair mean here?</td>
+<td>Documented criterion, scope, legitimate factors</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Design fair pricing</td>
+<td>How can the criterion be achieved?</td>
+<td>Fair cost model (M0/MU/MDP/MCDP/MC)</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Assess impact</td>
+<td>Who gains and loses after prices are set?</td>
+<td>Welfare and profit analysis by protected group</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Audit the system</td>
+<td>Does the deployed system pass or fail?</td>
+<td>Pre-committed audit verdict: pass / fail / insufficient information</td>
+</tr>
+</tbody>
+</table>
+<p>The logic is sequential, with each step providing inputs to the next. Step 1 fixes the fairness criterion and governance scope before any modeling begins. This choice constrains what model designs are permissible in Step 2 and what tests are run in Step 4. Step 2 translates that criterion into a model intervention. Step 3 evaluates whether cost-model fairness carries through to final prices. Step 4 applies pre-committed statistical tests to deployed pricing outputs.</p>
+<p>Three design principles underpin the framework. First, protocol choices must be fixed before reviewing outcomes because post-hoc changes to criteria, tolerance margins, or sample definitions undermine auditability and stated error-rate control. Second, fairness evaluation must span the full pricing pipeline rather than stopping at the cost model, so welfare analysis in Step 3 is not optional. Third, audit inference must match the statistical properties of the outputs, and deterministic algorithmic pricing requires corrected standard errors.</p>
+<p>Figure 1 illustrates the pathway from model design through fairness testing, as displayed on the companion website.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Playbook/plot/pathway-towards-fairness.png" class="img-fluid figure-img" style="width:90.0%" alt="Pathway towards fairness diagram"></p>
+<figcaption>Pathway towards fairness: from model inputs and design through outputs, welfare, and fairness testing to pass, insufficient information, or fail outcomes.</figcaption>
+</figure>
+</div>
+</section>
+<section id="methodology" class="level3" data-number="5">
+<h3 data-number="5" class="anchored" data-anchor-id="methodology"><span class="header-section-number">5</span> Methodology</h3>
+<section id="step-1-define-fairness" class="level4" data-number="5.1">
+<h4 data-number="5.1" class="anchored" data-anchor-id="step-1-define-fairness"><span class="header-section-number">5.1</span> Step 1, Define Fairness</h4>
+<p>This step sets the fairness standard for everything that follows. Steps 2 through 4 each pair with a case study (insurance applications with technical depth).</p>
+<section id="what-is-fair" class="level5" data-number="5.1.1">
+<h5 data-number="5.1.1" class="anchored" data-anchor-id="what-is-fair"><span class="header-section-number">5.1.1</span> What is fair?</h5>
+<p>Fairness is an overloaded word. A useful place to start is the question posed by <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span>, what are the principles for assessing the appropriateness of insurance differentiation?</p>
+<p>There is no single answer that fits every product and jurisdiction. The point is to keep this question in view as you work through the three lenses below. Most of this step develops the anti-discrimination lens and the competing ethical notions. Consumer trust deserves attention even when it is not the main technical focus.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lens</th>
+<th>What it emphasises</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Anti-discrimination</td>
+<td>Legal obligation to avoid unfair treatment and unjustified disparate outcomes</td>
+</tr>
+<tr class="even">
+<td>Competing ethical notions</td>
+<td>Actuarial fairness, social justice, and how risk should be pooled</td>
+</tr>
+<tr class="odd">
+<td>Consumer trust</td>
+<td>Promises made in contracts, disclosures, and market conduct</td>
+</tr>
+</tbody>
+</table>
+<p>These lenses overlap but do not always agree. A price can be actuarially fair yet fail a disparate-impact test, or satisfy regulators yet erode consumer trust.</p>
+</section>
+<section id="anti-discrimination" class="level5" data-number="5.1.2">
+<h5 data-number="5.1.2" class="anchored" data-anchor-id="anti-discrimination"><span class="header-section-number">5.1.2</span> Anti-discrimination</h5>
+<p>This lens asks whether pricing complies with anti-discrimination law on both how people are rated and what outcomes groups receive, and whether rating variables and model outputs meet recognised fairness tests. The sections below cover how to judge individual rating factors and the quantitative criteria used in later steps.</p>
+<p>Many rating variables are routine. Others, such as ethnicity, heritage, or religion, are forbidden in most markets. The hard cases are variables that are legal on their face but may act as proxies for protected attributes, especially under machine learning and large-scale data analytics.</p>
+<section id="pricing-feature-principles" class="level6" data-number="5.1.2.1">
+<h6 data-number="5.1.2.1" class="anchored" data-anchor-id="pricing-feature-principles"><span class="header-section-number">5.1.2.1</span> Pricing feature principles</h6>
+<p>When judging whether a rating factor is appropriate, <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> propose six principles. Use them to classify variables before modelling.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 28%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Principle</th>
+<th>Question</th>
+<th>Illustration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control</td>
+<td>Can the customer influence the feature?</td>
+<td>Owning a sports car is partly controllable. Gender, race, and nationality are not.</td>
+</tr>
+<tr class="even">
+<td>Mutability</td>
+<td>Does it change over time or stay fixed?</td>
+<td>Age changes. Many sensitive attributes are fixed at birth.</td>
+</tr>
+<tr class="odd">
+<td>Statistical discrimination</td>
+<td>Does it predict cost or risk?</td>
+<td>Predictive value is necessary but not sufficient for fair use.</td>
+</tr>
+<tr class="even">
+<td>Causality</td>
+<td>Does it cause the priced outcome?</td>
+<td>A variable known to cause the insured event (e.g.&nbsp;certain health conditions in life insurance) is easier to defend.</td>
+</tr>
+<tr class="odd">
+<td>Past discrimination</td>
+<td>Does use reinforce historical injustice?</td>
+<td>Skin colour has a heavier history of misuse than eye colour.</td>
+</tr>
+<tr class="even">
+<td>Socially valuable behaviour</td>
+<td>Does pricing discourage beneficial actions?</td>
+<td>Penalising participation in genetic testing may discourage research and prevention.</td>
+</tr>
+</tbody>
+</table>
+<p>Whether a variable is acceptable depends on line of business and jurisdiction, not on the six principles alone <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Credit-based insurance scores, gender in pricing, and genetic information illustrate how the same factor can be routine in one market and restricted in another.</p>
+</section>
+<section id="direct-and-indirect-discrimination" class="level6" data-number="5.1.2.2">
+<h6 data-number="5.1.2.2" class="anchored" data-anchor-id="direct-and-indirect-discrimination"><span class="header-section-number">5.1.2.2</span> Direct and indirect discrimination</h6>
+<p>Following <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>, direct discrimination (or disparate treatment) occurs when a person is treated less favourably because a protected characteristic differs. If the protected attribute is not used in rating, this form can be avoided entirely.</p>
+<p>Indirect discrimination arises after direct discrimination is ruled out. A person may still be treated disproportionately because protected status is inferred through an apparently neutral practice. Two channels matter in modern pricing. First, identifiable proxies are facially neutral variables that stand in for a protected attribute, such as geographic area correlated with race or variables correlated with gender. Second, unidentifiable proxies arise when opaque models combine many variables and reproduce protected-group disparities without a single obvious surrogate.</p>
+<p>EU and Australian law often define indirect discrimination through three elements, a facially neutral provision, criterion, or practice, a connection to a protected characteristic in law, and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role, a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination. Legitimacy and justification also matter.</p>
+<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness (FTU)) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
+<p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation. See Step 4 and <span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>. Steps 2 through 4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
+</section>
+<section id="risk-based-and-non-risk-differentiation" class="level6" data-number="5.1.2.3">
+<h6 data-number="5.1.2.3" class="anchored" data-anchor-id="risk-based-and-non-risk-differentiation"><span class="header-section-number">5.1.2.3</span> Risk-based and non-risk differentiation</h6>
+<p>Not every price difference reflects expected claim cost. <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> distinguishes risk-based differentiation (premiums that differ because expected losses differ) from non-risk differentiation (premiums that differ for the same underlying risk, for example because of retention modelling, willingness to pay, or price optimization).</p>
+<p>Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Several U.S. states restrict price optimization for this reason. Step 3 examines welfare effects when pricing moves beyond technical costs.</p>
+</section>
+<section id="mini-glossary" class="level6" data-number="5.1.2.4">
+<h6 data-number="5.1.2.4" class="anchored" data-anchor-id="mini-glossary"><span class="header-section-number">5.1.2.4</span> Mini-glossary</h6>
+<p>The notation below is used consistently across Steps 1 through 4. Protected attributes, legitimate factors, and the predicted outcome <span class="math inline">\hat{Y}</span> reappear in the model designs in Step 2 and in the audit regressions in Step 4.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Protected attribute (<span class="math inline">X_P</span>)</td>
+<td>A characteristic the law or policy treats as off-limits for direct discrimination (e.g.&nbsp;race, gender, ethnicity)</td>
+</tr>
+<tr class="even">
+<td>Other features (<span class="math inline">X_{NP}</span>)</td>
+<td>Rating variables not treated as protected</td>
+</tr>
+<tr class="odd">
+<td>Predicted outcome (<span class="math inline">\hat{Y}</span>)</td>
+<td>The model output you will test. Often an estimated cost or a quoted premium</td>
+</tr>
+<tr class="even">
+<td>Proxy discrimination (PD)</td>
+<td>A non-protected variable acts as a stand-in for a protected attribute</td>
+</tr>
+<tr class="odd">
+<td>Legitimate factors</td>
+<td>Risk-related variables regulators accept as grounds for price variation</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fairness-criteria" class="level6" data-number="5.1.2.5">
+<h6 data-number="5.1.2.5" class="anchored" data-anchor-id="fairness-criteria"><span class="header-section-number">5.1.2.5</span> Fairness criteria</h6>
+<p>The criteria below are <strong>illustrative examples</strong> used in this playbook and in much insurance fairness work. They are not an exhaustive list. Your jurisdiction, product line, and regulator may require a different criterion.</p>
+<p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, and <span class="math inline">\hat{Y}</span> the predicted price (or cost estimate used to set price) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<p><strong>Playbook criteria.</strong> These are the criteria <strong>implemented in Steps 2 through 4</strong> of this playbook <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 37%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Criterion</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Individual</td>
+<td>Fairness through unawareness (FTU)</td>
+<td><span class="math inline">\hat{Y}</span> does not use <span class="math inline">X_P</span></td>
+</tr>
+<tr class="even">
+<td>Individual</td>
+<td>Controlling for the protected variable (CPV)</td>
+<td>Average full-model predictions over <span class="math inline">X_P</span> at scoring time (sometimes called a discrimination-free price)</td>
+</tr>
+<tr class="odd">
+<td>Group</td>
+<td>Demographic parity (DP)</td>
+<td>Equal distribution of <span class="math inline">\hat{Y}</span> across protected groups</td>
+</tr>
+<tr class="even">
+<td>Group</td>
+<td>Conditional demographic parity (CDP)</td>
+<td>Equal distribution of <span class="math inline">\hat{Y}</span> across groups within each legitimate subgroup</td>
+</tr>
+<tr class="odd">
+<td>Group</td>
+<td>Separation / sufficiency</td>
+<td>Equalised prediction errors across groups (separation) or equal calibration of <span class="math inline">\hat{Y}</span> to outcomes (sufficiency)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Broader taxonomy.</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> survey a wider set of criteria for life insurance. The taxonomy distinguishes <strong>individual</strong> and <strong>group</strong> fairness.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Playbook/plot/fairness1.png" class="img-fluid figure-img" style="width:85.0%" alt="Fairness criteria taxonomy"></p>
+<figcaption>Fairness criteria taxonomy (individual and group fairness). Adapted from <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>.</figcaption>
+</figure>
+</div>
+<p><strong>Individual fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 44%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Plain language</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness through unawareness</td>
+<td>Leave protected or sensitive variables out of the model</td>
+<td>No sensitive rating variables used in underwriting</td>
+</tr>
+<tr class="even">
+<td>Fairness through awareness</td>
+<td>Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices</td>
+<td>Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g.&nbsp;healthcare access by race or ethnicity)</td>
+</tr>
+<tr class="odd">
+<td>No omitted-variable bias</td>
+<td>Diagnose proxy relationships with protected attributes and adjust for their effect on outputs</td>
+<td>Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 44%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Plain language</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Independence</td>
+<td><span class="math inline">\hat{Y}</span> is statistically independent of the protected attribute</td>
+<td>Equal rejection rates for life insurance applications across race and ethnicity classes</td>
+</tr>
+<tr class="even">
+<td>Separation</td>
+<td>After conditioning on the true outcome, <span class="math inline">\hat{Y}</span> is independent of the protected attribute</td>
+<td>Equal likelihood of fraud investigation or policy rescission across groups, once controlling for whether fraud was ultimately detected</td>
+</tr>
+<tr class="odd">
+<td>Sufficiency</td>
+<td>After conditioning on <span class="math inline">\hat{Y}</span>, the true outcome is independent of the protected attribute</td>
+<td>Equal distribution of claims across groups at each estimated mortality risk score</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How the frameworks relate</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Playbook criterion</th>
+<th>Related criterion in <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness through unawareness (FTU)</td>
+<td>Fairness through unawareness</td>
+</tr>
+<tr class="even">
+<td>Controlling for the protected variable (CPV)</td>
+<td>No omitted-variable bias</td>
+</tr>
+<tr class="odd">
+<td>Demographic parity (DP)</td>
+<td>Closely related to independence</td>
+</tr>
+<tr class="even">
+<td>Conditional demographic parity (CDP)</td>
+<td>Special case of independence, conditioning on legitimate factors</td>
+</tr>
+<tr class="odd">
+<td>Separation / sufficiency</td>
+<td>Same names in the SoA taxonomy</td>
+</tr>
+</tbody>
+</table>
+<p>Achieving individual and group fairness simultaneously is often impossible <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. The trade-off between criteria is itself part of the fairness discussion.</p>
+<p><strong>Choosing a criterion for your regime.</strong> Regulation can constrain <strong>inputs</strong> (which variables or pricing procedures are allowed) or <strong>outputs</strong> (quantitative tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV). Disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Match the criterion you adopt to your regime before modelling in Step 2.</p>
+</section>
+</section>
+<section id="competing-ethical-notions" class="level5" data-number="5.1.3">
+<h5 data-number="5.1.3" class="anchored" data-anchor-id="competing-ethical-notions"><span class="header-section-number">5.1.3</span> Competing ethical notions</h5>
+<p>This lens asks which differentiations are appropriate in the first place, given how a product is positioned in the market. It is less about legal tests than about solidarity, efficiency, and the social role of insurance. Insurance pricing is not the only place fairness matters. Differentiation also arises in issuance, renewal, cancellation, coverage terms, marketing, and claims handling <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. Refusing to issue or renew cover, or restricting benefits, can harm disadvantaged groups more sharply than premium differences alone.</p>
+<section id="principles-of-fair-differentiation" class="level6" data-number="5.1.3.1">
+<h6 data-number="5.1.3.1" class="anchored" data-anchor-id="principles-of-fair-differentiation"><span class="header-section-number">5.1.3.1</span> Principles of fair differentiation</h6>
+<p>Algorithmic pricing is built on differentiation. Customers with different expected costs or willingness to pay may receive different prices. The question is which differentiations are appropriate <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Playbook/plot/social_econ.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Balancing social justice and economic efficiency.</figcaption>
+</figure>
+</div>
+</section>
+<section id="social-good-or-economic-commodity" class="level6" data-number="5.1.3.2">
+<h6 data-number="5.1.3.2" class="anchored" data-anchor-id="social-good-or-economic-commodity"><span class="header-section-number">5.1.3.2</span> Social good or economic commodity?</h6>
+<p>Fairness depends on product context. The same rating factor can look appropriate in one market and problematic in another.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 38%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Position</th>
+<th>Emphasis</th>
+<th>Risk pooling logic</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Social good</td>
+<td>Solidarity, access, universal service</td>
+<td>Subsidising solidarity (higher-risk groups supported by lower-risk groups)</td>
+<td>Mandatory coverage, limited risk classification, community rating</td>
+</tr>
+<tr class="even">
+<td>Economic commodity</td>
+<td>Efficiency, adverse selection, moral hazard</td>
+<td>Chance solidarity (pooling among similar risks)</td>
+<td>Voluntary products priced by supply and demand with finer risk segmentation</td>
+</tr>
+</tbody>
+</table>
+<p>Compulsory third-party motor insurance, catastrophe cover in some jurisdictions, and health insurance are often treated as serving a broader public interest, with premiums flattened or pooled across groups. Voluntary life insurance and voluntary motor cover behave more like competitively priced products, where finer risk classification is usually accepted to limit adverse selection. Long-term care and disability insurance often sit between the two positions. A product’s regulatory status and consumer expectations should guide which column in the table above applies.</p>
+</section>
+<section id="actuarial-fairness" class="level6" data-number="5.1.3.3">
+<h6 data-number="5.1.3.3" class="anchored" data-anchor-id="actuarial-fairness"><span class="header-section-number">5.1.3.3</span> Actuarial fairness</h6>
+<p>Actuarial fairness is the idea that each policyholder should pay for their own risk and only their own risk <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. It is the dominant logic when insurance is sold as a commercial product by a stock insurer, where the pool is a collection of bilateral contracts rather than a shared community.</p>
+<p>The fairness standard shifts with who owns the pool. Government schemes and social insurance often accept cross-subsidy between groups. Mutual, group, and takaful arrangements can carry stronger solidarity expectations than stock-company markets, even when firms compete on similar rating factors. The social good vs economic commodity table above is one way to read this tension. Risk-based pricing and cross-subsidy are both defensible in different product contexts.</p>
+</section>
+</section>
+<section id="consumer-trust" class="level5" data-number="5.1.4">
+<h5 data-number="5.1.4" class="anchored" data-anchor-id="consumer-trust"><span class="header-section-number">5.1.4</span> Consumer trust</h5>
+<p>The third lens is about whether pricing honours what the firm has promised customers and what the market expects, not only whether a model passes a legal or statistical test.</p>
+<p>Insurers make implicit and explicit commitments through product disclosure, marketing, codes of practice, and the consistency between quoted and filed rates. Insurance contracts also rely on utmost good faith, customers are expected to answer underwriting questions honestly, while insurers hold far more data and modelling capability <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. That imbalance matters for trust. Consumers often struggle to compare policies or verify that a quoted premium reflects risk rather than retention or shopping behaviour.</p>
+<p>A price can be compliant yet feel unfair if it diverges from those promises, changes without clear explanation, or uses information gathered for underwriting in ways customers did not expect. Non-risk differentiation, including price optimization that penalises loyal or less price-sensitive customers, is a recurring source of consumer concern <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Big data and machine learning can widen the gap if insurers can segment more finely while customers lack equivalent tools to compare offers.</p>
+<p>Conversely, transparent communication about why prices differ (for example, risk-based rating on controllable factors) can support trust even where premiums are not equal across groups. Compliance with anti-discrimination rules is necessary but not sufficient for this lens. Product, legal, and communications teams should align on what customers are told about how prices are set and how that aligns with the technical choices in the sections above.</p>
+</section>
+</section>
+<section id="step-2-design-fair-pricing" class="level4" data-number="5.2">
+<h4 data-number="5.2" class="anchored" data-anchor-id="step-2-design-fair-pricing"><span class="header-section-number">5.2</span> Step 2, Design Fair Pricing</h4>
+<p>Agree on the fairness criterion from Step 1 before choosing a model.</p>
+<p>This step focuses mainly on the anti-discrimination lens from Step 1. It covers how to build models that meet legal and statistical fairness criteria (FTU, DP, CDP, CPV, and related designs). Questions about solidarity, actuarial fairness, and consumer trust still matter, but the technical work here is about fair cost modelling, estimating expected claim cost or pure premium (<span class="math inline">\hat{Y}</span>).</p>
+<p>In production, practitioners often need final prices that also reflect expenses, cost of capital, reinsurance, profit loadings, and other commercial components. These can be incorporated into the pricing process, and the fairness criterion from Step 1 can be applied to final prices as well as to pure premium. For demand modelling, price optimisation, and welfare effects once prices reach the market, see Step 3 and Case Study 2.</p>
+<p>Case Study 1 provides an insurance implementation at the cost-modelling stage (GLMs and XGBoost).</p>
+<section id="how-can-fair-pricing-be-achieved" class="level5" data-number="5.2.1">
+<h5 data-number="5.2.1" class="anchored" data-anchor-id="how-can-fair-pricing-be-achieved"><span class="header-section-number">5.2.1</span> How can fair pricing be achieved?</h5>
+<p>Once Step 1 fixes the fairness criterion, choose where in the pipeline to enforce it. Adjust inputs before modelling (pre-processing), constrain the model during training (in-processing), or adjust outputs after prediction (post-processing). Each approach maps to a standard model design (M0 through MC below).</p>
+<p>Implement anti-discrimination strategies at pre-processing, in-processing, or post-processing, linked to the fairness criteria from Step 1 <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. This step describes standard model designs rather than a single approved pipeline for every market. Before fitting, practitioners should confirm which criterion from Step 1 is binding (CDP, DP, FTU, or another rule), which variables count as legitimate rating factors under local law, and whether pre-, in-, or post-processing best fits the production system. Retaining a baseline full model (M0) for welfare and audit comparisons in Steps 3 and 4 is strongly recommended. Case Study 1 shows one insurance implementation. Data, variables, and software should be adapted to the relevant jurisdiction.</p>
+</section>
+<section id="mini-glossary-1" class="level5" data-number="5.2.2">
+<h5 data-number="5.2.2" class="anchored" data-anchor-id="mini-glossary-1"><span class="header-section-number">5.2.2</span> Mini-glossary</h5>
+<p>Notation follows Step 1. The model labels M0 through MC correspond to the fairness criteria in <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>, where M denotes a pricing model and DP and CDP denote demographic parity and conditional demographic parity.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">X_P</span></td>
+<td>Protected attribute (e.g.&nbsp;gender, race, ethnicity)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">X_{NP}</span></td>
+<td>Non-protected rating features</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\hat{Y}</span></td>
+<td>Predicted expected claim cost or pure premium</td>
+</tr>
+</tbody>
+</table>
+<p>Model labels follow <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. M denotes a pricing model. DP and CDP are the fairness criteria demographic parity and conditional demographic parity.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0 (full model)</td>
+<td>Baseline that uses all variables, including protected attributes - kept for comparison, not for deployment when discrimination is prohibited</td>
+</tr>
+<tr class="even">
+<td>MU (unawareness)</td>
+<td>Model trained without the protected attribute. Targets fairness through unawareness (FTU)</td>
+</tr>
+<tr class="odd">
+<td>MDP (demographic parity)</td>
+<td>Model targeting demographic parity (DP). Fit on debiased non-protected predictors <span class="math inline">X_{NP}^{\star}</span> so average predicted outcomes are approximately equal across protected groups</td>
+</tr>
+<tr class="even">
+<td>MCDP (conditional demographic parity)</td>
+<td>Model targeting conditional demographic parity (CDP). Fit on legitimate predictors plus debiased non-legitimate predictors - group differences are allowed only through legitimate variables</td>
+</tr>
+<tr class="odd">
+<td>MC (CPV)</td>
+<td>Full model (M0) fitted, then predictions averaged over protected groups at scoring time. Targets controlling for the protected variable (CPV)</td>
+</tr>
+<tr class="even">
+<td>Pre-processing</td>
+<td>Change inputs before model training (used by MDP and MCDP)</td>
+</tr>
+<tr class="odd">
+<td>In-processing</td>
+<td>Enforce fairness constraints during model training or optimisation (e.g.&nbsp;regularisation or penalty terms in the objective). See Case Study 2 for penalty-based constraints in price optimisation</td>
+</tr>
+<tr class="even">
+<td>Post-processing</td>
+<td>Change outputs after model training (used by MC)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="model-criterion-mapping" class="level5" data-number="5.2.3">
+<h5 data-number="5.2.3" class="anchored" data-anchor-id="model-criterion-mapping"><span class="header-section-number">5.2.3</span> Model-criterion mapping</h5>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 39%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Criterion</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0 (full)</td>
+<td>Baseline</td>
+<td>Uses <span class="math inline">X_P</span> and <span class="math inline">X_{NP}</span></td>
+</tr>
+<tr class="even">
+<td>MU</td>
+<td>FTU</td>
+<td><span class="math inline">\hat{Y} = f(X_{NP})</span> only</td>
+</tr>
+<tr class="odd">
+<td>MDP</td>
+<td>DP</td>
+<td>Pre-process all <span class="math inline">X_{NP}</span> to <span class="math inline">X_{NP}^{\star}</span></td>
+</tr>
+<tr class="even">
+<td>MCDP</td>
+<td>CDP</td>
+<td>Retain legitimate predictors; debias non-legitimate predictors</td>
+</tr>
+<tr class="odd">
+<td>MC</td>
+<td>CPV</td>
+<td>Fit M0; average over <span class="math inline">X_P</span> at prediction</td>
+</tr>
+</tbody>
+</table>
+<section id="regulations-criteria-and-models" class="level6" data-number="5.2.3.1">
+<h6 data-number="5.2.3.1" class="anchored" data-anchor-id="regulations-criteria-and-models"><span class="header-section-number">5.2.3.1</span> Regulations, criteria, and models</h6>
+<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regulatory regimes to fairness criteria and standard model designs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Playbook/plot/regulations_fairness_models.png" class="img-fluid figure-img" style="width:90.0%" alt="Table mapping regulation types to fairness criteria and representative models"></p>
+<figcaption>Comparison between regulations, fairness criteria, and models.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="in-processing" class="level5" data-number="5.2.4">
+<h5 data-number="5.2.4" class="anchored" data-anchor-id="in-processing"><span class="header-section-number">5.2.4</span> In-processing</h5>
+<p>In-processing builds fairness into the estimation or optimisation step rather than adjusting inputs or outputs separately. One approach is to add regularisation or penalty terms that down-weight violations of the chosen criterion <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Case Study 2 implements this in price optimisation (PDP and PAF rules).</p>
+</section>
+<section id="pre-processing-mdp-mcdp" class="level5" data-number="5.2.5">
+<h5 data-number="5.2.5" class="anchored" data-anchor-id="pre-processing-mdp-mcdp"><span class="header-section-number">5.2.5</span> Pre-processing (MDP, MCDP)</h5>
+<p>Both MDP and MCDP use pre-processing to debias predictors before fitting <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Common techniques include a disparate-impact remover, which aligns group distributions of non-protected predictors, and orthogonal predictors, which residualise non-protected features on the protected attribute.</p>
+<p>MDP debiases all non-protected predictors to target demographic parity (DP). MCDP debiases only non-legitimate predictors while retaining legitimate variables unchanged, to target conditional demographic parity (CDP), allowing group differences only through business-justified features that regulation accepts as grounds for price variation.</p>
+<p><strong>Insurance example.</strong> Under MCDP, legitimate predictors are those your regulator accepts in filed rating plans, such as claims history, vehicle type, or annual mileage. Non-legitimate predictors are often newer or external data not yet treated as standard rating factors, such as third-party telematics scores, alternative credit indices, or other enriched data feeds. Legitimate variables enter the model unchanged. Non-legitimate variables are debiased before fitting.</p>
+</section>
+<section id="post-processing-mc" class="level5" data-number="5.2.6">
+<h5 data-number="5.2.6" class="anchored" data-anchor-id="post-processing-mc"><span class="header-section-number">5.2.6</span> Post-processing (MC)</h5>
+<p><span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})</span></p>
+<p>Protected attributes are used in training only and averaged out at prediction, giving better proxy control than MU alone.</p>
+</section>
+<section id="implementation" class="level5" data-number="5.2.7">
+<h5 data-number="5.2.7" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2.7</span> Implementation</h5>
+<p>Each deployed model (M0, MU, MDP, MCDP, or MC) should be linked explicitly to the criterion chosen in Step 1. The baseline M0 should be retained for welfare analysis in Step 3 and audit comparisons in Step 4. The choice of pre-, in-, or post-processing, together with the data pipeline and model parameters, should be documented so that results can be reproduced.</p>
+</section>
+</section>
+<section id="step-3-assess-impact" class="level4" data-number="5.3">
+<h4 data-number="5.3" class="anchored" data-anchor-id="step-3-assess-impact"><span class="header-section-number">5.3</span> Step 3, Assess Impact</h4>
+<p>A fair cost model does not guarantee a fair final price or favourable welfare outcomes. Case Study 2 covers demand, price optimisation, and regulation comparison on insurance data.</p>
+<section id="who-gains-and-loses" class="level5" data-number="5.3.1">
+<h5 data-number="5.3.1" class="anchored" data-anchor-id="who-gains-and-loses"><span class="header-section-number">5.3.1</span> Who gains and loses?</h5>
+<p>A model that looks fair on paper can still leave some groups worse off once prices respond to demand, competition, and regulation. Step 3 asks you to quantify consumer welfare and firm profit by protected group, not only whether predicted costs or premiums are equal.</p>
+<p>Quantify firm profit and consumer welfare from pricing outputs (price, approval, loss ratio, markups). Prediction-level fairness alone is insufficient <span class="citation" data-cites="huang2026welfarealgorithms">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>)</span>. Welfare assessment compares alternative pricing rules (P0, PA, POB, PDP, PAF) to show who gains and who loses. Demand and price-setting assumptions should reflect the product and distribution channel. Price optimisation may be restricted or prohibited in some jurisdictions, so the analysis here is best read as policy comparison rather than operational guidance without legal review. Regulatory labels such as PA and POB map to different rules in different countries, so the pricing-rules table below should be treated as a conceptual taxonomy. Case Study 2 illustrates one insurance market with a subsample. A filing or board memo should use market-specific data and structure.</p>
+<p>This step focuses on ex-ante welfare and profit after pricing rules are applied. It does not replace the statistical audits of deployed prices in Step 4, and it takes a fair cost model from Step 2 as given rather than re-deriving fairness criteria.</p>
+</section>
+<section id="cost-modelling-and-welfare" class="level5" data-number="5.3.2">
+<h5 data-number="5.3.2" class="anchored" data-anchor-id="cost-modelling-and-welfare"><span class="header-section-number">5.3.2</span> Cost modelling and welfare</h5>
+<p><span class="citation" data-cites="huang2026welfarealgorithms">Huang, Shimao, and Khern-am-nuai (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> connects fairness constraints on cost models to pricing, demand, participation, and welfare. Three themes recur in their analysis. Fairness interventions at the cost-modelling stage can alter final prices even when predictive accuracy changes only modestly. Standard fairness metrics may reduce welfare for protected groups once selection effects and demand response are taken into account. Finally, the trade-offs between firm profit and consumer welfare differ by intervention type, so a single summary statistic rarely captures the full picture.</p>
+</section>
+<section id="full-pricing-process" class="level5" data-number="5.3.3">
+<h5 data-number="5.3.3" class="anchored" data-anchor-id="full-pricing-process"><span class="header-section-number">5.3.3</span> Full pricing process</h5>
+<p><span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span> models the complete pipeline.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cost modelling</td>
+<td>Expected cost (input to pricing)</td>
+</tr>
+<tr class="even">
+<td>Demand modelling</td>
+<td>Willingness to pay</td>
+</tr>
+<tr class="odd">
+<td>Price optimisation</td>
+<td>Offered price in the market</td>
+</tr>
+<tr class="even">
+<td>Regulatory constraints</td>
+<td>Fairness and accountability rules</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pricing-rules" class="level5" data-number="5.3.4">
+<h5 data-number="5.3.4" class="anchored" data-anchor-id="pricing-rules"><span class="header-section-number">5.3.4</span> Pricing rules</h5>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 41%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rule</th>
+<th>Plain language</th>
+<th>Regulatory idea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P0</td>
+<td>Unconstrained profit maximisation</td>
+<td>Benchmark: prices set to maximise expected profit</td>
+</tr>
+<tr class="even">
+<td>PA</td>
+<td>Accountable pricing</td>
+<td>Transparent base rate and relativities (decomposable rating structure)</td>
+</tr>
+<tr class="odd">
+<td>POB</td>
+<td>Price optimisation ban</td>
+<td>Premium tied closely to estimated cost (cost-plus or fixed markup)</td>
+</tr>
+<tr class="even">
+<td>PDP</td>
+<td>Demographic parity on premiums</td>
+<td>Equal average premiums across protected groups</td>
+</tr>
+<tr class="odd">
+<td>PAF</td>
+<td>Group fairness on cost estimates</td>
+<td>Equal premiums across groups within each cost stratum</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-findings" class="level5" data-number="5.3.5">
+<h5 data-number="5.3.5" class="anchored" data-anchor-id="key-findings"><span class="header-section-number">5.3.5</span> Key findings</h5>
+<p><span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span> highlight a persistent tension between price fairness and markup fairness. No single pricing rule achieves both simultaneously. PDP moves premiums closest to equality across protected groups but can widen markup disparities for the group the rule is meant to protect. PA reduces markup gaps but at the cost of larger profit losses. The welfare effects of POB depend on market structure, including whether participation is mandatory or voluntary and how competitive the market is.</p>
+<p>Markup is the gap between the premium charged and the customer’s expected claim cost. A regulation that equalises premiums across groups may still leave one group paying a higher markup relative to their risk.</p>
+</section>
+<section id="measures" class="level5" data-number="5.3.6">
+<h5 data-number="5.3.6" class="anchored" data-anchor-id="measures"><span class="header-section-number">5.3.6</span> Measures</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Consumer welfare</td>
+<td>Willingness to pay minus price paid</td>
+</tr>
+<tr class="even">
+<td>Firm profit</td>
+<td>Price charged minus expected cost</td>
+</tr>
+</tbody>
+</table>
+<p>Reports should disaggregate these measures by protected group and track price changes, approval or uptake rates, and markup gaps alongside headline premium levels.</p>
+</section>
+</section>
+<section id="step-4-audit-the-system" class="level4" data-number="5.4">
+<h4 data-number="5.4" class="anchored" data-anchor-id="step-4-audit-the-system"><span class="header-section-number">5.4</span> Step 4, Audit the System</h4>
+<p>Design and welfare analysis should be complete before auditing a deployed system.</p>
+<p>This step focuses mainly on the anti-discrimination lens from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.</p>
+<p>Case Study 3 implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
+<section id="how-do-we-test-fairness" class="level5" data-number="5.4.1">
+<h5 data-number="5.4.1" class="anchored" data-anchor-id="how-do-we-test-fairness"><span class="header-section-number">5.4.1</span> How do we test fairness?</h5>
+<p>An audit tests whether a deployed pricing system meets the fairness standard from Step 1. Fix the protocol, criterion, legitimate factors, tolerance bands, sample design, before looking at outcomes. Then classify each test as pass, fail, or insufficient information.</p>
+<p>Run a pre-committed audit protocol on pricing outputs. All design choices are fixed before examining data <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p><strong>Example criteria (CDP and PD).</strong> This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from Step 1, such as demographic parity, separation, or sufficiency, may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
+<p>The protocol below describes a regression-based audit design, not a substitute for legal advice or a regulator’s full examination. Before examining data, auditors should pre-specify the fairness criterion (CDP for system-level price gaps after legitimate controls, or PD when screening a suspect rating variable), the protected attribute (directly observed or responsibly proxied), legitimate rating factors as recognised by the regulator, and the response variable (quoted premium, pure premium, or loss ratio) that matches the regulatory question. Tolerance margins for CDP should be fixed in advance, for example a 5% price-gap band and a 0.80 adverse-impact ratio. Because pricing algorithms are usually deterministic, corrected standard errors (HC3 for CDP and a cross-covariance correction for PD) should be pre-specified rather than relying on classical OLS defaults. Case Study 3 applies one illustrative design to Illinois auto quotes. Criteria, data, and escalation rules should be adapted to the relevant jurisdiction.</p>
+</section>
+<section id="mini-glossary-2" class="level5" data-number="5.4.2">
+<h5 data-number="5.4.2" class="anchored" data-anchor-id="mini-glossary-2"><span class="header-section-number">5.4.2</span> Mini-glossary</h5>
+<p>The terms below appear throughout the audit protocol. They align with the notation in <span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span> and with the CDP and PD criteria introduced in Step 1.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Conditional demographic parity (CDP)</td>
+<td>After controlling for legitimate risk factors, are average prices equal across protected groups?</td>
+</tr>
+<tr class="even">
+<td>Proxy discrimination (PD)</td>
+<td>Does a rating variable’s role change when a protected attribute enters the model?</td>
+</tr>
+<tr class="odd">
+<td>Legitimate factors (<span class="math inline">X_\ell</span>)</td>
+<td>Risk-related controls the regulator accepts in an audit regression</td>
+</tr>
+<tr class="even">
+<td>TOST</td>
+<td>Equivalence testing, pass only if evidence shows the disparity is within tolerance (used for CDP)</td>
+</tr>
+<tr class="odd">
+<td>HC3 / corrected SE</td>
+<td>Sandwich standard errors for deterministic pricing outputs. Classical OLS defaults are unreliable when residuals are approximation error</td>
+</tr>
+<tr class="even">
+<td>Proxy-imputed protected class</td>
+<td>Race or ethnicity inferred from name, geography, or similar when direct collection is restricted (e.g.&nbsp;BISG, BIFSG, zip composition)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="end-to-end-audit-flow" class="level5" data-number="5.4.3">
+<h5 data-number="5.4.3" class="anchored" data-anchor-id="end-to-end-audit-flow"><span class="header-section-number">5.4.3</span> End-to-end audit flow</h5>
+<p>The audit follows a Plan, Audit, Decide, Improve sequence <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. Design choices are fixed before data are examined, outcomes are classified using pre-specified tests, and failed or unclear results trigger remediation and re-audit rather than ad hoc reinterpretation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Playbook/plot/audit-flow.png" class="img-fluid figure-img" style="width:90.0%" alt="End-to-end fairness audit flow diagram"></p>
+<figcaption>End-to-end fairness audit flow: Plan, Audit, Decide, Improve.</figcaption>
+</figure>
+</div>
+<p>All design choices must be fixed before examining data. Post-hoc changes to criteria, margins, or samples undermine auditability and stated error control.</p>
+</section>
+<section id="pre-audit-setup" class="level5" data-number="5.4.4">
+<h5 data-number="5.4.4" class="anchored" data-anchor-id="pre-audit-setup"><span class="header-section-number">5.4.4</span> Pre-audit setup</h5>
+<p>The pre-audit phase translates the fairness criterion from Step 1 into a testable protocol. Auditors first select the criterion. Proxy discrimination (PD) is appropriate when auditing specific rating variables suspected of proxying the protected attribute. Conditional demographic parity (CDP) is appropriate when evaluating the system-level price gap after controlling for legitimate risk factors. Other criteria from Step 1 may apply in some jurisdictions.</p>
+<p>The protected attribute <span class="math inline">A</span> must then be documented, including the inference method and its limitations if the attribute is proxied. Legitimate rating factors <span class="math inline">X_\ell</span> should align with Step 1 and regulatory guidance. The response variable <span class="math inline">P</span>, whether quoted premium, pure premium, or loss ratio, sets the economic meaning of any measured disparity.</p>
+<p>Tolerance margins should be fixed before data review. For CDP, specify a level-gap margin <span class="math inline">\delta</span>, a ratio margin <span class="math inline">\tau</span> (for example a 5% gap and a 0.80 adverse-impact ratio), and a significance level <span class="math inline">\alpha</span>. For PD, specify <span class="math inline">\alpha</span> and a minimum relative shift <span class="math inline">\rho_{\min}</span> (for example 10%). The standard error estimator should also be pre-specified, HC3 for CDP by default and a full cross-covariance correction for the PD coefficient-shift test.</p>
+<p>Finally, auditors should design a representative quote sample, for example stratified profiles submitted within a short time window, with sample size planned for adequate power. Insufficient data should yield insufficient information, not a pass. Test scope (per company, per product, and so on) and any multiplicity adjustment for multiple proxy variables should be documented before results are reviewed.</p>
+</section>
+<section id="proxied-protected-attributes" class="level5" data-number="5.4.5">
+<h5 data-number="5.4.5" class="anchored" data-anchor-id="proxied-protected-attributes"><span class="header-section-number">5.4.5</span> Proxied protected attributes</h5>
+<p>When race or ethnicity cannot be observed directly, regulators and firms sometimes infer it using BISG, BIFSG, zip composition, or similar methods. If that proxy enters the audit regression as a categorical protected attribute, the coefficient on the proxy group is not the same estimand as a true-group disparity <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
+<p>Misclassification mixes group effects. Estimated gaps can shrink toward the majority group even when overall proxy accuracy looks high. Proxy errors can also correlate with geography, socioeconomic conditions, and pricing residuals after legitimate controls are applied. Disparities can then be attenuated or amplified relative to analyses based on observed protected-class labels.</p>
+<p>Treat proxy-based CDP coefficients as diagnostic signals, not definitive proof of compliance or discrimination. Document the proxy method, its confusion structure where available, and these limits in the audit protocol. Colorado’s draft BIFSG testing framework and New York Circular Letter No.&nbsp;7 both contemplate inferred protected-class status in regression-based assessments <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed xin2026proxyrace">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
+</section>
+<section id="statistical-testing" class="level5" data-number="5.4.6">
+<h5 data-number="5.4.6" class="anchored" data-anchor-id="statistical-testing"><span class="header-section-number">5.4.6</span> Statistical testing</h5>
+<p>Fairness audits typically regress quoted premiums on a protected attribute and legitimate rating factors, then read off confidence intervals for the protected-group effect. That workflow is only valid if the standard errors are correct. For algorithmic pricing, deterministic outputs invalidate classical variance formulas, and CDP calls for equivalence testing rather than conventional significance testing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<section id="deterministic-pricing-and-corrected-inference" class="level6" data-number="5.4.6.1">
+<h6 data-number="5.4.6.1" class="anchored" data-anchor-id="deterministic-pricing-and-corrected-inference"><span class="header-section-number">5.4.6.1</span> Deterministic pricing and corrected inference</h6>
+<p>Pricing algorithms are usually deterministic. The same profile always returns the same price, so the audit response is a fixed function of the inputs, not a random draw <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>The audit still fits a linear regression to approximate a nonlinear pricing function. The residuals are therefore approximation error. They show how the true pricing function departs from the linear audit model. They are not independent sampling noise. The classical formula <span class="math inline">\hat\sigma^2 (X^\top X)^{-1}</span> assumes i.i.d. errors with constant variance. Neither assumption holds, so classical standard errors can be wrong in both direction and magnitude. In the Illinois application in <span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span>, corrected standard errors for some insurers differ from classical ones by large factors. You cannot know which direction applies without computing both.</p>
+<p>The practical fix is a sandwich estimator such as HC3, which builds the covariance from observation-level squared residuals rather than a single <span class="math inline">\hat\sigma^2</span> scale. Sandwich estimators are familiar from heteroskedasticity-robust regression, but the rationale here is different. There is no stochastic error term to begin with <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. HC3 is the default in the audit protocol because it also down-weights high-leverage profiles, which matters when audit quotes are not uniformly spread across territories or risk levels.</p>
+<p>Proxy discrimination adds a second correction. The PD test compares a coefficient across two regressions fitted to the same premium vector. Treating those estimates as independent overstates the variance of the shift and makes the test conservative. A full cross-covariance correction is needed <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>Getting the variance wrong changes the audit verdict. Confidence intervals that are too narrow can turn a genuine gap into a fail. Intervals that are too wide can turn a compliant system into insufficient information. Corrected inference should be pre-specified before examining outcomes.</p>
+<p>For conditional demographic parity (CDP), the audit regresses the pricing outcome on the protected attribute and legitimate factors and tests whether the protected-group coefficient lies within pre-specified ratio and level-gap bands using equivalence testing (TOST). A pass requires positive evidence of compliance within tolerance, not merely failing to detect a disparity. For proxy discrimination (PD), the audit compares a rating variable’s coefficient in a restricted model (without the protected attribute) and an extended model (with it), using the corrected cross-covariance for the coefficient shift. PD relies on a two-part rule combining statistical significance with a minimum relative shift, rather than TOST in the same form as CDP.</p>
+</section>
+<section id="why-tost-matters" class="level6" data-number="5.4.6.2">
+<h6 data-number="5.4.6.2" class="anchored" data-anchor-id="why-tost-matters"><span class="header-section-number">5.4.6.2</span> Why TOST matters</h6>
+<p>Conventional significance testing asks whether a price gap is detectably different from zero. That is a poor fit for compliance auditing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 17%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Null hypothesis</th>
+<th>What a “pass” means</th>
+<th>Who must prove what</th>
+<th>Large samples</th>
+<th>Small samples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Significance testing</td>
+<td>Gap <span class="math inline">= 0</span></td>
+<td>Failed to detect a violation (not necessarily fair)</td>
+<td>Regulator or reviewer must detect a violation</td>
+<td>Flag trivial gaps as violations</td>
+<td>Miss genuine gaps</td>
+</tr>
+<tr class="even">
+<td>TOST equivalence testing</td>
+<td>Gap <span class="math inline">\geq</span> tolerance</td>
+<td>Positive evidence the gap is within tolerance</td>
+<td>Insurer must demonstrate compliance within tolerance</td>
+<td>Narrower CIs help confirm fairness</td>
+<td>Wide CIs yield insufficient information</td>
+</tr>
+</tbody>
+</table>
+<p>Under significance testing, the practical burden falls on the regulator or reviewer to find a material violation. A non-significant result only means no gap was detected in that sample. It does not show that pricing is fair. Under TOST, the burden shifts to the insurer (or model owner) to provide positive evidence that any gap lies within pre-specified tolerance bands. Insufficient information is not a pass.</p>
+<p>Regulatory tolerance bands already define an equivalence region. Colorado’s 5% price-gap discussion maps to a level margin <span class="math inline">\delta</span>. The familiar 0.80 adverse-impact ratio maps to a ratio margin <span class="math inline">\tau</span>. TOST matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>)</span>. Exact legal allocation of burden varies by jurisdiction. This describes one audit design, not legal advice.</p>
+<p>For CDP, a pass requires the confidence interval for the protected-group effect to lie entirely inside both the level-gap band <span class="math inline">(-\delta, +\delta)</span> and the log-ratio band implied by <span class="math inline">\tau</span>. A fail requires the interval to lie entirely outside. If the interval is too wide to settle either case, the verdict is insufficient information. That outcome is not a pass and should trigger more data or a pre-specified escalation step.</p>
+</section>
+</section>
+<section id="three-outcomes" class="level5" data-number="5.4.7">
+<h5 data-number="5.4.7" class="anchored" data-anchor-id="three-outcomes"><span class="header-section-number">5.4.7</span> Three outcomes</h5>
+<p>Each audit test yields one of three verdicts. A pass means the confidence interval lies entirely within the tolerance band, providing positive evidence of compliance. Insufficient information means the interval is too wide to confirm pass or fail, reflecting limited data rather than a clean bill of health. A fail means the interval lies entirely outside the tolerance band, indicating a material disparity that should trigger remediation and re-testing.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pass</td>
+<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance)</td>
+<td>Document. Proceed with monitoring</td>
+</tr>
+<tr class="even">
+<td>Insufficient information</td>
+<td>Interval too wide to confirm pass or fail. Reflects limited data, not a pass</td>
+<td>Collect more data or follow a pre-specified escalation procedure</td>
+</tr>
+<tr class="odd">
+<td>Fail</td>
+<td>Confidence interval lies entirely outside the tolerance band (material disparity)</td>
+<td>Remediate, then re-test (return to Step 2 or Step 1)</td>
+</tr>
+</tbody>
+</table>
+<p>On fail or unclear CDP results, a proxy-discrimination screen can identify candidate driver variables. Remediation may include recalibration, fairness constraints at retraining, or ongoing monitoring with re-audit triggers.</p>
+</section>
+<section id="feature-importance-check" class="level5" data-number="5.4.8">
+<h5 data-number="5.4.8" class="anchored" data-anchor-id="feature-importance-check"><span class="header-section-number">5.4.8</span> Feature importance check</h5>
+<p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in Case Study 3.</p>
+<p>Some filing and governance workflows use a different, variable-level check instead, partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.</p>
+<p><strong>Regulatory example.</strong> <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> discusses variable-level filing review in US insurance. NAIC guidance <span class="citation" data-cites="naic2020predictivemodels naic2022treebased">(<a href="#ref-naic2020predictivemodels" role="doc-biblioref">National Association of Insurance Commissioners 2020</a>, <a href="#ref-naic2022treebased" role="doc-biblioref">2022</a>)</span> describes what state regulators may request when reviewing tree-based auto and homeowners rate filings, partial dependence plots and variable-importance plots for each predictor’s relationship to the target (frequency, severity, loss costs, or expenses), with rational explanations especially for variables of concern. This is review guidance, not a quantitative outcome fairness test like CDP or proxy discrimination.</p>
+<p>Industry reports such as <span class="citation" data-cites="soa2021interpretableml">Society of Actuaries (<a href="#ref-soa2021interpretableml" role="doc-biblioref">2021</a>)</span> catalog similar tools for actuaries and summarize NAIC review practices, but they are practitioner guidance, not regulatory requirements.</p>
+<p>Treat partial dependence plots (and other permutation-based interpretation tools) as an optional supplement for ML model documentation, not a substitute for outcome-based testing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> argue that black-box models plus interpretability plots should be a last resort, prefer interpretable models such as GLMs or GAMs when they achieve comparable predictive performance (see Step 2). A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. The same paper shows that these tools can be manipulated to hide age- or race-related patterns while retaining almost all predictions on real data. Where they are used in filing or internal review, pair them with outcome audits, examine the underlying data, and use multiple interpretation tools (such as individual conditional expectation curves shown in full, including percentile bands) to help reveal anomalies that averaging hides.</p>
+</section>
+<section id="governance-and-monitoring" class="level5" data-number="5.4.9">
+<h5 data-number="5.4.9" class="anchored" data-anchor-id="governance-and-monitoring"><span class="header-section-number">5.4.9</span> Governance and monitoring</h5>
+<p>A defensible audit requires clear accountability. An accountable technical owner (often a chief actuary or model validation lead) signs off on the protocol. An independent reviewer replicates the analysis. The model owner is responsible for remediation when a test fails or returns an unclear result. Re-audits should be triggered by model changes, regulatory updates, or drift in audit statistics, and the complete quote dataset together with a reproducibility manifest should be stored for review.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Accountable technical owner</td>
+<td>Audit protocol sign-off</td>
+</tr>
+<tr class="even">
+<td>Independent reviewer</td>
+<td>Replicate audit analysis</td>
+</tr>
+<tr class="odd">
+<td>Model owner</td>
+<td>Remediation on fail or unclear result</td>
+</tr>
+</tbody>
+</table>
+<p>If filing documentation relies on partial dependence plots or variable-importance plots for ML models, treat them as supplementary narrative evidence only. Outcome-based CDP and proxy-discrimination tests remain the primary compliance path (see Feature importance check above). Regulators in several US states now require documented fairness testing of pricing algorithms.</p>
+</section>
+</section>
+</section>
+<section id="case-studies" class="level3" data-number="6">
+<h3 data-number="6" class="anchored" data-anchor-id="case-studies"><span class="header-section-number">6</span> Case Studies</h3>
+<p>Three case studies provide technical implementation evidence. They are reproducible illustrations, not universal regulatory templates. Data, tolerance bands, and admissible factors remain jurisdiction- and product-specific.</p>
+<section id="case-study-1-fair-cost-model-design" class="level4" data-number="6.1">
+<h4 data-number="6.1" class="anchored" data-anchor-id="case-study-1-fair-cost-model-design"><span class="header-section-number">6.1</span> Case Study 1, Fair Cost-Model Design</h4>
+<p><strong>Data and setting.</strong> The case study uses the <code>pg15training</code> French motor insurance dataset (100,000 TPL policies from 2009-2010) from the CASdatasets R package <span class="citation" data-cites="dutang2020package">(<a href="#ref-dutang2020package" role="doc-biblioref">Dutang and Charpentier 2026</a>)</span>, originally released for the 2015 French Institute of Actuaries pricing competition. The protected attribute is gender. Non-protected rating variables are Age, Bonus, vehicle group (GroupOne), population density (Density), and vehicle value (Value). An insurance score, constructed from vehicle type, category, occupation, region, and age, is treated as the single non-legitimate variable, following the baseline scenario of <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>.</p>
+<p>The response variable is pure premium (expected claim cost), computed as claim frequency multiplied by claim severity. Frequency is modeled with a Poisson GLM and severity with a Gamma GLM. The XGBoost implementations use matching deviance losses.</p>
+<p><strong>Models.</strong> Five model designs from the Step 2 model-criterion mapping are implemented using both GLM and XGBoost: M0 (full, including gender), MU (gender excluded), MDP (all predictors debiased), MCDP (only insurance score debiased), and MC (full model with CPV averaging). Pre-processing uses a disparate-impact remover as described in <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. Portfolio-level adjustments align total predicted premium for MDP, MCDP, MC, and all XGBoost models with the MU baseline so comparisons focus on redistribution rather than overall portfolio level.</p>
+<p><strong>Evaluation metrics.</strong> Group fairness is measured by the disparate-impact ratio (average predicted outcome in one group divided by the average in another). A value between 0.80 and 1.25 approximates the insurance four-fifths rule. Predictive accuracy is assessed by the normalized Gini index (ranking performance) and RMSE (overall error magnitude).</p>
+<p><strong>Illustrative findings.</strong> The fairness-accuracy analysis illustrates the expected trade-off. Models that achieve better disparate-impact ratios (closer to 1.0) tend to sacrifice some predictive accuracy, as measured by the Gini index or RMSE. The magnitude of the trade-off varies by model design and by whether GLM or XGBoost is used. MDP produces the sharpest premium redistribution across age and gender groups compared to the MU benchmark, while MCDP typically remains closer to MU because legitimate variables retain their predictive contribution. MC achieves proxy control beyond MU without explicit debiasing of the training data. The double-lift comparison of MU and MDP shows that policyholders where the two models disagree most (the tails of the premium ratio distribution) exhibit claim experience that tracks neither model perfectly. This illustrates the adverse selection concern that accompanies cross-group premium redistribution.</p>
+</section>
+<section id="case-study-2-welfare-and-pricing-rule-trade-offs" class="level4" data-number="6.2">
+<h4 data-number="6.2" class="anchored" data-anchor-id="case-study-2-welfare-and-pricing-rule-trade-offs"><span class="header-section-number">6.2</span> Case Study 2, Welfare and Pricing-Rule Trade-Offs</h4>
+<p><strong>Data and setting.</strong> Case Study 2 uses the same French motor insurance data as Case Study 1. Cost modeling (unconstrained XGBoost frequency-severity model, labeled C0) is estimated on the full 100,000-policy dataset. Welfare analysis uses a 2,000-policyholder subsample because the price optimization is computationally intensive at full scale. Gender is the protected attribute.</p>
+<p><strong>Framework.</strong> The welfare analysis follows <span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span>. Consumer demand is modeled with a discrete-choice setup, each policyholder chooses between the insurer’s product and an uninsured outside option. Purchase probability is estimated using a logit demand model. Ex-ante product value is approximated with a mean-variance utility representation and parameters for risk aversion and inertia calibrated from prior published studies.</p>
+<p>Price optimization is implemented in Python using TensorFlow and the Adam optimizer, with gradient-based updating over up to 3,000 iterations per pricing rule. Fairness constraints for PDP and PAF are incorporated as penalty terms with weight <span class="math inline">10^3</span>.</p>
+<p><strong>Pricing rules evaluated.</strong> The five pricing rules from Step 3 are applied with C0 cost inputs: C0-P0, C0-PA, C0-POB, C0-PDP, and C0-PAF.</p>
+<p><strong>Illustrative findings.</strong> The baseline unconstrained pricing (P0) reveals an important asymmetry. Female policyholders have lower estimated costs on average (and thus lower premiums), but higher markups (<span class="math inline">p_i/\hat{c}_i - 1</span>) because the insurer extracts relatively more profit from this group. This illustrates that premium levels and markup levels can point in opposite directions. A lower price does not imply a lower relative burden.</p>
+<p>Comparing regulations, PDP moves closest to premium equality between genders (by design) but increases female markups. PA reduces markup disparities while imposing larger profit losses than PDP. POB’s welfare effects depend on voluntary versus mandatory participation assumptions. PAF targets equity within risk strata, producing different redistribution patterns from PDP at the same overall premium level. Welfare change comparisons relative to P0 show that some regulations designed to help female policyholders can reduce their welfare through demand effects, and that no single rule simultaneously improves welfare and reduces markup disparity for the protected group.</p>
+</section>
+<section id="case-study-3-deployment-stage-fairness-testing" class="level4" data-number="6.3">
+<h4 data-number="6.3" class="anchored" data-anchor-id="case-study-3-deployment-stage-fairness-testing"><span class="header-section-number">6.3</span> Case Study 3, Deployment-Stage Fairness Testing</h4>
+<p><strong>Data and setting.</strong> Case Study 3 uses the ProPublica Illinois auto insurance dataset, containing quoted premiums from multiple insurers across Illinois zip codes. The audit is conducted at the company level. The protected attribute is a majority-minority zip-code indicator (<span class="math inline">A_z = 1</span> for majority-minority). Legitimate rating factors are log state risk and a Chicago indicator. The audit follows the Plan → Audit → Decide → Improve protocol.</p>
+<p><strong>Audit parameters (pre-specified).</strong> Significance level <span class="math inline">\alpha = 0.05</span> (90% confidence intervals for TOST), minimum 50 zip codes per company, CDP dollar tolerance <span class="math inline">\delta_\% = 5\%</span> of mean premium (following Colorado draft guidance), ratio tolerance <span class="math inline">\tau = 0.80</span> (standard adverse-impact ratio), PD substantive threshold <span class="math inline">\rho_{\min} = 10\%</span> relative coefficient shift.</p>
+<p><strong>CDP audit.</strong> For each company <span class="math inline">k</span>, the audit regression is: <span class="math display">\log(P_{kz}) = \mu_{0k} + \beta_{A,k} A_z + \gamma_{1k} \log(\text{risk}_z) + \gamma_{2k} \text{Chicago}_z + r_{kz}</span></p>
+<p>Both classical OLS and HC3 standard errors are computed. The HC3/classical SE ratio varies substantially across companies, ratios below 0.5 (classical overestimates uncertainty) and above 1.5 (classical underestimates uncertainty) are both observed. The direction is not predictable in advance and depends on the residual structure of each company’s pricing function relative to the audit model. This confirms that corrected inference is not a refinement but a requirement.</p>
+<p>TOST verdicts (pass / fail / insufficient information) are computed for each company using the HC3 confidence interval for <span class="math inline">\beta_{A,k}</span>. Both the ratio band (derived from <span class="math inline">\tau = 0.80</span>) and the level-gap band (5% of mean premium) must be satisfied for a pass. The distribution of verdicts across companies illustrates the three-outcome framework, some companies produce narrow enough confidence intervals to confirm compliance, others fail, and a third group has confidence intervals too wide to settle the question, triggering the insufficient-information verdict.</p>
+<p><strong>PD audit.</strong> The proxy-discrimination test is applied to log risk as the suspected proxy variable. The audit compares the variable’s coefficient with and without the protected attribute in the model, using the corrected cross-covariance standard error. Ignoring cross-covariance (treating the two estimates as independent) makes the PD test too conservative in this setting. Companies are flagged when the corrected two-part rule is met, statistical significance plus at least 10% relative shift.</p>
+</section>
+</section>
+<section id="contributions" class="level3" data-number="7">
+<h3 data-number="7" class="anchored" data-anchor-id="contributions"><span class="header-section-number">7</span> Contributions</h3>
+<p>This report and the companion playbook contribute:</p>
+<ol type="1">
+<li><p><strong>An integrated governance workflow</strong>, a four-step, sequentially linked framework from criterion definition through model design, welfare analysis, and audit, designed for use across compliance, actuarial, data science, and governance functions.</p></li>
+<li><p><strong>A formal model taxonomy</strong>, explicit mapping from fairness criteria (FTU, DP, CDP, CPV) to model interventions (MU, MDP, MCDP, MC) at the cost-modeling stage, with mathematical definitions of each intervention and the criteria it targets.</p></li>
+<li><p><strong>Welfare analysis as a required step</strong>, the framework positions welfare evaluation (Step 3) as non-optional rather than an advanced supplement, because cost-model fairness does not mechanically produce premium fairness or consumer welfare improvements. The pricing-rule comparison (P0, PA, POB, PDP, PAF) provides a concrete taxonomy for policy analysis.</p></li>
+<li><p><strong>A statistically rigorous audit protocol</strong>, pre-committed design, HC3-corrected inference for CDP, cross-covariance-corrected inference for PD, and equivalence testing (TOST) with a three-outcome classification (pass / fail / insufficient information). The protocol is grounded in the statistical properties of deterministic algorithmic outputs.</p></li>
+<li><p><strong>Open implementation</strong>, with reproducible case studies in R (GLM and XGBoost for fair-cost modeling) and Python (demand modeling, price optimization, fairness testing), available at <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a>, with interactive guidance at <a href="https://fair.feihuang.org">fair.feihuang.org</a>.</p></li>
+</ol>
+</section>
+<section id="limitations-and-scope" class="level3" data-number="8">
+<h3 data-number="8" class="anchored" data-anchor-id="limitations-and-scope"><span class="header-section-number">8</span> Limitations and Scope</h3>
+<p><strong>Framework scope.</strong> The playbook is designed for operational clarity, not legal determination. It does not prescribe one globally valid fairness criterion, one approved model pipeline, or one set of acceptable rating factors. Legal burden, tolerated disparity, and admissible predictors vary across markets and product lines. The framework should not be treated as a compliance safe harbor in any specific jurisdiction.</p>
+<p><strong>Criterion selection.</strong> The case studies illustrate CDP and PD because these map to current regulatory proposals in Colorado and New York. Many other criteria, including separation, sufficiency, and individual fairness, may be appropriate in other jurisdictions or product contexts. The criterion that is legally binding must be determined by legal and regulatory counsel, not by the playbook.</p>
+<p><strong>Welfare analysis assumptions.</strong> The demand model in Case Study 2 relies on parameters calibrated from published studies and may not reflect the demand structure of other insurance markets, particularly markets with mandatory participation, different competitive structures, or different product types. The 2,000-policyholder subsample used for welfare analysis is a computational limitation.</p>
+<p><strong>Audit applicability.</strong> The HC3 correction and cross-covariance adjustment in Step 4 are designed for deterministic algorithmic outputs. For stochastic pricing systems (e.g., systems that incorporate random draws or exploration), different variance corrections may be needed. The majority-minority zip-code indicator used in Case Study 3 is a geographic proxy for race, not a direct protected-class observation. Proxy-measurement issues affect the interpretation of audit results as discussed in <span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>.</p>
+</section>
+<section id="conclusion" class="level3" data-number="9">
+<h3 data-number="9" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">9</span> Conclusion</h3>
+<p>Fair algorithmic pricing requires more than model-level constraints. It requires coherent choices across fairness definition, model design, market impact assessment, and audit methodology. The Fair Pricing Playbook provides a practical, citable framework for that full pipeline. By linking criterion selection to model intervention (Step 2), welfare analysis (Step 3), and pre-committed audit protocols (Step 4), it offers a workflow that is defensible in governance review and actionable in practice. The companion case studies demonstrate that each step reveals something the prior steps cannot, cost-model fairness does not guarantee premium fairness, premium fairness does not guarantee consumer welfare improvements, and audit conclusions depend critically on whether inference is correctly specified for deterministic pricing outputs.</p>
+</section>
+<section id="acknowledgements" class="level3" data-number="10">
+<h3 data-number="10" class="anchored" data-anchor-id="acknowledgements"><span class="header-section-number">10</span> Acknowledgements</h3>
+<p>The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.</p>
+</section>
+<section id="data-availability-and-reproducibility" class="level3" data-number="11">
+<h3 data-number="11" class="anchored" data-anchor-id="data-availability-and-reproducibility"><span class="header-section-number">11</span> Data Availability and Reproducibility</h3>
+<p>Case Study 1 uses the <code>pg15training</code> dataset from the CASdatasets R package <span class="citation" data-cites="dutang2020package">(<a href="#ref-dutang2020package" role="doc-biblioref">Dutang and Charpentier 2026</a>)</span>, which is publicly available on CRAN. Case Study 3 uses the ProPublica Illinois auto insurance dataset, available at http://propublica.s3.amazonaws.com/projects/carinsurance/car-insurance-public.zip. Case Study 2 uses pre-computed optimization outputs derived from the French motor insurance data, and the optimization code (Python/TensorFlow) is available in the companion repository.</p>
+<p>Implementation code for all three case studies is available at <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a>. The full interactive playbook is at <a href="https://fair.feihuang.org">fair.feihuang.org</a>.</p>
+</section>
+<section id="access-versioning-and-citation" class="level3" data-number="12">
+<h3 data-number="12" class="anchored" data-anchor-id="access-versioning-and-citation"><span class="header-section-number">12</span> Access, Versioning, and Citation</h3>
+<ul>
+<li><strong>Playbook site:</strong> <a href="https://fair.feihuang.org">fair.feihuang.org</a></li>
+<li><strong>Source repository:</strong> <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a></li>
+<li><strong>License:</strong> <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></li>
+<li><strong>Version:</strong> 1.0 (June 2026)</li>
+</ul>
+<section id="suggested-citation-apa" class="level4" data-number="12.1">
+<h4 data-number="12.1" class="anchored" data-anchor-id="suggested-citation-apa"><span class="header-section-number">12.1</span> Suggested citation (APA)</h4>
+<p>Huang, F. (2026). <em>The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing systems</em> (Report, v1.0). [to be updated with DOI upon deposit]. <a href="https://fair.feihuang.org">fair.feihuang.org</a></p>
+</section>
+<section id="bibtex" class="level4" data-number="12.2">
+<h4 data-number="12.2" class="anchored" data-anchor-id="bibtex"><span class="header-section-number">12.2</span> BibTeX</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">huang2026fairpricingplaybook</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {The Fair Pricing Playbook: A practical framework for</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               developing, evaluating, and auditing fair algorithmic</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               pricing systems},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Huang, Fei},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2026},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">note</span>      = {Report, v1.0},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>       = {[to be assigned upon deposit]},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>       = {https://fair.feihuang.org/report.html}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="references" class="level3" data-number="13">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">13 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
+Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
+</div>
+<div id="ref-dutang2020package" class="csl-entry" role="listitem">
+Dutang, Christophe, and Arthur Charpentier. 2026. <span>“CASdatasets: Insurance Datasets.”</span> <a href="https://doi.org/10.57745/P0KHAG">https://doi.org/10.57745/P0KHAG</a>.
+</div>
+<div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
+Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
+</div>
+<div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
+Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
+</div>
+<div id="ref-huang2026welfareaccountable" class="csl-entry" role="listitem">
+Huang, Fei, and Hajime Shimao. 2026. <span>“Welfare Implications of Fair and Accountable Insurance Pricing.”</span> <em>Journal of Risk and Insurance</em>. <a href="https://doi.org/10.1111/jori.70051">https://doi.org/10.1111/jori.70051</a>.
+</div>
+<div id="ref-huang2026welfarealgorithms" class="csl-entry" role="listitem">
+Huang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. <span>“Do Fair Algorithms Improve Welfare? Evidence from the Insurance Market.”</span> UNSW Business School Research Paper Forthcoming. <a href="https://doi.org/10.2139/ssrn.5112616">https://doi.org/10.2139/ssrn.5112616</a>.
+</div>
+<div id="ref-krafcheck2026fairnessmetrics" class="csl-entry" role="listitem">
+Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <span>“Fairness Metrics for Life Insurance.”</span> Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
+</div>
+<div id="ref-naic2020predictivemodels" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2020. <span>“Regulatory Review of Predictive Models.”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf</a>.
+</div>
+<div id="ref-naic2022treebased" class="csl-entry" role="listitem">
+———. 2022. <span>“Regulatory Review of Predictive Models: Appendix b-Trees (Tree-Based Models).”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf</a>.
+</div>
+<div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
+</div>
+<div id="ref-soa2021interpretableml" class="csl-entry" role="listitem">
+Society of Actuaries. 2021. <span>“Interpretable Machine Learning for Insurance: An Introduction with Examples.”</span> <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf" class="uri">https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
+</div>
+<div id="ref-xin2025partialdependenceplots" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
+———. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Playbook/Step-1-Define-Fairness.html" class="pagination-link" aria-label="Step 1: Define fairness">
+        <span class="nav-page-text">Step 1: Define fairness</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
