@@ -251,6 +251,7 @@ window.Quarto = {
   <li><a href="#how-can-fair-pricing-be-achieved" id="toc-how-can-fair-pricing-be-achieved" class="nav-link active" data-scroll-target="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></li>
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#model-criterion-mapping" id="toc-model-criterion-mapping" class="nav-link" data-scroll-target="#model-criterion-mapping">Model–criterion mapping</a></li>
+  <li><a href="#in-processing-mu" id="toc-in-processing-mu" class="nav-link" data-scroll-target="#in-processing-mu">In-processing (MU)</a></li>
   <li><a href="#pre-processing-mdp-mcdp" id="toc-pre-processing-mdp-mcdp" class="nav-link" data-scroll-target="#pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</a></li>
   <li><a href="#post-processing-mc" id="toc-post-processing-mc" class="nav-link" data-scroll-target="#post-processing-mc">Post-processing (MC)</a></li>
   <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
@@ -369,6 +370,10 @@ For practitioners
 <td>Change inputs before model training (used by MDP and MCDP)</td>
 </tr>
 <tr class="odd">
+<td>In-processing</td>
+<td>Enforce fairness constraints during model training (e.g.&nbsp;exclude protected attributes or penalise unfair predictions in the loss). MU is the playbook example for fairness through unawareness (FTU)</td>
+</tr>
+<tr class="even">
 <td>Post-processing</td>
 <td>Change outputs after model training (used by MC)</td>
 </tr>
@@ -428,6 +433,10 @@ For practitioners
 </figure>
 </div>
 </section>
+</section>
+<section id="in-processing-mu" class="level3">
+<h3 class="anchored" data-anchor-id="in-processing-mu">In-processing (MU)</h3>
+<p>MU trains on non-protected predictors only: <span class="math inline">\hat{Y} = f(X_{NP})</span>. This is the standard in-processing approach to fairness through unawareness (FTU) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. It avoids direct use of <span class="math inline">X_P</span> but does not remove proxy effects in <span class="math inline">X_{NP}</span>; MDP, MCDP, and MC offer stronger mitigation when indirect discrimination is a concern.</p>
 </section>
 <section id="pre-processing-mdp-mcdp" class="level3">
 <h3 class="anchored" data-anchor-id="pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</h3>
