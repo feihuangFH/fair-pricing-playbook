@@ -452,6 +452,7 @@ window.Quarto = {
 <h3 data-number="5" class="anchored" data-anchor-id="framework-overview"><span class="header-section-number">5</span> Framework Overview</h3>
 <p>The framework has four linked steps. Table 1 summarizes each step, the governing question it answers, and the type of output it produces.</p>
 <table class="caption-top table">
+<caption>Table 1. The four steps of the Fair Pricing Playbook.</caption>
 <colgroup>
 <col style="width: 12%">
 <col style="width: 16%">
@@ -493,7 +494,6 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>, Table 1. The four steps of the Fair Pricing Playbook.</p>
 <p>The logic is sequential, with each step providing inputs to the next. Step 1 fixes the fairness criterion and governance scope before any modeling begins , this choice constrains what model designs are permissible in Step 2 and what tests are run in Step 4. Step 2 translates that criterion into a model intervention. Step 3 evaluates whether cost-model fairness carries through to final prices. Step 4 applies pre-committed statistical tests to deployed pricing outputs.</p>
 <p>Three design principles underpin the framework. First, protocol choices must be fixed before reviewing outcomes, post-hoc changes to criteria, tolerance margins, or sample definitions undermine auditability and stated error-rate control. Second, fairness evaluation must span the full pricing pipeline, not stop at the cost model , welfare analysis in Step 3 is not optional. Third, audit inference must match the statistical properties of the outputs, deterministic algorithmic pricing requires corrected standard errors.</p>
 <p>Figure 1 illustrates the pathway from model design through fairness testing, as displayed on the companion website.</p>
@@ -527,6 +527,7 @@ window.Quarto = {
 <p>For readability, this report uses plain language where possible. Protected attribute means the protected class variable, non-protected features are other rating inputs, legitimate factors are regulator-accepted risk controls, and predicted outcome means the model’s predicted cost or price <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <p>The <strong>playbook criteria</strong> , those implemented in Steps 2–4 , are:</p>
 <table class="caption-top table">
+<caption>Table 2. Fairness criteria implemented in the playbook.</caption>
 <colgroup>
 <col style="width: 20%">
 <col style="width: 37%">
@@ -567,7 +568,6 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>, Table 2. Fairness criteria implemented in the playbook.</p>
 <p>A broader taxonomy covering individual fairness (fairness through awareness, no omitted-variable bias) and group fairness (independence, separation, sufficiency) is surveyed in <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> for life insurance settings.</p>
 <p>Achieving individual and group fairness simultaneously is often impossible <span class="citation" data-cites="krafcheck2026fairnessmetrics">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. The choice of criterion must precede modeling. Prohibition on protected variables typically points toward individual criteria (FTU, CPV), disparate-impact rules point toward group criteria (DP, CDP). Colorado’s and New York’s regulatory proposals both operationalize CDP-adjacent and proxy-discrimination tests, making CDP and PD the natural illustration criteria for this framework.</p>
 </section>
@@ -583,6 +583,7 @@ window.Quarto = {
 <h5 data-number="6.2.1" class="anchored" data-anchor-id="model-taxonomy"><span class="header-section-number">6.2.1</span> Model taxonomy</h5>
 <p>Step 2 translates the criterion from Step 1 into a model intervention at the cost-modeling stage (pure premium or expected claim cost). Following <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>, five standard model designs are defined:</p>
 <table class="caption-top table">
+<caption>Table 3. Model taxonomy linking fairness criteria to interventions.</caption>
 <colgroup>
 <col style="width: 14%">
 <col style="width: 23%">
@@ -630,7 +631,6 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>, Table 3. Model taxonomy linking fairness criteria to interventions.</p>
 <p>M0 is retained for welfare and audit comparisons in Steps 3 and 4. MU is the common industry baseline (excluding the protected attribute but making no further intervention). The distinction between MDP and MCDP is substantive, MDP debiases all non-protected predictors, targeting unconditional demographic parity, MCDP retains legitimate predictors unchanged and debiases only non-legitimate predictors, targeting conditional demographic parity that allows group differences only through legitimate factors.</p>
 </section>
 <section id="pre-processing-debiased-predictors" class="level5" data-number="6.2.2">
@@ -697,6 +697,7 @@ window.Quarto = {
 <h5 data-number="6.3.3" class="anchored" data-anchor-id="pricing-rules"><span class="header-section-number">6.3.3</span> Pricing rules</h5>
 <p>Five pricing rules are evaluated, representing a spectrum from unconstrained to fairness-constrained:</p>
 <table class="caption-top table">
+<caption>Table 4. Pricing rules and their regulatory interpretations.</caption>
 <colgroup>
 <col style="width: 13%">
 <col style="width: 59%">
@@ -737,7 +738,6 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>, Table 4. Pricing rules and their regulatory interpretations.</p>
 <p>PDP and PAF represent fairness constraints at the premium level, PDP targets unconditional equality of mean premiums across groups, PAF targets equality within cost strata, allowing group differences only through estimated risk. POB and PA represent transparency or accountability constraints rather than explicit fairness requirements.</p>
 </section>
 <section id="key-findings-from-the-welfare-literature" class="level5" data-number="6.3.4">
