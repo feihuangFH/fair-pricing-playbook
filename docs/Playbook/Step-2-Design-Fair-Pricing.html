@@ -251,7 +251,7 @@ window.Quarto = {
   <li><a href="#how-can-fair-pricing-be-achieved" id="toc-how-can-fair-pricing-be-achieved" class="nav-link active" data-scroll-target="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></li>
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#model-criterion-mapping" id="toc-model-criterion-mapping" class="nav-link" data-scroll-target="#model-criterion-mapping">Model–criterion mapping</a></li>
-  <li><a href="#in-processing-mu" id="toc-in-processing-mu" class="nav-link" data-scroll-target="#in-processing-mu">In-processing (MU)</a></li>
+  <li><a href="#in-processing" id="toc-in-processing" class="nav-link" data-scroll-target="#in-processing">In-processing</a></li>
   <li><a href="#pre-processing-mdp-mcdp" id="toc-pre-processing-mdp-mcdp" class="nav-link" data-scroll-target="#pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</a></li>
   <li><a href="#post-processing-mc" id="toc-post-processing-mc" class="nav-link" data-scroll-target="#post-processing-mc">Post-processing (MC)</a></li>
   <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
@@ -332,12 +332,31 @@ For practitioners
 </section>
 <section id="mini-glossary" class="level3">
 <h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
+<p>Notation follows <a href="Step-1-Define-Fairness.html#mini-glossary">Step 1: Define fairness</a>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Plain language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">X_P</span></td>
+<td>Protected attribute (e.g.&nbsp;gender, race, ethnicity)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">X_{NP}</span></td>
+<td>Non-protected rating features</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\hat{Y}</span></td>
+<td>Predicted expected claim cost or pure premium</td>
+</tr>
+</tbody>
+</table>
 <p>Model labels follow <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. M denotes a pricing model. DP and CDP are the fairness criteria demographic parity and conditional demographic parity.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Label</th>
@@ -371,7 +390,7 @@ For practitioners
 </tr>
 <tr class="odd">
 <td>In-processing</td>
-<td>Enforce fairness constraints during model training (e.g.&nbsp;exclude protected attributes or penalise unfair predictions in the loss). MU is the playbook example for fairness through unawareness (FTU)</td>
+<td>Enforce fairness constraints during model training or optimisation (e.g.&nbsp;regularisation or penalty terms in the objective). See <a href="../Case Study 2/case_study2.html">Case Study 2</a> for penalty-based constraints in price optimisation</td>
 </tr>
 <tr class="even">
 <td>Post-processing</td>
@@ -434,9 +453,9 @@ For practitioners
 </div>
 </section>
 </section>
-<section id="in-processing-mu" class="level3">
-<h3 class="anchored" data-anchor-id="in-processing-mu">In-processing (MU)</h3>
-<p>MU trains on non-protected predictors only: <span class="math inline">\hat{Y} = f(X_{NP})</span>. This is the standard in-processing approach to fairness through unawareness (FTU) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. It avoids direct use of <span class="math inline">X_P</span> but does not remove proxy effects in <span class="math inline">X_{NP}</span>; MDP, MCDP, and MC offer stronger mitigation when indirect discrimination is a concern.</p>
+<section id="in-processing" class="level3">
+<h3 class="anchored" data-anchor-id="in-processing">In-processing</h3>
+<p>In-processing builds fairness into the estimation or optimisation step rather than adjusting inputs or outputs separately. One approach is to add regularisation or penalty terms that down-weight violations of the chosen criterion <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in price optimisation (PDP and PAF rules). MU — training on <span class="math inline">X_{NP}</span> only — is another in-processing design, but it does not remove proxy effects in <span class="math inline">X_{NP}</span>; MDP, MCDP, and MC offer stronger mitigation when indirect discrimination is a concern.</p>
 </section>
 <section id="pre-processing-mdp-mcdp" class="level3">
 <h3 class="anchored" data-anchor-id="pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</h3>
@@ -456,7 +475,7 @@ Insurance example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Legitimate features might include claims history or vehicle type. An Insurance Score used only as a proxy for a protected attribute would typically be debiased under MCDP.</p>
+<p>Under MCDP, legitimate predictors are those your regulator accepts in filed rating plans — for example, claims history, vehicle type, or annual mileage. Non-legitimate predictors are often newer or external data not yet treated as standard rating factors — for example, third-party telematics scores, alternative credit indices, or other enriched data feeds. Legitimate variables enter the model unchanged; non-legitimate variables are debiased before fitting.</p>
 </div>
 </div>
 </section>
