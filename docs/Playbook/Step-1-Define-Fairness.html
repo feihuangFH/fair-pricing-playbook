@@ -508,57 +508,67 @@ Direct and indirect discrimination
 <figcaption>Fairness criteria taxonomy showing individual fairness (fairness through unawareness, fairness through awareness, no omitted-variable bias) and group fairness (independence, separation, sufficiency).</figcaption>
 </figure>
 </div>
-<p><strong>Individual fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>:</p>
+<p><strong>Individual fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 59%">
+<col style="width: 30%">
+<col style="width: 44%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Criterion</th>
 <th>Plain language</th>
+<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Fairness through unawareness</td>
 <td>Leave protected or sensitive variables out of the model</td>
+<td>No sensitive rating variables used in underwriting</td>
 </tr>
 <tr class="even">
 <td>Fairness through awareness</td>
 <td>Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices</td>
+<td>Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g.&nbsp;healthcare access by race or ethnicity)</td>
 </tr>
 <tr class="odd">
 <td>No omitted-variable bias</td>
 <td>Diagnose proxy relationships with protected attributes and adjust for their effect on outputs</td>
+<td>Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>:</p>
+<p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 59%">
+<col style="width: 30%">
+<col style="width: 44%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Criterion</th>
 <th>Plain language</th>
+<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Independence</td>
 <td><span class="math inline">\hat{Y}</span> is statistically independent of the protected attribute</td>
+<td>Equal rejection rates for life insurance applications across race and ethnicity classes</td>
 </tr>
 <tr class="even">
 <td>Separation</td>
 <td>After conditioning on the true outcome, <span class="math inline">\hat{Y}</span> is independent of the protected attribute</td>
+<td>Equal likelihood of fraud investigation or policy rescission across groups, once controlling for whether fraud was ultimately detected</td>
 </tr>
 <tr class="odd">
 <td>Sufficiency</td>
 <td>After conditioning on <span class="math inline">\hat{Y}</span>, the true outcome is independent of the protected attribute</td>
+<td>Equal distribution of claims across groups at each estimated mortality risk score</td>
 </tr>
 </tbody>
 </table>
