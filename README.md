@@ -42,7 +42,7 @@ GitHub Pages should serve the `docs/` folder on the `main` branch. Set the custo
 
 ## How to cite
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for fair algorithmic pricing*. [fair.feihuang.org](https://fair.feihuang.org) (source: [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)).
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. Zenodo. https://doi.org/10.5281/zenodo.20717953
 
 ## License
 
