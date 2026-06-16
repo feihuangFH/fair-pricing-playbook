@@ -402,7 +402,7 @@ Direct and indirect discrimination
 <li>Unidentifiable proxies: opaque models that combine many variables and reproduce protected-group disparities without a single obvious surrogate</li>
 </ul>
 <p>EU and Australian law often define indirect discrimination through three elements: a facially neutral provision, criterion, or practice; a connection to a protected characteristic in law; and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role: a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination; legitimacy and justification also matter.</p>
-<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
+<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (<a href="#fairness-criteria">fairness through unawareness (FTU)</a>) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
 <p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation; see <a href="Step-4-Audit-the-System.html#proxied-protected-attributes">Step 4</a> and <span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>. Steps 2–4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
 </div>
 </div>
@@ -412,39 +412,9 @@ Direct and indirect discrimination
 <p>Not every price difference reflects expected claim cost. <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> distinguishes risk-based differentiation (premiums that differ because expected losses differ) from non-risk differentiation (premiums that differ for the same underlying risk, for example because of retention modelling, willingness to pay, or price optimization).</p>
 <p>Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Several U.S. states restrict price optimization for this reason. <a href="Step-3-Assess-Impact.html">Step 3</a> examines welfare effects when pricing moves beyond technical costs.</p>
 </section>
-<section id="regulatory-landscape" class="level4">
-<h4 class="anchored" data-anchor-id="regulatory-landscape">Regulatory landscape</h4>
-<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regimes to modelling choices:</p>
-<ul>
-<li>Restriction or prohibition on protected variables</li>
-<li>Proxy restrictions</li>
-<li>Disparate impact tests</li>
-<li>Flat or community pricing</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="plot/regulations_fairness_models.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption>Comparison between regulations, fairness criteria, and models.</figcaption>
-</figure>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Insurance example
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Many jurisdictions restrict use of race, gender, or ethnicity in pricing. Some require insurers to test for proxy discrimination or disparate impact in quoted premiums.</p>
-</div>
-</div>
-<p>Regulation often works through input-based rules (which variables or pricing procedures are allowed) and output-based rules (quantitative fairness tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. The <a href="#fairness-criteria">fairness criteria</a> you adopt should be consistent with the regime you operate under.</p>
-</section>
 <section id="mini-glossary" class="level4">
 <h4 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h4>
-<p>Symbols and terms used across Steps 1–4. Fairness criteria (FTU, CPV, DP, CDP) are defined formally in the <a href="#fairness-criteria">next section</a>.</p>
+<p>Symbols and terms used across Steps 1–4.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 27%">
@@ -470,7 +440,7 @@ Insurance example
 <td>The model output you will test. Often an estimated cost or a quoted premium</td>
 </tr>
 <tr class="even">
-<td>PD (proxy discrimination)</td>
+<td>Proxy discrimination (PD)</td>
 <td>A non-protected variable acts as a stand-in for a protected attribute</td>
 </tr>
 <tr class="odd">
@@ -499,32 +469,63 @@ Insurance example
 <tbody>
 <tr class="odd">
 <td>Individual</td>
-<td>FTU</td>
-<td><span class="math inline">\hat{Y}</span> does not use <span class="math inline">X_P</span> (fairness through unawareness)</td>
+<td>Fairness through unawareness (FTU)</td>
+<td><span class="math inline">\hat{Y}</span> does not use <span class="math inline">X_P</span></td>
 </tr>
 <tr class="even">
 <td>Individual</td>
-<td>CPV</td>
-<td>Discrimination-free price: average full-model predictions over <span class="math inline">X_P</span> at scoring time (controlling for the protected variable)</td>
+<td>Controlling for the protected variable (CPV)</td>
+<td>Average full-model predictions over <span class="math inline">X_P</span> at scoring time (sometimes called a discrimination-free price)</td>
 </tr>
 <tr class="odd">
 <td>Group</td>
-<td>DP</td>
-<td>Equal distribution of <span class="math inline">\hat{Y}</span> across groups (demographic parity)</td>
+<td>Demographic parity (DP)</td>
+<td>Equal distribution of <span class="math inline">\hat{Y}</span> across protected groups</td>
 </tr>
 <tr class="even">
 <td>Group</td>
-<td>CDP</td>
-<td>Parity within legitimate subgroups (conditional demographic parity)</td>
+<td>Conditional demographic parity (CDP)</td>
+<td>Equal distribution of <span class="math inline">\hat{Y}</span> across groups within each legitimate subgroup</td>
 </tr>
 <tr class="odd">
 <td>Group</td>
 <td>Separation / sufficiency</td>
-<td>Equalised errors or calibration</td>
+<td>Equalised prediction errors across groups (separation) or equal calibration of <span class="math inline">\hat{Y}</span> to outcomes (sufficiency)</td>
 </tr>
 </tbody>
 </table>
 <p>Many criteria are association-based (independence, separation, sufficiency) or causality-based (counterfactual fairness). Not all transfer cleanly to insurance pricing. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> distinguishes individual fairness from group fairness. Achieving both is often impossible, so the trade-off between criteria is itself part of the fairness discussion.</p>
+</section>
+<section id="regulatory-landscape" class="level4">
+<h4 class="anchored" data-anchor-id="regulatory-landscape">Regulatory landscape</h4>
+<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regimes to modelling choices:</p>
+<ul>
+<li>Restriction or prohibition on protected variables</li>
+<li>Proxy restrictions</li>
+<li>Disparate impact tests</li>
+<li>Flat or community pricing</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/regulations_fairness_models.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Comparison between regulations, fairness criteria, and models.</figcaption>
+</figure>
+</div>
+<p>Model labels in the table (M0, MU, MC, MDP, MCDP) are defined in <a href="Step-2-Design-Fair-Pricing.html#mini-glossary">Step 2: Design fair pricing</a>.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Insurance example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Many jurisdictions restrict use of race, gender, or ethnicity in pricing. Some require insurers to test for proxy discrimination (PD) or disparate impact in quoted premiums.</p>
+</div>
+</div>
+<p>Regulation often works through input-based rules (which variables or pricing procedures are allowed) and output-based rules (quantitative fairness tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. The <a href="#fairness-criteria">fairness criteria</a> you adopt should be consistent with the regime you operate under.</p>
 </section>
 </section>
 <section id="competing-ethical-notions" class="level3">
@@ -626,11 +627,11 @@ Insurance examples
 <td>Legal / Compliance</td>
 </tr>
 <tr class="odd">
-<td>Identify relevant fairness metrics (e.g.&nbsp;CDP, PD) for your context</td>
+<td>Identify relevant fairness metrics (e.g.&nbsp;conditional demographic parity (CDP), proxy discrimination (PD)) for your context</td>
 <td>Product / Policy</td>
 </tr>
 <tr class="even">
-<td>Specify outcome <span class="math inline">\hat{Y}</span> and legitimate factors for CDP</td>
+<td>Specify outcome <span class="math inline">\hat{Y}</span> and legitimate factors for conditional demographic parity (CDP)</td>
 <td>Actuarial / Model risk</td>
 </tr>
 <tr class="odd">
