@@ -248,8 +248,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
-  <li><a href="#how-can-fair-pricing-be-achieved" id="toc-how-can-fair-pricing-be-achieved" class="nav-link" data-scroll-target="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></li>
+  <li><a href="#how-can-fair-pricing-be-achieved" id="toc-how-can-fair-pricing-be-achieved" class="nav-link active" data-scroll-target="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></li>
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#model-criterion-mapping" id="toc-model-criterion-mapping" class="nav-link" data-scroll-target="#model-criterion-mapping">Model–criterion mapping</a></li>
   <li><a href="#pre-processing-mdp-mcdp" id="toc-pre-processing-mdp-mcdp" class="nav-link" data-scroll-target="#pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</a></li>
@@ -301,37 +300,9 @@ Prerequisite
 <p><a href="Step-1-Define-Fairness.html">Step 1: Define fairness</a>. Agree on the fairness criterion before choosing a model.</p>
 <p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers how to build models that meet legal and statistical fairness criteria (FTU, DP, CDP, CPV, and related designs). Questions about solidarity, actuarial fairness, and consumer trust still matter, but the technical work here is about compliant cost modelling and mitigation of direct and indirect discrimination.</p>
 <p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair models</a> provides an insurance implementation focused on fair cost modelling (GLMs and XGBoost). Loadings, demand, and price optimisation are covered in later case studies.</p>
+<p>Governance readers: <a href="#implementation">Implementation</a> → <a href="#checklist">Checklist</a>. Model development: <a href="#model-criterion-mapping">Model–criterion mapping</a>. Full example: <a href="../Case Study 1/case_study1.html">Case Study 1</a>.</p>
 </div>
 </div>
-<section id="how-to-read-this-step" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-read-this-step">How to read this step</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>If your focus is…</th>
-<th>Start here</th>
-<th>Then read</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Governance and sign-off</td>
-<td><a href="#how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</a></td>
-<td><a href="#implementation">Implementation</a> → <a href="#checklist">Checklist</a></td>
-</tr>
-<tr class="even">
-<td>Model development</td>
-<td><a href="#model-criterion-mapping">Model–criterion mapping</a> → <a href="#mini-glossary">Mini-glossary</a></td>
-<td><a href="#pre-processing-mdp-mcdp">Pre-processing</a> and <a href="#post-processing-mc">Post-processing</a></td>
-</tr>
-<tr class="odd">
-<td>Full empirical example</td>
-<td><a href="../Case Study 1/case_study1.html">Case Study 1</a></td>
-<td><a href="../Case Study 1/case_study1.html#fairness-accuracy-trade-off">Fairness–accuracy trade-off</a></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="how-can-fair-pricing-be-achieved" class="level3">
 <h3 class="anchored" data-anchor-id="how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</h3>
 <p>Once Step 1 fixes the fairness criterion, choose where in the pipeline to enforce it: adjust inputs before modelling (pre-processing), constrain the model during training (in-processing), or adjust outputs after prediction (post-processing). Each approach maps to a standard model design (M0–MC below).</p>

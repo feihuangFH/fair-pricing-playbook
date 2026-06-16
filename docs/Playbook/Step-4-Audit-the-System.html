@@ -248,8 +248,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-read-this-step" id="toc-how-to-read-this-step" class="nav-link active" data-scroll-target="#how-to-read-this-step">How to read this step</a></li>
-  <li><a href="#how-do-we-test-fairness" id="toc-how-do-we-test-fairness" class="nav-link" data-scroll-target="#how-do-we-test-fairness">How do we test fairness?</a></li>
+  <li><a href="#how-do-we-test-fairness" id="toc-how-do-we-test-fairness" class="nav-link active" data-scroll-target="#how-do-we-test-fairness">How do we test fairness?</a></li>
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#end-to-end-audit-flow" id="toc-end-to-end-audit-flow" class="nav-link" data-scroll-target="#end-to-end-audit-flow">End-to-end audit flow</a></li>
   <li><a href="#pre-audit-setup" id="toc-pre-audit-setup" class="nav-link" data-scroll-target="#pre-audit-setup">Pre-audit setup</a></li>
@@ -304,47 +303,9 @@ Prerequisite
 <p><a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a>. Design and welfare analysis should be complete before auditing a deployed system.</p>
 <p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.</p>
 <p><a href="../Case Study 3/case_study3.html">Case Study 3: Fairness testing</a> implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
+<p>Compliance workflow: <a href="#end-to-end-audit-flow">End-to-end audit flow</a> → <a href="#checklist">Checklist</a>. Statistical detail: <a href="#deterministic-pricing">Deterministic pricing</a> → <a href="../Case Study 3/case_study3.html">Case Study 3</a>. Proxied attributes (BISG, BIFSG, zip): <a href="#proxied-protected-attributes">Proxied protected attributes</a>.</p>
 </div>
 </div>
-<section id="how-to-read-this-step" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-read-this-step">How to read this step</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>If your focus is…</th>
-<th>Start here</th>
-<th>Then read</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Compliance workflow</td>
-<td><a href="#how-do-we-test-fairness">How do we test fairness?</a> → <a href="#end-to-end-audit-flow">End-to-end audit flow</a></td>
-<td><a href="#three-outcomes">Three outcomes</a> → <a href="#checklist">Checklist</a></td>
-</tr>
-<tr class="even">
-<td>Governance and sign-off</td>
-<td><a href="#pre-audit-setup">Pre-audit setup</a> → <a href="#governance-and-monitoring">Governance and monitoring</a></td>
-<td><a href="#checklist">Checklist</a></td>
-</tr>
-<tr class="odd">
-<td>Statistical implementation</td>
-<td><a href="#deterministic-pricing">Deterministic pricing</a> → <a href="#tost-equivalence">Why TOST matters</a></td>
-<td><a href="../Case Study 3/case_study3.html">Case Study 3</a></td>
-</tr>
-<tr class="even">
-<td>Proxied protected attributes (BISG, BIFSG, zip)</td>
-<td><a href="#proxied-protected-attributes">Proxied protected attributes</a></td>
-<td><a href="../Case Study 3/case_study3.html">Case Study 3</a> scope note</td>
-</tr>
-<tr class="odd">
-<td>ML filing documentation (alternative)</td>
-<td><a href="#feature-importance-check">Feature importance check</a></td>
-<td><a href="#governance-and-monitoring">Governance and monitoring</a></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="how-do-we-test-fairness" class="level3">
 <h3 class="anchored" data-anchor-id="how-do-we-test-fairness">How do we test fairness?</h3>
 <p>An audit tests whether a deployed pricing system meets the fairness standard from Step 1. Fix the protocol - criterion, legitimate factors, tolerance bands, sample design - before looking at outcomes. Then classify each test as pass, fail, or insufficient information.</p>
