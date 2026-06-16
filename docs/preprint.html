@@ -248,12 +248,15 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
   <li><a href="#keywords" id="toc-keywords" class="nav-link" data-scroll-target="#keywords">Keywords</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">1. Motivation</a></li>
-  <li><a href="#four-step-framework" id="toc-four-step-framework" class="nav-link" data-scroll-target="#four-step-framework">2. Four-Step Framework</a></li>
-  <li><a href="#technical-companion-case-studies" id="toc-technical-companion-case-studies" class="nav-link" data-scroll-target="#technical-companion-case-studies">3. Technical Companion Case Studies</a></li>
-  <li><a href="#main-contributions" id="toc-main-contributions" class="nav-link" data-scroll-target="#main-contributions">4. Main Contributions</a></li>
-  <li><a href="#intended-use-and-scope" id="toc-intended-use-and-scope" class="nav-link" data-scroll-target="#intended-use-and-scope">5. Intended Use and Scope</a></li>
-  <li><a href="#access-versioning-and-citation" id="toc-access-versioning-and-citation" class="nav-link" data-scroll-target="#access-versioning-and-citation">6. Access, Versioning, and Citation</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">1. Introduction</a></li>
+  <li><a href="#related-literature-and-positioning" id="toc-related-literature-and-positioning" class="nav-link" data-scroll-target="#related-literature-and-positioning">2. Related Literature and Positioning</a></li>
+  <li><a href="#framework-overview" id="toc-framework-overview" class="nav-link" data-scroll-target="#framework-overview">3. Framework Overview</a></li>
+  <li><a href="#methodological-core-by-step" id="toc-methodological-core-by-step" class="nav-link" data-scroll-target="#methodological-core-by-step">4. Methodological Core by Step</a></li>
+  <li><a href="#companion-evidence-from-case-studies" id="toc-companion-evidence-from-case-studies" class="nav-link" data-scroll-target="#companion-evidence-from-case-studies">5. Companion Evidence from Case Studies</a></li>
+  <li><a href="#contributions" id="toc-contributions" class="nav-link" data-scroll-target="#contributions">6. Contributions</a></li>
+  <li><a href="#limitations-and-scope" id="toc-limitations-and-scope" class="nav-link" data-scroll-target="#limitations-and-scope">7. Limitations and Scope</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">8. Conclusion</a></li>
+  <li><a href="#access-versioning-and-citation" id="toc-access-versioning-and-citation" class="nav-link" data-scroll-target="#access-versioning-and-citation">9. Access, Versioning, and Citation</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -300,49 +303,88 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <h3 class="anchored" data-anchor-id="keywords">Keywords</h3>
 <p>Algorithmic pricing, insurance, fairness, anti-discrimination, welfare analysis, audit, responsible AI.</p>
 </section>
-<section id="motivation" class="level3">
-<h3 class="anchored" data-anchor-id="motivation">1. Motivation</h3>
-<p>AI-driven pricing can improve prediction and segmentation, but it can also amplify proxy discrimination and make decisions harder to scrutinize. In regulated markets, model quality is not enough. Firms also need defensible fairness criteria, transparent implementation choices, and auditable decision protocols <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
-<p>Many current discussions stop at one stage, such as model constraints or post-hoc testing. In practice, fairness decisions cascade through the full pricing pipeline and may alter premiums, markups, consumer welfare, and firm profit in different ways <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">1. Introduction</h3>
+<p>AI-driven pricing systems are now widely used in insurance and other financial services. Their appeal is clear: better risk segmentation, faster decisions, and potentially better matching between risk and price. At the same time, these systems can reproduce or amplify discriminatory patterns through proxy variables, complex model interactions, and opaque optimization pipelines. This creates a governance gap between predictive performance and fairness accountability.</p>
+<p>In regulated settings, fairness is not a single model constraint. It is a sequence of decisions spanning criterion selection, model design, market behavior, and post-deployment testing <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. A model can satisfy one fairness notion and still produce adverse outcomes once final prices incorporate loadings, demand response, and regulatory rules <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>. Likewise, an audit can fail if statistical inference is mis-specified even when design intent is sound <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>This preprint introduces The Fair Pricing Playbook, a practical four-step framework that links these decisions into one auditable workflow.</p>
 </section>
-<section id="four-step-framework" class="level3">
-<h3 class="anchored" data-anchor-id="four-step-framework">2. Four-Step Framework</h3>
-<p>The playbook organizes decisions into four connected steps:</p>
+<section id="related-literature-and-positioning" class="level3">
+<h3 class="anchored" data-anchor-id="related-literature-and-positioning">2. Related Literature and Positioning</h3>
+<p>This work builds on three main streams:</p>
 <ol type="1">
-<li><strong>Define fairness.</strong> Select fairness lens, legal context, and criterion (for example FTU, CPV, DP, CDP), and document legitimate factors.</li>
-<li><strong>Design fair pricing.</strong> Map criterion to intervention stage (pre-, in-, post-processing) and model design (M0, MU, MDP, MCDP, MC) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</li>
-<li><strong>Assess impact.</strong> Evaluate final-price implications through demand, regulation, and welfare outcomes, not prediction metrics alone <span class="citation" data-cites="huang2026welfareaccountable">(<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>.</li>
-<li><strong>Audit the system.</strong> Apply pre-committed fairness tests with corrected inference and equivalence logic for pass/fail/insufficient-information decisions <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</li>
+<li><strong>Insurance fairness principles and regulation.</strong> Prior work clarifies anti-discrimination obligations, distinctions between risk-based and non-risk differentiation, and jurisdictional variation in acceptable rating factors <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</li>
+<li><strong>Welfare and market effects of fairness interventions.</strong> Recent studies show that fairness at the cost-model stage does not mechanically translate into fairness in final prices, markups, or consumer welfare <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>.</li>
+<li><strong>Audit methodology for algorithmic pricing.</strong> Emerging audit protocols emphasize pre-commitment, corrected inference for deterministic pricing outputs, and equivalence-based decision logic <span class="citation" data-cites="huang2026fairtesting xin2026proxyrace">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</li>
 </ol>
-<p>This sequencing is intentional. Later decisions depend on earlier commitments, and auditability requires design choices to be fixed before outcome review.</p>
+<p>Compared with these contributions, the playbook’s role is integrative: it provides an operational bridge from policy framing to modeling choices, welfare analysis, and audit execution.</p>
 </section>
-<section id="technical-companion-case-studies" class="level3">
-<h3 class="anchored" data-anchor-id="technical-companion-case-studies">3. Technical Companion Case Studies</h3>
-<p>The site includes three technical case studies:</p>
+<section id="framework-overview" class="level3">
+<h3 class="anchored" data-anchor-id="framework-overview">3. Framework Overview</h3>
+<p>The framework has four linked steps:</p>
+<ol type="1">
+<li><strong>Define fairness.</strong> Establish fairness lens, legal context, and criterion (for example FTU, CPV, DP, CDP), and document legitimate factors.</li>
+<li><strong>Design fair pricing.</strong> Map criterion to intervention stage (pre-, in-, post-processing) and model class (M0, MU, MDP, MCDP, MC) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</li>
+<li><strong>Assess impact.</strong> Evaluate final-price outcomes under demand, regulation, and market response, including firm profit and consumer welfare <span class="citation" data-cites="huang2026welfareaccountable">(<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>.</li>
+<li><strong>Audit the system.</strong> Apply pre-committed tests (for example CDP and PD) with corrected standard errors and explicit pass/fail/insufficient-information rules <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</li>
+</ol>
+<p>The logic is sequential. Later-stage evaluation and audit should be aligned with earlier-stage fairness commitments, and protocol choices should be fixed before reviewing outcomes.</p>
+</section>
+<section id="methodological-core-by-step" class="level3">
+<h3 class="anchored" data-anchor-id="methodological-core-by-step">4. Methodological Core by Step</h3>
+<section id="step-1-define-fairness-criteria-and-governance-scope" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-define-fairness-criteria-and-governance-scope">4.1 Step 1: Define fairness criteria and governance scope</h4>
+<p>Step 1 anchors the framework in anti-discrimination while keeping other fairness lenses visible (actuarial fairness, solidarity, consumer trust). It distinguishes individual and group fairness criteria and emphasizes that criteria are illustrative rather than exhaustive <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>.</p>
+</section>
+<section id="step-2-translate-criteria-into-model-interventions" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-translate-criteria-into-model-interventions">4.2 Step 2: Translate criteria into model interventions</h4>
+<p>Step 2 formalizes how criteria map to model interventions:</p>
 <ul>
-<li><strong>Case Study 1 (fair models):</strong> cost-model interventions under alternative fairness criteria.</li>
-<li><strong>Case Study 2 (welfare implications):</strong> pricing-rule and welfare trade-offs under demand and optimization constraints.</li>
-<li><strong>Case Study 3 (fairness testing):</strong> regression-based CDP and PD audits with corrected standard errors and TOST-style equivalence testing.</li>
+<li><strong>Pre-processing:</strong> debias selected predictors before fitting (MDP/MCDP).</li>
+<li><strong>In-processing:</strong> include fairness constraints directly in training or optimization objectives.</li>
+<li><strong>Post-processing:</strong> adjust prediction outputs while preserving baseline model structure (MC).</li>
 </ul>
-<p>These studies are implementation examples, not universal regulatory templates. Parameter choices, tolerated disparities, and admissible predictors remain jurisdiction- and product-specific.</p>
+<p>This step focuses on fair cost modeling (pure premium / expected claim cost) as a technical foundation for downstream pricing decisions.</p>
 </section>
-<section id="main-contributions" class="level3">
-<h3 class="anchored" data-anchor-id="main-contributions">4. Main Contributions</h3>
+<section id="step-3-evaluate-welfare-implications-at-final-price-stage" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-evaluate-welfare-implications-at-final-price-stage">4.3 Step 3: Evaluate welfare implications at final-price stage</h4>
+<p>Step 3 extends analysis from predicted cost to final prices under pricing rules and demand response. It evaluates fairness trade-offs jointly with welfare and profit. This addresses an important gap: fairness properties may change once prices are optimized or constrained by policy rules <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>.</p>
+</section>
+<section id="step-4-audit-with-corrected-inference" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-audit-with-corrected-inference">4.4 Step 4: Audit with corrected inference</h4>
+<p>Step 4 operationalizes compliance testing using regression-based audits and equivalence logic. For CDP-style audits, TOST frames the decision as demonstrating compliance within tolerance, rather than merely failing to reject a zero-gap null. The framework distinguishes pass, fail, and insufficient information outcomes and prescribes pre-specified escalation pathways <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+</section>
+</section>
+<section id="companion-evidence-from-case-studies" class="level3">
+<h3 class="anchored" data-anchor-id="companion-evidence-from-case-studies">5. Companion Evidence from Case Studies</h3>
+<p>Three companion case studies provide technical evidence and implementation detail:</p>
+<ul>
+<li><strong>Case Study 1:</strong> cost-model fairness interventions under alternative criteria and model classes.</li>
+<li><strong>Case Study 2:</strong> welfare and pricing-rule trade-offs across premium, markup, and profit outcomes.</li>
+<li><strong>Case Study 3:</strong> deployment-stage fairness testing with corrected inference and protocol-based decision rules.</li>
+</ul>
+<p>The studies are intended as reproducible illustrations, not universal regulatory templates. Data, tolerance bands, and admissible factors remain jurisdiction- and product-specific.</p>
+</section>
+<section id="contributions" class="level3">
+<h3 class="anchored" data-anchor-id="contributions">6. Contributions</h3>
 <p>This preprint contributes:</p>
 <ul>
 <li>a practical governance-to-model-to-audit workflow for fair algorithmic pricing;</li>
-<li>an explicit bridge between fairness criteria and model intervention design;</li>
+<li>explicit mapping between fairness criteria and intervention design;</li>
 <li>integration of welfare analysis with fairness assessment;</li>
-<li>an auditable testing protocol that distinguishes pass, fail, and insufficient information.</li>
+<li>an auditable testing protocol with transparent outcome classification.</li>
 </ul>
 </section>
-<section id="intended-use-and-scope" class="level3">
-<h3 class="anchored" data-anchor-id="intended-use-and-scope">5. Intended Use and Scope</h3>
-<p>The framework is designed for firms, regulators, and policymakers who need a common structure for technical and governance decisions. It is not legal advice and does not prescribe one approved pipeline for all markets.</p>
-<p>The anti-discrimination lens is central, but other fairness notions can apply depending on product purpose, regulation, and social expectations <span class="citation" data-cites="frees2023discriminating krafcheck2026fairnessmetrics">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>.</p>
+<section id="limitations-and-scope" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-and-scope">7. Limitations and Scope</h3>
+<p>The framework is designed for operational clarity, not legal determination. It does not claim one globally valid criterion or one approved model pipeline. Legal burden, tolerated disparity, and acceptable predictors vary across markets. The playbook should be interpreted as a structured decision framework to support policy, actuarial, and technical coordination.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">8. Conclusion</h3>
+<p>Fair algorithmic pricing requires more than model-level constraints. It requires coherent choices across definition, design, market impact, and audit. The Fair Pricing Playbook offers a practical, citable framework for that full pipeline and supports adaptation to local regulatory and product contexts.</p>
 </section>
 <section id="access-versioning-and-citation" class="level3">
-<h3 class="anchored" data-anchor-id="access-versioning-and-citation">6. Access, Versioning, and Citation</h3>
+<h3 class="anchored" data-anchor-id="access-versioning-and-citation">9. Access, Versioning, and Citation</h3>
 <ul>
 <li>Playbook site: <a href="https://fair.feihuang.org">fair.feihuang.org</a></li>
 <li>Source repository: <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a></li>
@@ -393,6 +435,9 @@ Huang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. <span>“Do Fair Algor
 </div>
 <div id="ref-krafcheck2026fairnessmetrics" class="csl-entry" role="listitem">
 Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <span>“Fairness Metrics for Life Insurance.”</span> Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
+</div>
+<div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
 </div>
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
