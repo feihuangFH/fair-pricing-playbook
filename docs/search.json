@@ -391,7 +391,7 @@
     "href": "index.html#how-to-cite",
     "title": "The Fair Pricing Playbook",
     "section": "How to cite",
-    "text": "How to cite\nIf you are using this playbook in your academic work, please find below an example for referencing it using the APA citation style.\nHuang, F. (2026). The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing. Zenodo. https://doi.org/10.5281/zenodo.20717953",
+    "text": "How to cite\nIf you are using this playbook in your academic work, please find below an example for referencing it using the APA citation style.\nHuang, F. (2026). The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing. Zenodo. https://doi.org/10.5281/zenodo.20717953\n\nBibTeX\n\n\n\n\n\n\nShow BibTeX\n\n\n\n\n\n@misc{huang2026fairpricingplaybook,\n  title     = {The Fair Pricing Playbook: A practical framework for\n               developing, evaluating, and auditing fair algorithmic\n               pricing},\n  author    = {Huang, Fei},\n  year      = {2026},\n  publisher = {Zenodo},\n  doi       = {10.5281/zenodo.20717953},\n  url       = {https://doi.org/10.5281/zenodo.20717953}\n}",
     "crumbs": [
       "Home"
     ]
