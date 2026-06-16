@@ -299,15 +299,15 @@ Prerequisite
 </div>
 <div class="callout-body-container callout-body">
 <p><a href="Step-1-Define-Fairness.html">Step 1: Define fairness</a>. Agree on the fairness criterion before choosing a model.</p>
-<p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers how to build models that meet legal and statistical fairness criteria (FTU, DP, CDP, CPV, and related designs). Questions about solidarity, actuarial fairness, and consumer trust still matter, but the technical work here is about fair cost modelling — estimating expected claim cost or pure premium (<span class="math inline">\hat{Y}</span>).</p>
+<p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers how to build models that meet legal and statistical fairness criteria (FTU, DP, CDP, CPV, and related designs). Questions about solidarity, actuarial fairness, and consumer trust still matter, but the technical work here is about fair cost modelling, estimating expected claim cost or pure premium (<span class="math inline">\hat{Y}</span>).</p>
 <p>In production, practitioners often need final prices that also reflect expenses, cost of capital, reinsurance, profit loadings, and other commercial components. These can be incorporated into the pricing process, and the fairness criterion from Step 1 can be applied to final prices as well as to pure premium. For demand modelling, price optimisation, and welfare effects once prices reach the market, see <a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a> and <a href="../Case Study 2/case_study2.html">Case Study 2</a>.</p>
 <p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair models</a> provides an insurance implementation at the cost-modelling stage (GLMs and XGBoost).</p>
-<p>Governance readers: <a href="#implementation">Implementation</a> → <a href="#checklist">Checklist</a>. Model development: <a href="#model-criterion-mapping">Model–criterion mapping</a>. Full example: <a href="../Case Study 1/case_study1.html">Case Study 1</a>.</p>
+<p>Governance readers, see <a href="#implementation">Implementation</a> → <a href="#checklist">Checklist</a>. Model development, see <a href="#model-criterion-mapping">Model–criterion mapping</a>. Full example, <a href="../Case Study 1/case_study1.html">Case Study 1</a>.</p>
 </div>
 </div>
 <section id="how-can-fair-pricing-be-achieved" class="level3">
 <h3 class="anchored" data-anchor-id="how-can-fair-pricing-be-achieved">How can fair pricing be achieved?</h3>
-<p>Once Step 1 fixes the fairness criterion, choose where in the pipeline to enforce it: adjust inputs before modelling (pre-processing), constrain the model during training (in-processing), or adjust outputs after prediction (post-processing). Each approach maps to a standard model design (M0–MC below).</p>
+<p>Once Step 1 fixes the fairness criterion, choose where in the pipeline to enforce it. Adjust inputs before modelling (pre-processing), constrain the model during training (in-processing), or adjust outputs after prediction (post-processing). Each approach maps to a standard model design (M0–MC below).</p>
 <p>Implement anti-discrimination strategies at pre-processing, in-processing, or post-processing, linked to the fairness criteria from Step 1 <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -319,7 +319,7 @@ For practitioners
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This step describes standard anti-discrimination model designs, not a single approved pipeline for every market. Typical decisions include:</p>
+<p>This step describes standard anti-discrimination model designs, not a single approved pipeline for every market. Typical decisions include</p>
 <ul>
 <li>Which criterion from Step 1 is binding (CDP, DP, FTU, and so on)</li>
 <li>Which variables are legitimate rating factors under local law</li>
@@ -374,11 +374,11 @@ For practitioners
 </tr>
 <tr class="odd">
 <td>MDP (demographic parity)</td>
-<td>Model targeting demographic parity (DP): fit on debiased non-protected predictors <span class="math inline">X_{NP}^{\star}</span> so average predicted outcomes are approximately equal across protected groups</td>
+<td>Model targeting demographic parity (DP). Fit on debiased non-protected predictors <span class="math inline">X_{NP}^{\star}</span> so average predicted outcomes are approximately equal across protected groups</td>
 </tr>
 <tr class="even">
 <td>MCDP (conditional demographic parity)</td>
-<td>Model targeting conditional demographic parity (CDP): fit on legitimate predictors plus debiased non-legitimate predictors - group differences are allowed only through legitimate variables</td>
+<td>Model targeting conditional demographic parity (CDP). Fit on legitimate predictors plus debiased non-legitimate predictors - group differences are allowed only through legitimate variables</td>
 </tr>
 <tr class="odd">
 <td>MC (CPV)</td>
@@ -444,7 +444,7 @@ For practitioners
 </table>
 <section id="regulations-criteria-models" class="level4">
 <h4 class="anchored" data-anchor-id="regulations-criteria-models">Regulations, criteria, and models</h4>
-<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regulatory regimes to fairness criteria and standard model designs:</p>
+<p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> maps regulatory regimes to fairness criteria and standard model designs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="plot/regulations_fairness_models.png" class="img-fluid figure-img" style="width:90.0%" alt="Table mapping regulation types to fairness criteria and representative models M0, MU, MC, MDP, MCDP"></p>
@@ -455,7 +455,7 @@ For practitioners
 </section>
 <section id="in-processing" class="level3">
 <h3 class="anchored" data-anchor-id="in-processing">In-processing</h3>
-<p>In-processing builds fairness into the estimation or optimisation step rather than adjusting inputs or outputs separately. One approach is to add regularisation or penalty terms that down-weight violations of the chosen criterion <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in price optimisation (PDP and PAF rules). MU — training on <span class="math inline">X_{NP}</span> only — is another in-processing design, but it does not remove proxy effects in <span class="math inline">X_{NP}</span>; MDP, MCDP, and MC offer stronger mitigation when indirect discrimination is a concern.</p>
+<p>In-processing builds fairness into the estimation or optimisation step rather than adjusting inputs or outputs separately. One approach is to add regularisation or penalty terms that down-weight violations of the chosen criterion <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in price optimisation (PDP and PAF rules). MU (training on <span class="math inline">X_{NP}</span> only) is another in-processing design, but it does not remove proxy effects in <span class="math inline">X_{NP}</span>; MDP, MCDP, and MC offer stronger mitigation when indirect discrimination is a concern.</p>
 </section>
 <section id="pre-processing-mdp-mcdp" class="level3">
 <h3 class="anchored" data-anchor-id="pre-processing-mdp-mcdp">Pre-processing (MDP, MCDP)</h3>
@@ -475,7 +475,7 @@ Insurance example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Under MCDP, legitimate predictors are those your regulator accepts in filed rating plans — for example, claims history, vehicle type, or annual mileage. Non-legitimate predictors are often newer or external data not yet treated as standard rating factors — for example, third-party telematics scores, alternative credit indices, or other enriched data feeds. Legitimate variables enter the model unchanged; non-legitimate variables are debiased before fitting.</p>
+<p>Under MCDP, legitimate predictors are those your regulator accepts in filed rating plans, such as claims history, vehicle type, or annual mileage. Non-legitimate predictors are often newer or external data not yet treated as standard rating factors, such as third-party telematics scores, alternative credit indices, or other enriched data feeds. Legitimate variables enter the model unchanged; non-legitimate variables are debiased before fitting.</p>
 </div>
 </div>
 </section>
