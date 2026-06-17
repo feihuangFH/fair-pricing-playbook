@@ -435,11 +435,12 @@ For practitioners
 </section>
 <section id="pre-audit-setup" class="level3">
 <h3 class="anchored" data-anchor-id="pre-audit-setup">Pre-audit setup</h3>
+<p>All notation below is defined in the mini-glossary above. Complete and sign off steps 1–8 before any pricing data is extracted or examined.</p>
 <ol type="1">
 <li>Select a fairness criterion proxy discrimination (PD) when auditing specific rating variables suspected of proxying the protected attribute. Conditional demographic parity (CDP) when evaluating the system-level price gap after controlling for legitimate risk factors. Other criteria from Step 1 may apply in your jurisdiction.</li>
 <li>Specify the protected attribute <span class="math inline">A</span> - document the attribute and, if proxied, the inference method and its limitations.</li>
 <li>Specify legitimate rating factors <span class="math inline">X_\ell</span> aligned with Step 1 and regulatory guidance.</li>
-<li>Define the response variable <span class="math inline">P</span> - quoted premium, pure premium, or loss ratio. The choice sets the economic meaning of any disparity.</li>
+<li>Define the response variable <span class="math inline">P</span> - quoted premium, pure premium, or loss ratio (claims paid as a share of premiums earned). The choice sets the economic meaning of any disparity.</li>
 <li>Set tolerance margins for CDP: level-gap margin <span class="math inline">\delta</span>, ratio margin <span class="math inline">\tau</span> (e.g.&nbsp;5% gap, 0.80 adverse impact ratio), significance level <span class="math inline">\alpha</span>. For PD: <span class="math inline">\alpha</span> and minimum relative shift <span class="math inline">\rho_{\min}</span> (e.g.&nbsp;10%).</li>
 <li>Specify the standard error estimator HC3 for CDP by default. Full cross-covariance for the PD coefficient-shift test.</li>
 <li>Design a representative quote sample stratified profiles submitted within a short time window. Plan sample size for adequate power (insufficient data yields insufficient information, not a pass).</li>
@@ -493,7 +494,6 @@ What the inference correction changes in practice
 <p>This framing is a poor fit for compliance auditing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. “No significant difference found” is not the same as “the system is fair.” With a small sample, even a large and practically important price gap might not reach significance, simply because you do not have enough data to detect it reliably. A non-significant result is absence of evidence, not evidence of absence. Under this approach, the practical burden falls on the regulator or reviewer to find a violation. An insurer with a small dataset or a poorly designed quote sample can effectively pass every test without demonstrating anything.</p>
 <p>Equivalence testing (TOST, or two one-sided tests) reverses the burden. Developed originally in pharmaceutical regulation to demonstrate bioequivalence rather than merely the absence of a detectable difference <span class="citation" data-cites="schuirmann-1987-comparison">(<a href="#ref-schuirmann-1987-comparison" role="doc-biblioref">Schuirmann 1987</a>)</span>, TOST asks not whether you can find a difference, but whether you can demonstrate that any difference is small enough to be within an acceptable tolerance. The null hypothesis is that the difference is large (at least as large as the tolerance band), and you reject it only if the data give you strong positive evidence that the gap falls inside the band. Insufficient data yields an “insufficient information” verdict, not a pass. The insurer must provide evidence of fairness, not merely an absence of detected unfairness.</p>
 <p>This matches how regulatory tolerance bands are already formulated. Colorado’s proposed 5 per cent price-gap band and the 0.80 adverse-impact ratio widely used in US employment law both define the tolerance band. TOST is the statistical procedure that properly interrogates whether that band has been met.</p>
-<p>Conventional significance testing asks whether a price gap is detectably different from zero. That is a poor fit for compliance auditing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 10%">
@@ -608,6 +608,10 @@ Regulatory example
 <section id="governance-and-monitoring" class="level3">
 <h3 class="anchored" data-anchor-id="governance-and-monitoring">Governance and monitoring</h3>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Role</th>
@@ -616,20 +620,28 @@ Regulatory example
 </thead>
 <tbody>
 <tr class="odd">
-<td>Accountable technical owner</td>
-<td>Audit protocol sign-off</td>
+<td>Accountable technical owner (e.g.&nbsp;chief actuary or model validation lead)</td>
+<td>Sign off the audit protocol before data is examined</td>
 </tr>
 <tr class="even">
 <td>Independent reviewer</td>
-<td>Replicate audit analysis</td>
+<td>Replicate the analysis from raw data and confirm the verdict</td>
 </tr>
 <tr class="odd">
 <td>Model owner</td>
-<td>Remediation on fail or unclear result</td>
+<td>Remediate on fail or insufficient information; own re-test timeline</td>
+</tr>
+<tr class="even">
+<td>Legal and compliance</td>
+<td>Confirm that the pre-specified criterion and tolerance bands align with current regulatory requirements</td>
+</tr>
+<tr class="odd">
+<td>Senior management or board</td>
+<td>Receive the audit verdict and approve any remediation plan</td>
 </tr>
 </tbody>
 </table>
-<p>Re-audit on model change, regulatory update, or drift in audit statistics. Store the complete quote dataset and a reproducibility manifest.</p>
+<p>Re-audit whenever the pricing model changes, a new regulatory requirement takes effect, or audit statistics show material drift from the baseline. Store the complete quote dataset and a reproducibility manifest (code, package versions, random seeds) so the result can be independently replicated.</p>
 <p>If filing documentation relies on partial dependence plots or variable-importance plots for ML models, treat them as supplementary narrative evidence only. Outcome-based CDP and proxy-discrimination tests remain the primary compliance path (see <a href="#feature-importance-check">Feature importance check</a>).</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -661,11 +673,19 @@ Practical note
 </thead>
 <tbody>
 <tr class="odd">
-<td>Pre-specified protocol (criterion, response, tolerance, sample)</td>
+<td>Protocol written and signed off before data extraction</td>
 <td>Compliance / Model risk</td>
 </tr>
 <tr class="even">
-<td>Corrected inference for deterministic outputs</td>
+<td>Protected attribute, legitimate factors, and response variable documented</td>
+<td>Legal / Actuarial</td>
+</tr>
+<tr class="odd">
+<td>Tolerance margins and significance level fixed in advance</td>
+<td>Compliance / Actuarial</td>
+</tr>
+<tr class="even">
+<td>Corrected inference (HC3 for CDP, cross-covariance for PD) pre-specified</td>
 <td>Actuarial / Data science</td>
 </tr>
 <tr class="odd">
@@ -675,6 +695,14 @@ Practical note
 <tr class="even">
 <td>Three-outcome classification documented (insufficient information ≠ pass)</td>
 <td>Compliance</td>
+</tr>
+<tr class="odd">
+<td>Audit dataset and reproducibility manifest stored</td>
+<td>Data science / MLOps</td>
+</tr>
+<tr class="even">
+<td>Verdict and any remediation plan escalated to senior management</td>
+<td>Model risk / Legal</td>
 </tr>
 </tbody>
 </table>
