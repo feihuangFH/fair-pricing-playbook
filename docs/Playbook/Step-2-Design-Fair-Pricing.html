@@ -317,7 +317,7 @@ Prerequisite
 <div class="callout-body-container callout-body">
 <p><a href="Step-1-Define-Fairness.html">Step 1: Define fairness</a>. Agree on the fairness criterion before choosing a model.</p>
 <p>This step focuses on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers how to build models that meet legal and statistical fairness criteria. For demand modelling, price optimisation, and welfare effects once prices reach the market, see <a href="Step-3-Assess-Impact.html">Step 3</a>.</p>
-<p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair models</a> provides a full insurance implementation using generalised linear models (GLMs) and XGBoost.</p>
+<p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair models</a> provides a full insurance implementation using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).</p>
 <p>Governance readers, see <a href="#implementation">Implementation</a> and <a href="#checklist">Checklist</a>. Model development, see <a href="#model-designs">Model designs</a>. Full example, see <a href="../Case Study 1/case_study1.html">Case Study 1</a>.</p>
 </div>
 </div>
@@ -367,6 +367,10 @@ For practitioners
 <h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
 <p>Notation follows <a href="Step-1-Define-Fairness.html#mini-glossary">Step 1: Define fairness</a>.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Symbol</th>
@@ -384,7 +388,7 @@ For practitioners
 </tr>
 <tr class="odd">
 <td><span class="math inline">\hat{Y}</span></td>
-<td>Predicted expected claim cost or pure premium</td>
+<td>Predicted expected claim cost or pure premium (the expected cost per policy before expenses and profit loading)</td>
 </tr>
 </tbody>
 </table>
@@ -542,7 +546,7 @@ What counts as a legitimate factor?
 <section id="fairness-accuracy" class="level3">
 <h3 class="anchored" data-anchor-id="fairness-accuracy">The fairness–accuracy trade-off</h3>
 <p>A common concern when fairness constraints are proposed is that they will make the model substantially less accurate, leading to adverse selection and commercial harm. The evidence from <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> on a standard French motor insurance dataset is more reassuring than the concern suggests.</p>
-<p>Fair models including MCDP and MC achieved loss ratios close to those of the unconstrained M0 baseline. The reduction in predictive accuracy was modest while the reduction in premium disparities between protected groups was substantial. Fairness-constrained XGBoost models retained most of their predictive edge over GLMs while also meeting fairness criteria that GLMs alone might not satisfy.</p>
+<p>Fair models including MCDP and MC achieved loss ratios (claims paid as a share of premiums earned) close to those of the unconstrained M0 baseline. The reduction in predictive accuracy was modest while the reduction in premium disparities between protected groups was substantial. Fairness-constrained XGBoost models retained most of their predictive edge over GLMs while also meeting fairness criteria that GLMs alone might not satisfy.</p>
 <p>This does not mean the trade-off is zero. An insurer that enforces strict demographic parity will accept greater exposure to adverse selection (the tendency for lower-risk customers to leave the pool when they are cross-subsidising higher-risk customers, leaving a less profitable book), because it will price some high-risk customers identically to lower-risk customers in the same protected group. The relevant question is whether the magnitude of that exposure is acceptable given regulatory requirements and competitive pressures. That is a business decision, but it can be quantified, and the numbers in this context are smaller than critics of fairness regulation often assume.</p>
 <p>Addressing indirect discrimination through proxy removal (MCDP) also produces a side benefit: because the model cannot use proxies for the protected attribute, it reduces the risk that the fair model inadvertently attracts a systematically different risk pool. The adverse selection concern associated with fairness constraints is partly offset by the reduction in proxy variables within the model.</p>
 </section>
