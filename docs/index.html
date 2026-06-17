@@ -326,12 +326,12 @@ Two ways to read
 <section id="step-1-define-fairness" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-1-define-fairness"><a href="Playbook/Step-1-Define-Fairness.html">Step 1 · Define fairness</a></h4>
 <p>What standard will you be held to, and which fairness criterion will your model target? There are at least six distinct fairness criteria relevant to insurance pricing, and they cannot all be satisfied simultaneously. The choice is a legal and policy decision, not a technical default. This step establishes the standard that Steps 2, 3, and 4 are held to.</p>
-<p>Topics covered include direct vs indirect discrimination, proxy variables, individual vs group fairness, and the regulatory spectrum from FTU to community rating.</p>
+<p>Topics covered include direct vs indirect discrimination, proxy variables, individual vs group fairness, and the regulatory spectrum from fairness through unawareness (FTU) to community rating.</p>
 </section>
 <section id="step-2-design-fair-pricing" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-2-design-fair-pricing"><a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2 · Design fair pricing</a></h4>
 <p>Once you have chosen a fairness criterion, you need a model that meets it. This step maps criteria to concrete model designs and explains where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.</p>
-<p>Topics covered include FTU, DP, CDP, and CPV, pre- and post-processing interventions, the fairness–accuracy trade-off, and GLM and XGBoost implementations.</p>
+<p>Topics covered include FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV), pre- and post-processing interventions, the fairness–accuracy trade-off, and GLM and XGBoost implementations.</p>
 </section>
 <section id="step-3-assess-impact" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-3-assess-impact"><a href="Playbook/Step-3-Assess-Impact.html">Step 3 · Assess impact</a></h4>
@@ -371,7 +371,7 @@ Key findings from the research
 </ul>
 <p><strong>On model design</strong> <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span></p>
 <ul>
-<li>Four model families (MU, MDP, MCDP, and MC) implement four distinct fairness criteria. These are FTU, demographic parity, conditional demographic parity, and controlling for the protected variable.</li>
+<li>Four model families (MU, MDP, MCDP, and MC) implement four distinct fairness criteria: FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV).</li>
 <li>The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fair models using XGBoost retained most predictive power while substantially reducing group premium disparities.</li>
 <li>Addressing indirect discrimination through proxy removal (MCDP) reduces adverse selection risk more than simply excluding the protected attribute (MU).</li>
 </ul>
