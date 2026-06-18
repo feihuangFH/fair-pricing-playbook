@@ -1,0 +1,212 @@
+/*-- scss:defaults --*/
+// Cosmo base + institutional blues; tune Bootstrap tokens
+$primary: #1565c0;
+$secondary: #546e7a;
+$success: #2e7d32;
+$body-bg: #f5f7fa;
+$body-color: #1e293b;
+$link-color: #0d47a1;
+$link-hover-color: #1565c0;
+$headings-font-weight: 600;
+$border-radius: 0.375rem;
+$border-radius-lg: 0.5rem;
+
+/*-- scss:rules --*/
+
+/* Main reading column */
+#quarto-content main {
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+#quarto-document-content {
+  max-width: 58rem;
+}
+
+/* Page title */
+.quarto-title-block .quarto-title h1.title {
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.quarto-title-meta-container {
+  color: $secondary;
+}
+
+/* Sidebar */
+#quarto-sidebar {
+  background: linear-gradient(180deg, #eef4fb 0%, #e2ebf5 100%);
+  border-right: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 2px 0 16px rgba(15, 23, 42, 0.06);
+}
+
+#quarto-sidebar .sidebar-item a,
+#quarto-sidebar .sidebar-link {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#quarto-sidebar .sidebar-item a:hover,
+#quarto-sidebar .sidebar-link:hover {
+  color: $primary;
+}
+
+#quarto-sidebar .sidebar-section .sidebar-item .sidebar-link.active {
+  font-weight: 600;
+}
+
+/* Section group headings */
+#quarto-sidebar .sidebar-section > .sidebar-section-item > .sidebar-link {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $secondary;
+  margin-top: 0.6rem;
+}
+
+/* Case study entries — lighter weight to visually subordinate them */
+#quarto-sidebar .sidebar-item a[href*="case_study"],
+#quarto-sidebar .sidebar-item a[href*="Case Study"] {
+  font-size: 0.9rem;
+  color: $secondary;
+  padding-left: 1.4rem;
+}
+
+#quarto-sidebar .sidebar-item a[href*="case_study"]:hover,
+#quarto-sidebar .sidebar-item a[href*="Case Study"]:hover {
+  color: $primary;
+}
+
+/* Four-step grid on home page */
+.step-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.step-card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: $border-radius-lg;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.step-card:hover {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12);
+  border-color: rgba(21, 101, 192, 0.22);
+}
+
+.step-card h3 {
+  margin-top: 0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 2px solid rgba(21, 101, 192, 0.18);
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.step-card h3 a {
+  color: $primary;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.step-card h3 a:hover {
+  text-decoration: underline;
+}
+
+.step-card p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 767.98px) {
+  .step-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Key insights callout emphasis */
+.callout-note .callout-body ul li {
+  margin-bottom: 0.55rem;
+  line-height: 1.6;
+}
+
+/* About author */
+.about-author {
+  margin-top: 1rem;
+}
+
+.about-author-photo {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .about-author-photo {
+    margin-top: 0.25rem;
+  }
+}
+
+.about-author-contact {
+  font-size: 0.98rem;
+  color: $secondary;
+  line-height: 1.6;
+}
+
+.about-author-contact a {
+  font-weight: 500;
+}
+
+/* Embedded SoundCloud (Teaching in Tune) */
+.teaching-in-tune-player {
+  margin: 1rem 0 1.5rem;
+  max-width: 100%;
+}
+
+.teaching-in-tune-player iframe {
+  display: block;
+  border: 0;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+}
+
+/* Callouts: slightly softer on this palette */
+.callout {
+  border-radius: $border-radius-lg;
+}
+
+/* Code chunks */
+.cell-code {
+  margin: 10px !important;
+}
+
+.cell-output {
+  max-height: 600px !important;
+  overflow-y: auto !important;
+}
+
+/* Quarto multi-column spacing (shared with some pages) */
+.columns > .column > :not(ul, ol) {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.columns > .column:first-child > :not(ul, ol) {
+  margin-right: 0.5em;
+  margin-left: 0;
+}
+
+.columns > .column:last-child > :not(ul, ol) {
+  margin-right: 0;
+  margin-left: 0.5em;
+}

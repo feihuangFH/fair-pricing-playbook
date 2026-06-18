@@ -1,0 +1,27 @@
+$if(title)$
+\title{$title$}
+$endif$
+$if(subtitle)$
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{%
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{$subtitle$}
+$endif$
+$for(by-author)$
+\author{$by-author.name.literal$}
+$endfor$
+$for(by-author)$
+$if(by-author.affiliations)$
+$for(by-author.affiliations)$
+\affil{$it.name$$if(by-author.email)$ \\ \href{mailto:$by-author.email$}{$by-author.email$}$endif$}
+$endfor$
+$elseif(by-author.email)$
+\affil{\href{mailto:$by-author.email$}{$by-author.email$}}
+$endif$
+$endfor$
+$if(date)$
+\date{$date$}
+$endif$

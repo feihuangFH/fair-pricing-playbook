@@ -1,0 +1,173 @@
+---
+title: "Step 2: Design fair pricing"
+urlcolor: blue
+bibliography: reference.bib
+format:
+  html: default
+---
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Prerequisite
+
+[Step 1: Define fairness](Step-1-Define-Fairness.html). Agree on the fairness criterion before choosing a model.
+
+This step focuses on the [anti-discrimination lens](Step-1-Define-Fairness.html#anti-discrimination) from Step 1. It covers how to build models that meet legal and statistical fairness criteria. For demand modelling, price optimisation, and welfare effects once prices reach the market, see [Step 3](Step-3-Assess-Impact.html).
+
+[Case Study 1: Fair models](<../Case Study 1/case_study1.html>) provides a full insurance implementation using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).
+
+Governance readers, see [Implementation](#implementation) and [Checklist](#checklist). Model development, see [Model designs](#model-designs). Full example, see [Case Study 1](<../Case Study 1/case_study1.html>).
+:::
+
+::: {.callout-note appearance="simple" icon="false"}
+## Key insights from this step
+
+- Four model families (MU, MDP, MCDP, and MC) each implement a different fairness criterion. Match the model to the regulatory obligation identified in Step 1, not to what is most convenient to build.
+- The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fairness-constrained models using XGBoost retained most predictive power while substantially reducing group premium disparities. The cost of fairness is smaller than it is often assumed to be.
+- Fairness can be enforced at three stages of the modelling pipeline: pre-processing (adjusting inputs before training, as in MDP and MCDP), in-processing (building fairness constraints into the training objective), and post-processing (adjusting outputs after training, as in MC). The right stage depends on the criterion chosen and the production system.
+:::
+
+::: {.callout-note appearance="simple" icon="false"}
+## Scope of this step
+
+This step focuses on **claims cost modelling**: estimating expected claim cost (pure premium) for each policyholder and applying fairness constraints at that stage. The models here (MU, MDP, MCDP, MC) all operate on the cost model.
+
+In practice, a complete pricing model also incorporates expenses, cost of capital, reinsurance costs, and profit loadings on top of the pure premium. Fairness criteria can and should be applied to final prices that include these components, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.
+
+If the pricing process also includes **demand modelling** (how likely customers are to buy or renew at a given price) and **price optimisation** (setting prices to maximise profit subject to constraints), those stages sit outside the cost model and are covered in [Step 3](Step-3-Assess-Impact.html) and [Case Study 2](<../Case Study 2/case_study2.html>).
+:::
+
+## How do you build a fair pricing model? {#how-can-fair-pricing-be-achieved}
+
+Step 1 established what fairness means for your product and which criterion you are required to meet. Step 2 is about building a model that actually achieves it. That sounds straightforward but involves a decision most modelling teams do not make explicit: at what stage in the pricing pipeline do you enforce fairness?
+
+There are three points at which you can intervene. You can adjust the data before the model sees it (pre-processing). You can build fairness directly into the model's training objective (in-processing). Or you can adjust the model's predictions after training is complete (post-processing). Each approach works best for different fairness criteria, and the choice should follow from what Step 1 decided, not from what is easiest to implement.
+
+::: {.callout-important appearance="simple" icon="false"}
+## For practitioners
+
+This step describes standard anti-discrimination model designs, not a single approved pipeline for every market. Typical decisions include
+
+- Which criterion from Step 1 is binding (CDP, DP, FTU, CPV, and so on)
+- Which variables are legitimate rating factors under local law
+- Which intervention stage fits your production system (pre-, in-, or post-processing)
+- Whether to retain a baseline model (M0) for welfare and audit comparisons in Steps 3 and 4
+
+The [case study](<../Case Study 1/case_study1.html>) shows one insurance implementation. Adapt data, variables, and packages to your jurisdiction.
+:::
+
+## Mini-glossary
+
+Notation follows [Step 1: Define fairness](Step-1-Define-Fairness.html#mini-glossary).
+
+| Symbol | Plain language |
+|--------|----------------|
+| $X_P$ | Protected attribute (e.g. gender, race, ethnicity) |
+| $X_{NP}$ | Non-protected rating features |
+| $\hat{Y}$ | Predicted expected claim cost or pure premium (the expected cost per policy before expenses and profit loading) |
+
+Model labels follow @xin2024antidiscrimination.
+
+| Label | Plain language |
+|-------|----------------|
+| M0 (full model) | Baseline that uses all variables including protected attributes. Kept for comparison, not deployed when discrimination is prohibited |
+| MU (unawareness) | Trained without the protected attribute. Targets fairness through unawareness (FTU) |
+| MDP (demographic parity) | Fit on debiased non-protected predictors so average predicted outcomes are approximately equal across protected groups |
+| MCDP (conditional demographic parity) | Fit on legitimate predictors plus debiased non-legitimate predictors. Group differences are allowed only through legitimate variables |
+| MC (CPV) | Full model (M0) fitted, then predictions averaged over protected groups at scoring time |
+| Pre-processing | Change inputs before model training (used by MDP and MCDP) |
+| In-processing | Enforce fairness constraints during training (e.g. regularisation or penalty terms in the objective) |
+| Post-processing | Change outputs after model training (used by MC) |
+
+## Model designs {#model-designs}
+
+### M0: The baseline
+
+Before building any fair model, fit a baseline that uses all available variables including the protected attribute. This is M0. You will not deploy M0 in a market where discrimination is prohibited, but you need it for two reasons. First, it gives you the best available estimate of the true expected cost for each group, which you need for welfare analysis in Step 3. Second, it provides the benchmark against which to measure how much fairness constraints affect accuracy and pricing.
+
+### MU: Removing the protected attribute
+
+The simplest approach is to remove the protected attribute from the training data and fit the model on everything else. This is what most insurers already do, either because they do not collect the protected variable or because regulation prohibits its use.
+
+The limitation is real and important. Removing a variable does not remove its influence when other variables in the model are correlated with it. If postcode is correlated with race, and race is the protected attribute, then a model using postcode will still partially reflect race in its outputs. MU prevents direct discrimination but does nothing about indirect discrimination through proxy variables. It is a necessary starting point, not a sufficient solution for jurisdictions concerned with proxy effects.
+
+### MCDP: Separating legitimate from non-legitimate variation
+
+MCDP is designed for situations where some price differences between groups are legally justified and some are not. A risk-rated insurer will charge higher premiums to customers with more claims history. If those customers happen to be disproportionately from a protected group, that price difference is defensible as long as claims history is accepted as a legitimate factor by the regulator. What is not defensible is a price difference that arises because other variables in the model are acting as proxies for the protected attribute.
+
+The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted, using a technique called orthogonalisation. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.
+
+This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. [Case Study 1](<../Case Study 1/case_study1.html>) works through a full implementation.
+
+::: {.callout-note appearance="simple" icon="false"}
+## What counts as a legitimate factor?
+
+Legitimate factors are those your regulator accepts in a filed rate plan as grounds for price variation. In motor insurance, this typically includes claims history, vehicle type, annual mileage, and years of driving experience. It does not include variables that the regulator views as proxies for protected characteristics, such as certain types of credit data or fine-grained geographic indicators in markets where geographic redlining is a concern.
+
+The list of legitimate factors varies by jurisdiction and product. It should be agreed with legal and compliance before modelling begins, not determined by the data science team on its own.
+:::
+
+### MDP: Demographic parity across all variables
+
+MDP is a stricter version that does not distinguish between legitimate and non-legitimate predictors. All non-protected predictors are debiased before the model is fitted, so that average predicted outcomes are approximately equal across protected groups unconditionally.
+
+This is appropriate for regulatory environments that require demographic parity rather than conditional demographic parity: for example, where the regulator expects equal average premiums across groups regardless of whether legitimate factors explain the difference. It involves a greater sacrifice of actuarial accuracy than MCDP because it removes the group-predicting power of all variables, including legitimate ones. In markets where fine risk classification is commercially important, this trade-off deserves explicit consideration.
+
+### MC: Averaging over the protected attribute
+
+MC takes a conceptually different approach. Instead of changing the data before training, it changes how predictions are used. A full model (M0) is fitted that includes the protected attribute, giving the best actuarial estimate of expected cost for each combination of characteristics. At the point of scoring, rather than using M0's prediction directly, the model computes a weighted average of M0's predictions across all protected-group values. Each customer receives a price that reflects their non-protected characteristics but does not depend on which group they belong to.
+
+$$\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})$$
+
+The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach is sometimes called a discrimination-free price [@xin2024antidiscrimination]. It targets the fairness criterion of controlling for the protected variable (CPV).
+
+## Matching model to criterion {#model-criterion-mapping}
+
+| Model | Criterion | Approach |
+|-------|-----------|----------|
+| M0 (full) | Baseline | Uses $X_P$ and $X_{NP}$ |
+| MU | FTU | $\hat{Y} = f(X_{NP})$ only |
+| MDP | DP | Pre-process all $X_{NP}$ to $X_{NP}^{\star}$ |
+| MCDP | CDP | Retain legitimate predictors; debias non-legitimate predictors |
+| MC | CPV | Fit M0; average over $X_P$ at prediction |
+
+### How regulation maps to model design {#regulations-criteria-models}
+
+@xin2024antidiscrimination maps regulatory regimes to fairness criteria and standard model designs.
+
+![Comparison between regulations, fairness criteria, and models.](plot/regulations_fairness_models.png){width=90% fig-alt="Table mapping regulation types to fairness criteria and representative models M0, MU, MC, MDP, MCDP"}
+
+The progression from left to right in the diagram is a progression in how much cross-subsidy regulation requires. At the left extreme, no regulation: the insurer can use any variable and individual actuarial pricing prevails. At the right extreme, community rating: everyone pays the same premium and cross-subsidy is complete. Most markets sit somewhere in the middle, and the right model depends on where.
+
+## In-processing
+
+In-processing builds fairness into the estimation step rather than adjusting inputs or outputs. One approach adds a penalty term to the model's objective function that increases as the chosen fairness criterion is violated. The model then trades off predictive accuracy against fairness violation during training, with a tuning parameter controlling the balance.
+
+In-processing is particularly useful in price optimisation, where the optimiser's objective (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3).
+
+## The fairness–accuracy trade-off {#fairness-accuracy}
+
+A common concern when fairness constraints are proposed is that they will make the model substantially less accurate, leading to adverse selection and commercial harm. The evidence from @xin2024antidiscrimination on a standard French motor insurance dataset is more reassuring than the concern suggests.
+
+Fair models including MCDP and MC achieved loss ratios (claims paid as a share of premiums earned) close to those of the unconstrained M0 baseline. The reduction in predictive accuracy was modest while the reduction in premium disparities between protected groups was substantial. Fairness-constrained XGBoost models retained most of their predictive edge over GLMs while also meeting fairness criteria that GLMs alone might not satisfy.
+
+This does not mean the trade-off is zero. An insurer that enforces strict demographic parity will accept greater exposure to adverse selection (the tendency for lower-risk customers to leave the pool when they are cross-subsidising higher-risk customers, leaving a less profitable book), because it will price some high-risk customers identically to lower-risk customers in the same protected group. The relevant question is whether the magnitude of that exposure is acceptable given regulatory requirements and competitive pressures. That is a business decision, but it can be quantified, and the numbers in this context are smaller than critics of fairness regulation often assume.
+
+Addressing indirect discrimination through proxy removal (MCDP) also produces a side benefit: because the model cannot use proxies for the protected attribute, it reduces the risk that the fair model inadvertently attracts a systematically different risk pool. The adverse selection concern associated with fairness constraints is partly offset by the reduction in proxy variables within the model.
+
+## Implementation {#implementation}
+
+- Link each model (M0, MU, MDP, MCDP, MC) to the criterion chosen in Step 1
+- Retain baseline M0 for welfare and audit comparisons in Steps 3 and 4
+- Document the pre-processing, in-processing, or post-processing choice and produce a reproducible pipeline
+- Agree the list of legitimate vs non-legitimate variables with legal and compliance before modelling begins
+
+## Checklist
+
+Use this checklist to confirm model design choices before welfare analysis. Assign an owner for each item and record sign-off.
+
+| Task | Typical owner |
+|------|---------------|
+| Model (M0, MU, MDP, MCDP, MC) linked to Step 1 criterion | Actuarial and data science |
+| Legitimate vs non-legitimate variables listed and signed off | Legal and compliance, actuarial |
+| Baseline M0 retained for downstream comparisons | Model risk |
+| Versioned data, code, and parameters | Data science and MLOps |
