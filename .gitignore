@@ -14,6 +14,11 @@ preprint_1.qmd
 preprint_2.qmd
 preprint_2.pdf
 
+# Paper-submission bibliography files (entries needed by playbook are in Playbook/reference.bib)
+reference_JRI.bib
+references_FairTesting.bib
+library.bib
+
 # Paper submissions (may be under journal copyright)
 Paper_*.tex
 Paper_*.pdf
