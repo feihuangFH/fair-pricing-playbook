@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this playbook, please cite it as below."
+authors:
+  - family-names: Huang
+    given-names: Fei
+    orcid: https://orcid.org/0000-0003-3406-5948
+    affiliation: "School of Risk and Actuarial Studies, UNSW Business School, UNSW Sydney"
+title: "The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing"
+version: "1.0"
+date-released: 2026-06-16
+url: "https://fair.feihuang.org"
+repository-code: "https://github.com/feihuangFH/fair-pricing-playbook"
+license: CC-BY-4.0
+doi: 10.2139/ssrn.6955039
+abstract: >
+  A four-step framework linking fairness definition, model design, welfare
+  assessment, and post-deployment audit into one end-to-end workflow for
+  algorithmic pricing in insurance and financial services. Three reproducible
+  case studies provide implementation evidence using French motor insurance
+  data and Illinois auto insurance quote data.
+keywords:
+  - algorithmic pricing
+  - insurance
+  - fairness
+  - anti-discrimination
+  - welfare analysis
+  - audit
+  - responsible AI
