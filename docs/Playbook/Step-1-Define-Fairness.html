@@ -328,7 +328,7 @@ Key insights from this step
 <div class="callout-body-container callout-body">
 <ul>
 <li>There are at least six distinct fairness criteria for insurance pricing, and they cannot all be satisfied simultaneously. Choosing a criterion is a policy and legal decision that must be made before any modelling begins.</li>
-<li>Fairness through unawareness (simply removing the protected attribute from the model) is necessary but not sufficient. Indirect discrimination persists through correlated proxy variables and opaque algorithms, even after the protected variable is excluded.</li>
+<li>Fairness through unawareness (simply removing the protected attribute from the model) is a common starting point but is not sufficient, and is not required by all fairness criteria. Some criteria, such as controlling for the protected variable (CPV), explicitly use the protected attribute during model training. And even where the attribute is excluded, indirect discrimination persists through correlated proxy variables and opaque algorithms.</li>
 <li>The regulatory spectrum runs from no restriction through prohibition on specific variables to community rating. Each regulatory level maps to a different fairness criterion and a different model design in Step 2.</li>
 </ul>
 </div>
