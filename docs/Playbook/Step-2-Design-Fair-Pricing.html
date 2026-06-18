@@ -334,7 +334,7 @@ Key insights from this step
 <ul>
 <li>Four model families (MU, MDP, MCDP, and MC) each implement a different fairness criterion. Match the model to the regulatory obligation identified in Step 1, not to what is most convenient to build.</li>
 <li>The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fairness-constrained models using XGBoost retained most predictive power while substantially reducing group premium disparities. The cost of fairness is smaller than it is often assumed to be.</li>
-<li>Pre-processing (debiasing inputs before training) suits group fairness criteria such as DP and CDP. Post-processing (averaging outputs over the protected attribute at prediction time) targets individual fairness via CPV. The intervention stage should follow from the criterion, not from convenience.</li>
+<li>The intervention stage should follow from the criterion, not from convenience. Pre-processing (MDP and MCDP) removes the protected attribute’s influence from training data and is designed for DP and CDP specifically. Post-processing (MC) averages predictions over the protected attribute at scoring time and is designed for CPV. These are properties of the specific models, not general rules about what each stage can achieve.</li>
 </ul>
 </div>
 </div>
