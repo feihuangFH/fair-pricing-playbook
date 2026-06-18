@@ -136,7 +136,7 @@
     "href": "Case Study 2/case_study2.html#appendix-supporting-materials",
     "title": "Case Study 2: Welfare Implications of Fair Insurance Pricing",
     "section": "Appendix: Supporting Materials",
-    "text": "Appendix: Supporting Materials\nThe following files accompany this case study. The data files contain the pre-computed optimisation outputs used in the analysis, while the Python files contain the implementation of the pricing and welfare framework.\n\nData\n\nFrench_individual_traditional.csv\nwelfare_result_summary.csv\nwelfare_result_individual.csv\n\n\n\nCode\n\nwelfare_analysis_french.py\nutils.py",
+    "text": "Appendix: Supporting Materials\nThe following files accompany this case study. The data files contain the pre-computed optimisation outputs used in the analysis, while the Python files contain the implementation of the pricing and welfare framework. All files are also available in the source repository at github.com/feihuangFH/fair-pricing-playbook/tree/main/Case%20Study%202.\n\nData\n\nFrench_individual_traditional.csv\nwelfare_result_summary.csv\nwelfare_result_individual.csv\n\n\n\nCode\n\nwelfare_analysis_french.py\nutils.py",
     "crumbs": [
       "The Playbook",
       "Case Study · Welfare Implications"

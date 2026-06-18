@@ -1,0 +1,187 @@
+---
+title: The Fair Pricing Playbook
+subtitle: A practical framework for developing, evaluating, and auditing fair algorithmic pricing systems (2026)
+bibliography: [library.bib]
+format:
+  html:
+    toc: false
+---
+
+# Why fair pricing matters
+
+Algorithmic pricing is now widely used in insurance and financial services, and machine learning has become central to how many insurers assess risk and set prices. The fairness concerns this creates are not new, but they take a different form under automated, large-scale systems. Even when protected attributes such as race, gender, and religion are removed from a model, pricing systems can still produce discriminatory outcomes through proxy variables and opaque combinations of inputs that are difficult to trace or challenge.
+
+Regulatory attention to these issues has grown substantially. Colorado and New York have each proposed rules requiring insurers to test pricing algorithms for unfair discrimination, and the European Union has enacted broader AI governance frameworks that apply to insurance. Firms that cannot demonstrate fairness face legal exposure, reputational risk, and the practical challenge of defending pricing decisions under regulatory examination.
+
+This playbook translates research from economics, statistics, actuarial science, and machine learning into a concrete four-step workflow that covers the full journey from defining what fairness means, to building fair models, to measuring who actually gains and loses, to auditing a deployed system. Three insurance case studies provide the technical depth needed for implementation.
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Two ways to read
+
+| Reader | Recommended path |
+|--------|-----------------|
+| Compliance, risk, policy, and management | Read the four steps. The case studies are optional technical supplements. |
+| Data science, actuarial, and research | Read the four steps, then follow the case studies linked in the sidebar for implementation detail. |
+:::
+
+# The four steps {#four-steps}
+
+::: {.step-grid}
+
+::: {.step-card}
+### [Step 1 · Define fairness](Playbook/Step-1-Define-Fairness.html)
+
+What standard will you be held to, and which fairness criterion will your model target? There are at least six distinct fairness criteria relevant to insurance pricing, and they cannot all be satisfied simultaneously. The choice is a legal and policy decision, not a technical default. This step establishes the standard that Steps 2, 3, and 4 are held to.
+
+Topics covered include direct vs indirect discrimination, proxy variables, individual vs group fairness, and the regulatory spectrum from fairness through unawareness (FTU) to community rating.
+:::
+
+::: {.step-card}
+### [Step 2 · Design fair pricing](Playbook/Step-2-Design-Fair-Pricing.html)
+
+Once you have chosen a fairness criterion, you need a model that meets it. This step maps criteria to concrete model designs and explains where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.
+
+Topics covered include FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV), pre- and post-processing interventions, the fairness–accuracy trade-off, and GLM and XGBoost implementations.
+:::
+
+::: {.step-card}
+### [Step 3 · Assess impact](Playbook/Step-3-Assess-Impact.html)
+
+A model that looks fair on paper can still leave protected groups worse off once prices respond to demand, competition, and regulation. This step asks you to quantify consumer welfare and firm profit by group, going beyond whether predicted costs are equal.
+
+Topics covered include welfare vs price fairness, price optimisation, markup disparities, and who gains and who loses under different regulatory rules.
+:::
+
+::: {.step-card}
+### [Step 4 · Audit the system](Playbook/Step-4-Audit-the-System.html)
+
+An audit tests whether a deployed pricing system actually meets the fairness standard. The protocol (criterion, legitimate factors, tolerance bands, sample design) must be fixed before looking at any data. Results are classified as pass, fail, or insufficient information.
+
+Topics covered include conditional demographic parity, proxy discrimination, TOST equivalence testing, HC3 corrected inference, and BISG and BIFSG proxy imputation.
+:::
+
+:::
+
+Case studies pair with Steps 2–4. [Step 2](Playbook/Step-2-Design-Fair-Pricing.html) links to [Case study 1: Fair models](<Case Study 1/case_study1.html>). [Step 3](Playbook/Step-3-Assess-Impact.html) links to [Case study 2: Welfare implications](<Case Study 2/case_study2.html>). [Step 4](Playbook/Step-4-Audit-the-System.html) links to [Case study 3: Fairness testing](<Case Study 3/case_study3.html>).
+
+# The pathway at a glance
+
+![](Playbook/plot/pathway-towards-fairness.png){fig-alt="Pathway towards fairness from model inputs and design through outputs, welfare, and fairness testing to pass, unclear, or fail" width=100%}
+
+The diagram shows how the four steps connect across model design, welfare assessment, and fairness testing.
+
+# What the research shows
+
+::: {.callout-note appearance="simple" icon="false"}
+## Key findings from the research
+
+**On regulations and fairness criteria** [@frees2023discriminating; @xin2024antidiscrimination]
+
+- The regulatory spectrum runs from no regulation through prohibition on specific variables to community rating. Each level maps to a different fairness criterion and a different model design.
+- Fairness through unawareness (simply removing the protected attribute) is a common industry default but is not sufficient, and is not required by all fairness criteria. Some criteria explicitly use the protected attribute during training. Proxy effects also persist through correlated variables, and indirect discrimination can survive even rigorous data cleaning.
+- Six principles help classify whether a rating variable is appropriate for use. These are control, mutability, statistical discrimination, causality, history of past discrimination, and whether use inhibits socially valuable behaviour.
+
+**On model design** [@xin2024antidiscrimination]
+
+- Four model families (MU, MDP, MCDP, and MC) implement four distinct fairness criteria: FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV).
+- The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fair models using XGBoost retained most predictive power while substantially reducing group premium disparities.
+- Addressing indirect discrimination through proxy removal (MCDP) reduces adverse selection risk more than simply excluding the protected attribute (MU).
+
+**On welfare** [@huang2026welfarealgorithms; @huang2026welfareaccountable]
+
+- A fair cost model does not guarantee a fair outcome. Price optimisation, demand elasticity, and competitive dynamics can reintroduce group disparities after cost-level fairness is achieved.
+- Demographic parity on premiums (PDP) closes price gaps between protected groups but can simultaneously widen markup disparities, creating a new form of inequality even as it resolves the old one.
+- No single pricing rule achieves both price fairness and markup fairness at once. The paper characterises the trade-off and shows which regulatory approaches come closest for different market structures.
+
+**On auditing** [@huang2026fairtesting; @xin2026proxyrace; @xin2025partialdependenceplots]
+
+- Classical OLS standard errors are unreliable for auditing deterministic pricing algorithms. Heteroskedasticity-consistent HC3 standard errors are required for valid inference on conditional demographic parity.
+- A clean audit requires equivalence testing (TOST). A pass means positive evidence the disparity is within tolerance, not merely the absence of a statistically significant violation.
+- When race or ethnicity is inferred via BISG or BIFSG proxy methods, the resulting regression coefficient is not the same estimand as a true-group disparity. Audits using proxied race require additional corrections.
+:::
+
+| Step | Key references |
+|------|----------------|
+| 1 · Define fairness | @frees2023discriminating; @xin2024antidiscrimination; @krafcheck2026fairnessmetrics |
+| 2 · Design fair pricing | @xin2024antidiscrimination |
+| 3 · Assess impact | @huang2026welfarealgorithms; @huang2026welfareaccountable |
+| 4 · Audit the system | @huang2026fairtesting; @xin2026proxyrace; @xin2025partialdependenceplots |
+
+# End-to-end audit flow
+
+Step 4 follows an integrated Plan, Audit, Decide, and Improve protocol [@huang2026fairtesting]. All design choices are fixed before examining data.
+
+![](Playbook/plot/audit-flow.png){fig-alt="End-to-end fairness audit flow: Plan, Audit, Decide, Improve" width=100%}
+
+| Phase | Actions |
+|-------|---------|
+| Plan | Select criterion (PD or CDP), legitimate factors, tolerance bands, representative sample |
+| Audit | Collect prices and run statistical fairness tests with corrected inference |
+| Decide | Pass, insufficient information, or fail (equivalence testing) |
+| Improve | Remediate and re-test; collect more data if unclear |
+
+Full detail is in [Step 4: Audit the system](Playbook/Step-4-Audit-the-System.html).
+
+# About the author
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Get in touch
+
+Firms, regulators, and policymakers who want to discuss fair pricing, audits, or policy applications are welcome to contact [Dr Fei Huang](mailto:feihuang@unsw.edu.au).
+:::
+
+::: {.columns .about-author}
+::: {.column width="30%"}
+![](Fei_Huang.jpeg){.about-author-photo}
+:::
+::: {.column width="70%"}
+### [Dr. Fei Huang](https://www.unsw.edu.au/staff/fei-huang)
+
+::: {.about-author-contact}
+School of Risk and Actuarial Studies, UNSW Business School
+
+Email: [feihuang@unsw.edu.au](mailto:feihuang@unsw.edu.au) · Website: [feihuang.org](https://www.feihuang.org)
+:::
+
+Dr. Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.
+
+Her work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean's Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.
+:::
+:::
+
+# Acknowledgements
+
+The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.
+
+# How to cite
+
+To cite this playbook in academic work, use the APA format below.
+
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
+
+### BibTeX
+
+::: {.callout-note collapse="true" appearance="simple" title="Show BibTeX"}
+
+```bibtex
+@misc{huang2026fairpricingplaybook,
+  title     = {The Fair Pricing Playbook: A practical framework for
+               developing, evaluating, and auditing fair algorithmic
+               pricing},
+  author    = {Huang, Fei},
+  year      = {2026},
+  publisher = {SSRN},
+  doi       = {10.2139/ssrn.6955039},
+  url       = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039}
+}
+```
+
+:::
+
+# Source repository
+
+Source code for this playbook is available at [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook). Reproducible code for all three case studies is included in the repository.
+
+# License
+
+Materials are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See LICENSE.

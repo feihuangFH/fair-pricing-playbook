@@ -1,49 +1,60 @@
-The Fair Pricing Playbook
-===========
+# The Fair Pricing Playbook
 
-A four-step pathway for fair algorithmic pricing: define fairness → design fair pricing → assess welfare impact → audit the system. Three reproducible insurance case studies supplement the pathway for technical readers.
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![DOI](https://img.shields.io/badge/DOI-10.2139%2Fssrn.6955039-blue)](https://doi.org/10.2139/ssrn.6955039)
 
-Developed by [Fei Huang](https://www.feihuang.org) at UNSW Sydney.
+A four-step framework for fair algorithmic pricing in insurance and financial services: define fairness → design fair pricing → assess welfare impact → audit the system. Three reproducible case studies provide implementation evidence.
 
-Please open the site at **[fair.feihuang.org](https://fair.feihuang.org)** (source: [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)).
+**Live site: [fair.feihuang.org](https://fair.feihuang.org)**
 
-## Pathway
+Developed by [Fei Huang](https://www.feihuang.org), UNSW Sydney.
 
-1. [Define fairness](https://fair.feihuang.org/Playbook/Step-1-Define-Fairness.html)
-2. [Design fair pricing](https://fair.feihuang.org/Playbook/Step-2-Design-Fair-Pricing.html)
-3. [Assess impact](https://fair.feihuang.org/Playbook/Step-3-Assess-Impact.html)
-4. [Audit the system](https://fair.feihuang.org/Playbook/Step-4-Audit-the-System.html)
+## The four steps
 
-## Case Studies (technical)
+| Step | Question | Key output |
+|------|----------|------------|
+| [1 · Define fairness](https://fair.feihuang.org/Playbook/Step-1-Define-Fairness.html) | What standard applies? | Documented criterion and scope |
+| [2 · Design fair pricing](https://fair.feihuang.org/Playbook/Step-2-Design-Fair-Pricing.html) | How to build a model that meets it? | Fair cost model (MU / MDP / MCDP / MC) |
+| [3 · Assess impact](https://fair.feihuang.org/Playbook/Step-3-Assess-Impact.html) | Who gains and loses once prices are set? | Welfare and profit analysis by group |
+| [4 · Audit the system](https://fair.feihuang.org/Playbook/Step-4-Audit-the-System.html) | Does the deployed system pass? | Pass / fail / insufficient information |
 
-- [Overview on home page](https://fair.feihuang.org/index.html#case-studies)
-- [1: Fair models](https://fair.feihuang.org/Case%20Study%201/case_study1.html)
-- [2: Welfare implications](https://fair.feihuang.org/Case%20Study%202/case_study2.html)
-- [3: Fairness testing](https://fair.feihuang.org/Case%20Study%203/case_study3.html)
+## Case studies
 
-## Local development
+| Case study | Topic | Tools |
+|------------|-------|-------|
+| [1 · Fair models](https://fair.feihuang.org/Case%20Study%201/case_study1.html) | Five anti-discrimination model designs on French motor data | R, GLM, XGBoost |
+| [2 · Welfare implications](https://fair.feihuang.org/Case%20Study%202/case_study2.html) | Five pricing regulations evaluated for welfare and profit | Python, TensorFlow |
+| [3 · Fairness testing](https://fair.feihuang.org/Case%20Study%203/case_study3.html) | CDP and proxy-discrimination audits with corrected inference on Illinois auto data | R |
+
+## Repository structure
+
+```
+Playbook/          Step pages (Quarto .qmd)
+Case Study 1/      Fair cost-model design (R)
+Case Study 2/      Welfare implications of pricing regulations (Python)
+Case Study 3/      Fairness testing with corrected inference (R)
+index.qmd          Overview page
+report.qmd         Standalone summary report
+docs/              Rendered HTML (served by GitHub Pages)
+```
+
+## Reproduce locally
 
 ```bash
-cd "/Users/feihuang/Dropbox/Fei & Teaching/The Fair Pricing Playbook"
+git clone https://github.com/feihuangFH/fair-pricing-playbook.git
+cd fair-pricing-playbook
 quarto render
 quarto preview
 ```
 
-## Publish to GitHub Pages
-
-```bash
-quarto render
-git add .
-git commit -m "Update site"
-git push
-```
-
-GitHub Pages should serve the `docs/` folder on the `main` branch. Set the custom domain to `fair.feihuang.org` in the repository Pages settings.
+Requires [Quarto](https://quarto.org/docs/get-started/), R (with `CASdatasets`, `xgboost`, `glmnet`), and Python (with `tensorflow`, `numpy`, `pandas`). Case Study 2 uses pre-computed optimisation outputs so Python re-execution is optional.
 
 ## How to cite
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. SSRN. https://doi.org/10.2139/ssrn.6955039
+
+A `CITATION.cff` file is included for one-click citation from the GitHub interface.
 
 ## License
 
-Materials are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See LICENSE.
+Materials are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

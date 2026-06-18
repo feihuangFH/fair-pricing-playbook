@@ -1,0 +1,1507 @@
+---
+title: "Case Study 1: Fair models"
+author: "Fei Huang"
+date: last-modified
+
+bibliography: [reference.bib]
+biblio-style: apalike
+link-citations: true
+reference-location: document
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    number-sections: false
+    code-fold: false
+    code-tools: true
+    code-copy: true
+    smooth-scroll: true
+    embed-resources: true
+    fig-responsive: true
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  error: false
+  cache: false
+  freeze: auto
+---
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Before you start
+
+Read [Step 2: Design fair pricing](../Playbook/Step-2-Design-Fair-Pricing.html) first for the qualitative framework. This case study provides the technical, insurance-specific implementation.
+:::
+
+# Background 
+
+Insurance pricing is fundamentally based on risk classification, where policyholders are grouped according to their expected risk levels and charged premiums that reflect their expected losses. Traditionally, insurers rely on statistical models and risk factors such as age, driving history, vehicle characteristics, and location to estimate premiums. Although risk classification improves predictive accuracy and reduces adverse selection, concerns have increasingly emerged regarding unfair discrimination against protected groups.
+
+In many jurisdictions, insurers are prohibited from directly using certain protected characteristics, such as race, ethnicity, or gender, in pricing decisions. However, even when protected attributes are excluded from the model, indirect discrimination may still arise through the use of proxy variables or complex predictive algorithms. The growing use of machine learning and large-scale data analytics in insurance has therefore raised important questions about fairness, transparency, and regulation in insurance pricing.
+
+This case study is based on @xin2024antidiscrimination and implements [Step 2](../Playbook/Step-2-Design-Fair-Pricing.html) at the cost-modelling stage only. It estimates fair expected claim costs and ignores demand, expense and profit loadings, and price optimisation. Those components are limitations of this illustration, not of Step 2 itself. The case study compares five model designs (M0–MC) linked to fairness criteria from Step 2:
+
+- Fairness through unawareness (MU)
+- Demographic parity (MDP)
+- Conditional demographic parity (MCDP)
+- Controlling for the protected variable (MC)
+
+The analysis is designed for policy and model evaluation. It shows how fairness interventions affect predicted pure premiums, disparate impact, and predictive accuracy, not a filing-ready rate plan for any market.
+
+
+# How to Read This Case Study
+
+Not every section is needed for every reader. The table below suggests a practical reading order.
+
+| If your focus is… | Start here | Then read |
+|---|---|---|
+| Which fairness criterion maps to which model | [Pricing models](#pricing-models) | [Fairness–accuracy trade-off](#fairness-accuracy-trade-off) |
+| What the French data results show | [Model summaries](#model-summaries) | [Premium differences](#premium-differences-by-age-and-gender) → [Double lift charts](#double-lift-charts) |
+| Implementation detail | [Data and scenario design](#data-and-scenario-design) → [Pricing models](#pricing-models) | Folded code chunks (setup through pure premium prediction) |
+
+::: {.callout-important appearance="simple"}
+## For practitioners
+
+This case study applies one illustrative antidiscrimination design from @xin2024antidiscrimination to French motor data. In your market you must decide:
+
+- Fairness criterion (FTU, DP, CDP, CPV) and how it maps to regulation
+- Protected attribute and legitimate vs non-legitimate rating variables
+- Modelling framework (GLM for interpretability and filing. ML where permitted)
+- Stage of the pricing process this study covers cost modelling only (technical pure premium)
+
+Pure premium vs commercial rate. Following the paper, $\hat{Y}$ is expected claim cost (frequency × severity), not a filed commercial premium. @xin2024antidiscrimination treat this as approximately the price charged when expense and profit loadings are ignored. In practice, insurers also add acquisition and administrative expense, cost of capital, reinsurance, profit margin, and taxes. Fairness at the pure-premium stage does not guarantee fairness in final rates if those loadings differ across groups. Once cost models are set, [Case Study 2](<../Case Study 2/case_study2.html>) illustrates how demand and pricing rules can further change premiums and welfare.
+
+Portfolio-level adjustments align total predicted premium across some models with the unawareness benchmark so comparisons focus on redistribution, not portfolio level. Adapt this step to your governance needs.
+:::
+
+::: {.callout-note appearance="simple" icon="false"}
+## Scope of this case study
+
+- French TPL motor data (`pg15training`), gender as protected attribute
+- `Insurancescore` as the sole non-legitimate variable (proxy sensitivity in extensions)
+- Pure premium / technical price only no separate expense, capital, reinsurance, or profit loadings (@xin2024antidiscrimination)
+- GLM and XGBoost implementations of M0, MU, MDP, MCDP, MC
+- In-sample fit, disparate impact, redistribution, and double-lift diagnostics
+
+Does not cover demand modelling, price optimisation, or filed commercial rates. See [Case Study 2](<../Case Study 2/case_study2.html>) and [Case Study 3](<../Case Study 3/case_study3.html>) for welfare and audit stages.
+:::
+
+
+# Implementation Notes
+
+Some implementation details are folded to improve readability, while the main modelling workflow and outputs remain available for inspection.
+
+```{r packages}
+#| label: packages
+#| code-fold: true
+#| code-summary: "Show package setup"
+
+# Packages and settings
+library(CASdatasets)
+library(fairmodels)
+library(tidyverse)
+library(ggpubr)
+library(scales)
+library(knitr)
+library(kableExtra)
+library(xgboost)
+
+set.seed(14)
+lambda_all <- 1
+```
+
+```{r scenario_setup}
+#| label: scenario_setup
+#| code-fold: true
+#| code-summary: "Show scenario setup code"
+# Scenario setup
+
+# In this scenario, Insurance score is treated as the
+# non-legitimate variable.
+
+non_legitimate <- c("Insurancescore")
+
+glm_predictors <- c(
+  "Age.ct",
+  "Bonus",
+  "Value",
+  "Density",
+  "GroupOne",
+  "Insurancescore"
+)
+
+xgb_predictors <- glm_predictors
+```
+
+
+```{r helper-functions}
+#| label: helper-functions
+#| code-fold: true
+#| code-summary: "Show helper functions"
+#| warning: false
+#| message: false
+
+# Helper functions
+
+make_age_group <- function(age) {
+  cut(
+    age,
+    breaks = c(-Inf, 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, Inf),
+    labels = c("18-22", "23-27", "28-32", "33-37", "38-42", "43-47",
+               "48-52", "53-57", "58-62", "63-67", "68+"),
+    right = TRUE
+  )
+}
+
+# Convert a jittered continuous variable back to integer-like factor levels.
+# This is used after disparate impact removal for variables that were originally categorical.
+bin_to_factor <- function(x, min_level, max_level) {
+  levels <- min_level:max_level
+  x <- pmin(pmax(x, min_level), max_level)
+  cuts <- c(min_level - 0.5, levels[-1] - 0.5, max_level + 0.5)
+  as.factor(as.numeric(cut(x, breaks = cuts, labels = levels, include.lowest = TRUE)))
+}
+
+make_artificial_proxies <- function(data) {
+  # W variables are more likely to be 1 for females; M variables are more likely to be 1 for males.
+  for (v in paste0("W", 1:5)) {
+    u <- runif(nrow(data))
+    data[[v]] <- ifelse(data$Gender == "Female", u < 0.6, u < 0.4) * 1
+  }
+  for (v in paste0("M", 1:5)) {
+    u <- runif(nrow(data))
+    data[[v]] <- ifelse(data$Gender == "Male", u < 0.6, u < 0.4) * 1
+  }
+  data
+}
+
+prepare_pricing_data <- function(data) {
+  data <- data %>%
+    rename(Age.ct = Age) %>%
+    mutate(
+      Age = make_age_group(Age.ct),
+      Group1 = as.factor(Group1),
+      Adind = as.factor(Adind),
+      Bonus = as.factor(Bonus),
+      Gender = relevel(Gender, ref = "Male"),
+      Age = relevel(Age, ref = "18-22"),
+      Type = relevel(Type, ref = "A"),
+      Occupation = relevel(Occupation, ref = "Employed"),
+      Category = relevel(Category, ref = "Medium"),
+      Group1 = relevel(Group1, ref = "1"),
+      Group2 = relevel(Group2, ref = "L"),
+      Female = as.integer(Gender == "Female"),
+      ClaimSeverity = Indtppd / Numtppd
+    ) %>%
+    make_artificial_proxies()
+
+  # Numeric labels are used only to simplify model matrix names and teaching plots.
+  data <- data %>%
+    mutate(
+      Age = as.factor(as.numeric(Age)),
+      Type = as.factor(as.numeric(Type)),
+      Occupation = as.factor(as.numeric(Occupation)),
+      Category = as.factor(as.numeric(Category)),
+      Group1 = as.factor(as.numeric(Group1)),
+      Group2 = as.factor(as.numeric(Group2)),
+      Bonus = as.factor(as.numeric(Bonus))
+    ) %>%
+    rename(
+      W_one = W1, W_two = W2, W_three = W3, W_four = W4, W_five = W5,
+      M_one = M1, M_two = M2, M_three = M3, M_four = M4, M_five = M5,
+      GroupOne = Group1, GroupTwo = Group2
+    ) %>%
+    dplyr::slice(-(1:21)) %>%                    # remove duplicate entries, as in the original code
+    select(-PolNum, -CalYear)
+
+  data
+}
+
+add_insurance_score <- function(data) {
+  # Insurance score is constructed as the fitted probability of having a non-zero claim.
+  score_model <- glm(
+    I(Indtppd != 0) ~ Type + Category + Occupation + GroupTwo + Age,
+    family = binomial(link = "logit"),
+    data = data
+  )
+  data$Insurancescore <- fitted(score_model)
+  list(data = data, model = score_model)
+}
+
+make_gender_proxy <- function(data) {
+  proxy_vars <- c("M_one", "M_two", "M_three", "M_four", "M_five",
+                  "W_one", "W_two", "W_three", "W_four", "W_five")
+  glm(Female ~ ., family = binomial(link = "logit"), data = data[, c("Female", proxy_vars)])
+}
+
+make_di_removed_data <- function(data, features_to_transform, lambda = 1) {
+  data_for_di <- data %>%
+    mutate(
+      GroupOne.ct = as.numeric(GroupOne),
+      Bonus.ct = as.numeric(Bonus)
+    )
+
+  # Jitter avoids problems caused by many ties, while preserving min/max observations.
+  jitter_keep_minmax <- function(x, factor = 1) {
+    keep <- x == min(x, na.rm = TRUE) | x == max(x, na.rm = TRUE)
+    x[!keep] <- jitter(x[!keep], factor = factor)
+    x
+  }
+
+  data_for_di <- data_for_di %>%
+    mutate(
+      Age.ct = jitter_keep_minmax(Age.ct, factor = 1),
+      Bonus.ct = jitter_keep_minmax(Bonus.ct, factor = 1),
+      Value = jitter_keep_minmax(Value, factor = 1),
+      Density = jitter_keep_minmax(Density, factor = 1),
+      GroupOne.ct = jitter_keep_minmax(GroupOne.ct, factor = 5),
+      Insurancescore = jitter_keep_minmax(Insurancescore, factor = 1)
+    )
+
+  di_data <- disparate_impact_remover(
+    data = data_for_di,
+    protected = as.factor(data_for_di$Gender),
+    features_to_transform = features_to_transform,
+    lambda = lambda
+  )
+
+  di_data <- di_data %>%
+    mutate(
+      Age = make_age_group(Age.ct),
+      Age = as.factor(as.numeric(Age)),
+      GroupOne = bin_to_factor(GroupOne.ct, 1, 20),
+      Bonus = bin_to_factor(Bonus.ct, 1, 21)
+    )
+
+  di_data
+}
+
+fit_gamma_model <- function(formula, data) {
+  glm(formula, family = Gamma(link = "log"), data = data)
+}
+
+fit_poisson_model <- function(formula, data) {
+  glm(formula, family = poisson(link = "log"), data = data, offset = log(Exppdays))
+}
+
+adjust_to_base_portfolio <- function(raw_premium, base_premium) {
+  raw_premium * sum(base_premium) / sum(raw_premium)
+}
+
+make_xgb_design <- function(data) {
+  xgb_unused <- c(
+    "SubGroup2", "Age", "GroupOne.ct", "Female", "ClaimSeverity",
+    "Type", "Category", "Occupation", "GroupTwo", "Adind", "Poldur",
+    "Numtpbi", "Indtpbi", "Bonus.ct", "GP_predictors"
+  )
+
+  data %>%
+    select(-any_of(xgb_unused)) %>%
+    model.matrix(~ 0 + ., data = .) %>%
+    as.data.frame() %>%
+    select(-any_of("GenderMale"))
+}
+
+make_xgb_dmatrix <- function(data, response = NULL, base_margin, drop_vars) {
+  x <- data %>%
+    select(-any_of(drop_vars)) %>%
+    as.matrix()
+
+  if (is.null(response)) {
+    dmat <- xgb.DMatrix(x)
+  } else {
+    dmat <- xgb.DMatrix(x, label = data[[response]])
+  }
+
+  setinfo(dmat, "base_margin", log(base_margin))
+  dmat
+}
+
+align_xgb_design <- function(new_data, train_data) {
+  missing_cols <- setdiff(names(train_data), names(new_data))
+
+  if (length(missing_cols) > 0) {
+    new_data[missing_cols] <- 0
+  }
+
+  new_data[, names(train_data), drop = FALSE]
+}
+```
+
+
+::: {.callout-note title="Optional Extension: Gender Proxy"}
+The original study also considered the use of an artificial proxy for gender to illustrate how indirect discrimination may persist even when the protected variable itself is removed from the pricing model.
+
+An example of this construction is included in the code above. The resulting proxy is not used in the remainder of this case study, but interested readers may explore its impact by incorporating it into the pricing models and comparing the resulting premiums.
+:::
+
+
+# Data and Scenario Design {#data-and-scenario-design}
+
+We use the `pg15training` dataset from the `CASdatasets` package [@dutang2020package], which was originally released for the first French motor insurance pricing competition organised by the French Institute of Actuaries in 2015. The dataset contains 100,000 third-party liability (TPL) motor insurance policies observed during 2009 and 2010. TPL insurance covers damage caused to third parties when the insured driver is responsible for an accident. In this case study, we focus on third-party material damage claims, which occur more frequently than bodily injury claims in the dataset.
+
+Following the frequency–severity framework commonly used in actuarial pricing, we model claim frequency and claim severity separately and combine them to obtain predicted pure premiums. To illustrate how antidiscrimination pricing models can be implemented under both traditional and machine-learning pricing frameworks, this case study considers both generalized linear models (GLMs) and Extreme Gradient Boosting (XGBoost).
+
+Gender is treated as the protected variable throughout the analysis. The pricing models use the following nonprotected rating variables: Age, Bonus, Group1 (vehicle group), Density (population density), and Value (vehicle value). Following @schelldorfer2019nesting, Age is fitted as a continuous function form in the GLMs.
+
+#### Insurance score
+
+We also construct an insurance score (`Insurancescore`) for each policyholder. It is the fitted probability from a logistic regression of claim incidence on vehicle type, category, occupation, region (Group2), and age,
+
+$$
+I(\text{Indtppd} \neq 0) \sim \text{Type} + \text{Category} + \text{Occupation} + \text{GroupTwo} + \text{Age}.
+$$
+
+Type, category, occupation, and region are categorical in the raw data. They are not entered separately in the frequency and severity models. Only the fitted score enters those models as a single continuous predictor.
+
+We follow the baseline scenario in @xin2024antidiscrimination and treat `Insurancescore` as the only non-legitimate rating variable. Conceptually it stands in for a proxy-rich factor, such as a credit-based insurance score, that may correlate with the protected attribute and attract stricter fairness scrutiny even when it retains some predictive value.
+
+There is also a practical reason for this construction. Models 3 and 4 debias predictors with a disparate-impact remover [@feldman2015certifying] implemented in the `fairmodels` package. That routine is defined for continuous inputs. Summarising the categorical proxy variables in one continuous score makes conditional debiasing under MCDP feasible while leaving the legitimate rating variables unchanged.
+
+Our response variable is pure premium (expected claim cost), defined as
+
+$$
+\text{Pure Premium} = \text{Frequency} \times \text{Severity}.
+$$
+
+This is the $\hat{Y}$ target in @xin2024antidiscrimination. It is the technical price stage: loadings for expense, capital, reinsurance, and profit are out of scope here (see [For practitioners](#for-practitioners) above).
+
+In this scenario, all rating variables other than `Insurancescore` are regarded as legitimate. Legitimate variables are predictors that regulators approve for unrestricted use. Non-legitimate variables may still appear in pricing but are subject to additional fairness constraints or debiasing. This setup allows us to compare different fairness criteria and pricing approaches while keeping the empirical analysis relatively simple.
+
+Finally, the first 21 records are removed prior to modelling because they are duplicate observations with non-zero claim counts but zero claim amounts. After their removal, the dataset contains exactly 50,000 policies from each year (2009 and 2010), consistent with the original study.
+
+```{r data-preparation}
+#| label: data-preparation
+#| code-fold: true
+#| code-summary: "Show data preparation code"
+
+# Data preparation
+data(pg15training, pg15pricing)
+
+ClaimsData <- prepare_pricing_data(pg15training)
+
+score_out <- add_insurance_score(ClaimsData)
+ClaimsData <- score_out$data
+CSLogit1 <- score_out$model
+
+# The gender proxy is not used in the current scenario,
+# but is retained for potential extensions and exercises.
+
+FemLogit1 <- make_gender_proxy(ClaimsData)
+ClaimsData$GP_predictors <- fitted(FemLogit1)
+
+ClaimsData_rd <- ClaimsData %>%
+  filter(Indtppd > 0)
+```
+
+
+# Debiased Datasets
+
+To implement Models 3 (MDP, demographic parity model) and 4 (MCDP, conditional demographic parity model), we construct debiased versions of the explanatory variables using the disparate impact (DI) remover proposed by @feldman2015certifying.
+
+Model 3 (MDP) applies the DI remover to all selected predictors, aiming to remove their dependence on the protected variable. Model 4 (MCDP) follows the conditional demographic parity framework and applies the DI remover only to the selected non-legitimate variable, which in this case study is `Insurancescore`.
+
+Before applying the DI remover, a small amount of random noise is added to ordinal variables. This expands the sample space and reduces the large number of tied observations that commonly occur in insurance datasets, while preserving the minimum and maximum observed values. After debiasing, variables that were originally categorical are mapped back to their corresponding factor levels.
+
+The resulting datasets are subsequently used to fit Models 3 and 4.
+
+```{r disparate-impact-removal}
+#| label: disparate-impact-removal
+#| code-fold: true
+#| code-summary: "Show disparate impact removal code"
+
+features_to_transform <- c(
+  "Age.ct",
+  "Bonus.ct",
+  "Value",
+  "Density",
+  "GroupOne.ct",
+  "Insurancescore"
+)
+
+ClaimsData_DIremv <- make_di_removed_data(
+  ClaimsData,
+  features_to_transform,
+  lambda = lambda_all
+)
+
+# Model 3: apply DI remover to all selected predictors.
+ClaimsData_M3 <- ClaimsData
+
+ClaimsData_M3[, c("Age", "Age.ct", "Bonus", "Value", "Density", "GroupOne", "Insurancescore")] <-
+  ClaimsData_DIremv[, c("Age", "Age.ct", "Bonus", "Value", "Density", "GroupOne", "Insurancescore")]
+
+
+# Model 4: apply DI remover only to the non-legitimate variable(s).
+ClaimsData_M4 <- ClaimsData
+
+m4_features <- intersect(glm_predictors, non_legitimate)
+
+ClaimsData_M4[, m4_features] <- ClaimsData_DIremv[, m4_features]
+
+ClaimsData_M3_rd <- ClaimsData_M3 %>%
+  filter(Indtppd > 0)
+
+ClaimsData_M4_rd <- ClaimsData_M4 %>%
+  filter(Indtppd > 0)
+```
+
+
+# Pricing Models {#pricing-models}
+
+Following @xin2024antidiscrimination, we consider five pricing models, including a benchmark pricing model and several antidiscrimination pricing approaches. Each approach is implemented using both GLM and XGBoost. For the GLM implementation, claim severity is modelled using a Gamma GLM with a log link, while claim frequency is modelled using a Poisson GLM with a log link and exposure offset. For the XGBoost implementation, claim frequency and severity are modelled using appropriate boosting objectives for count and positive continuous outcomes. Predicted pure premiums are obtained by combining the corresponding frequency and severity predictions.
+
+The five approaches considered in this case study are referred to as Model 1 to Model 5 for consistency with the implementation code. Their corresponding notation in @xin2024antidiscrimination is shown in the table below.
+
+| Case Study Model | Paper Notation | Description |
+| ------------- | ------------- | ----------------------------------- |
+| Model 1 | M0 | Full model including Gender |
+| Model 2 | MU | Unawareness model excluding Gender |
+| Model 3 | MDP | Demographic parity model fitted using debiased predictors |
+| Model 4 | MCDP | Conditional demographic parity model fitted using legitimate and debiased non-legitimate predictors |
+| Model 5 | MC | Post-processing approach based on controlling for the protected variable (CPV) |
+
+
+```{r fit-glm-models}
+#| label: fit-glm-models
+#| code-fold: true
+#| code-summary: "Show GLM model fitting code"
+
+# Model specifications
+
+# M0: Full model including Gender
+# MU: Fairness through unawareness (Gender removed)
+# MDP: Fitted using debiased versions of all selected predictors
+# MCDP: Fitted using legitimate variables and a debiased
+#        version of the non-legitimate variable
+#
+# Models with suffix B additionally include the
+# artificial gender proxy predictor.
+
+sev_formula_m1 <- ClaimSeverity ~
+  Age.ct + log(Age.ct) + I(Age.ct^2) + I(Age.ct^3) +
+  I(Age.ct^4) + Bonus + Density + Gender + Insurancescore
+
+sev_formula_m2 <- update(sev_formula_m1, . ~ . - Gender)
+
+
+freq_formula_m1 <- Numtppd ~
+  Age.ct + log(Age.ct) + I(Age.ct^2) + I(Age.ct^3) +
+  I(Age.ct^4) + Bonus + Density + GroupOne +
+  Insurancescore + Gender
+
+freq_formula_m2 <- update(freq_formula_m1, . ~ . - Gender)
+
+
+# Severity models
+SevGamma1  <- fit_gamma_model(sev_formula_m1, ClaimsData_rd)
+
+SevGamma2  <- fit_gamma_model(sev_formula_m2, ClaimsData_rd)
+
+SevGamma3  <- fit_gamma_model(sev_formula_m2, ClaimsData_M3_rd)
+
+SevGamma4  <- fit_gamma_model(sev_formula_m2, ClaimsData_M4_rd)
+
+
+# Frequency models
+FreqPoisson1  <- fit_poisson_model(freq_formula_m1, ClaimsData)
+
+FreqPoisson2  <- fit_poisson_model(freq_formula_m2, ClaimsData)
+
+FreqPoisson3  <- fit_poisson_model(freq_formula_m2, ClaimsData_M3)
+
+FreqPoisson4  <- fit_poisson_model(freq_formula_m2, ClaimsData_M4)
+```
+
+
+```{r fit-xgb-models}
+#| label: fit-xgb-models
+#| code-fold: true
+#| code-summary: "Show XGBoost model fitting code"
+
+xgbData <- make_xgb_design(ClaimsData)
+
+# Model 3 (MDP): follow the original XGBoost implementation by
+# using the fully debiased design matrix directly.
+xgbData_M3 <- make_xgb_design(ClaimsData_DIremv)
+
+# Model 4 (MCDP): start from the original XGBoost design and replace
+# only the non-legitimate variable(s). In Scenario 1 this is Insurancescore.
+xgbData_M4 <- xgbData
+
+m4_train_vars <- intersect(names(xgbData_M4), non_legitimate)
+xgbData_M4[, m4_train_vars] <- xgbData_M3[, m4_train_vars]
+
+drop_common <- c(
+  "Exppdays", "Numtppd", "Indtppd",
+  "W_one", "W_two", "W_three", "W_four", "W_five",
+  "M_one", "M_two", "M_three", "M_four", "M_five"
+)
+
+# Frequency models
+xgbData_FM1 <- make_xgb_dmatrix(
+  xgbData,
+  response = "Numtppd",
+  base_margin = xgbData$Exppdays,
+  drop_vars = drop_common
+)
+
+xgbData_FM2 <- make_xgb_dmatrix(
+  xgbData,
+  response = "Numtppd",
+  base_margin = xgbData$Exppdays,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbData_FM3 <- make_xgb_dmatrix(
+  xgbData_M3,
+  response = "Numtppd",
+  base_margin = xgbData_M3$Exppdays,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbData_FM4 <- make_xgb_dmatrix(
+  xgbData_M4,
+  response = "Numtppd",
+  base_margin = xgbData_M4$Exppdays,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+paramsFreq <- list(
+  objective = "count:poisson",
+  eval_metric = "poisson-nloglik",
+  max_depth = 2,
+  eta = 0.05,
+  min_child_weight = 3,
+  subsample = 0.8,
+  colsample_bytree = 0.8,
+  tree_method = "hist"
+)
+
+set.seed(358)
+
+xgbFreq1 <- xgb.train(xgbData_FM1, nrounds = 3958, params = paramsFreq)
+xgbFreq2 <- xgb.train(xgbData_FM2, nrounds = 3988, params = paramsFreq)
+xgbFreq3 <- xgb.train(xgbData_FM3, nrounds = 3151, params = paramsFreq)
+xgbFreq4 <- xgb.train(xgbData_FM4, nrounds = 3987, params = paramsFreq)
+
+
+# Severity models
+xgbData_sev <- xgbData %>% filter(Indtppd > 0)
+xgbData_M3_sev <- xgbData_M3 %>% filter(Indtppd > 0)
+xgbData_M4_sev <- xgbData_M4 %>% filter(Indtppd > 0)
+
+xgbData_SM1 <- make_xgb_dmatrix(
+  xgbData_sev,
+  response = "Indtppd",
+  base_margin = xgbData_sev$Numtppd,
+  drop_vars = drop_common
+)
+
+xgbData_SM2 <- make_xgb_dmatrix(
+  xgbData_sev,
+  response = "Indtppd",
+  base_margin = xgbData_sev$Numtppd,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbData_SM3 <- make_xgb_dmatrix(
+  xgbData_M3_sev,
+  response = "Indtppd",
+  base_margin = xgbData_M3_sev$Numtppd,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbData_SM4 <- make_xgb_dmatrix(
+  xgbData_M4_sev,
+  response = "Indtppd",
+  base_margin = xgbData_M4_sev$Numtppd,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+paramsSev <- list(
+  objective = "reg:gamma",
+  max_depth = 1,
+  eta = 0.015,
+  min_child_weight = 2,
+  subsample = 0.8,
+  colsample_bytree = 0.8,
+  tree_method = "hist"
+)
+
+set.seed(946)
+
+xgbSev1 <- xgb.train(xgbData_SM1, nrounds = 2239, params = paramsSev)
+xgbSev2 <- xgb.train(xgbData_SM2, nrounds = 2113, params = paramsSev)
+xgbSev3 <- xgb.train(xgbData_SM3, nrounds = 2333, params = paramsSev)
+xgbSev4 <- xgb.train(xgbData_SM4, nrounds = 1908, params = paramsSev)
+```
+
+# Pure Premium Prediction and Portfolio Adjustment
+
+The predicted annual pure premium is obtained by multiplying the predicted claim severity by the predicted annual claim frequency. Following the approach discussed in @lindholm2022discrimination, portfolio-level adjustments are applied to GLM MDP, GLM MCDP, GLM MC, and all XGBoost models based on the GLM unawareness model (GLM MU). Each individual's predicted premium is adjusted proportionally according to its pre-adjustment value, allowing the comparison to focus on premium redistribution rather than differences in the overall portfolio premium level.
+
+
+```{r pure-premium-prediction}
+#| label: pure-premium-prediction
+#| code-fold: true
+#| code-summary: "Show pure premium prediction code"
+
+Dataset_import <- ClaimsData
+Dataset_M3_pred <- ClaimsData_M3
+Dataset_M4_pred <- ClaimsData_M4
+
+sev_pred <- tibble(
+  S1  = predict(SevGamma1,  newdata = Dataset_import, type = "response"),
+  S2  = predict(SevGamma2,  newdata = Dataset_import, type = "response"),
+  S3  = predict(SevGamma3,  newdata = Dataset_M3_pred, type = "response"),
+  S4  = predict(SevGamma4,  newdata = Dataset_M4_pred, type = "response")
+)
+
+freq_pred <- tibble(
+  F1  = predict(FreqPoisson1,  newdata = Dataset_import, type = "response") / Dataset_import$Exppdays,
+  F2  = predict(FreqPoisson2,  newdata = Dataset_import, type = "response") / Dataset_import$Exppdays,
+  F3  = predict(FreqPoisson3,  newdata = Dataset_M3_pred, type = "response") / Dataset_import$Exppdays,
+  F4  = predict(FreqPoisson4,  newdata = Dataset_M4_pred, type = "response") / Dataset_import$Exppdays
+)
+
+# Model 5: post-processing approach based on
+# controlling for the protected variable (CPV).
+
+gender_coef_sev  <- coef(SevGamma1)["GenderFemale"]
+gender_coef_freq <- coef(FreqPoisson1)["GenderFemale"]
+
+S_if_female <- ifelse(
+  Dataset_import$Female == 1,
+  sev_pred$S1,
+  sev_pred$S1 * exp(gender_coef_sev)
+)
+
+S_if_male <- ifelse(
+  Dataset_import$Female == 0,
+  sev_pred$S1,
+  sev_pred$S1 * exp(-gender_coef_sev)
+)
+
+S5 <- (S_if_female + S_if_male) / 2
+
+F_if_female <- ifelse(
+  Dataset_import$Female == 1,
+  freq_pred$F1,
+  freq_pred$F1 * exp(gender_coef_freq)
+)
+
+F_if_male <- ifelse(
+  Dataset_import$Female == 0,
+  freq_pred$F1,
+  freq_pred$F1 * exp(-gender_coef_freq)
+)
+
+F5 <- (F_if_female + F_if_male) / 2
+
+raw_prem <- tibble(
+  PurePrem1     = sev_pred$S1  * freq_pred$F1  * 365,
+  PurePrem2     = sev_pred$S2  * freq_pred$F2  * 365,
+  PurePrem3_raw = sev_pred$S3  * freq_pred$F3  * 365,
+  PurePrem4_raw = sev_pred$S4  * freq_pred$F4  * 365,
+  PurePrem5_raw = S5 * F5 * 365
+)
+
+# Portfolio-level adjustment:
+# align the total predicted premium of Models 3, 4, and 5
+# with the total predicted premium of Model 2.
+
+glmpred_sum <- Dataset_import %>%
+  bind_cols(raw_prem) %>%
+  mutate(
+    PurePrem3  = adjust_to_base_portfolio(PurePrem3_raw,  PurePrem2),
+    PurePrem4  = adjust_to_base_portfolio(PurePrem4_raw,  PurePrem2),
+    PurePrem5  = adjust_to_base_portfolio(PurePrem5_raw,  PurePrem2),
+    realclaim  = Indtppd / Exppdays * 365
+  )
+
+PurePrem1  <- glmpred_sum$PurePrem1
+PurePrem2  <- glmpred_sum$PurePrem2
+PurePrem3  <- glmpred_sum$PurePrem3
+PurePrem4  <- glmpred_sum$PurePrem4
+PurePrem5  <- glmpred_sum$PurePrem5
+```
+
+
+```{r pure-premium-xgbprediction}
+#| label: pure-premium-xgbprediction
+#| code-fold: true
+#| code-summary: "Show XGBoost pure premium prediction code"
+# XGBoost prediction data
+xgb_pred <- make_xgb_design(Dataset_import)
+xgb_pred <- align_xgb_design(xgb_pred, xgbData)
+
+# Fully debiased prediction design.
+xgb_pred_debiased <- make_xgb_design(Dataset_M3_pred)
+xgb_pred_debiased <- align_xgb_design(xgb_pred_debiased, xgbData_M3)
+
+# Model 3 (MDP): start from the original prediction design and replace
+# all debiased pricing variables, including the dummy columns generated
+# from Bonus and GroupOne.
+xgb_pred_M3 <- xgb_pred
+
+m3_vars <- intersect(
+  c(
+    "Age.ct", "Value", "Density", "Insurancescore",
+    grep("^GroupOne", names(xgb_pred_M3), value = TRUE),
+    grep("^Bonus", names(xgb_pred_M3), value = TRUE)
+  ),
+  names(xgb_pred_M3)
+)
+
+xgb_pred_M3[, m3_vars] <- xgb_pred_debiased[, m3_vars]
+xgb_pred_M3 <- align_xgb_design(xgb_pred_M3, xgbData_M3)
+
+# Model 4 (MCDP): start from the original prediction design and replace
+# only the non-legitimate variable(s). In Scenario 1 this is Insurancescore.
+xgb_pred_M4 <- xgb_pred
+
+m4_vars <- intersect(names(xgb_pred_M4), non_legitimate)
+xgb_pred_M4[, m4_vars] <- xgb_pred_M3[, m4_vars]
+xgb_pred_M4 <- align_xgb_design(xgb_pred_M4, xgbData_M4)
+
+# Reversed-gender data for XGBoost Model 5
+xgb_pred_rev <- xgb_pred
+xgb_pred_rev$GenderFemale <- 1 - xgb_pred_rev$GenderFemale
+
+
+# Frequency prediction matrices
+xgbClaimsData_Freq1 <- make_xgb_dmatrix(
+  xgb_pred,
+  base_margin = xgb_pred$Exppdays,
+  drop_vars = drop_common
+)
+
+xgbClaimsData_Freq2 <- make_xgb_dmatrix(
+  xgb_pred,
+  base_margin = xgb_pred$Exppdays,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbClaimsData_Freq3 <- make_xgb_dmatrix(
+  xgb_pred_M3,
+  base_margin = xgb_pred_M3$Exppdays,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbClaimsData_Freq4 <- make_xgb_dmatrix(
+  xgb_pred_M4,
+  base_margin = xgb_pred_M4$Exppdays,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbClaimsData_Freq5 <- make_xgb_dmatrix(
+  xgb_pred_rev,
+  base_margin = xgb_pred_rev$Exppdays,
+  drop_vars = drop_common
+)
+
+
+# Annual frequency predictions
+xgbFreq1_pred <- predict(xgbFreq1, xgbClaimsData_Freq1) / xgb_pred$Exppdays * 365
+xgbFreq2_pred <- predict(xgbFreq2, xgbClaimsData_Freq2) / xgb_pred$Exppdays * 365
+xgbFreq3_pred <- predict(xgbFreq3, xgbClaimsData_Freq3) / xgb_pred_M3$Exppdays * 365
+xgbFreq4_pred <- predict(xgbFreq4, xgbClaimsData_Freq4) / xgb_pred_M4$Exppdays * 365
+xgbFreq5_pred <- predict(xgbFreq1, xgbClaimsData_Freq5) / xgb_pred_rev$Exppdays * 365
+
+
+# Severity prediction matrices
+# Following the original code, the severity base margin uses the annual
+# predicted frequency from the corresponding XGBoost frequency model.
+xgbClaimsData_Sev1 <- make_xgb_dmatrix(
+  xgb_pred,
+  base_margin = xgbFreq1_pred,
+  drop_vars = drop_common
+)
+
+xgbClaimsData_Sev2 <- make_xgb_dmatrix(
+  xgb_pred,
+  base_margin = xgbFreq2_pred,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbClaimsData_Sev3 <- make_xgb_dmatrix(
+  xgb_pred_M3,
+  base_margin = xgbFreq3_pred,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbClaimsData_Sev4 <- make_xgb_dmatrix(
+  xgb_pred_M4,
+  base_margin = xgbFreq4_pred,
+  drop_vars = c(drop_common, "GenderFemale")
+)
+
+xgbClaimsData_Sev5 <- make_xgb_dmatrix(
+  xgb_pred_rev,
+  base_margin = xgbFreq5_pred,
+  drop_vars = drop_common
+)
+
+
+# Raw XGBoost pure premiums
+xgbPrem1_raw <- predict(xgbSev1, xgbClaimsData_Sev1)
+xgbPrem2_raw <- predict(xgbSev2, xgbClaimsData_Sev2)
+xgbPrem3_raw <- predict(xgbSev3, xgbClaimsData_Sev3)
+xgbPrem4_raw <- predict(xgbSev4, xgbClaimsData_Sev4)
+
+# Model 5: average predictions from original gender and reversed gender.
+xgbPrem5_raw <- 0.5 * (
+  predict(xgbSev1, xgbClaimsData_Sev1) +
+    predict(xgbSev1, xgbClaimsData_Sev5)
+)
+
+# Portfolio-level adjustment, following the original XGBoost code:
+# align all XGBoost model totals with GLM MU total premium.
+xgbpred_sum <- Dataset_import %>%
+  mutate(
+    xgbPurePrem1 = xgbPrem1_raw / sum(xgbPrem1_raw) * sum(glmpred_sum$PurePrem2),
+    xgbPurePrem2 = xgbPrem2_raw / sum(xgbPrem2_raw) * sum(glmpred_sum$PurePrem2),
+    xgbPurePrem3 = xgbPrem3_raw / sum(xgbPrem3_raw) * sum(glmpred_sum$PurePrem2),
+    xgbPurePrem4 = xgbPrem4_raw / sum(xgbPrem4_raw) * sum(glmpred_sum$PurePrem2),
+    xgbPurePrem5 = xgbPrem5_raw / sum(xgbPrem5_raw) * sum(glmpred_sum$PurePrem2),
+    realclaim = Indtppd / Exppdays * 365
+  )
+```
+
+
+# Model Summaries {#model-summaries}
+
+The following tables summarise the in-sample model fit and the mean predicted pure premiums by gender under both GLM and XGBoost implementations. These summaries provide an initial check of how the different pricing approaches affect the relative premium levels across protected groups.
+
+```{r summary-mean-table}
+#| label: summary-mean-table
+#| code-fold: true
+#| code-summary: "Show summary table code"
+#| results: asis
+
+glm_mean <- glmpred_sum %>%
+  group_by(Gender) %>%
+  summarise(
+    Method = "GLM",
+    M0   = mean(PurePrem1),
+    MU   = mean(PurePrem2),
+    MDP  = mean(PurePrem3),
+    MCDP = mean(PurePrem4),
+    MC   = mean(PurePrem5),
+    .groups = "drop"
+  )
+
+xgb_mean <- xgbpred_sum %>%
+  group_by(Gender) %>%
+  summarise(
+    Method = "XGBoost",
+    M0   = mean(xgbPurePrem1),
+    MU   = mean(xgbPurePrem2),
+    MDP  = mean(xgbPurePrem3),
+    MCDP = mean(xgbPurePrem4),
+    MC   = mean(xgbPurePrem5),
+    .groups = "drop"
+  )
+
+mean_premium_table <- bind_rows(glm_mean, xgb_mean) %>%
+  mutate(
+    Group = paste(Method, tolower(as.character(Gender)))
+  ) %>%
+  select(Group, M0, MU, MDP, MCDP, MC)
+
+kable_styling(
+  knitr::kable(
+    mean_premium_table,
+    digits = 2,
+    caption = "Comparison of Mean Predicted Pure Premiums by Model, Method, and Gender"
+  ),
+  font_size = 10
+)
+```
+
+
+
+# Fairness–accuracy trade-off {#fairness-accuracy-trade-off}
+
+Following @xin2024antidiscrimination, we summarise group fairness using the disparate impact ratio,
+
+$$
+\text{Disparate Impact Ratio} = \frac{\mathbb{E}(\hat{Y}=\hat{y}|X_{P}=b)}{\mathbb{E}(\hat{Y}=\hat{y}|X_{P}=a)}.
+$$
+This measure compares the average predicted pure premiums between two protected groups. A value close to 1 indicates similar average technical prices across groups (not necessarily filed commercial rates). To approximate the insurance version of the four-fifths rule, we expect this fairness score to lie between 0.8 and 1.25. These thresholds are shown as dotted reference lines in the fairness–accuracy plots.
+
+Predictive accuracy is summarised using the root mean squared error (RMSE),
+
+$$
+\text{RMSE}=\sqrt{\frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2},
+$$
+
+and the normalised Gini index, 
+
+$$
+\text{Normalized Gini Index}=\frac{\frac{\sum_{i=1}^n y_i\,r(\hat y_i)}{\sum_{i=1}^n y_i}-\sum_{i=1}^n \frac{n-i+1}{n}}{\frac{\sum_{i=1}^n y_i\,r(y_i)}{\sum_{i=1}^n y_i}-\sum_{i=1}^n \frac{n-i+1}{n}}.
+$$
+The normalised Gini index evaluates the ranking performance of a pricing model. It uses predicted pure premiums only through their relative rankings, and a larger value indicates better predictive performance.
+
+The following plots compare the fairness–accuracy trade-off across the pricing models under both GLM and XGBoost implementations.
+
+```{r fairness-accuracy-plot}
+#| label: fairness-accuracy-plot
+#| code-fold: true
+#| code-summary: "Show fairness–accuracy plot code"
+#| fig-cap: "Fairness--accuracy comparison across GLM and XGBoost pricing models."
+#| fig-width: 10
+#| fig-height: 4
+
+normalised_gini <- function(actual, predicted, weight = NULL) {
+  if (is.null(weight)) weight <- rep(1, length(actual))
+
+  keep <- is.finite(actual) & is.finite(predicted) &
+    is.finite(weight) & weight > 0
+
+  actual <- actual[keep]
+  predicted <- predicted[keep]
+  weight <- weight[keep]
+
+  weighted_gini <- function(y, score, w) {
+    ord <- order(score, decreasing = FALSE)
+    y <- y[ord]
+    w <- w[ord]
+
+    cum_w <- cumsum(w) / sum(w)
+    cum_y <- cumsum(y * w) / sum(y * w)
+
+    lorenz_area <- sum(
+      (cum_y[-1] + cum_y[-length(cum_y)]) / 2 * diff(cum_w)
+    )
+
+    0.5 - lorenz_area
+  }
+
+  weighted_gini(actual, predicted, weight) /
+    weighted_gini(actual, actual, weight)
+}
+
+glm_model_premiums <- glmpred_sum %>%
+  transmute(
+    Method = "GLM",
+    Gender,
+    Exppdays,
+    actual = realclaim,
+    `M0: Full Model` = PurePrem1,
+    `MU: Unawareness Model` = PurePrem2,
+    `MDP: Demographic Parity` = PurePrem3,
+    `MCDP: Conditional Demographic Parity` = PurePrem4,
+    `MC: Controlling for the Protected Variable` = PurePrem5
+  )
+
+xgb_model_premiums <- xgbpred_sum %>%
+  transmute(
+    Method = "XGBoost",
+    Gender,
+    Exppdays,
+    actual = realclaim,
+    `M0: Full Model` = xgbPurePrem1,
+    `MU: Unawareness Model` = xgbPurePrem2,
+    `MDP: Demographic Parity` = xgbPurePrem3,
+    `MCDP: Conditional Demographic Parity` = xgbPurePrem4,
+    `MC: Controlling for the Protected Variable` = xgbPurePrem5
+  )
+
+model_premiums <- bind_rows(
+  glm_model_premiums,
+  xgb_model_premiums
+)
+
+fairness_accuracy_data <- model_premiums %>%
+  pivot_longer(
+    cols = -c(Method, Gender, Exppdays, actual),
+    names_to = "Model",
+    values_to = "Premium"
+  ) %>%
+  group_by(Method, Model) %>%
+  summarise(
+    male_mean = mean(Premium[Gender == "Male"], na.rm = TRUE),
+    female_mean = mean(Premium[Gender == "Female"], na.rm = TRUE),
+    disparate_impact_ratio = male_mean / female_mean,
+    rmse = sqrt(mean((actual - Premium)^2, na.rm = TRUE)),
+    normalised_gini = normalised_gini(actual, Premium, weight = Exppdays),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Model = factor(
+      Model,
+      levels = c(
+        "M0: Full Model",
+        "MU: Unawareness Model",
+        "MDP: Demographic Parity",
+        "MCDP: Conditional Demographic Parity",
+        "MC: Controlling for the Protected Variable"
+      )
+    ),
+    Method = factor(Method, levels = c("GLM", "XGBoost"))
+  )
+
+fairness_gini_plot <- ggplot(
+  fairness_accuracy_data,
+  aes(
+    x = normalised_gini,
+    y = disparate_impact_ratio,
+    colour = Model,
+    shape = Method
+  )
+) +
+  geom_hline(yintercept = c(0.8, 1.25), linetype = "dotted") +
+  geom_hline(yintercept = 1, linetype = "dotdash") +
+  geom_point(size = 3) +
+  labs(
+    x = "Normalized Gini Index (Accuracy)",
+    y = "Disparate Impact Ratio (Fairness)",
+    colour = "Model",
+    shape = "Method"
+  ) +
+  theme_minimal()
+
+fairness_rmse_plot <- ggplot(
+  fairness_accuracy_data,
+  aes(
+    x = rmse,
+    y = disparate_impact_ratio,
+    colour = Model,
+    shape = Method
+  )
+) +
+  geom_hline(yintercept = c(0.8, 1.25), linetype = "dotted") +
+  geom_hline(yintercept = 1, linetype = "dotdash") +
+  geom_point(size = 3) +
+  labs(
+    x = "Root Mean Square Error (Accuracy)",
+    y = "Disparate Impact Ratio (Fairness)",
+    colour = "Model",
+    shape = "Method"
+  ) +
+  theme_minimal()
+
+ggarrange(
+  fairness_gini_plot,
+  fairness_rmse_plot,
+  common.legend = TRUE,
+  legend = "right"
+)
+```
+
+
+# Premium Differences by Age and Gender {#premium-differences-by-age-and-gender}
+
+Following @xin2024antidiscrimination, we further assess how premiums are redistributed across age and gender groups. To keep this part close to the original presentation, the redistribution analysis focuses on the GLM models and compares each model with the GLM unawareness model (`GLM MU`). This comparison is related to the principle of solidarity, which views insurance as a mechanism for sharing risk within a community.
+
+For age $i$, let $\bar{Y}_{model, i}$ denote the average predicted premium under a given pricing model and let $\bar{Y}_{bench, i}$ denote the corresponding average predicted premium under the unawareness model (`GLM MU`), which serves as the benchmark model.
+
+We define
+
+$$
+\text{Relative Premium Difference for Age } i
+=
+\frac{
+\bar{Y}_{\text{model},i}
+-
+\bar{Y}_{\text{bench},i}
+}{
+\bar{Y}_{\text{bench},i}
+},
+$$
+
+and
+
+$$
+\text{Average Premium Difference for Age } i
+=
+\bar{Y}_{\text{model},i}
+-
+\bar{Y}_{\text{bench},i}.
+$$
+
+The first panel shows percentage changes relative to `GLM MU`, while the second panel shows changes in dollar terms. Positive values indicate that a model charges a higher average premium than `GLM MU` for that age--gender group, while negative values indicate a lower average premium.
+
+In the original study, the comparison with `GLM MU` shows how antidiscrimination pricing models redistribute premiums relative to the common industry practice of fairness through unawareness. In particular, the MDP model, which targets group fairness, produces a clearer transfer pattern across gender groups, while MCDP is usually closer to the unawareness model because it allows legitimate variables to retain part of their explanatory effect.
+
+```{r premium-difference-plot}
+#| label: premium-difference-plot
+#| code-fold: true
+#| code-summary: "Show premium difference plot code"
+#| fig-cap: "Relative and average premium differences against the GLM unawareness model."
+#| fig-width: 10
+#| fig-height: 7
+
+premium_difference_by_age <- glmpred_sum %>%
+  group_by(Age.ct, Gender) %>%
+  summarise(
+    `GLM M0`   = mean(PurePrem1),
+    `GLM MU`   = mean(PurePrem2),
+    `GLM MDP`  = mean(PurePrem3),
+    `GLM MCDP` = mean(PurePrem4),
+    `GLM MC`   = mean(PurePrem5),
+    .groups = "drop"
+  )
+
+premium_difference_relative <- premium_difference_by_age %>%
+  transmute(
+    Age.ct,
+    Gender,
+    `GLM M0`   = `GLM M0` / `GLM MU` - 1,
+    `GLM MDP`  = `GLM MDP` / `GLM MU` - 1,
+    `GLM MCDP` = `GLM MCDP` / `GLM MU` - 1,
+    `GLM MC`   = `GLM MC` / `GLM MU` - 1
+  ) %>%
+  pivot_longer(
+    cols = -c(Age.ct, Gender),
+    names_to = "Model",
+    values_to = "Difference"
+  )
+
+premium_difference_average <- premium_difference_by_age %>%
+  transmute(
+    Age.ct,
+    Gender,
+    `GLM M0`   = `GLM M0` - `GLM MU`,
+    `GLM MDP`  = `GLM MDP` - `GLM MU`,
+    `GLM MCDP` = `GLM MCDP` - `GLM MU`,
+    `GLM MC`   = `GLM MC` - `GLM MU`
+  ) %>%
+  pivot_longer(
+    cols = -c(Age.ct, Gender),
+    names_to = "Model",
+    values_to = "Difference"
+  )
+
+relative_difference_plot <- ggplot(
+  premium_difference_relative,
+  aes(x = Age.ct, y = Difference, colour = Model, linetype = Gender)
+) +
+  geom_line(linewidth = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = "Age",
+    y = "Relative Premium Difference",
+    colour = "Model",
+    linetype = "Gender"
+  ) +
+  guides(
+    colour = guide_legend(order = 1),
+    linetype = guide_legend(order = 2)
+  ) +
+  theme_minimal()
+
+average_difference_plot <- ggplot(
+  premium_difference_average,
+  aes(x = Age.ct, y = Difference, colour = Model, linetype = Gender)
+) +
+  geom_line(linewidth = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(
+    x = "Age",
+    y = "Average Premium Difference",
+    colour = "Model",
+    linetype = "Gender"
+  ) +
+  guides(
+    colour = guide_legend(order = 1),
+    linetype = guide_legend(order = 2)
+  ) +
+  theme_minimal()
+
+ggarrange(
+  relative_difference_plot,
+  average_difference_plot,
+  common.legend = TRUE,
+  legend = "bottom"
+)
+```
+
+
+
+# Double Lift Charts {#double-lift-charts}
+
+Double lift charts are commonly used in insurance pricing to compare the relative performance of two competing rating plans. Following @goldburd2016generalized, they can be used to identify where two models disagree most and whether the observed claims experience is closer to one model or the other.
+
+From a fairness perspective, insurers may be concerned that antidiscrimination pricing models could weaken actuarial (individual) fairness and increase adverse selection. To explore this issue, we focus on the GLM implementation and compare a fair model with the benchmark unawareness model (`GLM MU`), which represents a common industry practice.
+
+In this case study, we compare `GLM MDP` (Model 3) against `GLM MU` (Model 2). The construction of a double lift chart consists of three steps:
+
+1. For each policyholder, calculate the pure premium ratio
+
+$$
+\text{Pure Premium Ratio}
+=
+\frac{
+\text{Predicted Premium of Benchmark Model}
+}{
+\text{Predicted Premium of Fair Model}
+}.
+$$
+
+2. Sort policies according to the pure premium ratio and divide them into groups with approximately equal exposure.
+
+3. Within each group, calculate the average predicted premium under each model and the average observed claim cost.
+
+The first and last groups correspond to policyholders for whom the two models disagree most. Therefore, double lift charts provide a useful way to investigate how premium redistribution may affect adverse selection and customer movement between competing insurers.
+
+
+```{r double-lift-functions}
+#| label: double-lift-functions
+#| code-fold: true
+#| code-summary: "Show double lift chart helper functions"
+
+add_equal_weight_group <- function(
+    table,
+    sort_by,
+    expo = NULL,
+    group_variable_name = "groupe",
+    nb = 10
+) {
+
+  sort_by_var <- enquo(sort_by)
+
+  if (!missing(expo)) {
+
+    expo_var <- enquo(expo)
+
+    total <- table %>%
+      pull(!!expo_var) %>%
+      sum()
+
+    breaks <- seq(0, total, length.out = nb + 1) %>%
+      head(-1) %>%
+      c(Inf) %>%
+      unique()
+
+    table %>%
+      arrange(!!sort_by_var) %>%
+      mutate(
+        cum_exposure = cumsum(!!expo_var)
+      ) %>%
+      mutate(
+        !!group_variable_name := cut(
+          cum_exposure,
+          breaks = breaks,
+          ordered_result = TRUE,
+          include.lowest = TRUE
+        ) %>%
+          as.numeric()
+      ) %>%
+      select(-cum_exposure)
+
+  } else {
+
+    total <- nrow(table)
+
+    breaks <- seq(0, total, length.out = nb + 1) %>%
+      head(-1) %>%
+      c(Inf) %>%
+      unique()
+
+    table %>%
+      arrange(!!sort_by_var) %>%
+      mutate(
+        cum_exposure = row_number()
+      ) %>%
+      mutate(
+        !!group_variable_name := cut(
+          cum_exposure,
+          breaks = breaks,
+          ordered_result = TRUE,
+          include.lowest = TRUE
+        ) %>%
+          as.numeric()
+      ) %>%
+      select(-cum_exposure)
+
+  }
+}
+
+double_lift_chart <- function(
+    data,
+    pred1,
+    pred2,
+    expo,
+    obs,
+    nb = 8,
+    obs_lab = "Actual Claims",
+    pred1_lab = "Benchmark Model",
+    pred2_lab = "Comparison Model"
+) {
+
+  pred1_var <- enquo(pred1)
+  pred2_var <- enquo(pred2)
+  expo_var  <- enquo(expo)
+  obs_var   <- enquo(obs)
+
+  pred1_name <- quo_name(pred1_var)
+  pred2_name <- quo_name(pred2_var)
+  obs_name   <- quo_name(obs_var)
+
+  chart_data <- data %>%
+    mutate(
+      ratio = !!pred1_var / !!pred2_var
+    ) %>%
+    filter(!!expo_var > 0) %>%
+    drop_na(
+      ratio,
+      !!pred1_var,
+      !!pred2_var,
+      !!obs_var,
+      !!expo_var
+    ) %>%
+    add_equal_weight_group(
+      sort_by = ratio,
+      expo = !!expo_var,
+      nb = nb
+    ) %>%
+    group_by(groupe) %>%
+    summarise(
+      ratio_mean = mean(ratio),
+      ratio_min  = min(ratio),
+      ratio_max  = max(ratio),
+      exposure   = sum(!!expo_var),
+      actual     = sum(!!obs_var * !!expo_var) / exposure,
+      pred1_avg  = sum(!!pred1_var * !!expo_var) / exposure,
+      pred2_avg  = sum(!!pred2_var * !!expo_var) / exposure,
+      .groups = "drop"
+    ) %>%
+    mutate(
+      label = paste0(
+        "[",
+        round(ratio_min, 2),
+        ", ",
+        round(ratio_max, 2),
+        "]"
+      )
+    )
+
+  plot_data <- chart_data %>%
+    select(
+      groupe,
+      ratio_mean,
+      label,
+      actual,
+      pred1_avg,
+      pred2_avg
+    ) %>%
+    pivot_longer(
+      c(actual, pred1_avg, pred2_avg),
+      names_to = "Series",
+      values_to = "Value"
+    ) %>%
+    mutate(
+      Series = recode(
+        Series,
+        actual = obs_lab,
+        pred1_avg = pred1_lab,
+        pred2_avg = pred2_lab
+      )
+    )
+
+  ggplot(
+    plot_data,
+    aes(
+      x = ratio_mean,
+      y = Value,
+      colour = Series,
+      linetype = Series
+    )
+  ) +
+    geom_line() +
+    geom_point() +
+    scale_x_continuous(
+      breaks = chart_data$ratio_mean,
+      labels = chart_data$label
+    ) +
+    labs(
+      x = paste0(
+        "Pure Premium Ratio: ",
+        pred1_lab,
+        " / ",
+        pred2_lab
+      ),
+      y = "Average Claims or Premiums",
+      colour = NULL,
+      linetype = NULL
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text.x = element_text(
+        angle = 30,
+        hjust = 1,
+        vjust = 1
+      )
+    )
+}
+```
+
+
+```{r double-lift-overall}
+#| label: double-lift-overall
+#| code-fold: true
+#| code-summary: "Show overall double lift chart code"
+#| fig-cap: "Double lift chart comparing GLM MU and GLM MDP for the full portfolio."
+#| fig-width: 6
+#| fig-height: 4
+
+double_lift_all <- double_lift_chart(
+  data = glmpred_sum,
+  pred1 = PurePrem2,
+  pred2 = PurePrem3,
+  expo = Exppdays,
+  obs = realclaim,
+  nb = 8,
+  pred1_lab = "GLM MU",
+  pred2_lab = "GLM MDP"
+)
+
+double_lift_all
+```
+
+```{r double-lift-gender}
+#| label: double-lift-gender
+#| code-fold: true
+#| code-summary: "Show gender-specific double lift chart code"
+#| fig-cap: "Double lift charts comparing GLM MU and GLM MDP by gender."
+#| fig-width: 10
+#| fig-height: 5
+
+double_lift_male <- double_lift_chart(
+  data = glmpred_sum %>% filter(Gender == "Male"),
+  pred1 = PurePrem2,
+  pred2 = PurePrem3,
+  expo = Exppdays,
+  obs = realclaim,
+  nb = 8,
+  pred1_lab = "GLM MU",
+  pred2_lab = "GLM MDP"
+)
+
+double_lift_female <- double_lift_chart(
+  data = glmpred_sum %>% filter(Gender == "Female"),
+  pred1 = PurePrem2,
+  pred2 = PurePrem3,
+  expo = Exppdays,
+  obs = realclaim,
+  nb = 8,
+  pred1_lab = "GLM MU",
+  pred2_lab = "GLM MDP"
+)
+
+ggarrange(
+  double_lift_male,
+  double_lift_female,
+  labels = c("Male", "Female"),
+  common.legend = TRUE,
+  legend = "bottom"
+)
+```

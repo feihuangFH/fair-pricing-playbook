@@ -1,0 +1,815 @@
+---
+title: "Case Study 3: Fairness Testing for Algorithmic Pricing"
+author: "Fei Huang"
+date: last-modified
+
+bibliography: [reference.bib]
+biblio-style: apalike
+link-citations: true
+reference-location: document
+
+format:
+  html: default
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  error: false
+  cache: true
+  freeze: auto
+---
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Before you start
+
+Read [Step 4: Audit the system](../Playbook/Step-4-Audit-the-System.html) first for the qualitative audit protocol. This case study implements CDP and proxy-discrimination testing on Illinois auto insurance quotes.
+:::
+
+# Background
+
+Regulatory agencies have increasingly required firms to assess whether algorithmic pricing systems produce unfair outcomes for protected groups. For example, recent regulatory proposals in Colorado and New York [@doradoi-2023-concerning; @nydfs-2024-proposed] require insurers to evaluate whether pricing algorithms and predictive models produce discriminatory pricing outcomes.
+
+Many fairness audits rely on regression-based methods. A common approach is to compare pricing outcomes across protected groups after controlling for legitimate risk factors and then evaluate whether any remaining disparity falls within an acceptable tolerance.
+
+This case study illustrates how regression-based fairness audits can be conducted for deterministic pricing outputs. It is based on @huanghooker2026fairness.
+In particular, we focus on two fairness criteria that are closely related to current regulatory proposals:
+
+- Conditional demographic parity (CDP). after controlling for legitimate risk factors, do pricing outcomes differ systematically across protected groups?
+- Proxy discrimination (PD). does a rating variable act as a statistical proxy for a protected attribute?
+
+A distinctive feature of algorithmic pricing systems is that they are often deterministic. The same profile submitted to the same algorithm produces the same price. As a result, residuals from an audit regression represent approximation error rather than sampling variability. This distinction has important implications for statistical inference and forms the central motivation for the empirical analysis in this case study.
+
+To illustrate the audit framework, we use the ProPublica Illinois auto insurance dataset [@larson-etal-2017-minority], which contains quoted premiums from multiple insurers across Illinois zip codes. Download the [public data release](http://propublica.s3.amazonaws.com/projects/carinsurance/car-insurance-public.zip), extract `car-insurance-public/data/il-per-zip.csv`, and place it in this case study folder before running the code. See [Data](#data) for details.
+
+The analysis is designed to show how to run a regression-based fairness audit, not to deliver filing-ready compliance conclusions for any named insurer.
+
+
+# How to Read This Case Study
+
+Not every section is needed for every reader. The table below suggests a practical reading order.
+
+| If your focus is… | Start here | Then read |
+|---|---|---|
+| Audit workflow and regulatory logic | [Audit protocol](#audit-protocol) | [CDP audit](#conditional-demographic-parity-audit) → [PD audit](#proxy-discrimination-audit) |
+| What the Illinois results show | [Data preparation](#data-preparation) | [CDP audit](#conditional-demographic-parity-audit) and [PD audit](#proxy-discrimination-audit) summary tables and figures |
+| Implementation detail | [Notation](#notation) → [Case Study Setup](#case-study-setup) | [Supporting Materials](#appendix-supporting-materials) and code chunks (folded by default) |
+
+
+# Audit protocol {#audit-protocol}
+
+This case study applies the Plan → Audit → Decide → Improve workflow from [Step 4: Audit the system](../Playbook/Step-4-Audit-the-System.html). Design choices are fixed before examining outcomes. The sections below show how that protocol is implemented on Illinois auto quotes.
+
+![](../Playbook/plot/audit-flow.png){fig-alt="Audit flow: Plan, Audit, Decide, Improve with Pass, Insufficient Information, or Fail" width=90%}
+
+For this illustration we use CDP for system-level price gaps (with TOST) and PD for the suspected proxy variable `log_risk`. Protected attribute: majority-minority zip-code indicator. Legitimate factors: log state risk and a Chicago indicator. Tolerances and decision rules are in [Audit parameters](#audit-parameters). Pass, fail, and insufficient-information outcomes follow the three-outcome framework in Step 4.
+
+::: {.callout-important appearance="simple"}
+## For practitioners
+
+This case study applies one illustrative audit design from @huanghooker2026fairness to Illinois auto quotes. In your own market you must choose:
+
+- Fairness criterion (CDP, PD, or another rule required by law)
+- Protected attribute $A$ (directly observed or responsibly proxied)
+- Legitimate rating factors $X_\ell$ (as recognised by your regulator)
+- Tolerance margins (for example, Colorado's 5% price-gap discussion and standard 0.80 adverse-impact ratio)
+- Suspected proxy variables for PD screens
+
+Quoted premiums here are deterministic algorithm outputs, so classical OLS standard errors are generally not valid. Use the corrected estimators shown below. Results are a teaching illustration using zip-level data and a proxied protected attribute, not a definitive regulatory finding about any company.
+:::
+
+::: {.callout-note appearance="simple"}
+## Scope of this case study
+
+- ProPublica Illinois auto quotes, company-level audits
+- Protected attribute: majority-minority zip-code indicator (a geographic proxy, not observed race)
+- Legitimate factors: `state_risk`, `chicago`
+- CDP via log-premium regression + TOST. PD illustration for `log_risk`
+- Corrected inference (HC3. PD cross-covariance)
+
+The majority-minority zip indicator is a geographic proxy. For BISG or BIFSG-based regulatory designs, see [Step 4: Proxied protected attributes](../Playbook/Step-4-Audit-the-System.html#proxied-protected-attributes) and @xin2026proxyrace on how proxy measurement distorts regression-based disparity estimates.
+
+Not covered here. GLM audit specifications, formal sample-size planning, multi-proxy screens, BISG/BIFSG inference, or insurer-specific filing conclusions. See @huanghooker2026fairness for the audit protocol and @xin2026proxyrace for proxy-race measurement limits.
+:::
+
+
+# Case Study Setup
+
+## Data and audit setting
+
+The empirical analysis is conducted at the company level. For each insurer, we observe quoted premiums across Illinois zip codes. The goal is to illustrate how regression-based fairness audits can be applied to deterministic pricing outputs.
+
+To reproduce the results locally, place `il-per-zip.csv` in this folder (see [Data](#data)). The code below expects `DATA_PATH = "il-per-zip.csv"`.
+
+The key variables are:
+
+- `combined_premium`, annual combined liability premium
+- `minority`, indicator equal to 1 if the zip code is majority-minority
+- `state_risk`, aggregate loss cost per insured vehicle
+- `chicago`, indicator for Chicago zip codes
+- `companies_name`, insurer name
+
+In the analysis below, each insurer is audited separately. The protected attribute is represented by the majority-minority zip-code indicator ($A_z = 1$), while `state_risk` and `chicago` are used as legitimate rating factors ($X_\ell$). Symbols are defined in [Notation](#notation).
+
+
+## Audit parameters {#audit-parameters}
+
+The table below maps pre-specified audit parameters to their regulatory interpretation. Values are fixed in code before running company-level tests.
+
+| Parameter | Code value | Role |
+|---|---|---|
+| Significance level | `ALPHA = 0.05` | 90% confidence intervals for TOST ($1 - 2\alpha$) |
+| Minimum zip codes per company | `MIN_OBS = 50` | Exclude thin company samples from company-level tests |
+| CDP dollar tolerance | `DELTA_PCT = 0.05` | 5% of mean premium (Colorado draft guidance) |
+| CDP ratio tolerance | `TAU = 0.80` | Standard 0.80 adverse-impact ratio band |
+| PD substantive threshold | `RHO_MIN = 0.10` | Flag only if relative coefficient shift $\geq 10\%$ |
+
+## Import packages and define audit parameters
+
+The following code imports the required Python packages and sets the parameters above.
+
+```{python}
+#| label: setup
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show setup code"
+
+import sys
+import numpy as np
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+from IPython.display import display
+
+DATA_PATH   = "il-per-zip.csv"
+MIN_OBS     = 50
+ALPHA       = 0.05
+Z_CRIT      = stats.norm.ppf(1.0 - ALPHA)
+
+# CDP TOST tolerance margins
+DELTA_PCT   = 0.05
+TAU         = 0.80
+LOG_TAU     = np.log(1.0 / TAU)
+
+# PD substantive shift threshold
+RHO_MIN     = 0.10
+```
+
+
+## Supporting functions
+
+The following functions implement the calculations used throughout the CDP and PD audits. The code is folded for readability but can be expanded if desired.
+
+```{python}
+#| label: supporting-functions
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show supporting functions code"
+
+def ols_fit(X, y):
+    """
+    OLS estimator: beta_hat = (X'X)^(-1) X'y.
+    """
+    XtX_inv = np.linalg.inv(X.T @ X)
+    beta    = XtX_inv @ (X.T @ y)
+    resid   = y - X @ beta
+    return beta, resid, XtX_inv
+
+
+def cov_classical(resid, XtX_inv, n, p):
+    """
+    Classical OLS covariance: sigma^2 * (X'X)^(-1).
+    """
+    sigma2 = float(resid @ resid) / (n - p)
+    return sigma2 * XtX_inv, sigma2
+
+
+def cov_hc3(X, resid, XtX_inv):
+    """
+    HC3 sandwich covariance estimator.
+    """
+    h    = np.einsum('ij,jk,ik->i', X, XtX_inv, X)
+    w    = resid / (1.0 - h)
+    meat = (X * w[:, np.newaxis]).T @ (X * w[:, np.newaxis])
+    return XtX_inv @ meat @ XtX_inv
+
+
+def cov_shift_full(X_res, X_ext, fz, j=1, k=1):
+    """
+    Correct variance of the coefficient shift for proxy discrimination.
+
+    X_res : restricted model matrix, excluding the protected attribute.
+    X_ext : extended model matrix, including the protected attribute.
+    fz    : deterministic response vector.
+    j, k  : column indices for the suspected proxy variable in the two models.
+    """
+    n = len(fz)
+
+    XtX_inv_res = np.linalg.inv(X_res.T @ X_res)
+    XtX_inv_ext = np.linalg.inv(X_ext.T @ X_ext)
+
+    sc_res = X_res * fz[:, np.newaxis]
+    sc_ext = X_ext * fz[:, np.newaxis]
+
+    meat_res  = (sc_res.T @ sc_res) / n
+    meat_res -= np.outer(sc_res.mean(axis=0), sc_res.mean(axis=0))
+    sw_res    = XtX_inv_res @ meat_res @ XtX_inv_res
+    var_res   = sw_res[j, j]
+
+    meat_ext  = (sc_ext.T @ sc_ext) / n
+    meat_ext -= np.outer(sc_ext.mean(axis=0), sc_ext.mean(axis=0))
+    sw_ext    = XtX_inv_ext @ meat_ext @ XtX_inv_ext
+    var_ext   = sw_ext[k, k]
+
+    var_ind = var_res + var_ext
+
+    cross_meat  = (sc_res.T @ sc_ext) / n
+    cross_meat -= np.outer(sc_res.mean(axis=0), sc_ext.mean(axis=0))
+    cross       = float(XtX_inv_res[j, :] @ cross_meat @ XtX_inv_ext[:, k])
+
+    var_full = max(var_res + var_ext - 2.0 * cross, 0.0)
+
+    return var_full, var_ind
+
+
+def tost_verdict(beta_A, se_hc3, mean_premium, alpha=ALPHA,
+                 delta_pct=DELTA_PCT, tau=TAU):
+    """
+    Three-outcome TOST decision for CDP: Pass, Fail, or
+    Insufficient Information.
+    """
+    z = stats.norm.ppf(1.0 - alpha)
+    ci_lo = beta_A - z * se_hc3
+    ci_hi = beta_A + z * se_hc3
+
+    log_tau = np.log(1.0 / tau)
+    delta = delta_pct * mean_premium
+
+    ratio_inside = (ci_lo > -log_tau) and (ci_hi < log_tau)
+    ratio_outside = (ci_lo >= log_tau) or (ci_hi <= -log_tau)
+
+    gap_lo = mean_premium * (np.exp(ci_lo) - 1.0)
+    gap_hi = mean_premium * (np.exp(ci_hi) - 1.0)
+
+    level_inside = (gap_lo > -delta) and (gap_hi < delta)
+    level_outside = (gap_lo >= delta) or (gap_hi <= -delta)
+
+    if ratio_inside and level_inside:
+        verdict = "PASS"
+    elif ratio_outside or level_outside:
+        verdict = "FAIL"
+    else:
+        verdict = "INSUFFICIENT INFORMATION"
+
+    return verdict, ci_lo, ci_hi, gap_lo, gap_hi
+
+
+def pd_verdict(shift, phi_res, z_full, z_crit=Z_CRIT, rho_min=RHO_MIN):
+    """
+    Two-part proxy-discrimination decision rule.
+    """
+    rel_pct = abs(shift / phi_res) * 100.0 if phi_res != 0 else np.nan
+    flag    = (abs(z_full) > z_crit) and (rel_pct >= rho_min * 100.0)
+    return flag, rel_pct
+```
+
+
+# Data preparation
+
+```{python}
+#| label: load-data
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show data loading code"
+
+def prepare_data(path):
+    df = pd.read_csv(path)
+
+    required = {
+        "companies_name", "minority", "state_risk",
+        "combined_premium", "chicago"
+    }
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"Missing columns in CSV: {missing}")
+
+    df = df.copy()
+    df["minority_flag"] = df["minority"].astype(int)
+    df["log_risk"] = np.log(df["state_risk"])
+    df["log_premium"] = np.log(df["combined_premium"])
+    df["excess_premium"] = df["combined_premium"] / df["state_risk"]
+    df["chicago"] = df["chicago"].astype(float)
+
+    return df
+
+
+df = prepare_data(DATA_PATH)
+
+print(f"Number of observations: {df.shape[0]}")
+print(f"Number of variables: {df.shape[1]}")
+
+df.head()
+```
+
+
+The dataset contains zip-code-company observations. Before running company-level audits, we first summarise the unconditional differences between majority-minority and non-majority-minority zip codes.
+
+```{python}
+#| label: summary-statistics
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show summary statistics code"
+
+def table_summary_stats(df):
+    non_mm = df[df["minority_flag"] == 0]
+    mm = df[df["minority_flag"] == 1]
+
+    rows = []
+    for var, label, scale in [
+        ("combined_premium", "Combined premium ($)", 1),
+        ("state_risk", "State risk ($)", 1),
+        ("excess_premium", "Excess premium ($)", 1),
+        ("minority", "Pct minority (%)", 100),
+    ]:
+        full = df[var] * scale
+        non_mm_var = non_mm[var] * scale
+        mm_var = mm[var] * scale
+
+        rows.append({
+            "Variable": label,
+            "Mean": round(full.mean(), 1),
+            "SD": round(full.std(), 1),
+            "Max": round(full.max(), 1),
+            "Non-majority-minority zips": round(non_mm_var.mean(), 1),
+            "Majority-minority zips": round(mm_var.mean(), 1),
+            "Ratio": round(mm_var.mean() / non_mm_var.mean(), 3)
+        })
+
+    return pd.DataFrame(rows)
+
+summary_stats = table_summary_stats(df)
+display(summary_stats)
+```
+
+::: {.callout-note}
+The unconditional premium difference is not itself a fairness-audit conclusion, because majority-minority and non-majority-minority zip codes may differ in risk and geography. The regression audit below controls for state risk and a Chicago indicator.
+:::
+
+
+# Notation {#notation}
+
+| Symbol | Meaning | Variable in this case study |
+|---|---|---|
+| $P_{kz}$ | Quoted premium for company $k$ in zip $z$ | `combined_premium` |
+| $A_z$ | Protected attribute | `minority_flag` (1 = majority-minority zip) |
+| $X_{\ell,z}$ | Legitimate rating factors | `log_risk`, `chicago` |
+| $\beta_{A,k}$ | Conditional log-premium gap on $A$ for company $k$ | CDP regression coefficient |
+| $\Delta_\mu$ | Conditional mean premium gap | Implied from $\beta_{A,k}$ at mean premium |
+| $R_\mu$ | Conditional premium ratio across groups | $\exp(\beta_{A,k})$ |
+| $\phi$, $\phi'$ | Coefficient on suspected proxy in restricted / extended PD models | Coefficient on `log_risk` |
+| $\Delta_{PD}$ | Proxy coefficient shift $\phi - \phi'$ | PD test statistic |
+| HC3 SE | Corrected standard error for deterministic outputs | `se_hc3` |
+| $\delta$ | Dollar tolerance for CDP | `DELTA_PCT` $\times$ mean premium |
+| $\tau$ | Adverse-impact ratio tolerance | `TAU = 0.80` |
+| $\rho_{\min}$ | Minimum relative PD shift to flag | `RHO_MIN = 0.10` |
+
+Rule abbreviations. CDP = conditional demographic parity. PD = proxy discrimination. TOST = two one-sided tests (equivalence testing).
+
+
+# Conditional Demographic Parity Audit {#conditional-demographic-parity-audit}
+
+## Audit model
+
+The CDP audit evaluates whether pricing outcomes differ across protected groups after controlling for legitimate rating factors. For each company $k$, we fit the audit regression (see [Notation](#notation))
+
+$$
+\log(P_{kz}) = \mu_{0k} + \beta_{A,k} A_z
++ \gamma_{1k} \log(\text{state risk}_z)
++ \gamma_{2k} \text{Chicago}_z + r_{kz},
+$$
+
+where $P_{kz}$ is the quoted premium for company $k$ in zip code $z$, and $A_z$ is the majority-minority zip-code indicator. The coefficient $\beta_{A,k}$ measures the conditional log-premium gap for company $k$.
+
+```{python}
+#| label: design-matrices
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show design matrix code"
+
+def build_design_matrices(grp):
+    n = len(grp)
+    ones = np.ones(n)
+    A = grp["minority_flag"].values.astype(float)
+    lr = grp["log_risk"].values
+    C = grp["chicago"].values
+
+    X_cdp = np.column_stack([ones, A, lr, C])
+    X_res = np.column_stack([ones, lr, C])
+    X_ext = np.column_stack([ones, lr, C, A])
+    fz = grp["log_premium"].values
+
+    return X_cdp, X_res, X_ext, fz, n
+```
+
+
+## Classical versus HC3 standard errors
+
+The first issue is whether the usual classical OLS standard error is appropriate. Since quoted premiums are deterministic outputs, the residuals are approximation errors rather than independent stochastic noise. We therefore compare the usual classical standard error with the HC3 sandwich standard error. HC3 is a finite-sample heteroskedasticity-consistent sandwich estimator proposed by @mackinnon-white-1985 and used here as the default corrected standard error.
+
+```{python}
+#| label: analyse-cdp-company
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show CDP analysis code"
+
+def analyse_cdp_company(company, grp):
+    X_cdp, X_res, X_ext, fz, n = build_design_matrices(grp)
+    p_cdp = X_cdp.shape[1]
+
+    # CDP regression
+    beta_cdp, resid_cdp, XtX_inv_cdp = ols_fit(X_cdp, fz)
+    cov_cl, sigma2 = cov_classical(resid_cdp, XtX_inv_cdp, n, p_cdp)
+    cov_hc = cov_hc3(X_cdp, resid_cdp, XtX_inv_cdp)
+
+    beta_A = float(beta_cdp[1])
+    se_cl = float(np.sqrt(cov_cl[1, 1]))
+    se_hc3 = float(np.sqrt(cov_hc[1, 1]))
+    rho = se_hc3 / se_cl
+
+    ss_tot = float(np.sum((fz - fz.mean()) ** 2))
+    r2 = 1.0 - float(resid_cdp @ resid_cdp) / ss_tot
+
+    mean_prem_log = fz.mean()
+    mean_prem_usd = float(np.exp(mean_prem_log))
+
+    verdict, ci_lo, ci_hi, gap_lo, gap_hi = tost_verdict(
+        beta_A, se_hc3, mean_prem_usd
+    )
+
+    ratio = float(np.exp(beta_A))
+    gap_dollars = float(mean_prem_usd * (np.exp(beta_A) - 1.0))
+
+    cdp_rec = {
+        "company": company,
+        "n": n,
+        "beta_A": beta_A,
+        "se_classical": se_cl,
+        "se_hc3": se_hc3,
+        "rho": rho,
+        "r2": r2,
+    }
+
+    audit_rec = {
+        "company": company,
+        "gap_usd": gap_dollars,
+        "ratio": ratio,
+        "ci_lo": ci_lo,
+        "ci_hi": ci_hi,
+        "gap_lo": gap_lo,
+        "gap_hi": gap_hi,
+        "verdict": verdict,
+    }
+
+    return cdp_rec, audit_rec
+
+
+cdp_records = []
+audit_records = []
+
+for company, grp in df.groupby("companies_name"):
+    if len(grp) >= MIN_OBS:
+        cdp_rec, audit_rec = analyse_cdp_company(company, grp)
+        cdp_records.append(cdp_rec)
+        audit_records.append(audit_rec)
+
+cdp_results = pd.DataFrame(cdp_records).sort_values("company").reset_index(drop=True)
+audit_results = pd.DataFrame(audit_records).sort_values("company").reset_index(drop=True)
+
+print(f"Number of companies audited: {len(cdp_results)}")
+cdp_results.head()
+```
+
+
+The next table summarises the company-level comparison between classical and HC3 standard errors.
+
+```{python}
+#| label: cdp-se-summary
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show CDP standard error summary code"
+
+se_summary = pd.DataFrame({
+    "Number of companies": [len(cdp_results)],
+    "Min HC3/classical SE ratio": [cdp_results["rho"].min()],
+    "Mean HC3/classical SE ratio": [cdp_results["rho"].mean()],
+    "Max HC3/classical SE ratio": [cdp_results["rho"].max()],
+    "Companies with |ratio - 1| > 0.15": [
+        (abs(cdp_results["rho"] - 1) > 0.15).sum()
+    ]
+})
+
+display(se_summary.round(3))
+```
+
+The table below reports selected companies where the HC3 correction has the largest and smallest effect on the standard error for the protected-attribute coefficient.
+
+```{python}
+#| label: cdp-se-selected
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show selected CDP standard error results code"
+
+selected_se = pd.concat([
+    cdp_results.nsmallest(3, "rho"),
+    cdp_results.nlargest(3, "rho")
+]).drop_duplicates(subset="company")
+
+selected_se = selected_se[[
+    "company", "n", "beta_A", "se_classical", "se_hc3", "rho", "r2"
+]].copy()
+
+selected_se = selected_se.round({
+    "beta_A": 3,
+    "se_classical": 3,
+    "se_hc3": 3,
+    "rho": 3,
+    "r2": 3
+})
+
+display(selected_se)
+```
+
+```{python}
+#| label: fig-cdp-se-ratio
+#| fig-cap: "Ratio of HC3 to classical standard errors for the protected-attribute coefficient."
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show CDP standard error ratio plot code"
+
+plot_df = cdp_results.sort_values("rho").reset_index(drop=True)
+
+plt.figure(figsize=(8, 4.5))
+plt.plot(range(len(plot_df)), plot_df["rho"], marker="o", linestyle="")
+plt.axhline(1.0, linestyle="--", linewidth=1)
+plt.xlabel("Company, sorted by SE ratio")
+plt.ylabel("HC3 SE / classical SE")
+plt.title("Classical standard errors can under- or over-estimate uncertainty")
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-note}
+A ratio above 1 means the classical standard error is smaller than the HC3 standard error. A ratio below 1 means the classical standard error is larger. The direction is not known in advance. This is why the corrected standard error should be computed rather than assumed.
+:::
+
+
+## CDP decision rule using TOST
+
+A conventional significance test asks whether the conditional disparity is exactly zero. However, regulatory fairness audits are typically concerned with a different question: whether any disparity is small enough to fall within a pre-specified tolerance.
+
+To address this, we use an equivalence-testing framework known as Two One-Sided Tests (TOST) [@schuirmann-1987-comparison]. Under TOST, the burden is not to show that the disparity is exactly zero, but to demonstrate that it is sufficiently small to fall within an acceptable range.
+
+Here we use two tolerance conditions:
+
+1. the confidence interval for the log-premium gap must lie within the log-ratio band corresponding to an adverse-impact ratio of 0.80. And
+2. the implied dollar gap must lie within 5% of the mean premium.
+
+A company passes only if both confidence intervals lie entirely within the tolerance bands. It fails if either interval lies entirely outside. Otherwise the verdict is insufficient information the sample is too imprecise to confirm compliance or a material disparity (@huanghooker2026fairness).
+
+```{python}
+#| label: cdp-verdict-summary
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show CDP verdict summary code"
+
+cdp_summary = (
+    audit_results["verdict"]
+    .value_counts()
+    .rename_axis("Verdict")
+    .reset_index(name="Number of companies")
+)
+
+display(cdp_summary)
+```
+
+```{python}
+#| label: cdp-verdict-selected
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show selected CDP verdict results code"
+
+selected_cdp = pd.concat([
+    audit_results.nsmallest(3, "gap_usd"),
+    audit_results.nlargest(3, "gap_usd")
+]).drop_duplicates(subset="company")
+
+selected_cdp = selected_cdp[[
+    "company", "gap_usd", "ratio", "ci_lo", "ci_hi", "verdict"
+]].copy()
+
+selected_cdp = selected_cdp.round({
+    "gap_usd": 0,
+    "ratio": 3,
+    "ci_lo": 3,
+    "ci_hi": 3
+})
+
+display(selected_cdp)
+```
+
+```{python}
+#| label: fig-cdp-gap
+#| fig-cap: "Estimated conditional dollar premium gap across companies."
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show CDP premium gap plot code"
+
+plot_df = audit_results.sort_values("gap_usd").reset_index(drop=True)
+
+plt.figure(figsize=(8, 4.5))
+plt.plot(range(len(plot_df)), plot_df["gap_usd"], marker="o", linestyle="")
+plt.axhline(0.0, linestyle="--", linewidth=1)
+plt.xlabel("Company, sorted by estimated gap")
+plt.ylabel("Estimated dollar gap")
+plt.title("Conditional premium gap for majority-minority zip codes")
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-note}
+Unlike conventional significance testing, TOST requires positive evidence that the disparity is sufficiently small. Insufficient information is not a pass. It means the audit cannot yet close and more data or a pre-specified escalation step may be needed.
+:::
+
+
+# Proxy Discrimination Audit {#proxy-discrimination-audit}
+
+## Coefficient-shift idea
+
+Proxy discrimination asks whether a rating variable acts as a statistical substitute for the protected attribute. In this illustration, the suspected proxy variable is `log_risk`.
+
+We compare two regressions:
+
+$$
+\text{Restricted model: } \log(P_i) = \mu + \phi \log(\text{risk}_i) + \gamma \text{Chicago}_i + r_i,
+$$
+
+$$
+\text{Extended model: } \log(P_i) = \mu' + \phi' \log(\text{risk}_i) + \gamma' \text{Chicago}_i + \kappa A_i + r'_i.
+$$
+
+The coefficient shift is
+
+$$
+\Delta_{PD} = \phi - \phi'.
+$$
+
+If the coefficient on `log_risk` changes meaningfully after adding the protected attribute, this suggests that `log_risk` was absorbing some protected-group variation in the restricted model.
+
+## Standard versus corrected standard errors
+
+The usual independent-samples formula treats the two coefficient estimates as independent. That is not appropriate here because both regressions are fitted to the same deterministic premium vector. The corrected standard error includes the cross-covariance between the two estimates.
+
+```{python}
+#| label: analyse-pd-company
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show proxy discrimination analysis code"
+
+def analyse_pd_company(company, grp):
+    X_cdp, X_res, X_ext, fz, n = build_design_matrices(grp)
+
+    # PD coefficient-shift test for log_risk
+    beta_res, _, _ = ols_fit(X_res, fz)
+    beta_ext, _, _ = ols_fit(X_ext, fz)
+
+    phi_res = float(beta_res[1])
+    phi_ext = float(beta_ext[1])
+    shift = phi_res - phi_ext
+
+    var_full, var_ind = cov_shift_full(X_res, X_ext, fz, j=1, k=1)
+    se_full = float(np.sqrt(var_full))
+    se_ind = float(np.sqrt(var_ind))
+
+    z_ind = shift / se_ind if se_ind > 0 else np.nan
+    z_full = shift / se_full if se_full > 0 else np.nan
+
+    flag, rel_pct = pd_verdict(shift, phi_res, z_full)
+
+    pd_rec = {
+        "company": company,
+        "shift": rel_pct,
+        "se_ind": se_ind,
+        "se_full": se_full,
+        "ratio_se": se_full / se_ind if se_ind > 0 else np.nan,
+        "z_ind": z_ind,
+        "z_full": z_full,
+        "flag": "FLAG" if flag else "",
+    }
+
+    return pd_rec
+
+
+pd_records = []
+
+for company, grp in df.groupby("companies_name"):
+    if len(grp) >= MIN_OBS:
+        pd_rec = analyse_pd_company(company, grp)
+        pd_records.append(pd_rec)
+
+pd_results = pd.DataFrame(pd_records).sort_values("company").reset_index(drop=True)
+
+print(f"Number of companies audited: {len(pd_results)}")
+pd_results.head()
+```
+
+
+```{python}
+#| label: pd-summary
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show proxy discrimination summary code"
+
+pd_summary = pd.DataFrame({
+    "Number of companies": [len(pd_results)],
+    "Significant using independent SE": [(abs(pd_results["z_ind"]) > Z_CRIT).sum()],
+    "Significant using corrected SE": [(abs(pd_results["z_full"]) > Z_CRIT).sum()],
+    "Flagged using corrected two-part rule": [(pd_results["flag"] == "FLAG").sum()],
+    "Min corrected/independent SE ratio": [pd_results["ratio_se"].min()],
+    "Mean corrected/independent SE ratio": [pd_results["ratio_se"].mean()],
+    "Max corrected/independent SE ratio": [pd_results["ratio_se"].max()]
+})
+
+pd_summary = pd_summary.round(3)
+display(pd_summary)
+```
+
+The table below shows selected companies with the largest relative coefficient shifts. The final flag requires both statistical significance and a relative shift of at least 10%.
+
+```{python}
+#| label: pd-selected
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show selected proxy discrimination results code"
+
+selected_pd = pd_results.nlargest(10, "shift")[[
+    "company", "shift", "se_ind", "se_full",
+    "ratio_se", "z_ind", "z_full", "flag"
+]].copy()
+
+selected_pd = selected_pd.round({
+    "shift": 1,
+    "se_ind": 4,
+    "se_full": 4,
+    "ratio_se": 3,
+    "z_ind": 2,
+    "z_full": 2
+})
+
+display(selected_pd)
+```
+
+```{python}
+#| label: fig-pd-z
+#| fig-cap: "Proxy-discrimination z-statistics under independent and corrected standard errors."
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show proxy discrimination z-statistics plot code"
+
+plot_df = pd_results.sort_values("z_full").reset_index(drop=True)
+
+plt.figure(figsize=(8, 4.5))
+plt.plot(range(len(plot_df)), plot_df["z_ind"], marker="o", linestyle="", label="Independent SE")
+plt.plot(range(len(plot_df)), plot_df["z_full"], marker="x", linestyle="", label="Corrected SE")
+plt.axhline(Z_CRIT, linestyle="--", linewidth=1)
+plt.axhline(-Z_CRIT, linestyle="--", linewidth=1)
+plt.xlabel("Company, sorted by corrected z-statistic")
+plt.ylabel("z-statistic")
+plt.title("Correcting the covariance changes the proxy-discrimination test")
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-note}
+The proxy-discrimination example shows why the dependence between the two regressions matters. If the cross-covariance is ignored, the standard error of the coefficient shift can be overstated, making the test too conservative.
+:::
+
+
+# Appendix: Supporting Materials {#appendix-supporting-materials}
+
+## Data {#data}
+
+Illinois quote data are from the ProPublica car insurance investigation [@larson-etal-2017-minority]. We do not redistribute the file here. To obtain it:
+
+1. Download the [ProPublica public data release](http://propublica.s3.amazonaws.com/projects/carinsurance/car-insurance-public.zip) (multi-state archive).
+2. Extract `car-insurance-public/data/il-per-zip.csv`.
+3. Save the file in this case study folder as `il-per-zip.csv` before running the code.
+
+Review [ProPublica's data terms](https://projects.propublica.org/datastore/terms/) when using the download. Cite [@larson-etal-2017-minority] in any publication that uses these data.
+
+## Further reading
+
+- @huanghooker2026fairness, full inferential theory, audit protocol, and Illinois validation
+- @xin2026proxyrace, how proxy-imputed race distorts regression-based disparity estimates
+- [Step 4: Audit the system](../Playbook/Step-4-Audit-the-System.html), qualitative audit pathway for this case study
+- [Step 4: Proxied protected attributes](../Playbook/Step-4-Audit-the-System.html#proxied-protected-attributes), limits when the protected attribute is inferred rather than observed

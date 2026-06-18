@@ -1,0 +1,74 @@
+execute:
+  execute-dir: file
+
+project:
+  title: "The Fair Pricing Playbook"
+  type: website
+  resources:
+    - CNAME
+    - assets/**
+    - Playbook/plot/**
+  render:
+    - index.qmd
+    - report.qmd
+    - "Playbook/Step-*.qmd"
+    - "Case-Studies/index.qmd"
+    - "Case Study 1/case_study1.qmd"
+    - "Case Study 2/case_study2.qmd"
+    - "Case Study 3/case_study3.qmd"
+    - "!*.ipynb"
+    - "!*.md"
+  output-dir: docs
+
+website:
+  title: "The Fair Pricing Playbook"
+  site-url: https://fair.feihuang.org
+  google-analytics: "G-F11HECZVN7"
+  page-navigation: true
+  search: true
+  repo-url: https://github.com/feihuangFH/fair-pricing-playbook
+  repo-actions: [issue]
+  sidebar:
+    style: docked
+    contents:
+      - section: "Introduction"
+        contents:
+          - href: index.qmd
+            text: "Overview"
+          - href: report.qmd
+            text: "Summary Report"
+      - section: "The Playbook"
+        contents:
+          - href: Playbook/Step-1-Define-Fairness.qmd
+            text: "Step 1 · Define Fairness"
+          - href: Playbook/Step-2-Design-Fair-Pricing.qmd
+            text: "Step 2 · Design Fair Pricing"
+          - href: "Case Study 1/case_study1.qmd"
+            text: "Case Study · Fair Models"
+          - href: Playbook/Step-3-Assess-Impact.qmd
+            text: "Step 3 · Assess Impact"
+          - href: "Case Study 2/case_study2.qmd"
+            text: "Case Study · Welfare Implications"
+          - href: Playbook/Step-4-Audit-the-System.qmd
+            text: "Step 4 · Audit the System"
+          - href: "Case Study 3/case_study3.qmd"
+            text: "Case Study · Fairness Testing"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles.scss
+    toc: true
+    shift-heading-level-by: 1
+    grid:
+      sidebar-width: 340px
+
+subtitle: "A practical framework for fair algorithmic pricing"
+author: "Fei Huang, UNSW Sydney"
+df-print: paged
+code-copy: true
+strip-comments: true
+html-math-method: katex
+highlight-style: breeze
+echo: false
