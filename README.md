@@ -24,7 +24,7 @@ Developed by [Fei Huang](https://www.feihuang.org), UNSW Sydney.
 |------------|-------|-------|
 | [1 · Fair models](https://fair.feihuang.org/Case%20Study%201/case_study1.html) | Five anti-discrimination model designs on French motor data | R, GLM, XGBoost |
 | [2 · Welfare implications](https://fair.feihuang.org/Case%20Study%202/case_study2.html) | Five pricing regulations evaluated for welfare and profit | Python, TensorFlow |
-| [3 · Fairness testing](https://fair.feihuang.org/Case%20Study%203/case_study3.html) | CDP and proxy-discrimination audits with corrected inference on Illinois auto data | R |
+| [3 · Fairness testing](https://fair.feihuang.org/Case%20Study%203/case_study3.html) | CDP and proxy-discrimination audits with corrected inference on Illinois auto data | Python |
 
 ## Repository structure
 
