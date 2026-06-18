@@ -32,6 +32,9 @@ Review Comments.docx
 
 # Personal folders and paper PDFs inside case studies
 Case Study 2/Fei/
+
+# External datasets (download instructions in the case study qmd)
+Case Study 3/il-per-zip.csv
 Case Study 1/*.pdf
 Case Study 2/*.pdf
 Case Study 3/*.pdf
