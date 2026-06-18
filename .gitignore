@@ -27,7 +27,13 @@ Review Comments.docx
 
 # Personal folders and paper PDFs inside case studies
 Case Study 2/Fei/
+Case Study 1/*.pdf
 Case Study 2/*.pdf
+Case Study 3/*.pdf
+
+# R session history
+.Rhistory
+.RData
 
 # OS
 .DS_Store
