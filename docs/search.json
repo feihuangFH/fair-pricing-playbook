@@ -407,6 +407,17 @@
     ]
   },
   {
+    "objectID": "index.html#source-repository",
+    "href": "index.html#source-repository",
+    "title": "The Fair Pricing Playbook",
+    "section": "Source repository",
+    "text": "Source repository\nSource code for this playbook is available at github.com/feihuangFH/fair-pricing-playbook. Reproducible code for all three case studies is included in the repository.",
+    "crumbs": [
+      "Introduction",
+      "Overview"
+    ]
+  },
+  {
     "objectID": "index.html#license",
     "href": "index.html#license",
     "title": "The Fair Pricing Playbook",
