@@ -21,8 +21,6 @@ keywords:
 license: "CC BY 4.0"
 bibliography:
   - Playbook/reference.bib
-  - reference_JRI.bib
-  - references_FairTesting.bib
 format:
   html:
     toc: true

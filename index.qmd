@@ -1,7 +1,7 @@
 ---
 title: The Fair Pricing Playbook
 subtitle: A practical framework for developing, evaluating, and auditing fair algorithmic pricing systems (2026)
-bibliography: [library.bib]
+bibliography: [Playbook/reference.bib]
 format:
   html:
     toc: false

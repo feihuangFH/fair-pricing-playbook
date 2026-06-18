@@ -3,7 +3,6 @@ title: "Step 3: Assess impact"
 urlcolor: blue
 bibliography:
   - reference.bib
-  - ../reference_JRI.bib
 format:
   html: default
 ---
