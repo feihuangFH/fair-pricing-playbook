@@ -35,6 +35,22 @@ Case Study 3/*.pdf
 .Rhistory
 .RData
 
+# Third-party documents
+assets/Paper_SoA.pdf
+docs/assets/Paper_SoA.pdf
+
+# LaTeX build artifacts
+*.aux
+*.log
+
+# Unused root-level duplicates
+fairness1.png
+fairness2.png
+fairness3.png
+Pricing flow.png
+custom.scss
+unsw-logo.png
+
 # OS
 .DS_Store
 Thumbs.db

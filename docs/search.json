@@ -407,11 +407,11 @@
     ]
   },
   {
-    "objectID": "index.html#source-repository",
-    "href": "index.html#source-repository",
+    "objectID": "index.html#open-source",
+    "href": "index.html#open-source",
     "title": "The Fair Pricing Playbook",
-    "section": "Source repository",
-    "text": "Source repository\nSource code for this playbook is available at github.com/feihuangFH/fair-pricing-playbook. Reproducible code for all three case studies is included in the repository.",
+    "section": "Open source",
+    "text": "Open source\nThis playbook is fully open source under CC BY 4.0. All source files — step pages, case study code, bibliography, and site configuration — are available at github.com/feihuangFH/fair-pricing-playbook.\nYou are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.",
     "crumbs": [
       "Introduction",
       "Overview"
