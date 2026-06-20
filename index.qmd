@@ -41,7 +41,7 @@ Topics covered include direct vs indirect discrimination, proxy variables, indiv
 
 Once you have chosen a fairness criterion, you need a model that meets it. This step maps criteria to concrete model designs and explains where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.
 
-Topics covered include FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV), pre- and post-processing interventions, the fairness–accuracy trade-off, and GLM and XGBoost implementations.
+Topics covered include FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV), pre- and post-processing interventions, the fairness–accuracy trade-off, and implementations using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).
 :::
 
 ::: {.step-card}
@@ -84,7 +84,7 @@ The diagram shows how the four steps connect across model design, welfare assess
 **On model design** [@xin2024antidiscrimination]
 
 - Four model families (MU, MDP, MCDP, and MC) implement four distinct fairness criteria: FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV).
-- The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fair models using XGBoost retained most predictive power while substantially reducing group premium disparities.
+- The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fair models using XGBoost (a machine learning algorithm) retained most predictive power while substantially reducing group premium disparities.
 - On a benchmark French motor insurance dataset, addressing indirect discrimination through proxy removal (MCDP) reduced adverse selection risk more than simply excluding the protected attribute (MU) [@xin2024antidiscrimination].
 
 **On welfare** [@huang2026welfarealgorithms; @huang2026welfareaccountable]
