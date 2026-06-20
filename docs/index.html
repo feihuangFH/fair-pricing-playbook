@@ -341,7 +341,7 @@ Two ways to read
 <section id="step-4-audit-the-system" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-4-audit-the-system"><a href="Playbook/Step-4-Audit-the-System.html">Step 4 · Audit the system</a></h4>
 <p>An audit tests whether a deployed pricing system actually meets the fairness standard. The protocol (criterion, legitimate factors, tolerance bands, sample design) must be fixed before looking at any data. Results are classified as pass, fail, or insufficient information.</p>
-<p>Topics covered include conditional demographic parity, proxy discrimination, TOST equivalence testing, HC3 corrected inference, and BISG and BIFSG proxy imputation.</p>
+<p>Topics covered include conditional demographic parity, proxy discrimination, equivalence testing, corrected statistical inference for algorithmic pricing, and methods for estimating race or ethnicity when direct data are unavailable.</p>
 </section>
 </div>
 <p>Case studies pair with Steps 2–4. <a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2</a> links to <a href="Case Study 1/case_study1.html">Case study 1: Fair models</a>. <a href="Playbook/Step-3-Assess-Impact.html">Step 3</a> links to <a href="Case Study 2/case_study2.html">Case study 2: Welfare implications</a>. <a href="Playbook/Step-4-Audit-the-System.html">Step 4</a> links to <a href="Case Study 3/case_study3.html">Case study 3: Fairness testing</a>.</p>
@@ -383,9 +383,9 @@ Key findings from the research
 </ul>
 <p><strong>On auditing</strong> <span class="citation" data-cites="huang2026fairtesting xin2026proxyrace xin2025partialdependenceplots">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>, <a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span></p>
 <ul>
-<li>Classical OLS standard errors are unreliable for auditing deterministic pricing algorithms. Heteroskedasticity-consistent HC3 standard errors are required for valid inference on conditional demographic parity.</li>
-<li>A clean audit requires equivalence testing (TOST). A pass means positive evidence the disparity is within tolerance, not merely the absence of a statistically significant violation.</li>
-<li>When race or ethnicity is inferred via BISG or BIFSG proxy methods, the resulting regression coefficient is not the same estimand as a true-group disparity. Audits using proxied race require additional corrections.</li>
+<li>Standard statistical methods are unreliable for auditing algorithmic pricing. Because the same customer profile always returns the same price, the usual assumptions underlying classical regression break down. Corrected standard errors are required for valid conclusions.</li>
+<li>A clean audit must demonstrate compliance, not merely fail to find a violation. Equivalence testing asks whether any price gap is small enough to fall within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass.</li>
+<li>When race or ethnicity cannot be directly observed and is instead estimated from name or geography (using methods such as BISG or BIFSG), the estimated price gap does not equal the true group disparity. Additional corrections are required in this case.</li>
 </ul>
 </div>
 </div>
