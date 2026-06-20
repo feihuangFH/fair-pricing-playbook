@@ -489,7 +489,7 @@ For conditional demographic parity (CDP), the audit regresses the pricing outcom
 
 ##### Why TOST matters
 
-Conventional significance testing asks whether a price gap is detectably different from zero. That is a poor fit for compliance auditing [@huang2026fairtesting].
+Conventional significance testing asks whether a disparity is detectably different from zero. That is a poor fit for compliance auditing [@huang2026fairtesting].
 
 | Approach | Null hypothesis | What a "pass" means | Who must prove what | Large samples | Small samples |
 |----------|-----------------|---------------------|---------------------|---------------|---------------|
