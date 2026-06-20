@@ -17,6 +17,7 @@ preprint_2.pdf
 # Paper-submission bibliography files (entries needed by playbook are in Playbook/reference.bib)
 reference_JRI.bib
 references_FairTesting.bib
+reference_anti.bib
 library.bib
 
 # Paper submissions (may be under journal copyright)
