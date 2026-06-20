@@ -566,7 +566,7 @@ Direct and indirect discrimination
 <td>No sensitive rating variables used in underwriting</td>
 </tr>
 <tr class="even">
-<td>Fairness through awareness</td>
+<td>Fairness through awareness <span class="citation" data-cites="dwork-etal-2012-fairness">(<a href="#ref-dwork-etal-2012-fairness" role="doc-biblioref">Dwork et al. 2012</a>)</span></td>
 <td>Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices</td>
 <td>Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g.&nbsp;healthcare access by race or ethnicity)</td>
 </tr>
@@ -720,7 +720,7 @@ Insurance examples
 <h4 class="anchored" data-anchor-id="actuarial-fairness">Actuarial fairness</h4>
 <p>Actuarial fairness is the idea that each policyholder should pay for their own risk and only their own risk <span class="citation" data-cites="frees2023discriminating">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>)</span>. It is the dominant logic when insurance is sold as a commercial product by a stock insurer, where the pool is a collection of bilateral contracts rather than a shared community. From this perspective, charging a high-risk customer a low-risk premium is unfair to low-risk customers who effectively cross-subsidise them.</p>
 <p>The fairness standard shifts with who owns the pool. Government schemes and social insurance routinely accept cross-subsidy as a policy objective. Mutual and takaful arrangements can carry stronger solidarity expectations than stock-company markets, even when those firms compete on similar rating factors.</p>
-<p>The conflict between actuarial fairness and solidarity is most visible in health insurance, where most developed countries have moved toward some form of community rating or mandatory risk pooling. In motor insurance, the tension appears when regulators prohibit actuarially justified rating factors. The EU’s ban on gender-based pricing in 2012 is the clearest example: the European Court of Justice held that equal treatment of men and women took precedence over gender being a statistically valid predictor of motor claims. The ban did not eliminate the underlying risk difference between male and female drivers in certain age groups. It redistributed who pays for it, requiring low-risk female drivers and high-risk male drivers in the same age bracket to pay the same premium. Whether that is fairer depends on whether you view motor insurance as an economic commodity or a social arrangement.</p>
+<p>The conflict between actuarial fairness and solidarity is most visible in health insurance, where most developed countries have moved toward some form of community rating or mandatory risk pooling. In motor insurance, the tension appears when regulators prohibit actuarially justified rating factors. The EU’s ban on gender-based pricing in 2012 is the clearest example: the European Court of Justice held that equal treatment of men and women took precedence over gender being a statistically valid predictor of motor claims <span class="citation" data-cites="ECJ2011testac">(<a href="#ref-ECJ2011testac" role="doc-biblioref">ECJ 2011</a>)</span>. The ban did not eliminate the underlying risk difference between male and female drivers in certain age groups. It redistributed who pays for it, requiring low-risk female drivers and high-risk male drivers in the same age bracket to pay the same premium. Whether that is fairer depends on whether you view motor insurance as an economic commodity or a social arrangement.</p>
 <p>Risk-based pricing and cross-subsidy are both defensible in different product contexts. The key is to make the position explicit before the model is built, rather than discovering it implicitly in the audit.</p>
 </section>
 </section>
@@ -786,6 +786,12 @@ Insurance examples
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-dwork-etal-2012-fairness" class="csl-entry" role="listitem">
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. 2012. <span>“Fairness Through Awareness.”</span> In <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em>, 214–26. ITCS ’12. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/2090236.2090255">https://doi.org/10.1145/2090236.2090255</a>.
+</div>
+<div id="ref-ECJ2011testac" class="csl-entry" role="listitem">
+ECJ. 2011. <span>“Judgment of the Court (Grand Chamber) of 1 March 2011.”</span> <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236" class="uri">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>, Judgement of the Court, Case C-236/09.
+</div>
 <div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
 Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
 </div>
