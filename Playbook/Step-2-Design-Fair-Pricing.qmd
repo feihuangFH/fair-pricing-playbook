@@ -94,7 +94,7 @@ The limitation is real and important. Removing a variable does not remove its in
 
 MCDP is designed for situations where some price differences between groups are legally justified and some are not. A risk-rated insurer will charge higher premiums to customers with more claims history. If those customers happen to be disproportionately from a protected group, that price difference is defensible as long as claims history is accepted as a legitimate factor by the regulator. What is not defensible is a price difference that arises because other variables in the model are acting as proxies for the protected attribute.
 
-The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted, using a technique called orthogonalisation. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.
+The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted, using a technique called orthogonalisation [@kamiran2012data]. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.
 
 This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. [Case Study 1](<../Case Study 1/case_study1.html>) works through a full implementation.
 
@@ -118,7 +118,7 @@ MC takes a conceptually different approach. Instead of changing the data before 
 
 $$\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})$$
 
-The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach is sometimes called a discrimination-free price [@xin2024antidiscrimination]. It targets the fairness criterion of controlling for the protected variable (CPV).
+The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach was introduced as the discrimination-free price by @lindholm2022discrimination and implemented in the insurance context by @xin2024antidiscrimination. It targets the fairness criterion of controlling for the protected variable (CPV).
 
 ## Matching model to criterion {#model-criterion-mapping}
 
