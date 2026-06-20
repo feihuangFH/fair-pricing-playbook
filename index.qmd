@@ -78,7 +78,7 @@ The diagram shows how the four steps connect across model design, welfare assess
 **On regulations and fairness criteria** [@frees2023discriminating; @xin2024antidiscrimination]
 
 - The regulatory spectrum runs from no regulation through prohibition on specific variables to community rating. Each level maps to a different fairness criterion and a different model design.
-- Fairness through unawareness (simply removing the protected attribute) is a common industry default but is not sufficient, and is not required by all fairness criteria. Some criteria explicitly use the protected attribute during training. Proxy effects also persist through correlated variables, and indirect discrimination can survive even rigorous data cleaning.
+- Fairness through unawareness (simply removing the protected attribute) is a common industry default but is not sufficient, and is not required by all fairness criteria. Some criteria explicitly use the protected attribute during training. Proxy effects also persist because remaining variables can still be correlated with the protected attribute, and indirect discrimination can survive even when all obvious proxy variables are removed.
 - Six principles help classify whether a rating variable is appropriate for use. These are control, mutability, statistical discrimination, causality, history of past discrimination, and whether use inhibits socially valuable behaviour.
 
 **On model design** [@xin2024antidiscrimination]
