@@ -85,7 +85,7 @@ The diagram shows how the four steps connect across model design, welfare assess
 
 - Four model families (MU, MDP, MCDP, and MC) implement four distinct fairness criteria: FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV).
 - The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fair models using XGBoost retained most predictive power while substantially reducing group premium disparities.
-- Addressing indirect discrimination through proxy removal (MCDP) reduces adverse selection risk more than simply excluding the protected attribute (MU).
+- On a benchmark French motor insurance dataset, addressing indirect discrimination through proxy removal (MCDP) reduced adverse selection risk more than simply excluding the protected attribute (MU) [@xin2024antidiscrimination].
 
 **On welfare** [@huang2026welfarealgorithms; @huang2026welfareaccountable]
 
