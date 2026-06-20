@@ -118,7 +118,7 @@ MC takes a conceptually different approach. Instead of changing the data before 
 
 $$\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})$$
 
-The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach was introduced as the discrimination-free price by @lindholm2022discrimination and implemented in the insurance context by @xin2024antidiscrimination. It targets the fairness criterion of controlling for the protected variable (CPV).
+The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach was introduced as the discrimination-free price by @lindholm-etal-2022-discrimination and implemented in the insurance context by @xin2024antidiscrimination. It targets the fairness criterion of controlling for the protected variable (CPV).
 
 ## Matching model to criterion {#model-criterion-mapping}
 
