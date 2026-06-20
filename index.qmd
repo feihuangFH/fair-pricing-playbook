@@ -57,7 +57,7 @@ Topics covered include welfare vs price fairness, price optimisation, markup dis
 
 An audit tests whether a deployed pricing system actually meets the fairness standard. The protocol (criterion, legitimate factors, tolerance bands, sample design) must be fixed before looking at any data. Results are classified as pass, fail, or insufficient information.
 
-Topics covered include conditional demographic parity, proxy discrimination, TOST equivalence testing, HC3 corrected inference, and BISG and BIFSG proxy imputation.
+Topics covered include conditional demographic parity, proxy discrimination, equivalence testing, corrected statistical inference for algorithmic pricing, and methods for estimating race or ethnicity when direct data are unavailable.
 :::
 
 :::
@@ -95,9 +95,9 @@ The diagram shows how the four steps connect across model design, welfare assess
 
 **On auditing** [@huang2026fairtesting; @xin2026proxyrace; @xin2025partialdependenceplots]
 
-- Classical OLS standard errors are unreliable for auditing deterministic pricing algorithms. Heteroskedasticity-consistent HC3 standard errors are required for valid inference on conditional demographic parity.
-- A clean audit requires equivalence testing (TOST). A pass means positive evidence the disparity is within tolerance, not merely the absence of a statistically significant violation.
-- When race or ethnicity is inferred via BISG or BIFSG proxy methods, the resulting regression coefficient is not the same estimand as a true-group disparity. Audits using proxied race require additional corrections.
+- Standard statistical methods are unreliable for auditing algorithmic pricing. Because the same customer profile always returns the same price, the usual assumptions underlying classical regression break down. Corrected standard errors are required for valid conclusions.
+- A clean audit must demonstrate compliance, not merely fail to find a violation. Equivalence testing asks whether any price gap is small enough to fall within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass.
+- When race or ethnicity cannot be directly observed and is instead estimated from name or geography (using methods such as BISG or BIFSG), the estimated price gap does not equal the true group disparity. Additional corrections are required in this case.
 :::
 
 | Step | Key references |
