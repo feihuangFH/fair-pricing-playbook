@@ -127,7 +127,7 @@ These are the criteria **implemented in Steps 2–4** of this playbook [@xin2024
 | Criterion | Plain language | Example |
 |-----------|----------------|---------|
 | Fairness through unawareness | Leave protected or sensitive variables out of the model | No sensitive rating variables used in underwriting |
-| Fairness through awareness [@dwork2012fairness] | Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices | Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g. healthcare access by race or ethnicity) |
+| Fairness through awareness [@dwork-etal-2012-fairness] | Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices | Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g. healthcare access by race or ethnicity) |
 | No omitted-variable bias | Diagnose proxy relationships with protected attributes and adjust for their effect on outputs | Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships |
 
 **Group fairness** [@krafcheck2026fairnessmetrics]. *Examples below are adapted from the SoA report (life insurance).*
