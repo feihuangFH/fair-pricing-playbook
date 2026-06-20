@@ -20,7 +20,7 @@ Policy readers, see [Who gains and loses](#who-gains-and-loses) and [Pricing rul
 ::: {.callout-note appearance="simple" icon="false"}
 ## Key insights from this step
 
-- A fair cost model does not guarantee a fair outcome. Price optimisation, demand elasticity, and competitive dynamics can reintroduce group disparities after cost-level fairness is achieved. Prediction-level fairness is a necessary starting point, not a sufficient end state.
+- A fair cost model does not guarantee a fair outcome. Price optimisation, demand elasticity (how sensitive customers are to price changes), and competitive dynamics can reintroduce group disparities after cost-level fairness is achieved. Prediction-level fairness is a necessary starting point, not a sufficient end state.
 - Demographic parity on premiums (PDP) closes price gaps between protected groups but can simultaneously widen markup disparities, resolving one form of inequality while creating another. The trade-off is structural, not a modelling error.
 - No single pricing rule achieves both price fairness and markup fairness at the same time. Which trade-off is acceptable is ultimately a policy decision that actuaries and compliance teams must make explicit, not a parameter to optimise away.
 :::

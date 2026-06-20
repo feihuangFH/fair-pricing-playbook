@@ -116,6 +116,8 @@ This is appropriate for regulatory environments that require demographic parity 
 
 MC takes a conceptually different approach. Instead of changing the data before training, it changes how predictions are used. A full model (M0) is fitted that includes the protected attribute, giving the best actuarial estimate of expected cost for each combination of characteristics. At the point of scoring, rather than using M0's prediction directly, the model computes a weighted average of M0's predictions across all protected-group values. Each customer receives a price that reflects their non-protected characteristics but does not depend on which group they belong to.
 
+In practice, the model takes the full-information prediction and averages it across all possible values of the protected attribute, keeping everything else about the customer unchanged. The result is a price that reflects the customer's non-protected characteristics but does not depend on which group they belong to. For technical readers, the formula is:
+
 $$\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})$$
 
 The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach was introduced as the discrimination-free price by @lindholm-etal-2022-discrimination and implemented in the insurance context by @xin2024antidiscrimination. It targets the fairness criterion of controlling for the protected variable (CPV).
@@ -140,9 +142,9 @@ The progression from left to right in the diagram is a progression in how much c
 
 ## In-processing
 
-In-processing builds fairness into the estimation step rather than adjusting inputs or outputs. One approach adds a penalty term to the model's objective function that increases as the chosen fairness criterion is violated. The model then trades off predictive accuracy against fairness violation during training, with a tuning parameter controlling the balance.
+In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model's training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.
 
-In-processing is particularly useful in price optimisation, where the optimiser's objective (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3).
+In-processing is particularly useful in price optimisation, where the optimiser's goal (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3).
 
 ## The fairness–accuracy trade-off {#fairness-accuracy}
 
