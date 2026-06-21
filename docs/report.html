@@ -555,13 +555,13 @@ window.Quarto = {
 <p>Following <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>, direct discrimination (or disparate treatment) occurs when a person is treated less favourably because a protected characteristic differs. If the protected attribute is not used in rating, this form can be avoided entirely.</p>
 <p>Indirect discrimination arises after direct discrimination is ruled out. A person may still be treated disproportionately because protected status is inferred through an apparently neutral practice. Two channels matter in modern pricing. First, identifiable proxies are facially neutral variables that stand in for a protected attribute, such as geographic area correlated with race or variables correlated with gender. Second, unidentifiable proxies arise when opaque models combine many variables and reproduce protected-group disparities without a single obvious surrogate.</p>
 <p>EU and Australian law often define indirect discrimination through three elements, a facially neutral provision, criterion, or practice, a connection to a protected characteristic in law, and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role, a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination. Legitimacy and justification also matter.</p>
-<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness (FTU)) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
+<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness (FTU)) does not guarantee fair outputs if proxies or complex algorithms remain <span class="citation" data-cites="lindholm-etal-2022-discrimination xin2024antidiscrimination">(<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 <p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation. See Step 4 <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>. Steps 2 through 4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
 </section>
 <section id="risk-based-and-non-risk-differentiation" class="level6" data-number="5.1.2.3">
 <h6 data-number="5.1.2.3" class="anchored" data-anchor-id="risk-based-and-non-risk-differentiation"><span class="header-section-number">5.1.2.3</span> Risk-based and non-risk differentiation</h6>
 <p>Not every price difference reflects expected claim cost. <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> distinguish risk-based differentiation (premiums that differ because expected losses differ) from non-risk differentiation (premiums that differ for the same underlying risk, for example because of retention modelling, willingness to pay, or price optimization).</p>
-<p>Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Several U.S. states restrict price optimization for this reason. Step 3 examines welfare effects when pricing moves beyond technical costs.</p>
+<p>Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities <span class="citation" data-cites="xin2024antidiscrimination CFA POWhitePaper">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>; <a href="#ref-CFA" role="doc-biblioref">Consumer Federation of America 2014</a>; <a href="#ref-POWhitePaper" role="doc-biblioref">NAIC CAS Task Force 2015</a>)</span>. Several U.S. states restrict price optimization for this reason. Step 3 examines welfare effects when pricing moves beyond technical costs.</p>
 </section>
 <section id="mini-glossary" class="level6" data-number="5.1.2.4">
 <h6 data-number="5.1.2.4" class="anchored" data-anchor-id="mini-glossary"><span class="header-section-number">5.1.2.4</span> Mini-glossary</h6>
@@ -591,7 +591,7 @@ window.Quarto = {
 <td>The model output you will test. Often an estimated cost or a quoted premium</td>
 </tr>
 <tr class="even">
-<td>Proxy discrimination (PD)</td>
+<td>Proxy discrimination (PD) <span class="citation" data-cites="prince2019proxy">(<a href="#ref-prince2019proxy" role="doc-biblioref">Prince and Schwarcz 2019</a>)</span></td>
 <td>A non-protected variable acts as a stand-in for a protected attribute</td>
 </tr>
 <tr class="odd">
@@ -675,7 +675,7 @@ window.Quarto = {
 <td>No sensitive rating variables used in underwriting</td>
 </tr>
 <tr class="even">
-<td>Fairness through awareness</td>
+<td>Fairness through awareness <span class="citation" data-cites="dwork-etal-2012-fairness">(<a href="#ref-dwork-etal-2012-fairness" role="doc-biblioref">Dwork et al. 2012</a>)</span></td>
 <td>Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices</td>
 <td>Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g.&nbsp;healthcare access by race or ethnicity)</td>
 </tr>
@@ -963,14 +963,14 @@ window.Quarto = {
 </section>
 <section id="pre-processing-mdp-mcdp" class="level5" data-number="5.2.5">
 <h5 data-number="5.2.5" class="anchored" data-anchor-id="pre-processing-mdp-mcdp"><span class="header-section-number">5.2.5</span> Pre-processing (MDP, MCDP)</h5>
-<p>Both MDP and MCDP use pre-processing to debias predictors before fitting <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Common techniques include a disparate-impact remover, which aligns group distributions of non-protected predictors, and orthogonal predictors, which residualise non-protected features on the protected attribute.</p>
+<p>Both MDP and MCDP use pre-processing to debias predictors before fitting <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Common techniques include a disparate-impact remover, which aligns group distributions of non-protected predictors, and orthogonal predictors, which residualise non-protected features on the protected attribute <span class="citation" data-cites="kamiran2012data">(<a href="#ref-kamiran2012data" role="doc-biblioref">Kamiran and Calders 2012</a>)</span>.</p>
 <p>MDP debiases all non-protected predictors to target demographic parity (DP). MCDP debiases only non-legitimate predictors while retaining legitimate variables unchanged, to target conditional demographic parity (CDP), allowing group differences only through business-justified features that regulation accepts as grounds for price variation.</p>
 <p><strong>Insurance example.</strong> Under MCDP, legitimate predictors are those your regulator accepts in filed rating plans, such as claims history, vehicle type, or annual mileage. Non-legitimate predictors are often newer or external data not yet treated as standard rating factors, such as third-party telematics scores, alternative credit indices, or other enriched data feeds. Legitimate variables enter the model unchanged. Non-legitimate variables are debiased before fitting.</p>
 </section>
 <section id="post-processing-mc" class="level5" data-number="5.2.6">
 <h5 data-number="5.2.6" class="anchored" data-anchor-id="post-processing-mc"><span class="header-section-number">5.2.6</span> Post-processing (MC)</h5>
 <p><span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})</span></p>
-<p>Protected attributes are used in training only and averaged out at prediction, giving better proxy control than MU alone.</p>
+<p>Protected attributes are used in training only and averaged out at prediction, giving better proxy control than MU alone <span class="citation" data-cites="lindholm-etal-2022-discrimination xin2024antidiscrimination">(<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 </section>
 <section id="implementation" class="level5" data-number="5.2.7">
 <h5 data-number="5.2.7" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2.7</span> Implementation</h5>
@@ -1132,7 +1132,7 @@ window.Quarto = {
 <td>Risk-related controls the regulator accepts in an audit regression</td>
 </tr>
 <tr class="even">
-<td>TOST</td>
+<td>TOST <span class="citation" data-cites="schuirmann-1987-comparison">(<a href="#ref-schuirmann-1987-comparison" role="doc-biblioref">Schuirmann 1987</a>)</span></td>
 <td>Equivalence testing, pass only if evidence shows the disparity is within tolerance (used for CDP)</td>
 </tr>
 <tr class="odd">
@@ -1323,7 +1323,7 @@ window.Quarto = {
 </section>
 <section id="case-study-3-deployment-stage-fairness-testing" class="level4" data-number="6.3">
 <h4 data-number="6.3" class="anchored" data-anchor-id="case-study-3-deployment-stage-fairness-testing"><span class="header-section-number">6.3</span> Case Study 3, Deployment-Stage Fairness Testing</h4>
-<p><strong>Data and setting.</strong> Case Study 3 uses the ProPublica Illinois auto insurance dataset, containing quoted premiums from multiple insurers across Illinois zip codes. The audit is conducted at the company level. The protected attribute is a majority-minority zip-code indicator (<span class="math inline">A_z = 1</span> for majority-minority). Legitimate rating factors are log state risk and a Chicago indicator. The audit follows the Plan → Audit → Decide → Improve protocol.</p>
+<p><strong>Data and setting.</strong> Case Study 3 uses the ProPublica Illinois auto insurance dataset <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>, containing quoted premiums from multiple insurers across Illinois zip codes. The audit is conducted at the company level. The protected attribute is a majority-minority zip-code indicator (<span class="math inline">A_z = 1</span> for majority-minority). Legitimate rating factors are log state risk and a Chicago indicator. The audit follows the Plan → Audit → Decide → Improve protocol.</p>
 <p><strong>Audit parameters (pre-specified).</strong> Significance level <span class="math inline">\alpha = 0.05</span> (90% confidence intervals for TOST), minimum 50 zip codes per company, CDP dollar tolerance <span class="math inline">\delta_\% = 5\%</span> of mean premium (following Colorado draft guidance), ratio tolerance <span class="math inline">\tau = 0.80</span> (standard adverse-impact ratio), PD substantive threshold <span class="math inline">\rho_{\min} = 10\%</span> relative coefficient shift.</p>
 <p><strong>CDP audit.</strong> For each company <span class="math inline">k</span>, the audit regression is: <span class="math display">\log(P_{kz}) = \mu_{0k} + \beta_{A,k} A_z + \gamma_{1k} \log(\text{risk}_z) + \gamma_{2k} \text{Chicago}_z + r_{kz}</span></p>
 <p>Both classical OLS and HC3 standard errors are computed. The HC3/classical SE ratio varies substantially across companies, ratios below 0.5 (classical overestimates uncertainty) and above 1.5 (classical underestimates uncertainty) are both observed. The direction is not predictable in advance and depends on the residual structure of each company’s pricing function relative to the audit model. This confirms that corrected inference is not a refinement but a requirement.</p>
@@ -1399,8 +1399,14 @@ window.Quarto = {
 <div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
 Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
 </div>
+<div id="ref-CFA" class="csl-entry" role="listitem">
+Consumer Federation of America. 2014. <span>“Insurance Commissioners Should Bar Industry Practice of Raising Rates on Customers Based on Shopping Habits.”</span> <a href="https://consumerfed.org/press_release/insurance-commissioners-should-bar-industry-practice-of-raising-rates-on-customers-based-on-shopping-habits/" class="uri">https://consumerfed.org/press_release/insurance-commissioners-should-bar-industry-practice-of-raising-rates-on-customers-based-on-shopping-habits/</a>.
+</div>
 <div id="ref-dutang2020package" class="csl-entry" role="listitem">
 Dutang, Christophe, and Arthur Charpentier. 2026. <span>“CASdatasets: Insurance Datasets.”</span> <a href="https://doi.org/10.57745/P0KHAG">https://doi.org/10.57745/P0KHAG</a>.
+</div>
+<div id="ref-dwork-etal-2012-fairness" class="csl-entry" role="listitem">
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. 2012. <span>“Fairness Through Awareness.”</span> In <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em>, 214–26. ITCS ’12. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/2090236.2090255">https://doi.org/10.1145/2090236.2090255</a>.
 </div>
 <div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
 Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
@@ -1414,8 +1420,20 @@ Huang, Fei, and Hajime Shimao. 2026. <span>“Welfare Implications of Fair and A
 <div id="ref-huang2026welfarealgorithms" class="csl-entry" role="listitem">
 Huang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. <span>“Do Fair Algorithms Improve Welfare? Evidence from the Insurance Market.”</span> UNSW Business School Research Paper Forthcoming. <a href="https://doi.org/10.2139/ssrn.5112616">https://doi.org/10.2139/ssrn.5112616</a>.
 </div>
+<div id="ref-kamiran2012data" class="csl-entry" role="listitem">
+Kamiran, Faisal, and Toon Calders. 2012. <span>“Data Preprocessing Techniques for Classification Without Discrimination.”</span> <em>Knowledge and Information Systems</em> 33 (1): 1–33.
+</div>
 <div id="ref-krafcheck2026fairnessmetrics" class="csl-entry" role="listitem">
 Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <span>“Fairness Metrics for Life Insurance.”</span> Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
+</div>
+<div id="ref-larson-etal-2017-minority" class="csl-entry" role="listitem">
+Larson, Jeff, Julia Angwin, Lauren Kirchner, and Surya Mattu. 2017. <span>“Minority Neighborhoods Pay Higher Car Insurance Premiums Than White Areas with the Same Risk.”</span> ProPublica and Consumer Reports. <a href="https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk">https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk</a>.
+</div>
+<div id="ref-lindholm-etal-2022-discrimination" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2022. <span>“Discrimination-Free Insurance Pricing.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 52 (1): 55–89. <a href="https://doi.org/10.1017/asb.2021.23">https://doi.org/10.1017/asb.2021.23</a>.
+</div>
+<div id="ref-POWhitePaper" class="csl-entry" role="listitem">
+NAIC CAS Task Force. 2015. <span>“Casualty Actuarial and Statistical (c) Task Force Price Optimization White Paper.”</span> <a href="https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf" class="uri">https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf</a>.
 </div>
 <div id="ref-naic2020predictivemodels" class="csl-entry" role="listitem">
 National Association of Insurance Commissioners. 2020. <span>“Regulatory Review of Predictive Models.”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf</a>.
@@ -1425,6 +1443,12 @@ National Association of Insurance Commissioners. 2020. <span>“Regulatory Revie
 </div>
 <div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
 New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
+</div>
+<div id="ref-prince2019proxy" class="csl-entry" role="listitem">
+Prince, Anya ER, and Daniel Schwarcz. 2019. <span>“Proxy Discrimination in the Age of Artificial Intelligence and Big Data.”</span> <em>Iowa Law Review</em> 105: 1257.
+</div>
+<div id="ref-schuirmann-1987-comparison" class="csl-entry" role="listitem">
+Schuirmann, Donald J. 1987. <span>“A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.”</span> <em>Journal of Pharmacokinetics and Biopharmaceutics</em> 15 (6): 657–80.
 </div>
 <div id="ref-soa2021interpretableml" class="csl-entry" role="listitem">
 Society of Actuaries. 2021. <span>“Interpretable Machine Learning for Insurance: An Introduction with Examples.”</span> <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf" class="uri">https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
