@@ -499,6 +499,11 @@ What counts as a legitimate factor?
 <p><span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})</span></p>
 <p>The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model’s internal estimates do. This approach was introduced as the discrimination-free price by <span class="citation" data-cites="lindholm-etal-2022-discrimination">Lindholm et al. (<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">2022</a>)</span> and implemented in the insurance context by <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>. It targets the fairness criterion of controlling for the protected variable (CPV).</p>
 </section>
+<section id="causal-approaches" class="level4">
+<h4 class="anchored" data-anchor-id="causal-approaches">Causal approaches</h4>
+<p>The model designs above treat fairness as a statistical property of inputs or outputs. A causal approach goes further, asking which pathways from rating variables to prices are permissible. If a variable influences price partly through a protected attribute — for example, postcode partly proxies race — a causal model can block that specific pathway while preserving the legitimate influence of the variable. This requires specifying a causal graph: a diagram of which variables cause which outcomes and through which routes.</p>
+<p><span class="citation" data-cites="araiza2022discrimination">Araiza Iturria, Hardy, and Marriott (<a href="#ref-araiza2022discrimination" role="doc-biblioref">2024</a>)</span> derive a discrimination-free premium explicitly under a causal framework in the insurance context, extending the statistical approach of <span class="citation" data-cites="lindholm-etal-2022-discrimination">Lindholm et al. (<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">2022</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté, Côté, and Charpentier (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> implement a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective depending on how much causal information is incorporated. Causal methods are more demanding to implement — they require domain knowledge about causal structure in addition to data — but more precise about what discrimination they remove.</p>
+</section>
 </section>
 <section id="model-criterion-mapping" class="level3">
 <h3 class="anchored" data-anchor-id="model-criterion-mapping">Matching model to criterion</h3>
@@ -615,6 +620,9 @@ What counts as a legitimate factor?
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-araiza2022discrimination" class="csl-entry" role="listitem">
+Araiza Iturria, Carlos Andrés, Mary Hardy, and Paul Marriott. 2024. <span>“A Discrimination-Free Premium Under a Causal Framework.”</span> <em>North American Actuarial Journal</em> 28 (4): 801–21. <a href="https://doi.org/10.1080/10920277.2023.2291524">https://doi.org/10.1080/10920277.2023.2291524</a>.
+</div>
 <div id="ref-cote2025fair" class="csl-entry" role="listitem">
 Côté, Olivier, Marie-Pier Côté, and Arthur Charpentier. 2025. <span>“A Fair Price to Pay: Exploiting Causal Graphs for Fairness in Insurance.”</span> <em>Journal of Risk and Insurance</em> 92 (1): 33–75. <a href="https://doi.org/10.1111/jori.12503">https://doi.org/10.1111/jori.12503</a>.
 </div>

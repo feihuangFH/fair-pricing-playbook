@@ -124,6 +124,12 @@ $$\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})$$
 
 The advantage is better predictive accuracy: MC uses all available information in estimating expected costs. The price each customer sees does not directly use their protected group membership, but the model's internal estimates do. This approach was introduced as the discrimination-free price by @lindholm-etal-2022-discrimination and implemented in the insurance context by @xin2024antidiscrimination. It targets the fairness criterion of controlling for the protected variable (CPV).
 
+### Causal approaches
+
+The model designs above treat fairness as a statistical property of inputs or outputs. A causal approach goes further, asking which pathways from rating variables to prices are permissible. If a variable influences price partly through a protected attribute — for example, postcode partly proxies race — a causal model can block that specific pathway while preserving the legitimate influence of the variable. This requires specifying a causal graph: a diagram of which variables cause which outcomes and through which routes.
+
+@araiza2022discrimination derive a discrimination-free premium explicitly under a causal framework in the insurance context, extending the statistical approach of @lindholm-etal-2022-discrimination. @cote2025fair implement a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective depending on how much causal information is incorporated. Causal methods are more demanding to implement — they require domain knowledge about causal structure in addition to data — but more precise about what discrimination they remove.
+
 ## Matching model to criterion {#model-criterion-mapping}
 
 | Model | Criterion | Approach |
