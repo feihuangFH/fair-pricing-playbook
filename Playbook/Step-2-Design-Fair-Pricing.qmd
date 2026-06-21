@@ -148,11 +148,23 @@ The model designs above treat fairness as a statistical property of inputs or ou
 
 The progression from left to right in the diagram is a progression in how much cross-subsidy regulation requires. At the left extreme, no regulation: the insurer can use any variable and individual actuarial pricing prevails. At the right extreme, community rating: everyone pays the same premium and cross-subsidy is complete. Most markets sit somewhere in the middle, and the right model depends on where.
 
+## Pre-processing
+
+Pre-processing enforces fairness by adjusting the input data before the model is trained. The idea is to remove or reduce the correlation between non-protected variables and the protected attribute, so that the trained model cannot learn to proxy the protected group from the adjusted inputs.
+
+MDP and MCDP both use pre-processing. In MDP, all non-protected predictors are debiased unconditionally. In MCDP, only non-legitimate predictors are adjusted while legitimate predictors are kept unchanged. Techniques include orthogonalisation [@kamiran2012data] and optimal transport [@lindholm2024whatisfair]. Pre-processing is applied once before training and does not require changes to the model architecture or training procedure, making it relatively easy to slot into an existing modelling pipeline.
+
 ## In-processing
 
 In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model's training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.
 
 In-processing is particularly useful in price optimisation, where the optimiser's goal (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time [@lindholm2023multitask].
+
+## Post-processing
+
+Post-processing enforces fairness by adjusting the model's predictions after training is complete. The underlying model is fitted without fairness constraints, giving the best available estimate of expected cost. At the point of scoring, predictions are modified to meet the fairness criterion.
+
+MC is the post-processing design in this playbook. It takes the full-model predictions and averages them across all values of the protected attribute for each customer. The customer receives that average as their price rather than the group-specific prediction. Post-processing leaves the model itself unchanged and is therefore straightforward to apply to an existing production model, though it requires the protected attribute to remain available at scoring time for the averaging step [@lindholm-etal-2022-discrimination; @xin2024antidiscrimination].
 
 ## The fairness–accuracy trade-off {#fairness-accuracy}
 
