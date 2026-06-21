@@ -157,7 +157,7 @@ The author thanks Xi Xin for his support in preparing these materials, and ackno
 
 To cite this playbook in academic work, use the APA format below.
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
 
 ### BibTeX
 
@@ -166,8 +166,7 @@ Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developi
 ```bibtex
 @misc{huang2026fairpricingplaybook,
   title     = {The Fair Pricing Playbook: A practical framework for
-               developing, evaluating, and auditing fair algorithmic
-               pricing},
+               Responsible AI in algorithmic pricing},
   author    = {Huang, Fei},
   year      = {2026},
   publisher = {SSRN},
