@@ -11,7 +11,7 @@ format:
 
 Algorithmic pricing is now widely used in insurance and financial services, and machine learning has become central to how many insurers assess risk and set prices. The fairness concerns this creates are not new, but they take a different form under automated, large-scale systems. Even when protected attributes such as race, gender, and religion are removed from a model, pricing systems can still produce discriminatory outcomes through proxy variables and opaque combinations of inputs that are difficult to trace or challenge.
 
-Regulatory attention to these issues has grown substantially. Colorado and New York have each proposed rules requiring insurers to test pricing algorithms for unfair discrimination, and the European Union has enacted broader AI governance frameworks that apply to insurance. Firms that cannot demonstrate fairness face legal exposure, reputational risk, and the practical challenge of defending pricing decisions under regulatory examination.
+Regulatory attention to these issues has grown substantially. Colorado and New York have each proposed rules requiring insurers to test pricing algorithms for unfair discrimination, and the European Union has enacted broader AI governance frameworks that apply to insurance. The EU AI Act classifies credit scoring and insurance risk assessment as high-risk AI applications, placing fairness obligations alongside broader requirements for transparency, human oversight, and accountability. Firms that cannot demonstrate fairness face legal exposure, reputational risk, and the practical challenge of defending pricing decisions under regulatory examination.
 
 This playbook translates research from economics, statistics, actuarial science, and machine learning into a concrete four-step workflow that covers the full journey from defining what fairness means, to building fair models, to measuring who actually gains and loses, to auditing a deployed system. Three insurance case studies provide the technical depth needed for implementation.
 
@@ -96,7 +96,7 @@ The diagram shows how the four steps connect across model design, welfare assess
 **On auditing** [@huang2026fairtesting; @xin2026proxyrace; @xin2025partialdependenceplots]
 
 - Standard statistical methods are unreliable for auditing algorithmic pricing. Because the same customer profile always returns the same price, the usual assumptions underlying classical regression break down. Corrected standard errors are required for valid conclusions.
-- A clean audit must demonstrate compliance, not merely fail to find a violation. Equivalence testing asks whether any disparity — in price, ratio, or another measure — is small enough to fall within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass.
+- A clean audit must demonstrate compliance, not merely fail to find a violation. Equivalence testing asks whether any disparity (in price, ratio, or another measure) is small enough to fall within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass.
 - When race or ethnicity cannot be directly observed and is instead estimated from name or geography, the estimated disparity does not equal the true group disparity. Additional corrections are required in this case.
 :::
 
@@ -118,7 +118,7 @@ Step 4 follows an integrated Plan, Audit, Decide, and Improve protocol [@huang20
 | Plan | Select criterion (PD or CDP), legitimate factors, tolerance bands, representative sample |
 | Audit | Collect prices and run statistical fairness tests with corrected inference |
 | Decide | Pass, insufficient information, or fail (equivalence testing) |
-| Improve | Remediate and re-test; collect more data if unclear |
+| Improve | Remediate and re-test. Collect more data if result is unclear |
 
 Full detail is in [Step 4: Audit the system](Playbook/Step-4-Audit-the-System.html).
 
