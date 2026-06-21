@@ -223,3 +223,9 @@ This checklist covers audit execution. Roles, monitoring, and remediation owners
 | Three-outcome classification documented (insufficient information ≠ pass) | Compliance |
 | Audit dataset and reproducibility manifest stored | Data science / MLOps |
 | Verdict and any remediation plan escalated to senior management | Model risk / Legal |
+
+---
+
+::: {.callout-tip appearance="minimal" icon="false"}
+**Completed the four steps.** Return to the [Overview](../index.html) or see [Case Study 3 · Fairness Testing](../Case%20Study%203/case_study3.html) for implementation in Python.
+:::

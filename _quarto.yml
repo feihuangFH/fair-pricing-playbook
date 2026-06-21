@@ -10,6 +10,7 @@ project:
     - Playbook/plot/**
   render:
     - index.qmd
+    - about.qmd
     - report.qmd
     - "Playbook/Step-*.qmd"
     - "Case-Studies/index.qmd"
@@ -39,6 +40,8 @@ website:
             text: "Overview"
           - href: report.qmd
             text: "Summary Report"
+          - href: about.qmd
+            text: "About"
       - section: "The Playbook"
         contents:
           - href: Playbook/Step-1-Define-Fairness.qmd

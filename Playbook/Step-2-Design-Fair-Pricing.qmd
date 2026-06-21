@@ -193,3 +193,9 @@ Use this checklist to confirm model design choices before welfare analysis. Assi
 | Legitimate vs non-legitimate variables listed and signed off | Legal and compliance, actuarial |
 | Baseline M0 retained for downstream comparisons | Model risk |
 | Versioned data, code, and parameters | Data science and MLOps |
+
+---
+
+::: {.callout-tip appearance="minimal" icon="false"}
+**Next:** [Step 3 · Assess Impact](Step-3-Assess-Impact.html) — trace price effects through demand and competition after the model is built. Or see [Case Study 1 · Fair Models](../Case%20Study%201/case_study1.html) for implementation in R.
+:::

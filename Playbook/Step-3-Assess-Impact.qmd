@@ -175,3 +175,9 @@ Use this checklist to document welfare findings before auditing. Assign an owner
 | Market structure documented (mandatory cover, competition, distribution channel) | Product and strategy |
 | Participation rates by group documented | Actuarial |
 | Trade-offs linked to Step 4 monitoring plan | Model risk and compliance |
+
+---
+
+::: {.callout-tip appearance="minimal" icon="false"}
+**Next:** [Step 4 · Audit the System](Step-4-Audit-the-System.html) — test whether the deployed system passes. Or see [Case Study 2 · Welfare Implications](../Case%20Study%202/case_study2.html) for implementation in Python.
+:::
