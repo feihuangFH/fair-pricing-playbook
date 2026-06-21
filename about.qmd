@@ -1,0 +1,72 @@
+---
+title: "About"
+bibliography: [Playbook/reference.bib]
+format:
+  html:
+    toc: false
+---
+
+## About the author
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Get in touch
+
+Firms, regulators, and policymakers who want to discuss fair pricing, audits, or policy applications are welcome to contact [Dr Fei Huang](mailto:feihuang@unsw.edu.au).
+:::
+
+::: {.columns .about-author}
+::: {.column width="30%"}
+![](Fei_Huang.jpeg){.about-author-photo}
+:::
+::: {.column width="70%"}
+### [Dr. Fei Huang](https://www.unsw.edu.au/staff/fei-huang)
+
+::: {.about-author-contact}
+School of Risk and Actuarial Studies, UNSW Business School
+
+Email: [feihuang@unsw.edu.au](mailto:feihuang@unsw.edu.au) · Website: [feihuang.org](https://www.feihuang.org)
+:::
+
+Dr. Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.
+
+Her work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean's Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.
+:::
+:::
+
+## Acknowledgements
+
+The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.
+
+## How to cite
+
+To cite this playbook in academic work, use the APA format below.
+
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
+
+### BibTeX
+
+::: {.callout-note collapse="true" appearance="simple" title="Show BibTeX"}
+
+```bibtex
+@misc{huang2026fairpricingplaybook,
+  title     = {The Fair Pricing Playbook: A practical framework for
+               Responsible AI in algorithmic pricing},
+  author    = {Huang, Fei},
+  year      = {2026},
+  publisher = {SSRN},
+  doi       = {10.2139/ssrn.6955039},
+  url       = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039}
+}
+```
+
+:::
+
+## Open source
+
+This playbook is fully open source under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). All source files — step pages, case study code, bibliography, and site configuration — are available at [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook).
+
+You are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.
+
+## License
+
+Materials are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See LICENSE.

@@ -218,3 +218,9 @@ Use this checklist to confirm Step 1 decisions before moving to model design. As
 | Separate risk-based from non-risk pricing practices in disclosures and governance | Product / Actuarial |
 | Define how indirect discrimination will be assessed and escalated | Legal / Model risk |
 | Align customer-facing disclosures with pricing methodology | Product / Communications |
+
+---
+
+::: {.callout-tip appearance="minimal" icon="false"}
+**Next:** [Step 2 · Design Fair Pricing](Step-2-Design-Fair-Pricing.html) — map the criterion chosen here to a concrete model design.
+:::
