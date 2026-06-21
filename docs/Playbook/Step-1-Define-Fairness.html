@@ -575,6 +575,11 @@ Direct and indirect discrimination
 <td>Diagnose proxy relationships with protected attributes and adjust for their effect on outputs</td>
 <td>Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships</td>
 </tr>
+<tr class="even">
+<td>Counterfactual fairness <span class="citation" data-cites="araiza2022discrimination cote2025fair">(<a href="#ref-araiza2022discrimination" role="doc-biblioref">Araiza Iturria, Hardy, and Marriott 2024</a>; <a href="#ref-cote2025fair" role="doc-biblioref">Côté, Côté, and Charpentier 2025</a>)</span></td>
+<td>A prediction is fair if it would be the same in a counterfactual world where the individual belonged to a different protected group, all else being equal</td>
+<td>Equal premium for a customer regardless of which group they belong to, holding all causally legitimate factors fixed</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
@@ -650,7 +655,7 @@ Direct and indirect discrimination
 </section>
 <section id="choosing-a-criterion-for-your-regime" class="level5">
 <h5 class="anchored" data-anchor-id="choosing-a-criterion-for-your-regime">Choosing a criterion for your regime</h5>
-<p>Regulation can constrain <strong>inputs</strong> (which variables or pricing procedures are allowed) or <strong>outputs</strong> (quantitative tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV); disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Match the criterion you adopt to your regime before modelling in <a href="Step-2-Design-Fair-Pricing.html">Step 2</a>.</p>
+<p>Regulation can constrain <strong>inputs</strong> (which variables or pricing procedures are allowed) or <strong>outputs</strong> (quantitative tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV); disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Causal approaches offer a third path: rather than removing the protected attribute or constraining group averages, they block specific causal pathways from the protected attribute to the price while allowing others <span class="citation" data-cites="araiza2022discrimination cote2025fair">(<a href="#ref-araiza2022discrimination" role="doc-biblioref">Araiza Iturria, Hardy, and Marriott 2024</a>; <a href="#ref-cote2025fair" role="doc-biblioref">Côté, Côté, and Charpentier 2025</a>)</span>. See <a href="Step-2-Design-Fair-Pricing.html#causal-approaches">Step 2: Causal approaches</a> for implementation detail. Match the criterion you adopt to your regime before modelling in <a href="Step-2-Design-Fair-Pricing.html">Step 2</a>.</p>
 </section>
 </section>
 </section>
@@ -786,6 +791,12 @@ Insurance examples
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-araiza2022discrimination" class="csl-entry" role="listitem">
+Araiza Iturria, Carlos Andrés, Mary Hardy, and Paul Marriott. 2024. <span>“A Discrimination-Free Premium Under a Causal Framework.”</span> <em>North American Actuarial Journal</em> 28 (4): 801–21. <a href="https://doi.org/10.1080/10920277.2023.2291524">https://doi.org/10.1080/10920277.2023.2291524</a>.
+</div>
+<div id="ref-cote2025fair" class="csl-entry" role="listitem">
+Côté, Olivier, Marie-Pier Côté, and Arthur Charpentier. 2025. <span>“A Fair Price to Pay: Exploiting Causal Graphs for Fairness in Insurance.”</span> <em>Journal of Risk and Insurance</em> 92 (1): 33–75. <a href="https://doi.org/10.1111/jori.12503">https://doi.org/10.1111/jori.12503</a>.
+</div>
 <div id="ref-dwork-etal-2012-fairness" class="csl-entry" role="listitem">
 Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. 2012. <span>“Fairness Through Awareness.”</span> In <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em>, 214–26. ITCS ’12. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/2090236.2090255">https://doi.org/10.1145/2090236.2090255</a>.
 </div>
