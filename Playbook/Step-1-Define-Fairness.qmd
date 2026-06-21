@@ -111,7 +111,7 @@ These are the criteria **implemented in Steps 2–4** of this playbook [@xin2024
 | Type | Criterion | Definition |
 |------|-----------|------------|
 | Individual | Fairness through unawareness (FTU) | $\hat{Y}$ does not use $X_P$ |
-| Individual | Controlling for the protected variable (CPV) | Average full-model predictions over $X_P$ at scoring time (sometimes called a discrimination-free price) |
+| Individual | Controlling for the protected variable (CPV) | Average full-model predictions over $X_P$ at scoring time (sometimes called a discrimination-free price [@lindholm-etal-2022-discrimination]) |
 | Group | Demographic parity (DP) | Equal distribution of $\hat{Y}$ across protected groups |
 | Group | Conditional demographic parity (CDP) | Equal distribution of $\hat{Y}$ across groups within each legitimate subgroup |
 | Group | Separation / sufficiency | Equalised prediction errors across groups (separation) or equal calibration of $\hat{Y}$ to outcomes (sufficiency) |
