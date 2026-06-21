@@ -140,7 +140,7 @@ Markup is the gap between the premium charged and the expected claim cost. A reg
 
 ## Key findings from the research {#key-findings}
 
-@huang2026welfarealgorithms and @huang2026welfareaccountable together produce four findings that should inform welfare analysis in practice.
+@huang2026welfarealgorithms and @huang2026welfareaccountable together produce five findings that should inform welfare analysis in practice.
 
 First, interventions at the cost-modelling stage can alter final prices even when their effect on model accuracy is modest. The pathway from a fairness constraint to a market price runs through demand and optimisation, and the amplification or attenuation along that path depends on the product and market.
 
