@@ -80,7 +80,7 @@ Model labels follow @xin2024antidiscrimination.
 
 ## Model designs {#model-designs}
 
-The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature [@xin2024antidiscrimination]. @cote2025fair provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1.
+The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature [@xin2024antidiscrimination]. @cote2025fair provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1. @charpentier2024insurance provides a book-length treatment of discrimination, bias, and fairness methods in insurance, including technical tools for quantifying and mitigating discrimination.
 
 ### M0: The baseline
 
