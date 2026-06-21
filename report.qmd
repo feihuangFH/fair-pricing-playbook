@@ -171,7 +171,7 @@ Indirect discrimination arises after direct discrimination is ruled out. A perso
 
 EU and Australian law often define indirect discrimination through three elements, a facially neutral provision, criterion, or practice, a connection to a protected characteristic in law, and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role, a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination. Legitimacy and justification also matter.
 
-Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness (FTU)) does not guarantee fair outputs if proxies or complex algorithms remain.
+Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness (FTU)) does not guarantee fair outputs if proxies or complex algorithms remain [@lindholm-etal-2022-discrimination; @xin2024antidiscrimination].
 
 In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation. See Step 4 [@xin2026proxyrace]. Steps 2 through 4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.
 
@@ -179,7 +179,7 @@ In insurance, some jurisdictions restrict or scrutinise certain proxy variables 
 
 Not every price difference reflects expected claim cost. @frees2023discriminating distinguish risk-based differentiation (premiums that differ because expected losses differ) from non-risk differentiation (premiums that differ for the same underlying risk, for example because of retention modelling, willingness to pay, or price optimization).
 
-Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities [@xin2024antidiscrimination]. Several U.S. states restrict price optimization for this reason. Step 3 examines welfare effects when pricing moves beyond technical costs.
+Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities [@xin2024antidiscrimination; @CFA; @POWhitePaper]. Several U.S. states restrict price optimization for this reason. Step 3 examines welfare effects when pricing moves beyond technical costs.
 
 ##### Mini-glossary
 
@@ -190,7 +190,7 @@ The notation below is used consistently across Steps 1 through 4. Protected attr
 | Protected attribute ($X_P$) | A characteristic the law or policy treats as off-limits for direct discrimination (e.g. race, gender, ethnicity) |
 | Other features ($X_{NP}$) | Rating variables not treated as protected |
 | Predicted outcome ($\hat{Y}$) | The model output you will test. Often an estimated cost or a quoted premium |
-| Proxy discrimination (PD) | A non-protected variable acts as a stand-in for a protected attribute |
+| Proxy discrimination (PD) [@prince2019proxy] | A non-protected variable acts as a stand-in for a protected attribute |
 | Legitimate factors | Risk-related variables regulators accept as grounds for price variation |
 
 ##### Fairness criteria
@@ -218,7 +218,7 @@ Let $X_P$ be a protected attribute, $X_{NP}$ other features, and $\hat{Y}$ the p
 | Criterion | Plain language | Example |
 |-----------|----------------|---------|
 | Fairness through unawareness | Leave protected or sensitive variables out of the model | No sensitive rating variables used in underwriting |
-| Fairness through awareness | Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices | Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g. healthcare access by race or ethnicity) |
+| Fairness through awareness [@dwork-etal-2012-fairness] | Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices | Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g. healthcare access by race or ethnicity) |
 | No omitted-variable bias | Diagnose proxy relationships with protected attributes and adjust for their effect on outputs | Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships |
 
 **Group fairness** [@krafcheck2026fairnessmetrics]. *Examples below are adapted from the SoA report (life insurance).*
@@ -342,7 +342,7 @@ In-processing builds fairness into the estimation or optimisation step rather th
 
 #### Pre-processing (MDP, MCDP)
 
-Both MDP and MCDP use pre-processing to debias predictors before fitting [@xin2024antidiscrimination]. Common techniques include a disparate-impact remover, which aligns group distributions of non-protected predictors, and orthogonal predictors, which residualise non-protected features on the protected attribute.
+Both MDP and MCDP use pre-processing to debias predictors before fitting [@xin2024antidiscrimination]. Common techniques include a disparate-impact remover, which aligns group distributions of non-protected predictors, and orthogonal predictors, which residualise non-protected features on the protected attribute [@kamiran2012data].
 
 MDP debiases all non-protected predictors to target demographic parity (DP). MCDP debiases only non-legitimate predictors while retaining legitimate variables unchanged, to target conditional demographic parity (CDP), allowing group differences only through business-justified features that regulation accepts as grounds for price variation.
 
@@ -352,7 +352,7 @@ MDP debiases all non-protected predictors to target demographic parity (DP). MCD
 
 $$\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP}, X_P = x_{p_j})$$
 
-Protected attributes are used in training only and averaged out at prediction, giving better proxy control than MU alone.
+Protected attributes are used in training only and averaged out at prediction, giving better proxy control than MU alone [@lindholm-etal-2022-discrimination; @xin2024antidiscrimination].
 
 #### Implementation
 
@@ -439,7 +439,7 @@ The terms below appear throughout the audit protocol. They align with the notati
 | Conditional demographic parity (CDP) | After controlling for legitimate risk factors, are average prices equal across protected groups? |
 | Proxy discrimination (PD) | Does a rating variable's role change when a protected attribute enters the model? |
 | Legitimate factors ($X_\ell$) | Risk-related controls the regulator accepts in an audit regression |
-| TOST | Equivalence testing, pass only if evidence shows the disparity is within tolerance (used for CDP) |
+| TOST [@schuirmann-1987-comparison] | Equivalence testing, pass only if evidence shows the disparity is within tolerance (used for CDP) |
 | HC3 / corrected SE | Sandwich standard errors for deterministic pricing outputs. Classical OLS defaults are unreliable when residuals are approximation error |
 | Proxy-imputed protected class | Race or ethnicity inferred from name, geography, or similar when direct collection is restricted (e.g. BISG, BIFSG, zip composition) |
 
@@ -571,7 +571,7 @@ Comparing regulations, PDP moves closest to premium equality between genders (by
 
 ### Case Study 3, Deployment-Stage Fairness Testing
 
-**Data and setting.** Case Study 3 uses the ProPublica Illinois auto insurance dataset, containing quoted premiums from multiple insurers across Illinois zip codes. The audit is conducted at the company level. The protected attribute is a majority-minority zip-code indicator ($A_z = 1$ for majority-minority). Legitimate rating factors are log state risk and a Chicago indicator. The audit follows the Plan → Audit → Decide → Improve protocol.
+**Data and setting.** Case Study 3 uses the ProPublica Illinois auto insurance dataset [@larson-etal-2017-minority], containing quoted premiums from multiple insurers across Illinois zip codes. The audit is conducted at the company level. The protected attribute is a majority-minority zip-code indicator ($A_z = 1$ for majority-minority). Legitimate rating factors are log state risk and a Chicago indicator. The audit follows the Plan → Audit → Decide → Improve protocol.
 
 **Audit parameters (pre-specified).** Significance level $\alpha = 0.05$ (90% confidence intervals for TOST), minimum 50 zip codes per company, CDP dollar tolerance $\delta_\% = 5\%$ of mean premium (following Colorado draft guidance), ratio tolerance $\tau = 0.80$ (standard adverse-impact ratio), PD substantive threshold $\rho_{\min} = 10\%$ relative coefficient shift.
 
