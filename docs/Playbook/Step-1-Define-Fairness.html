@@ -577,8 +577,8 @@ Direct and indirect discrimination
 </tr>
 <tr class="even">
 <td>Counterfactual fairness <span class="citation" data-cites="araiza2022discrimination cote2025fair">(<a href="#ref-araiza2022discrimination" role="doc-biblioref">Araiza Iturria, Hardy, and Marriott 2024</a>; <a href="#ref-cote2025fair" role="doc-biblioref">Côté, Côté, and Charpentier 2025</a>)</span></td>
-<td>A prediction is fair if it would be the same in a counterfactual world where the individual belonged to a different protected group, all else being equal</td>
-<td>Equal premium for a customer regardless of which group they belong to, holding all causally legitimate factors fixed</td>
+<td>A prediction is fair if it would be the same had the individual belonged to a different protected group, with all causal effects of that change traced through the model</td>
+<td>A customer’s premium does not change if we counterfactually reassign their group membership while holding their driving record and vehicle type fixed, but postcode may change if it is causally downstream of group membership</td>
 </tr>
 </tbody>
 </table>
