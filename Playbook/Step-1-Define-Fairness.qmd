@@ -95,7 +95,7 @@ Symbols and terms used across Steps 1–4.
 | Protected attribute ($X_P$) | A characteristic the law or policy treats as off-limits for direct discrimination (e.g. race, gender, ethnicity) |
 | Other features ($X_{NP}$) | Rating variables not treated as protected |
 | Predicted outcome ($\hat{Y}$) | The model output you will test. Often an estimated cost or a quoted premium |
-| Proxy discrimination (PD) | A non-protected variable acts as a stand-in for a protected attribute |
+| Proxy discrimination (PD) | A non-protected variable acts as a stand-in for a protected attribute. PD is the problem that CPV (and the related criterion of no omitted-variable bias) is designed to address |
 | Legitimate factors | Risk-related variables regulators accept as grounds for price variation |
 
 ### Fairness criteria {#fairness-criteria}
@@ -144,7 +144,7 @@ These are the criteria **implemented in Steps 2–4** of this playbook [@xin2024
 | Playbook criterion | Related criterion in @krafcheck2026fairnessmetrics |
 |--------------------|------------------------------------------------------|
 | Fairness through unawareness (FTU) | Fairness through unawareness |
-| Controlling for the protected variable (CPV) | No omitted-variable bias |
+| Controlling for the protected variable (CPV) | No omitted-variable bias — both target proxy discrimination (PD); CPV is the playbook term, no omitted-variable bias is the SoA term for the same idea |
 | Demographic parity (DP) | Closely related to independence |
 | Conditional demographic parity (CDP) | Special case of independence, conditioning on legitimate factors |
 | Separation / sufficiency | Same names in the SoA taxonomy |
