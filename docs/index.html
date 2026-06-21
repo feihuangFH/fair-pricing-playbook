@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -188,6 +154,12 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   <div class="sidebar-item-container"> 
   <a href="./report.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Summary Report</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
   </div>
 </li>
       </ul>
@@ -325,26 +297,31 @@ Two ways to read
 <div class="step-grid">
 <section id="step-1-define-fairness" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-1-define-fairness"><a href="Playbook/Step-1-Define-Fairness.html">Step 1 · Define fairness</a></h4>
-<p>What standard will you be held to, and which fairness criterion will your model target? There are at least six distinct fairness criteria relevant to insurance pricing, and they cannot all be satisfied simultaneously. The choice is a legal and policy decision, not a technical default. This step establishes the standard that Steps 2, 3, and 4 are held to.</p>
-<p>Topics covered include direct vs indirect discrimination, proxy variables, individual vs group fairness, and the regulatory spectrum from fairness through unawareness (FTU) to community rating.</p>
+<p>Fairness is not one standard. There are at least six distinct criteria, and they cannot all be satisfied simultaneously. This step fixes the criterion that Steps 2, 3, and 4 are held to. The choice is a legal and policy decision, not a technical default.</p>
 </section>
 <section id="step-2-design-fair-pricing" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-2-design-fair-pricing"><a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2 · Design fair pricing</a></h4>
-<p>Once you have chosen a fairness criterion, you need a model that meets it. This step maps criteria to concrete model designs and explains where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.</p>
-<p>Topics covered include FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV), pre- and post-processing interventions, the fairness–accuracy trade-off, and implementations using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).</p>
+<p>Once a criterion is chosen, this step maps it to a concrete model design and shows where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.</p>
 </section>
 <section id="step-3-assess-impact" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-3-assess-impact"><a href="Playbook/Step-3-Assess-Impact.html">Step 3 · Assess impact</a></h4>
-<p>A model that looks fair on paper can still leave protected groups worse off once prices respond to demand, competition, and regulation. This step asks you to quantify consumer welfare and firm profit by group, going beyond whether predicted costs are equal.</p>
-<p>Topics covered include welfare vs price fairness, price optimisation, markup disparities, and who gains and who loses under different regulatory rules.</p>
+<p>A fair cost model does not guarantee a fair market outcome. This step traces price effects through demand and competition, quantifying consumer welfare and firm profit by group after prices are set.</p>
 </section>
 <section id="step-4-audit-the-system" class="level4 step-card">
 <h4 class="anchored" data-anchor-id="step-4-audit-the-system"><a href="Playbook/Step-4-Audit-the-System.html">Step 4 · Audit the system</a></h4>
-<p>An audit tests whether a deployed pricing system actually meets the fairness standard. The protocol (criterion, legitimate factors, tolerance bands, sample design) must be fixed before looking at any data. Results are classified as pass, fail, or insufficient information.</p>
-<p>Topics covered include conditional demographic parity, proxy discrimination, equivalence testing, corrected statistical inference for algorithmic pricing, and methods for estimating race or ethnicity when direct data are unavailable.</p>
+<p>An audit tests whether a deployed system actually meets the standard. All protocol choices (criterion, tolerances, sample design) are fixed before examining any data. Results are pass, fail, or insufficient information.</p>
 </section>
 </div>
-<p>Case studies pair with Steps 2–4. <a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2</a> links to <a href="Case Study 1/case_study1.html">Case study 1: Fair models</a>. <a href="Playbook/Step-3-Assess-Impact.html">Step 3</a> links to <a href="Case Study 2/case_study2.html">Case study 2: Welfare implications</a>. <a href="Playbook/Step-4-Audit-the-System.html">Step 4</a> links to <a href="Case Study 3/case_study3.html">Case study 3: Fairness testing</a>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Three case studies provide reproducible implementation evidence. Each is linked from the step it illustrates: <a href="Case Study 1/case_study1.html">Case study 1 · Fair models</a> follows Step 2, <a href="Case Study 2/case_study2.html">Case study 2 · Welfare implications</a> follows Step 3, and <a href="Case Study 3/case_study3.html">Case study 3 · Fairness testing</a> follows Step 4. Case studies are technical supplements. The four steps stand alone for non-technical readers.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="the-pathway-at-a-glance" class="level2">
 <h2 class="anchored" data-anchor-id="the-pathway-at-a-glance">The pathway at a glance</h2>
@@ -363,29 +340,11 @@ Key findings from the research
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>On regulations and fairness criteria</strong> <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span></p>
 <ul>
-<li>The regulatory spectrum runs from no regulation through prohibition on specific variables to community rating. Each level maps to a different fairness criterion and a different model design.</li>
-<li>Fairness through unawareness (simply removing the protected attribute) is a common industry default but is not sufficient, and is not required by all fairness criteria. Some criteria explicitly use the protected attribute during training. Proxy effects also persist because remaining variables can still be correlated with the protected attribute, and indirect discrimination can survive even when all obvious proxy variables are removed.</li>
-<li>Six principles help classify whether a rating variable is appropriate for use. These are control, mutability, statistical discrimination, causality, history of past discrimination, and whether use inhibits socially valuable behaviour.</li>
-</ul>
-<p><strong>On model design</strong> <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span></p>
-<ul>
-<li>Four model families (MU, MDP, MCDP, and MC) implement four distinct fairness criteria: FTU, demographic parity (DP), conditional demographic parity (CDP), and controlling for the protected variable (CPV).</li>
-<li>The fairness–accuracy trade-off is real but manageable. On a benchmark auto insurance dataset, fair models using XGBoost (a machine learning algorithm) retained most predictive power while substantially reducing group premium disparities.</li>
-<li>On a benchmark French motor insurance dataset, addressing indirect discrimination through proxy removal (MCDP) reduced adverse selection risk more than simply excluding the protected attribute (MU) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</li>
-</ul>
-<p><strong>On welfare</strong> <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span></p>
-<ul>
-<li>A fair cost model does not guarantee a fair outcome. Price optimisation, demand elasticity, and competitive dynamics can reintroduce group disparities after cost-level fairness is achieved.</li>
-<li>Demographic parity on premiums (PDP) closes price gaps between protected groups but can simultaneously widen markup disparities, creating a new form of inequality even as it resolves the old one.</li>
-<li>No single pricing rule achieves both price fairness and markup fairness at once. The paper characterises the trade-off and shows which regulatory approaches come closest for different market structures.</li>
-</ul>
-<p><strong>On auditing</strong> <span class="citation" data-cites="huang2026fairtesting xin2026proxyrace xin2025partialdependenceplots">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>, <a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span></p>
-<ul>
-<li>Standard statistical methods are unreliable for auditing algorithmic pricing. Because the same customer profile always returns the same price, the usual assumptions underlying classical regression break down. Corrected standard errors are required for valid conclusions.</li>
-<li>A clean audit must demonstrate compliance, not merely fail to find a violation. Equivalence testing asks whether any disparity (in price, ratio, or another measure) is small enough to fall within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass.</li>
-<li>When race or ethnicity cannot be directly observed and is instead estimated from name or geography, the estimated disparity does not equal the true group disparity. Additional corrections are required in this case.</li>
+<li><strong>Fairness through unawareness is not enough.</strong> Removing the protected attribute leaves proxy effects intact. Indirect discrimination can survive even when all obvious proxies are excluded. See <a href="Playbook/Step-1-Define-Fairness.html">Step 1 →</a></li>
+<li><strong>Fair models are feasible.</strong> Four model families (MU, MDP, MCDP, MC) implement four distinct criteria with manageable accuracy trade-offs. On benchmark data, proxy removal (MCDP) reduced adverse selection risk more than simple exclusion (MU). See <a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2 →</a></li>
+<li><strong>Fair models do not guarantee fair outcomes.</strong> Price optimisation and competitive dynamics reintroduce group disparities after cost-level fairness is achieved. Demographic parity on premiums can widen markup disparities even as it closes price gaps. When all firms in the market adopt the same fairness rule, welfare losses for female customers are nearly eightfold larger than when only one firm is regulated ($101.67 vs $13.43 per female customer), because consumers can no longer avoid the impact by switching to an unregulated competitor. See <a href="Playbook/Step-3-Assess-Impact.html">Step 3 →</a></li>
+<li><strong>Standard statistical tests are unreliable for auditing algorithmic pricing.</strong> Corrected inference, equivalence testing, and (where race is unobserved) ethnicity-estimation corrections are all required for a valid audit. Insufficient data yields an inconclusive result, not a pass. See <a href="Playbook/Step-4-Audit-the-System.html">Step 4 →</a></li>
 </ul>
 </div>
 </div>
@@ -455,82 +414,7 @@ Key findings from the research
 </tbody>
 </table>
 <p>Full detail is in <a href="Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a>.</p>
-</section>
-<section id="about-the-author" class="level2">
-<h2 class="anchored" data-anchor-id="about-the-author">About the author</h2>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Get in touch
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Firms, regulators, and policymakers who want to discuss fair pricing, audits, or policy applications are welcome to contact <a href="mailto:feihuang@unsw.edu.au">Dr Fei Huang</a>.</p>
-</div>
-</div>
-<div class="columns about-author">
-<div class="column" style="width:30%;">
-<p><img src="Fei_Huang.jpeg" class="about-author-photo img-fluid"></p>
-</div><div class="column" style="width:70%;">
-<section id="dr.-fei-huang" class="level4">
-<h4 class="anchored" data-anchor-id="dr.-fei-huang"><a href="https://www.unsw.edu.au/staff/fei-huang">Dr.&nbsp;Fei Huang</a></h4>
-<div class="about-author-contact">
-<p>School of Risk and Actuarial Studies, UNSW Business School</p>
-<p>Email: <a href="mailto:feihuang@unsw.edu.au">feihuang@unsw.edu.au</a> · Website: <a href="https://www.feihuang.org">feihuang.org</a></p>
-</div>
-<p>Dr.&nbsp;Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.</p>
-<p>Her work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean’s Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.</p>
-</section>
-</div>
-</div>
-</section>
-<section id="acknowledgements" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.</p>
-</section>
-<section id="how-to-cite" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-cite">How to cite</h2>
-<p>To cite this playbook in academic work, use the APA format below.</p>
-<p>Huang, F. (2026). <em>The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing</em>. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039</p>
-<section id="bibtex" class="level4">
-<h4 class="anchored" data-anchor-id="bibtex">BibTeX</h4>
-<div class="callout callout-style-simple callout-note callout-titled" title="Show BibTeX">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show BibTeX
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">huang2026fairpricingplaybook</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {The Fair Pricing Playbook: A practical framework for</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               Responsible AI in algorithmic pricing},</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Huang, Fei},</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2026},</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {SSRN},</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>       = {10.2139/ssrn.6955039},</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>       = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="open-source" class="level2">
-<h2 class="anchored" data-anchor-id="open-source">Open source</h2>
-<p>This playbook is fully open source under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. All source files — step pages, case study code, bibliography, and site configuration — are available at <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a>.</p>
-<p>You are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.</p>
-</section>
-<section id="license" class="level2">
-<h2 class="anchored" data-anchor-id="license">License</h2>
-<p>Materials are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. See LICENSE.</p>
+<p>See the <a href="about.html">About</a> page for author bio, acknowledgements, citation, and licence.</p>
 
 
 
