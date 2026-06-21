@@ -1,6 +1,6 @@
 ---
 title: "The Fair Pricing Playbook"
-subtitle: "A practical framework for developing, evaluating, and auditing fair algorithmic pricing systems"
+subtitle: "A practical framework for Responsible AI in algorithmic pricing"
 author:
   - name: "Fei Huang"
     affiliations:
@@ -633,15 +633,14 @@ Implementation code for all three case studies is available at [github.com/feihu
 
 ### Suggested citation (APA)
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing*. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039
 
 ### BibTeX
 
 ```bibtex
 @misc{huang2026fairpricingplaybook,
   title     = {The Fair Pricing Playbook: A practical framework for
-               developing, evaluating, and auditing fair algorithmic
-               pricing},
+               Responsible AI in algorithmic pricing},
   author    = {Huang, Fei},
   year      = {2026},
   publisher = {SSRN},
