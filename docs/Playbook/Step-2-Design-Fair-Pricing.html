@@ -457,6 +457,7 @@ For practitioners
 </section>
 <section id="model-designs" class="level3">
 <h3 class="anchored" data-anchor-id="model-designs">Model designs</h3>
+<p>The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté, Côté, and Charpentier (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1.</p>
 <section id="m0-the-baseline" class="level4">
 <h4 class="anchored" data-anchor-id="m0-the-baseline">M0: The baseline</h4>
 <p>Before building any fair model, fit a baseline that uses all available variables including the protected attribute. This is M0. You will not deploy M0 in a market where discrimination is prohibited, but you need it for two reasons. First, it gives you the best available estimate of the true expected cost for each group, which you need for welfare analysis in Step 3. Second, it provides the benchmark against which to measure how much fairness constraints affect accuracy and pricing.</p>
@@ -469,7 +470,7 @@ For practitioners
 <section id="mcdp-separating-legitimate-from-non-legitimate-variation" class="level4">
 <h4 class="anchored" data-anchor-id="mcdp-separating-legitimate-from-non-legitimate-variation">MCDP: Separating legitimate from non-legitimate variation</h4>
 <p>MCDP is designed for situations where some price differences between groups are legally justified and some are not. A risk-rated insurer will charge higher premiums to customers with more claims history. If those customers happen to be disproportionately from a protected group, that price difference is defensible as long as claims history is accepted as a legitimate factor by the regulator. What is not defensible is a price difference that arises because other variables in the model are acting as proxies for the protected attribute.</p>
-<p>The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted, using a technique called orthogonalisation <span class="citation" data-cites="kamiran2012data">(<a href="#ref-kamiran2012data" role="doc-biblioref">Kamiran and Calders 2012</a>)</span>. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.</p>
+<p>The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted. One approach is orthogonalisation <span class="citation" data-cites="kamiran2012data">(<a href="#ref-kamiran2012data" role="doc-biblioref">Kamiran and Calders 2012</a>)</span>; another is optimal transport, which remaps the distribution of each predictor to remove its dependence on the protected attribute <span class="citation" data-cites="lindholm2024whatisfair">(<a href="#ref-lindholm2024whatisfair" role="doc-biblioref">Lindholm et al. 2024b</a>)</span>. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.</p>
 <p>This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. <a href="../Case Study 1/case_study1.html">Case Study 1</a> works through a full implementation.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -557,7 +558,7 @@ What counts as a legitimate factor?
 <section id="in-processing" class="level3">
 <h3 class="anchored" data-anchor-id="in-processing">In-processing</h3>
 <p>In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model’s training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.</p>
-<p>In-processing is particularly useful in price optimisation, where the optimiser’s goal (typically maximising expected profit) can be extended to include a fairness constraint. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in the pricing-rule context (PDP and PAF rules in Step 3).</p>
+<p>In-processing is particularly useful in price optimisation, where the optimiser’s goal (typically maximising expected profit) can be extended to include a fairness constraint. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time <span class="citation" data-cites="lindholm2023multitask">(<a href="#ref-lindholm2023multitask" role="doc-biblioref">Lindholm et al. 2024a</a>)</span>.</p>
 </section>
 <section id="fairness-accuracy" class="level3">
 <h3 class="anchored" data-anchor-id="fairness-accuracy">The fairness–accuracy trade-off</h3>
@@ -614,11 +615,20 @@ What counts as a legitimate factor?
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cote2025fair" class="csl-entry" role="listitem">
+Côté, Olivier, Marie-Pier Côté, and Arthur Charpentier. 2025. <span>“A Fair Price to Pay: Exploiting Causal Graphs for Fairness in Insurance.”</span> <em>Journal of Risk and Insurance</em> 92 (1): 33–75. <a href="https://doi.org/10.1111/jori.12503">https://doi.org/10.1111/jori.12503</a>.
+</div>
 <div id="ref-kamiran2012data" class="csl-entry" role="listitem">
 Kamiran, Faisal, and Toon Calders. 2012. <span>“Data Preprocessing Techniques for Classification Without Discrimination.”</span> <em>Knowledge and Information Systems</em> 33 (1): 1–33.
 </div>
 <div id="ref-lindholm-etal-2022-discrimination" class="csl-entry" role="listitem">
 Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2022. <span>“Discrimination-Free Insurance Pricing.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 52 (1): 55–89. <a href="https://doi.org/10.1017/asb.2021.23">https://doi.org/10.1017/asb.2021.23</a>.
+</div>
+<div id="ref-lindholm2023multitask" class="csl-entry" role="listitem">
+———. 2024a. <span>“A Multi-Task Network Approach for Calculating Discrimination-Free Insurance Prices.”</span> <em>European Actuarial Journal</em> 14: 329–69. <a href="https://doi.org/10.1007/s13385-023-00367-z">https://doi.org/10.1007/s13385-023-00367-z</a>.
+</div>
+<div id="ref-lindholm2024whatisfair" class="csl-entry" role="listitem">
+———. 2024b. <span>“What Is Fair? <span>P</span>roxy Discrimination Vs. Demographic Disparities in Insurance Pricing.”</span> <em>Scandinavian Actuarial Journal</em> 2024 (9): 935–70. <a href="https://doi.org/10.1080/03461238.2024.2364741">https://doi.org/10.1080/03461238.2024.2364741</a>.
 </div>
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.

@@ -80,6 +80,8 @@ Model labels follow @xin2024antidiscrimination.
 
 ## Model designs {#model-designs}
 
+The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature [@xin2024antidiscrimination]. @cote2025fair provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1.
+
 ### M0: The baseline
 
 Before building any fair model, fit a baseline that uses all available variables including the protected attribute. This is M0. You will not deploy M0 in a market where discrimination is prohibited, but you need it for two reasons. First, it gives you the best available estimate of the true expected cost for each group, which you need for welfare analysis in Step 3. Second, it provides the benchmark against which to measure how much fairness constraints affect accuracy and pricing.
@@ -94,7 +96,7 @@ The limitation is real and important. Removing a variable does not remove its in
 
 MCDP is designed for situations where some price differences between groups are legally justified and some are not. A risk-rated insurer will charge higher premiums to customers with more claims history. If those customers happen to be disproportionately from a protected group, that price difference is defensible as long as claims history is accepted as a legitimate factor by the regulator. What is not defensible is a price difference that arises because other variables in the model are acting as proxies for the protected attribute.
 
-The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted, using a technique called orthogonalisation [@kamiran2012data]. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.
+The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted. One approach is orthogonalisation [@kamiran2012data]; another is optimal transport, which remaps the distribution of each predictor to remove its dependence on the protected attribute [@lindholm2024whatisfair]. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.
 
 This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. [Case Study 1](<../Case Study 1/case_study1.html>) works through a full implementation.
 
@@ -144,7 +146,7 @@ The progression from left to right in the diagram is a progression in how much c
 
 In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model's training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.
 
-In-processing is particularly useful in price optimisation, where the optimiser's goal (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3).
+In-processing is particularly useful in price optimisation, where the optimiser's goal (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time [@lindholm2023multitask].
 
 ## The fairness–accuracy trade-off {#fairness-accuracy}
 
