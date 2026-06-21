@@ -31,7 +31,7 @@ This playbook translates research from economics, statistics, actuarial science,
 ::: {.step-card}
 ### [Step 1 · Define fairness](Playbook/Step-1-Define-Fairness.html)
 
-Fairness is not one standard. There are at least six distinct criteria, and they cannot all be satisfied simultaneously. This step fixes the criterion that Steps 2, 3, and 4 are held to. The choice is a legal and policy decision, not a technical default.
+This step surveys the different lenses of fairness and the criteria they imply. They cannot all be satisfied simultaneously, and the choice is a legal and policy decision, not a technical default.
 :::
 
 ::: {.step-card}
