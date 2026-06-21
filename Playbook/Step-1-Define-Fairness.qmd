@@ -129,6 +129,7 @@ These are the criteria **implemented in Steps 2–4** of this playbook [@xin2024
 | Fairness through unawareness | Leave protected or sensitive variables out of the model | No sensitive rating variables used in underwriting |
 | Fairness through awareness [@dwork-etal-2012-fairness] | Similar individuals (by a similarity metric that accounts for known disparities) receive similar predictions or prices | Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g. healthcare access by race or ethnicity) |
 | No omitted-variable bias | Diagnose proxy relationships with protected attributes and adjust for their effect on outputs | Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships |
+| Counterfactual fairness [@araiza2022discrimination; @cote2025fair] | A prediction is fair if it would be the same in a counterfactual world where the individual belonged to a different protected group, all else being equal | Equal premium for a customer regardless of which group they belong to, holding all causally legitimate factors fixed |
 
 **Group fairness** [@krafcheck2026fairnessmetrics]. *Examples below are adapted from the SoA report (life insurance).*
 
@@ -152,7 +153,7 @@ Achieving individual and group fairness simultaneously is often impossible [@kra
 
 #### Choosing a criterion for your regime
 
-Regulation can constrain **inputs** (which variables or pricing procedures are allowed) or **outputs** (quantitative tests on premiums or costs) [@xin2024antidiscrimination]. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV); disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Match the criterion you adopt to your regime before modelling in [Step 2](Step-2-Design-Fair-Pricing.html).
+Regulation can constrain **inputs** (which variables or pricing procedures are allowed) or **outputs** (quantitative tests on premiums or costs) [@xin2024antidiscrimination]. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV); disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Causal approaches offer a third path: rather than removing the protected attribute or constraining group averages, they block specific causal pathways from the protected attribute to the price while allowing others [@araiza2022discrimination; @cote2025fair]. See [Step 2: Causal approaches](Step-2-Design-Fair-Pricing.html#causal-approaches) for implementation detail. Match the criterion you adopt to your regime before modelling in [Step 2](Step-2-Design-Fair-Pricing.html).
 
 ## Competing ethical notions {#competing-ethical-notions}
 
