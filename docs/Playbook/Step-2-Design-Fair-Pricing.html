@@ -269,7 +269,9 @@ window.Quarto = {
   <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
   <li><a href="#model-designs" id="toc-model-designs" class="nav-link" data-scroll-target="#model-designs">Model designs</a></li>
   <li><a href="#model-criterion-mapping" id="toc-model-criterion-mapping" class="nav-link" data-scroll-target="#model-criterion-mapping">Matching model to criterion</a></li>
+  <li><a href="#pre-processing" id="toc-pre-processing" class="nav-link" data-scroll-target="#pre-processing">Pre-processing</a></li>
   <li><a href="#in-processing" id="toc-in-processing" class="nav-link" data-scroll-target="#in-processing">In-processing</a></li>
+  <li><a href="#post-processing" id="toc-post-processing" class="nav-link" data-scroll-target="#post-processing">Post-processing</a></li>
   <li><a href="#fairness-accuracy" id="toc-fairness-accuracy" class="nav-link" data-scroll-target="#fairness-accuracy">The fairness–accuracy trade-off</a></li>
   <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
@@ -560,10 +562,20 @@ What counts as a legitimate factor?
 <p>The progression from left to right in the diagram is a progression in how much cross-subsidy regulation requires. At the left extreme, no regulation: the insurer can use any variable and individual actuarial pricing prevails. At the right extreme, community rating: everyone pays the same premium and cross-subsidy is complete. Most markets sit somewhere in the middle, and the right model depends on where.</p>
 </section>
 </section>
+<section id="pre-processing" class="level3">
+<h3 class="anchored" data-anchor-id="pre-processing">Pre-processing</h3>
+<p>Pre-processing enforces fairness by adjusting the input data before the model is trained. The idea is to remove or reduce the correlation between non-protected variables and the protected attribute, so that the trained model cannot learn to proxy the protected group from the adjusted inputs.</p>
+<p>MDP and MCDP both use pre-processing. In MDP, all non-protected predictors are debiased unconditionally. In MCDP, only non-legitimate predictors are adjusted while legitimate predictors are kept unchanged. Techniques include orthogonalisation <span class="citation" data-cites="kamiran2012data">(<a href="#ref-kamiran2012data" role="doc-biblioref">Kamiran and Calders 2012</a>)</span> and optimal transport <span class="citation" data-cites="lindholm2024whatisfair">(<a href="#ref-lindholm2024whatisfair" role="doc-biblioref">Lindholm et al. 2024b</a>)</span>. Pre-processing is applied once before training and does not require changes to the model architecture or training procedure, making it relatively easy to slot into an existing modelling pipeline.</p>
+</section>
 <section id="in-processing" class="level3">
 <h3 class="anchored" data-anchor-id="in-processing">In-processing</h3>
 <p>In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model’s training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.</p>
 <p>In-processing is particularly useful in price optimisation, where the optimiser’s goal (typically maximising expected profit) can be extended to include a fairness constraint. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time <span class="citation" data-cites="lindholm2023multitask">(<a href="#ref-lindholm2023multitask" role="doc-biblioref">Lindholm et al. 2024a</a>)</span>.</p>
+</section>
+<section id="post-processing" class="level3">
+<h3 class="anchored" data-anchor-id="post-processing">Post-processing</h3>
+<p>Post-processing enforces fairness by adjusting the model’s predictions after training is complete. The underlying model is fitted without fairness constraints, giving the best available estimate of expected cost. At the point of scoring, predictions are modified to meet the fairness criterion.</p>
+<p>MC is the post-processing design in this playbook. It takes the full-model predictions and averages them across all values of the protected attribute for each customer. The customer receives that average as their price rather than the group-specific prediction. Post-processing leaves the model itself unchanged and is therefore straightforward to apply to an existing production model, though it requires the protected attribute to remain available at scoring time for the averaging step <span class="citation" data-cites="lindholm-etal-2022-discrimination xin2024antidiscrimination">(<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
 </section>
 <section id="fairness-accuracy" class="level3">
 <h3 class="anchored" data-anchor-id="fairness-accuracy">The fairness–accuracy trade-off</h3>
