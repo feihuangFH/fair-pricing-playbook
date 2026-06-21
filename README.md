@@ -3,7 +3,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![DOI](https://img.shields.io/badge/DOI-10.2139%2Fssrn.6955039-blue)](https://doi.org/10.2139/ssrn.6955039)
 
-A four-step framework for fair algorithmic pricing in insurance and financial services: define fairness → design fair pricing → assess welfare impact → audit the system. Three reproducible case studies provide implementation evidence.
+A practical framework for Responsible AI in algorithmic pricing — four linked steps covering fairness definition, model design, welfare assessment, and post-deployment audit. Three reproducible case studies provide implementation evidence.
 
 **Live site: [fair.feihuang.org](https://fair.feihuang.org)**
 
@@ -32,7 +32,7 @@ Developed by [Fei Huang](https://www.feihuang.org), UNSW Sydney.
 Playbook/          Step pages (Quarto .qmd)
 Case Study 1/      Fair cost-model design (R)
 Case Study 2/      Welfare implications of pricing regulations (Python)
-Case Study 3/      Fairness testing with corrected inference (R)
+Case Study 3/      Fairness testing with corrected inference (Python)
 index.qmd          Overview page
 report.qmd         Standalone summary report
 docs/              Rendered HTML (served by GitHub Pages)
@@ -51,7 +51,7 @@ Requires [Quarto](https://quarto.org/docs/get-started/), R (with `CASdatasets`, 
 
 ## How to cite
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for developing, evaluating, and auditing fair algorithmic pricing*. SSRN. https://doi.org/10.2139/ssrn.6955039
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing*. SSRN. https://doi.org/10.2139/ssrn.6955039
 
 A `CITATION.cff` file is included for one-click citation from the GitHub interface.
 
