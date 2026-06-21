@@ -459,7 +459,7 @@ For practitioners
 </section>
 <section id="model-designs" class="level3">
 <h3 class="anchored" data-anchor-id="model-designs">Model designs</h3>
-<p>The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté, Côté, and Charpentier (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1.</p>
+<p>The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté, Côté, and Charpentier (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1. <span class="citation" data-cites="charpentier2024insurance">Charpentier (<a href="#ref-charpentier2024insurance" role="doc-biblioref">2024</a>)</span> provides a book-length treatment of discrimination, bias, and fairness methods in insurance, including technical tools for quantifying and mitigating discrimination.</p>
 <section id="m0-the-baseline" class="level4">
 <h4 class="anchored" data-anchor-id="m0-the-baseline">M0: The baseline</h4>
 <p>Before building any fair model, fit a baseline that uses all available variables including the protected attribute. This is M0. You will not deploy M0 in a market where discrimination is prohibited, but you need it for two reasons. First, it gives you the best available estimate of the true expected cost for each group, which you need for welfare analysis in Step 3. Second, it provides the benchmark against which to measure how much fairness constraints affect accuracy and pricing.</p>
@@ -634,6 +634,9 @@ What counts as a legitimate factor?
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-araiza2022discrimination" class="csl-entry" role="listitem">
 Araiza Iturria, Carlos Andrés, Mary Hardy, and Paul Marriott. 2024. <span>“A Discrimination-Free Premium Under a Causal Framework.”</span> <em>North American Actuarial Journal</em> 28 (4): 801–21. <a href="https://doi.org/10.1080/10920277.2023.2291524">https://doi.org/10.1080/10920277.2023.2291524</a>.
+</div>
+<div id="ref-charpentier2024insurance" class="csl-entry" role="listitem">
+Charpentier, Arthur. 2024. <em>Insurance, Biases, Discrimination and Fairness</em>. 1st ed. Springer Actuarial. Cham: Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-031-49783-4">https://doi.org/10.1007/978-3-031-49783-4</a>.
 </div>
 <div id="ref-cote2025fair" class="csl-entry" role="listitem">
 Côté, Olivier, Marie-Pier Côté, and Arthur Charpentier. 2025. <span>“A Fair Price to Pay: Exploiting Causal Graphs for Fairness in Insurance.”</span> <em>Journal of Risk and Insurance</em> 92 (1): 33–75. <a href="https://doi.org/10.1111/jori.12503">https://doi.org/10.1111/jori.12503</a>.
