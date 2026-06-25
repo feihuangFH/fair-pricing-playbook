@@ -39,25 +39,9 @@ The author thanks Xi Xin for his support in preparing these materials, and ackno
 
 ## How to cite
 
-### Citing the website
+For academic publications, please cite the report. For web references or general use, cite the website.
 
-Huang, F. (2026). *The Fair Pricing Playbook*. Retrieved June 2026, from https://fair.feihuang.org
-
-::: {.callout-note collapse="true" appearance="simple" title="Show BibTeX"}
-
-```bibtex
-@misc{huang2026fairpricingplaybook_website,
-  title        = {The Fair Pricing Playbook},
-  author       = {Huang, Fei},
-  year         = {2026},
-  howpublished = {\url{https://fair.feihuang.org}},
-  note         = {Retrieved June 2026}
-}
-```
-
-:::
-
-### Citing the report
+### Citing the report (recommended for academic publications)
 
 Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing*. SSRN. https://doi.org/10.2139/ssrn.6955039
 
@@ -72,6 +56,24 @@ Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsi
   publisher = {SSRN},
   doi       = {10.2139/ssrn.6955039},
   url       = {https://doi.org/10.2139/ssrn.6955039}
+}
+```
+
+:::
+
+### Citing the website (for web references or general use)
+
+Huang, F. (2026). *The Fair Pricing Playbook*. Retrieved June 2026, from https://fair.feihuang.org
+
+::: {.callout-note collapse="true" appearance="simple" title="Show BibTeX"}
+
+```bibtex
+@misc{huang2026fairpricingplaybook_website,
+  title        = {The Fair Pricing Playbook},
+  author       = {Huang, Fei},
+  year         = {2026},
+  howpublished = {\url{https://fair.feihuang.org}},
+  note         = {Retrieved June 2026}
 }
 ```
 
