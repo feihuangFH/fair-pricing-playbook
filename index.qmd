@@ -24,6 +24,10 @@ This playbook translates research from economics, statistics, actuarial science,
 | Data science, actuarial, and research | Read the four steps, then follow the case studies linked in the sidebar for implementation detail. |
 :::
 
+## Watch: Introduction to anti-discrimination insurance pricing
+
+{{< video https://youtu.be/TQU1Coxfg-M >}}
+
 # The four steps {#four-steps}
 
 ::: {.step-grid}
