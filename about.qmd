@@ -39,7 +39,7 @@ The author thanks Xi Xin for his support in preparing these materials, and ackno
 
 ## How to cite
 
-For academic publications, please cite the report. For web references or general use, cite the website.
+For academic publications, please cite the report. To cite the archived version of the website, use the Zenodo entry.
 
 ### Citing the report (recommended for academic publications)
 
@@ -61,19 +61,22 @@ Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsi
 
 :::
 
-### Citing the website (for web references or general use)
+### Citing the website (archived version on Zenodo)
 
-Huang, F. (2026). *The Fair Pricing Playbook*. Retrieved June 2026, from https://fair.feihuang.org
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.20879782
 
 ::: {.callout-note collapse="true" appearance="simple" title="Show BibTeX"}
 
 ```bibtex
 @misc{huang2026fairpricingplaybook_website,
-  title        = {The Fair Pricing Playbook},
-  author       = {Huang, Fei},
-  year         = {2026},
-  howpublished = {\url{https://fair.feihuang.org}},
-  note         = {Retrieved June 2026}
+  title     = {The Fair Pricing Playbook: A practical framework for
+               Responsible AI in algorithmic pricing},
+  author    = {Huang, Fei},
+  year      = {2026},
+  version   = {v1.0.0},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.20879782},
+  url       = {https://doi.org/10.5281/zenodo.20879782}
 }
 ```
 
