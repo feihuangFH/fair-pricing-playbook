@@ -1,7 +1,7 @@
 # The Fair Pricing Playbook
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://img.shields.io/badge/DOI-10.2139%2Fssrn.6955039-blue)](https://doi.org/10.2139/ssrn.6955039)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20879782-blue)](https://doi.org/10.5281/zenodo.20879782)
 
 A practical framework for Responsible AI in algorithmic pricing — four linked steps covering fairness definition, model design, welfare assessment, and post-deployment audit. Three reproducible case studies provide implementation evidence.
 
@@ -51,7 +51,7 @@ Requires [Quarto](https://quarto.org/docs/get-started/), R (with `CASdatasets`, 
 
 ## How to cite
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing*. SSRN. https://doi.org/10.2139/ssrn.6955039
+Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.20879782
 
 A `CITATION.cff` file is included for one-click citation from the GitHub interface.
 
