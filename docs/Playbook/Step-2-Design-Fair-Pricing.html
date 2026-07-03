@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Step 2: Design fair pricing – The Fair Pricing Playbook</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -25,7 +28,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -53,15 +55,16 @@ div.csl-indent {
 <meta name="quarto:offset" content="../">
 <link href="../Case Study 1/case_study1.html" rel="next">
 <link href="../Playbook/Step-1-Define-Fairness.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f5027254edf60712a57a618aca8afeff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -127,7 +130,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -145,7 +148,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -319,7 +322,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Prerequisite
+<span class="screen-reader-only">Tip</span>Prerequisite
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -335,7 +338,7 @@ Prerequisite
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Key insights from this step
+<span class="screen-reader-only">Note</span>Key insights from this step
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -346,19 +349,19 @@ Key insights from this step
 </ul>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div id="scope-of-this-step" class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Scope of this step
+<span class="screen-reader-only">Note</span>Scope of this step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This step focuses on <strong>claims cost modelling</strong>: estimating expected claim cost (pure premium) for each policyholder and applying fairness constraints at that stage. The models here (MU, MDP, MCDP, MC) all operate on the cost model.</p>
-<p>In practice, a complete pricing model also incorporates expenses, cost of capital, reinsurance costs, and profit loadings on top of the pure premium. Fairness criteria can and should be applied to final prices that include these components, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.</p>
-<p>If the pricing process also includes <strong>demand modelling</strong> (how likely customers are to buy or renew at a given price) and <strong>price optimisation</strong> (setting prices to maximise profit subject to constraints), those stages sit outside the cost model and are covered in <a href="Step-3-Assess-Impact.html">Step 3</a> and <a href="../Case Study 2/case_study2.html">Case Study 2</a>.</p>
+<p>Before applying any fairness criterion, decide which outcome variable it applies to. Five candidates recur in practice. <strong>Pure premium</strong> is expected claim cost alone, before any loadings, the cost model’s output. <strong>Technical premium</strong> is pure premium plus expenses, reinsurance, and cost of capital, minus expected investment income earned on the premium float before claims are paid, the actuarially indicated rate before any demand-based commercial adjustment. <strong>Market premium</strong> is the price actually charged, once demand response, price optimisation, and other commercial adjustments are applied on top of technical premium. <strong>Loss ratio</strong> is claims paid as a share of premium earned. <strong>Profit loading</strong> is cost of capital plus any extra profit captured through commercial adjustments at the market-premium stage, also called <strong>markup</strong>. See <a href="../Case Study 2/case_study2.html">Case Study 2</a> for how this is computed in practice. The five candidate outcome variables are not interchangeable. A pricing rule that equalises one across groups can widen the gap on another. <a href="Step-3-Assess-Impact.html#price-markup-tension">Step 3</a> works through a case where equalising market premium widens the profit-loading gap. Decide which variable your fairness obligation actually targets before building the model, and revisit the choice explicitly if the model is later repurposed for a different regulatory test.</p>
+<p>This step targets <strong>pure premium</strong>, chosen for simplicity and because claim-level cost data is more readily available than fully loaded technical or market premiums. <a href="../Case Study 1/case_study1.html">Case Study 1</a> applies these models to pure premium. <a href="../Case Study 2/case_study2.html">Case Study 2</a> instead evaluates market premium and markup once demand modelling and price optimisation are layered on top. The models here (MU, MDP, MCDP, MC) all operate on the cost model. Expenses, reinsurance, and cost of capital, net of expected investment income, are added on top of the pure premium to reach technical premium, with cost of capital forming the technical-stage component of profit loading. Fairness criteria can and should be applied there too, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.</p>
+<p>If the pricing process also includes <strong>demand modelling</strong> (how likely customers are to buy or renew at a given price) and <strong>price optimisation</strong> (setting prices to maximise profit subject to constraints), the outcome variable moves from technical premium toward market premium. Those stages sit outside the cost model and are covered in <a href="Step-3-Assess-Impact.html">Step 3</a> and <a href="../Case Study 2/case_study2.html">Case Study 2</a>. Underwriter discretion, competitive positioning, broker negotiation, and portfolio or cycle management can move the price further still, and <a href="Step-3-Assess-Impact.html#price-optimisation">Step 3</a> notes that the case study does not model them.</p>
 </div>
 </div>
 <section id="how-can-fair-pricing-be-achieved" class="level3">
@@ -371,7 +374,7 @@ Scope of this step
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-For practitioners
+<span class="screen-reader-only">Important</span>For practitioners
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -390,10 +393,6 @@ For practitioners
 <h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
 <p>Notation follows <a href="Step-1-Define-Fairness.html#mini-glossary">Step 1: Define fairness</a>.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 66%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Symbol</th>
@@ -411,7 +410,7 @@ For practitioners
 </tr>
 <tr class="odd">
 <td><span class="math inline">\hat{Y}</span></td>
-<td>Predicted expected claim cost or pure premium (the expected cost per policy before expenses and profit loading)</td>
+<td>Predicted value of the chosen outcome variable. Pure premium by default in this step’s models, per the <a href="#scope-of-this-step">scope note</a> above</td>
 </tr>
 </tbody>
 </table>
@@ -465,7 +464,7 @@ For practitioners
 </section>
 <section id="model-designs" class="level3">
 <h3 class="anchored" data-anchor-id="model-designs">Model designs</h3>
-<p>The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté, Côté, and Charpentier (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1. <span class="citation" data-cites="charpentier2024insurance">Charpentier (<a href="#ref-charpentier2024insurance" role="doc-biblioref">2024</a>)</span> provides a book-length treatment of discrimination, bias, and fairness methods in insurance, including technical tools for quantifying and mitigating discrimination.</p>
+<p>The four designs below (M0, MU, MDP/MCDP, MC) cover the main approaches in the actuarial literature <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté et al. (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> provide a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective, which can help map additional methods to the criteria in Step 1. <span class="citation" data-cites="charpentier2024insurance">Charpentier (<a href="#ref-charpentier2024insurance" role="doc-biblioref">2024</a>)</span> provides a book-length treatment of discrimination, bias, and fairness methods in insurance, including technical tools for quantifying and mitigating discrimination.</p>
 <section id="m0-the-baseline" class="level4">
 <h4 class="anchored" data-anchor-id="m0-the-baseline">M0: The baseline</h4>
 <p>Before building any fair model, fit a baseline that uses all available variables including the protected attribute. This is M0. You will not deploy M0 in a market where discrimination is prohibited, but you need it for two reasons. First, it gives you the best available estimate of the true expected cost for each group, which you need for welfare analysis in Step 3. Second, it provides the benchmark against which to measure how much fairness constraints affect accuracy and pricing.</p>
@@ -486,7 +485,7 @@ For practitioners
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What counts as a legitimate factor?
+<span class="screen-reader-only">Note</span>What counts as a legitimate factor?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -510,7 +509,7 @@ What counts as a legitimate factor?
 <section id="causal-approaches" class="level4">
 <h4 class="anchored" data-anchor-id="causal-approaches">Causal approaches</h4>
 <p>The model designs above treat fairness as a statistical property of inputs or outputs. A causal approach goes further, asking which pathways from rating variables to prices are permissible. If a variable influences price partly through a protected attribute — for example, postcode partly proxies race — a causal model can block that specific pathway while preserving the legitimate influence of the variable. This requires specifying a causal graph: a diagram of which variables cause which outcomes and through which routes.</p>
-<p><span class="citation" data-cites="araiza2022discrimination">Araiza Iturria, Hardy, and Marriott (<a href="#ref-araiza2022discrimination" role="doc-biblioref">2024</a>)</span> derive a discrimination-free premium explicitly under a causal framework in the insurance context, extending the statistical approach of <span class="citation" data-cites="lindholm-etal-2022-discrimination">Lindholm et al. (<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">2022</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté, Côté, and Charpentier (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> implement a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective depending on how much causal information is incorporated. Causal methods are more demanding to implement (they require domain knowledge about causal structure in addition to data) but more precise about what discrimination they remove.</p>
+<p><span class="citation" data-cites="araiza2022discrimination">Araiza Iturria et al. (<a href="#ref-araiza2022discrimination" role="doc-biblioref">2024</a>)</span> derive a discrimination-free premium explicitly under a causal framework in the insurance context, extending the statistical approach of <span class="citation" data-cites="lindholm-etal-2022-discrimination">Lindholm et al. (<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">2022</a>)</span>. <span class="citation" data-cites="cote2025fair">Côté et al. (<a href="#ref-cote2025fair" role="doc-biblioref">2025</a>)</span> implement a broader causal taxonomy of fairness methods in insurance, classifying approaches as best-estimate, unaware, aware, hyperaware, or corrective depending on how much causal information is incorporated. Causal methods are more demanding to implement (they require domain knowledge about causal structure in addition to data) but more precise about what discrimination they remove.</p>
 </section>
 </section>
 <section id="model-criterion-mapping" class="level3">
@@ -648,12 +647,12 @@ What counts as a legitimate factor?
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-araiza2022discrimination" class="csl-entry" role="listitem">
 Araiza Iturria, Carlos Andrés, Mary Hardy, and Paul Marriott. 2024. <span>“A Discrimination-Free Premium Under a Causal Framework.”</span> <em>North American Actuarial Journal</em> 28 (4): 801–21. <a href="https://doi.org/10.1080/10920277.2023.2291524">https://doi.org/10.1080/10920277.2023.2291524</a>.
 </div>
 <div id="ref-charpentier2024insurance" class="csl-entry" role="listitem">
-Charpentier, Arthur. 2024. <em>Insurance, Biases, Discrimination and Fairness</em>. 1st ed. Springer Actuarial. Cham: Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-031-49783-4">https://doi.org/10.1007/978-3-031-49783-4</a>.
+Charpentier, Arthur. 2024. <em>Insurance, Biases, Discrimination and Fairness</em>. 1st ed. Springer Actuarial. Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-031-49783-4">https://doi.org/10.1007/978-3-031-49783-4</a>.
 </div>
 <div id="ref-cote2025fair" class="csl-entry" role="listitem">
 Côté, Olivier, Marie-Pier Côté, and Arthur Charpentier. 2025. <span>“A Fair Price to Pay: Exploiting Causal Graphs for Fairness in Insurance.”</span> <em>Journal of Risk and Insurance</em> 92 (1): 33–75. <a href="https://doi.org/10.1111/jori.12503">https://doi.org/10.1111/jori.12503</a>.
@@ -665,249 +664,253 @@ Kamiran, Faisal, and Toon Calders. 2012. <span>“Data Preprocessing Techniques 
 Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2022. <span>“Discrimination-Free Insurance Pricing.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 52 (1): 55–89. <a href="https://doi.org/10.1017/asb.2021.23">https://doi.org/10.1017/asb.2021.23</a>.
 </div>
 <div id="ref-lindholm2023multitask" class="csl-entry" role="listitem">
-———. 2024a. <span>“A Multi-Task Network Approach for Calculating Discrimination-Free Insurance Prices.”</span> <em>European Actuarial Journal</em> 14: 329–69. <a href="https://doi.org/10.1007/s13385-023-00367-z">https://doi.org/10.1007/s13385-023-00367-z</a>.
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2024a. <span>“A Multi-Task Network Approach for Calculating Discrimination-Free Insurance Prices.”</span> <em>European Actuarial Journal</em> 14: 329–69. <a href="https://doi.org/10.1007/s13385-023-00367-z">https://doi.org/10.1007/s13385-023-00367-z</a>.
 </div>
 <div id="ref-lindholm2024whatisfair" class="csl-entry" role="listitem">
-———. 2024b. <span>“What Is Fair? <span>P</span>roxy Discrimination Vs. Demographic Disparities in Insurance Pricing.”</span> <em>Scandinavian Actuarial Journal</em> 2024 (9): 935–70. <a href="https://doi.org/10.1080/03461238.2024.2364741">https://doi.org/10.1080/03461238.2024.2364741</a>.
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2024b. <span>“What Is Fair? <span>P</span>roxy Discrimination Vs. Demographic Disparities in Insurance Pricing.”</span> <em>Scandinavian Actuarial Journal</em> 2024 (9): 935–70. <a href="https://doi.org/10.1080/03461238.2024.2364741">https://doi.org/10.1080/03461238.2024.2364741</a>.
 </div>
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -915,185 +918,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../Playbook/Step-1-Define-Fairness.html" class="pagination-link" aria-label="Step 1 · Define Fairness">
