@@ -26,14 +26,14 @@ Governance readers, see [Implementation](#implementation) and [Checklist](#check
 - Fairness can be enforced at three stages of the modelling pipeline: pre-processing (adjusting inputs before training, as in MDP and MCDP), in-processing (building fairness constraints into the training objective), and post-processing (adjusting outputs after training, as in MC). The right stage depends on the criterion chosen and the production system.
 :::
 
-::: {.callout-note appearance="simple" icon="false"}
+::: {#scope-of-this-step .callout-note appearance="simple" icon="false"}
 ## Scope of this step
 
-This step focuses on **claims cost modelling**: estimating expected claim cost (pure premium) for each policyholder and applying fairness constraints at that stage. The models here (MU, MDP, MCDP, MC) all operate on the cost model.
+Before applying any fairness criterion, decide which outcome variable it applies to. Five candidates recur in practice. **Pure premium** is expected claim cost alone, before any loadings, the cost model's output. **Technical premium** is pure premium plus expenses, reinsurance, and cost of capital, minus expected investment income earned on the premium float before claims are paid, the actuarially indicated rate before any demand-based commercial adjustment. **Market premium** is the price actually charged, once demand response, price optimisation, and other commercial adjustments are applied on top of technical premium. **Loss ratio** is claims paid as a share of premium earned. **Profit loading** is cost of capital plus any extra profit captured through commercial adjustments at the market-premium stage, also called **markup**. See [Case Study 2](<../Case Study 2/case_study2.html>) for how this is computed in practice. The five candidate outcome variables are not interchangeable. A pricing rule that equalises one across groups can widen the gap on another. [Step 3](Step-3-Assess-Impact.html#price-markup-tension) works through a case where equalising market premium widens the profit-loading gap. Decide which variable your fairness obligation actually targets before building the model, and revisit the choice explicitly if the model is later repurposed for a different regulatory test.
 
-In practice, a complete pricing model also incorporates expenses, cost of capital, reinsurance costs, and profit loadings on top of the pure premium. Fairness criteria can and should be applied to final prices that include these components, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.
+This step targets **pure premium**, chosen for simplicity and because claim-level cost data is more readily available than fully loaded technical or market premiums. [Case Study 1](<../Case Study 1/case_study1.html>) applies these models to pure premium. [Case Study 2](<../Case Study 2/case_study2.html>) instead evaluates market premium and markup once demand modelling and price optimisation are layered on top. The models here (MU, MDP, MCDP, MC) all operate on the cost model. Expenses, reinsurance, and cost of capital, net of expected investment income, are added on top of the pure premium to reach technical premium, with cost of capital forming the technical-stage component of profit loading. Fairness criteria can and should be applied there too, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.
 
-If the pricing process also includes **demand modelling** (how likely customers are to buy or renew at a given price) and **price optimisation** (setting prices to maximise profit subject to constraints), those stages sit outside the cost model and are covered in [Step 3](Step-3-Assess-Impact.html) and [Case Study 2](<../Case Study 2/case_study2.html>).
+If the pricing process also includes **demand modelling** (how likely customers are to buy or renew at a given price) and **price optimisation** (setting prices to maximise profit subject to constraints), the outcome variable moves from technical premium toward market premium. Those stages sit outside the cost model and are covered in [Step 3](Step-3-Assess-Impact.html) and [Case Study 2](<../Case Study 2/case_study2.html>). Underwriter discretion, competitive positioning, broker negotiation, and portfolio or cycle management can move the price further still, and [Step 3](Step-3-Assess-Impact.html#price-optimisation) notes that the case study does not model them.
 :::
 
 ## How do you build a fair pricing model? {#how-can-fair-pricing-be-achieved}
@@ -63,7 +63,7 @@ Notation follows [Step 1: Define fairness](Step-1-Define-Fairness.html#mini-glos
 |--------|----------------|
 | $X_P$ | Protected attribute (e.g. gender, race, ethnicity) |
 | $X_{NP}$ | Non-protected rating features |
-| $\hat{Y}$ | Predicted expected claim cost or pure premium (the expected cost per policy before expenses and profit loading) |
+| $\hat{Y}$ | Predicted value of the chosen outcome variable. Pure premium by default in this step's models, per the [scope note](#scope-of-this-step) above |
 
 Model labels follow @xin2024antidiscrimination.
 

@@ -66,7 +66,7 @@ Three case studies provide reproducible implementation evidence. Each is linked 
 
 ![](Playbook/plot/pathway-towards-fairness.png){fig-alt="Pathway towards fairness from model inputs and design through outputs, welfare, and fairness testing to pass, unclear, or fail" width=100%}
 
-The diagram shows how the four steps connect across model design, welfare assessment, and fairness testing.
+The diagram shows how the four steps connect across model design, welfare assessment, and fairness testing. Steps 1 through 3 work together to inform a single decision, which fairness criterion fits a specific application or line of business. Step 2 shows the accuracy-fairness trade-off, how much predictive power a fairness constraint costs at the model level. Step 3 shows the welfare-fairness trade-off, how a fair cost model can still produce unequal market outcomes once price optimisation and demand enter the picture. Neither trade-off has a universal answer, which is exactly why these steps matter. Seeing both is what lets stakeholders choose a criterion in Step 1 that fits their product, market, and regulatory context, rather than defaulting to whichever criterion is easiest to implement.
 
 # What the research shows
 

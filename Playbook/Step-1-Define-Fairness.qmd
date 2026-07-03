@@ -33,7 +33,7 @@ A useful starting point is the framing of @frees2023discriminating: what are the
 | Lens | What it emphasises | Where to read |
 |------|-------------------|---------------|
 | Anti-discrimination | Legal obligation to avoid unfair treatment and unjustified disparate outcomes | [Pricing feature principles](#pricing-feature-principles) through [Fairness criteria](#fairness-criteria) |
-| Competing ethical notions | Actuarial fairness, social justice, and how risk should be pooled | [Principles of fair differentiation](#principles-of-fair-differentiation) through [Actuarial fairness](#actuarial-fairness) |
+| Competing ethical notions | Actuarial fairness, social justice, and how risk should be pooled | [Principles of fair differentiation](#principles-of-fair-differentiation) through [Choice-sensitive fairness](#choice-sensitive-fairness) |
 | Consumer trust | Promises made in contracts, disclosures, and market conduct | [Consumer trust](#consumer-trust) (brief) |
 
 These lenses do not always point in the same direction. A pricing system can be legally compliant and still strike many customers as unfair. A system built on actuarial fairness (each customer pays their own expected cost) may produce outcomes that disadvantage historically marginalised groups. A system designed to achieve group parity may charge some customers more than their expected cost warrants, raising questions of efficiency and adverse selection. Working through these lenses is not about finding a single correct answer. It is about making the trade-offs visible so the right people in your organisation can make an informed decision before any model is built.
@@ -94,7 +94,7 @@ Symbols and terms used across Steps 1–4.
 |------|----------------|
 | Protected attribute ($X_P$) | A characteristic the law or policy treats as off-limits for direct discrimination (e.g. race, gender, ethnicity) |
 | Other features ($X_{NP}$) | Rating variables not treated as protected |
-| Predicted outcome ($\hat{Y}$) | The model output you will test. Often an estimated cost or a quoted premium |
+| Predicted outcome ($\hat{Y}$) | The model output you will test. Candidates include pure premium, technical premium, market premium, loss ratio, and profit loading. See [Step 2](Step-2-Design-Fair-Pricing.html#scope-of-this-step) for why this choice must be made explicit |
 | Proxy discrimination (PD) | A non-protected variable acts as a stand-in for a protected attribute. PD is the problem that CPV (and the related criterion of no omitted-variable bias) is designed to address |
 | Legitimate factors | Risk-related variables regulators accept as grounds for price variation |
 
@@ -163,6 +163,8 @@ This lens asks which differentiations are appropriate in the first place, given 
 
 Algorithmic pricing is built on differentiation. Customers with different expected costs or willingness to pay may receive different prices. The question is which differentiations are appropriate [@frees2023discriminating].
 
+The diagram below traces how that question plays out in practice. High-risk and vulnerable consumers push toward the social aspects of insurance, insurers toward the economic aspects, and regulators respond by prohibiting certain uses of pricing, with the specific prohibitions varying by line of business and by jurisdiction.
+
 ![Balancing social justice and economic efficiency.](plot/social_econ.png){width=80%}
 
 ### Social good or economic commodity? {#social-good-or-economic-commodity}
@@ -194,6 +196,28 @@ The conflict between actuarial fairness and solidarity is most visible in health
 
 Risk-based pricing and cross-subsidy are both defensible in different product contexts. The key is to make the position explicit before the model is built, rather than discovering it implicitly in the audit.
 
+Actuarial fairness also has a limitation worth naming. @landes2015actuarialfairness argues that the standard defence of actuarial fairness assumes premiums reflect terms a fully informed policyholder would have freely agreed to. In practice, premiums are set by statistical classifications the policyholder had no role in constructing and often no practical way to negotiate or opt out of. Actuarial fairness can confirm that a price is technically accurate without being able to say whether the social arrangement producing that price is itself fair. That question sits outside what the criterion evaluates.
+
+### Social justice and solidarity {#social-justice-solidarity}
+
+The social good side of the table above is not simply the absence of actuarial fairness. It reflects a distinct position on what insurance is for, treating it as a form of mutual aid in which pooling risk across a diverse membership is a moral good in itself rather than a market imperfection to be priced away. @stone1999moralhazard develops the fullest account of this view. She argues that actuarial fairness is not a neutral technical standard but an ideology, one that fragments insurance pools into ever-smaller and more homogeneous risk classes, and that each step of fragmentation erodes the mutual aid insurance was built to provide.
+
+On this view, cross-subsidy from lower-risk to higher-risk members is not a market failure to correct. It is the mechanism through which insurance performs its social function. Community rating, mandatory coverage, and restrictions on risk classification protect that function rather than intervene against a well-functioning market.
+
+Solidarity and actuarial fairness are not two ends of a spectrum a regulator can average between. They rest on different premises about what insurance is, either a bilateral contract between insurer and individual, or a collective institution for managing shared risk. Which premise applies is a product and jurisdiction decision, not something the pricing model can resolve on its own.
+
+Solidarity is not a single mechanism. @lehtonen2011solidarity distinguish two forms. Chance solidarity is the basic logic of any insurance pool, in which members share a genuinely uncertain risk and no one knows in advance who will claim. Subsidising solidarity goes further, deliberately cross-subsidising higher-risk members from lower-risk ones as a matter of social policy, as in community rating. The two are often conflated, but only the second is a distributive choice a regulator can mandate. The first is what makes pooling coherent in the first place, and it erodes as risk classification becomes granular enough to make each policyholder effectively their own risk category, leaving a pool that still exists on paper without the shared uncertainty that gave it ethical weight. Solidarity also has a limitation of its own. It addresses whether a group pays an affordable or equitable price at a given point in time, but has less to say about whether that affordability holds up as policies are re-rated at renewal, particularly once risk classification becomes finer over successive pricing cycles.
+
+### Choice-sensitive fairness {#choice-sensitive-fairness}
+
+A third position asks a narrower question than either actuarial fairness or solidarity. It asks whether a customer's higher price reflects something they chose or something that happened to them. The distinction descends from Dworkin's account of equality of resources [@dworkin1981equality2], which separates option luck, the result of a deliberate and insurable gamble a person could have declined, from brute luck, misfortune that was never within the person's control. Applied to insurance, this position holds that pricing on option luck is easier to defend than pricing on brute luck, even when both predict cost equally well.
+
+This is the ethical logic behind the Control and Causality principles introduced earlier in this step (see [Pricing feature principles](#pricing-feature-principles)). It explains why smoking status is broadly accepted as a rating factor, since the customer chose to smoke, while genetic predisposition is widely restricted or banned, since the customer did not choose their genes, even though both factors can predict claims. @avraham2014understanding work through this reasoning across US insurance anti-discrimination law, including how it shapes debates over genetic testing and credit scoring.
+
+Choice-sensitive fairness cuts across the social good and economic commodity table above. A commercial insurer can restrict genetic rating on choice-sensitive grounds without adopting a broader solidarity position, and a solidarity-oriented scheme can still price on option luck, for example charging more for at-fault claims, without treating that as a betrayal of mutual aid.
+
+Choice-sensitive fairness has a well-known limitation, developed by @anderson1999equality. The option and brute luck distinction assumes the customer's choice was genuinely open. That assumption breaks down when the choice was itself shaped by circumstances the customer did not choose. A household that cannot afford to relocate out of a flood-prone area, or a driver who cannot afford a newer, safer vehicle, has not exercised option luck in any meaningful sense, even though the resulting rating factor looks like a chosen behaviour on its face. Applying the option and brute luck distinction without asking how constrained the underlying choice was risks treating structurally limited choices as though they were freely made.
+
 ## Consumer trust {#consumer-trust}
 
 The third lens is about whether pricing honours what the firm has promised customers and what the market expects, not only whether a model passes a legal or statistical test.
@@ -213,7 +237,7 @@ Use this checklist to confirm Step 1 decisions before moving to model design. As
 | Discuss which fairness lenses matter for your product (anti-discrimination, competing ethical notions, consumer trust) | Executive sponsor / Product |
 | Document applicable regulations and filing requirements | Legal / Compliance |
 | Identify relevant fairness metrics (e.g. conditional demographic parity (CDP), proxy discrimination (PD)) for your context | Product / Policy |
-| Specify outcome $\hat{Y}$ and legitimate factors for conditional demographic parity (CDP) | Actuarial / Model risk |
+| Specify outcome $\hat{Y}$ (pure premium, technical premium, market premium, loss ratio, or profit loading, per [Step 2](Step-2-Design-Fair-Pricing.html#scope-of-this-step)) and legitimate factors for conditional demographic parity (CDP) | Actuarial / Model risk |
 | Classify pricing features using differentiation principles (note line of business and jurisdiction) | Actuarial / Data science |
 | Separate risk-based from non-risk pricing practices in disclosures and governance | Product / Actuarial |
 | Define how indirect discrimination will be assessed and escalated | Legal / Model risk |

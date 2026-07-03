@@ -83,6 +83,8 @@ This technique is common in retail and travel. In insurance it is more contentio
 
 This is why welfare analysis in Step 3 matters even when Step 2 produces a well-designed fair cost model. The model is only the beginning of the pricing pipeline.
 
+Price optimisation is not the only channel that moves a price away from technical premium. Underwriter discretion, competitive positioning against rival quotes, broker or channel negotiation, and portfolio or underwriting-cycle management (deliberately under- or over-pricing a segment to manage growth or capacity) are all subjective, strategic adjustments that insurers make outside any formal demand model. [Case Study 2](<../Case Study 2/case_study2.html>) and the pricing rules below model only the price-optimisation channel. A market-premium fairness review in practice should also account for these other adjustments, since they can reintroduce group disparities that a price-optimisation-only analysis would not catch.
+
 ## The full pricing process {#full-pricing-process}
 
 @huang2026welfareaccountable models the complete pipeline from cost estimation to market outcome.
@@ -124,19 +126,13 @@ The welfare outcome for any customer is the difference between their willingness
 
 ## The price-fairness and markup-fairness tension {#price-markup-tension}
 
-One of the most important findings of this research is that price fairness and markup fairness pull in opposite directions, and no single pricing rule achieves both at once.
+[Step 2](Step-2-Design-Fair-Pricing.html#scope-of-this-step) flagged that a fairness criterion has to target a specific outcome variable (pure premium, technical premium, market premium, loss ratio, or profit loading) and that the choice is not incidental. This section works through the sharpest version of that problem. One of the most important findings of this research is that price fairness and markup fairness pull in opposite directions, and no single pricing rule achieves both at once.
 
-**Price fairness** means that two groups are charged similar premiums on average. **Markup fairness** means that two groups are charged a similar margin above their expected claim cost. If the groups have genuinely different expected costs (which is common in motor or health insurance), you cannot achieve both simultaneously.
+**Price fairness** means that two groups are charged similar premiums on average. **Markup fairness** means that two groups are charged a similar margin above their expected claim cost. If the groups have genuinely different expected costs (which is common in motor or health insurance), you cannot achieve both simultaneously. The same logic carries over to loss ratio. Because loss ratio and markup move inversely for a given cost level, equalising premiums across groups with different costs opens a loss-ratio gap as well as a markup gap, not a markup gap alone.
 
 To see why, consider a simple illustration. Group A has an expected cost of 800 and Group B has an expected cost of 1,000. A regulation that requires equal premiums might set the price at 900 for both. Group A now pays a markup of 100 above their expected cost. Group B pays 100 below theirs. The price gap has been closed. A markup gap has opened. The insurer is effectively cross-subsidising Group B using premiums from Group A.
 
 The PDP rule in @huang2026welfareaccountable achieves exactly this. It closes the premium gap between groups but widens the markup gap. Whether that cross-subsidy is acceptable is not a statistical question. It is a question about whether insurance for this product is being treated as a commercial product (in which case actuarial fairness says each group should pay its own expected cost) or as something closer to a social service (in which case some cross-subsidy is appropriate). That conversation belongs in Step 1, before the model is built and before a pricing rule is chosen.
-
-::: {.callout-note appearance="simple" icon="false"}
-## Worked example
-
-Markup is the gap between the premium charged and the expected claim cost. A regulation that equalises premiums across groups may still leave one group paying a higher markup relative to their risk, while the other group receives an implicit discount. This is a redistribution, not a removal of disparity.
-:::
 
 ## Key findings from the research {#key-findings}
 
