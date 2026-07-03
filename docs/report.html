@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,6 +12,9 @@
 
 <title>The Fair Pricing Playbook</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,8 +27,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -36,7 +40,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -61,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,15 +92,16 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./about.html" rel="next">
 <link href="./index.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f5027254edf60712a57a618aca8afeff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -163,7 +167,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -181,7 +185,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -381,7 +385,7 @@ window.Quarto = {
 <section id="introduction" class="level3" data-number="2">
 <h3 data-number="2" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2</span> Introduction</h3>
 <p>AI-driven pricing systems are now widely used in insurance and other financial services. Their appeal is clear. They offer better risk segmentation, faster decisions, and potentially better matching between risk and price. At the same time, these systems can reproduce or amplify discriminatory patterns through proxy variables, complex model interactions, and opaque optimization pipelines. This creates a governance gap between predictive performance and fairness accountability.</p>
-<p>In regulated settings, fairness is not a single model constraint. It is a sequence of decisions spanning criterion selection, model design, market behavior, and post-deployment testing <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. A model can satisfy one fairness notion and still produce adverse outcomes once final prices incorporate loadings, demand response, and regulatory rules <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>. Likewise, an audit can fail if statistical inference is mis-specified even when design intent is sound <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>In regulated settings, fairness is not a single model constraint. It is a sequence of decisions spanning criterion selection, model design, market behavior, and post-deployment testing <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. A model can satisfy one fairness notion and still produce adverse outcomes once final prices incorporate loadings, demand response, and regulatory rules <span class="citation" data-cites="huang2026welfarealgorithms huang2026welfareaccountable">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang et al. 2026</a>; <a href="#ref-huang2026welfareaccountable" role="doc-biblioref">Huang and Shimao 2026</a>)</span>. Likewise, an audit can fail if statistical inference is mis-specified even when design intent is sound <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
 <p>Regulatory attention has intensified across jurisdictions. In the United States, Colorado’s Division of Insurance and New York’s Department of Financial Services have each issued proposals requiring insurers to evaluate whether algorithmic pricing systems produce discriminatory pricing outcomes <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. These proposals operationalize fairness tests, including conditional demographic parity and proxy discrimination, that map directly to the audit methodology in Step 4 of this framework.</p>
 <p>This report introduces The Fair Pricing Playbook, a practical four-step framework linking these decisions into one auditable workflow. Section 2 situates the work in related literature. Section 3 gives the framework overview. Section 4 presents the methodology for each step in depth, including formal definitions, model taxonomies, welfare measures, and audit statistics. Section 5 describes the companion case studies in detail, including data, implementation choices, and illustrative findings. Section 6 summarizes contributions, and Section 7 discusses limitations.</p>
 </section>
@@ -391,17 +395,17 @@ window.Quarto = {
 <h4 data-number="3.1" class="anchored" data-anchor-id="fairness-in-insurance-pricing"><span class="header-section-number">3.1</span> Fairness in Insurance Pricing</h4>
 <p>What makes a price fair? <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> frame the question as follows: what are the principles for assessing the appropriateness of insurance differentiation? They distinguish risk-based differentiation, where premiums differ because expected losses differ, from non-risk differentiation, where prices diverge for the same underlying risk due to retention modeling, willingness to pay, or price optimization. Risk-based rating is typically defended on efficiency grounds. Non-risk differentiation raises fairness concerns when it reproduces group disparities or penalizes loyalty.</p>
 <p><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> formalize anti-discrimination principles for insurance pricing, distinguishing direct discrimination (explicit use of protected attributes) from indirect discrimination (disparate outcomes through proxy variables or complex model interactions). They propose a taxonomy of model designs (M0, MU, MDP, MCDP, MC) that links specific fairness criteria to concrete modeling interventions. They also show that omitting protected attributes (fairness through unawareness) does not prevent indirect discrimination if correlated proxies remain.</p>
-<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> extend this taxonomy to life insurance, surveying a broader set of individual and group fairness criteria and mapping them to the independence, separation, and sufficiency frameworks from the algorithmic fairness literature. A key finding is that individual and group fairness criteria are often mutually incompatible, satisfying one typically requires violating another.</p>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> extend this taxonomy to life insurance, surveying a broader set of individual and group fairness criteria and mapping them to the independence, separation, and sufficiency frameworks from the algorithmic fairness literature. A key finding is that individual and group fairness criteria are often mutually incompatible, satisfying one typically requires violating another.</p>
 </section>
 <section id="welfare-and-market-effects-of-fairness-interventions" class="level4" data-number="3.2">
 <h4 data-number="3.2" class="anchored" data-anchor-id="welfare-and-market-effects-of-fairness-interventions"><span class="header-section-number">3.2</span> Welfare and Market Effects of Fairness Interventions</h4>
-<p>A separate literature examines what happens to consumers and insurers when fairness constraints are applied. <span class="citation" data-cites="huang2026welfarealgorithms">Huang, Shimao, and Khern-am-nuai (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> show that fairness interventions at the cost-model stage do not translate uniformly into welfare improvements at the market stage. Using a discrete-choice demand framework applied to French motor insurance data, they find that some standard fairness metrics can <em>reduce</em> welfare for the protected group after selection effects and demand response are taken into account, and that firm-versus-consumer trade-offs vary substantially by intervention type.</p>
+<p>A separate literature examines what happens to consumers and insurers when fairness constraints are applied. <span class="citation" data-cites="huang2026welfarealgorithms">Huang et al. (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> show that fairness interventions at the cost-model stage do not translate uniformly into welfare improvements at the market stage. Using a discrete-choice demand framework applied to French motor insurance data, they find that some standard fairness metrics can <em>reduce</em> welfare for the protected group after selection effects and demand response are taken into account, and that firm-versus-consumer trade-offs vary substantially by intervention type.</p>
 <p><span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span> develop a complete pricing pipeline model that incorporates cost modeling, demand modeling, price optimization, and regulatory constraints, and evaluate five pricing regulations (P0, PA, POB, PDP, PAF) in terms of premium gaps, markup gaps, consumer welfare, and insurer profit. A central finding is that premium fairness and markup fairness are in tension, no single regulation achieves both simultaneously. PDP closes premium gaps but can widen markup disparities for the group it is designed to protect.</p>
 </section>
 <section id="audit-methodology-for-algorithmic-pricing" class="level4" data-number="3.3">
 <h4 data-number="3.3" class="anchored" data-anchor-id="audit-methodology-for-algorithmic-pricing"><span class="header-section-number">3.3</span> Audit Methodology for Algorithmic Pricing</h4>
 <p><span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span> develop the audit methodology used in Step 4. They identify a key statistical problem. Deterministic pricing algorithms always return the same price for the same input profile, so audit regression residuals represent model approximation error rather than independent sampling variability. Classical OLS standard errors, which assume i.i.d. errors, can be wrong in both magnitude and direction. They prescribe HC3 sandwich standard errors for CDP audits and a full cross-covariance correction for proxy-discrimination tests. They also argue for equivalence testing (TOST) rather than conventional significance testing for compliance auditing, because a non-significant result under conventional testing is not positive evidence of fairness. It only means a gap was not detected.</p>
-<p><span class="citation" data-cites="xin2026proxyrace">Xin, Hooker, and Huang (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span> examine the consequences of using proxied protected attributes (BISG, BIFSG, zip-code composition) in audit regressions. Proxy misclassification mixes group effects, and estimated gaps can be attenuated toward the majority group even when overall proxy accuracy appears high. Proxy errors can correlate with geography and pricing residuals, further distorting disparity estimates.</p>
+<p><span class="citation" data-cites="xin2026proxyrace">Xin et al. (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span> examine the consequences of using proxied protected attributes (BISG, BIFSG, zip-code composition) in audit regressions. Proxy misclassification mixes group effects, and estimated gaps can be attenuated toward the majority group even when overall proxy accuracy appears high. Proxy errors can correlate with geography and pricing residuals, further distorting disparity estimates.</p>
 </section>
 <section id="positioning" class="level4" data-number="3.4">
 <h4 data-number="3.4" class="anchored" data-anchor-id="positioning"><span class="header-section-number">3.4</span> Positioning</h4>
@@ -562,7 +566,7 @@ window.Quarto = {
 <p>Indirect discrimination arises after direct discrimination is ruled out. A person may still be treated disproportionately because protected status is inferred through an apparently neutral practice. Two channels matter in modern pricing. First, identifiable proxies are facially neutral variables that stand in for a protected attribute, such as geographic area correlated with race or variables correlated with gender. Second, unidentifiable proxies arise when opaque models combine many variables and reproduce protected-group disparities without a single obvious surrogate.</p>
 <p>EU and Australian law often define indirect discrimination through three elements, a facially neutral provision, criterion, or practice, a connection to a protected characteristic in law, and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role, a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination. Legitimacy and justification also matter.</p>
 <p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (fairness through unawareness (FTU)) does not guarantee fair outputs if proxies or complex algorithms remain <span class="citation" data-cites="lindholm-etal-2022-discrimination xin2024antidiscrimination">(<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
-<p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation. See Step 4 <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>. Steps 2 through 4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
+<p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation. See Step 4 <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>. Steps 2 through 4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
 </section>
 <section id="risk-based-and-non-risk-differentiation" class="level6" data-number="5.1.2.3">
 <h6 data-number="5.1.2.3" class="anchored" data-anchor-id="risk-based-and-non-risk-differentiation"><span class="header-section-number">5.1.2.3</span> Risk-based and non-risk differentiation</h6>
@@ -653,14 +657,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><strong>Broader taxonomy.</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck, Balnozan, and Huang (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> survey a wider set of criteria for life insurance. The taxonomy distinguishes <strong>individual</strong> and <strong>group</strong> fairness.</p>
+<p><strong>Broader taxonomy.</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> survey a wider set of criteria for life insurance. The taxonomy distinguishes <strong>individual</strong> and <strong>group</strong> fairness.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Playbook/plot/fairness1.png" class="img-fluid figure-img" style="width:85.0%" alt="Fairness criteria taxonomy"></p>
-<figcaption>Fairness criteria taxonomy (individual and group fairness). Adapted from <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>.</figcaption>
+<figcaption>Fairness criteria taxonomy (individual and group fairness). Adapted from <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck et al. 2026</a>)</span>.</figcaption>
 </figure>
 </div>
-<p><strong>Individual fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
+<p><strong>Individual fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck et al. 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 30%">
@@ -692,7 +696,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
+<p><strong>Group fairness</strong> <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck et al. 2026</a>)</span>. <em>Examples below are adapted from the SoA report (life insurance).</em></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 30%">
@@ -733,7 +737,7 @@ window.Quarto = {
 <thead>
 <tr class="header">
 <th>Playbook criterion</th>
-<th>Related criterion in <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>)</span></th>
+<th>Related criterion in <span class="citation" data-cites="krafcheck2026fairnessmetrics">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck et al. 2026</a>)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -759,7 +763,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Achieving individual and group fairness simultaneously is often impossible <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck, Balnozan, and Huang 2026</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. The trade-off between criteria is itself part of the fairness discussion.</p>
+<p>Achieving individual and group fairness simultaneously is often impossible <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck et al. 2026</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. The trade-off between criteria is itself part of the fairness discussion.</p>
 <p><strong>Choosing a criterion for your regime.</strong> Regulation can constrain <strong>inputs</strong> (which variables or pricing procedures are allowed) or <strong>outputs</strong> (quantitative tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV). Disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Match the criterion you adopt to your regime before modelling in Step 2.</p>
 </section>
 </section>
@@ -989,12 +993,12 @@ window.Quarto = {
 <section id="who-gains-and-loses" class="level5" data-number="5.3.1">
 <h5 data-number="5.3.1" class="anchored" data-anchor-id="who-gains-and-loses"><span class="header-section-number">5.3.1</span> Who gains and loses?</h5>
 <p>A model that looks fair on paper can still leave some groups worse off once prices respond to demand, competition, and regulation. Step 3 asks you to quantify consumer welfare and firm profit by protected group, not only whether predicted costs or premiums are equal.</p>
-<p>Quantify firm profit and consumer welfare from pricing outputs (price, approval, loss ratio, markups). Prediction-level fairness alone is insufficient <span class="citation" data-cites="huang2026welfarealgorithms">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang, Shimao, and Khern-am-nuai 2026</a>)</span>. Welfare assessment compares alternative pricing rules (P0, PA, POB, PDP, PAF) to show who gains and who loses. Demand and price-setting assumptions should reflect the product and distribution channel. Price optimisation may be restricted or prohibited in some jurisdictions, so the analysis here is best read as policy comparison rather than operational guidance without legal review. Regulatory labels such as PA and POB map to different rules in different countries, so the pricing-rules table below should be treated as a conceptual taxonomy. Case Study 2 illustrates one insurance market with a subsample. A filing or board memo should use market-specific data and structure.</p>
+<p>Quantify firm profit and consumer welfare from pricing outputs (price, approval, loss ratio, markups). Prediction-level fairness alone is insufficient <span class="citation" data-cites="huang2026welfarealgorithms">(<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">Huang et al. 2026</a>)</span>. Welfare assessment compares alternative pricing rules (P0, PA, POB, PDP, PAF) to show who gains and who loses. Demand and price-setting assumptions should reflect the product and distribution channel. Price optimisation may be restricted or prohibited in some jurisdictions, so the analysis here is best read as policy comparison rather than operational guidance without legal review. Regulatory labels such as PA and POB map to different rules in different countries, so the pricing-rules table below should be treated as a conceptual taxonomy. Case Study 2 illustrates one insurance market with a subsample. A filing or board memo should use market-specific data and structure.</p>
 <p>This step focuses on ex-ante welfare and profit after pricing rules are applied. It does not replace the statistical audits of deployed prices in Step 4, and it takes a fair cost model from Step 2 as given rather than re-deriving fairness criteria.</p>
 </section>
 <section id="cost-modelling-and-welfare" class="level5" data-number="5.3.2">
 <h5 data-number="5.3.2" class="anchored" data-anchor-id="cost-modelling-and-welfare"><span class="header-section-number">5.3.2</span> Cost modelling and welfare</h5>
-<p><span class="citation" data-cites="huang2026welfarealgorithms">Huang, Shimao, and Khern-am-nuai (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> connect fairness constraints on cost models to pricing, demand, participation, and welfare. Three themes recur in their analysis. Fairness interventions at the cost-modelling stage can alter final prices even when predictive accuracy changes only modestly. Standard fairness metrics may reduce welfare for protected groups once selection effects and demand response are taken into account. Finally, the trade-offs between firm profit and consumer welfare differ by intervention type, so a single summary statistic rarely captures the full picture.</p>
+<p><span class="citation" data-cites="huang2026welfarealgorithms">Huang et al. (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> connect fairness constraints on cost models to pricing, demand, participation, and welfare. Three themes recur in their analysis. Fairness interventions at the cost-modelling stage can alter final prices even when predictive accuracy changes only modestly. Standard fairness metrics may reduce welfare for protected groups once selection effects and demand response are taken into account. Finally, the trade-offs between firm profit and consumer welfare differ by intervention type, so a single summary statistic rarely captures the full picture.</p>
 </section>
 <section id="full-pricing-process" class="level5" data-number="5.3.3">
 <h5 data-number="5.3.3" class="anchored" data-anchor-id="full-pricing-process"><span class="header-section-number">5.3.3</span> Full pricing process</h5>
@@ -1073,7 +1077,7 @@ window.Quarto = {
 <section id="key-findings" class="level5" data-number="5.3.5">
 <h5 data-number="5.3.5" class="anchored" data-anchor-id="key-findings"><span class="header-section-number">5.3.5</span> Key findings</h5>
 <p><span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span> highlight a persistent tension between price fairness and markup fairness. No single pricing rule achieves both simultaneously. PDP moves premiums closest to equality across protected groups but can widen markup disparities for the group the rule is meant to protect: the female-to-male markup ratio rises from 1.21 under unconstrained pricing to 1.66 under PDP. PA reduces markup gaps (ratio falls to 1.07) but at the largest profit cost of any rule, around 42 per cent. The welfare effects of POB depend on market structure, including whether participation is mandatory or voluntary and how competitive the market is.</p>
-<p><span class="citation" data-cites="huang2026welfarealgorithms">Huang, Shimao, and Khern-am-nuai (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> find that when fairness rules apply industry-wide rather than to a single firm, welfare consequences for protected groups are substantially amplified. Female consumers can no longer escape regulation-induced price distortions by switching to an unregulated competitor. Under a fairness-unawareness rule, female welfare falls by $13.43 when only one firm is regulated but by $101.67 when all insurers face the same constraint — a nearly eightfold increase. Regulators considering mandatory industry-wide mandates should account for this amplification.</p>
+<p><span class="citation" data-cites="huang2026welfarealgorithms">Huang et al. (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> find that when fairness rules apply industry-wide rather than to a single firm, welfare consequences for protected groups are substantially amplified. Female consumers can no longer escape regulation-induced price distortions by switching to an unregulated competitor. Under a fairness-unawareness rule, female welfare falls by $13.43 when only one firm is regulated but by $101.67 when all insurers face the same constraint — a nearly eightfold increase. Regulators considering mandatory industry-wide mandates should account for this amplification.</p>
 <p>Markup is the gap between the premium charged and the customer’s expected claim cost. A regulation that equalises premiums across groups may still leave one group paying a higher markup relative to their risk.</p>
 </section>
 <section id="measures" class="level5" data-number="5.3.6">
@@ -1173,9 +1177,9 @@ window.Quarto = {
 </section>
 <section id="proxied-protected-attributes" class="level5" data-number="5.4.5">
 <h5 data-number="5.4.5" class="anchored" data-anchor-id="proxied-protected-attributes"><span class="header-section-number">5.4.5</span> Proxied protected attributes</h5>
-<p>When race or ethnicity cannot be observed directly, regulators and firms sometimes infer it using BISG, BIFSG, zip composition, or similar methods. If that proxy enters the audit regression as a categorical protected attribute, the coefficient on the proxy group is not the same estimand as a true-group disparity <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
+<p>When race or ethnicity cannot be observed directly, regulators and firms sometimes infer it using BISG, BIFSG, zip composition, or similar methods. If that proxy enters the audit regression as a categorical protected attribute, the coefficient on the proxy group is not the same estimand as a true-group disparity <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>.</p>
 <p>Misclassification mixes group effects. Estimated gaps can shrink toward the majority group even when overall proxy accuracy looks high. Proxy errors can also correlate with geography, socioeconomic conditions, and pricing residuals after legitimate controls are applied. Disparities can then be attenuated or amplified relative to analyses based on observed protected-class labels.</p>
-<p>Treat proxy-based CDP coefficients as diagnostic signals, not definitive proof of compliance or discrimination. Document the proxy method, its confusion structure where available, and these limits in the audit protocol. Colorado’s draft BIFSG testing framework and New York Circular Letter No.&nbsp;7 both contemplate inferred protected-class status in regression-based assessments <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed xin2026proxyrace">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
+<p>Treat proxy-based CDP coefficients as diagnostic signals, not definitive proof of compliance or discrimination. Document the proxy method, its confusion structure where available, and these limits in the audit protocol. Colorado’s draft BIFSG testing framework and New York Circular Letter No.&nbsp;7 both contemplate inferred protected-class status in regression-based assessments <span class="citation" data-cites="doradoi-2023-concerning nydfs-2024-proposed xin2026proxyrace">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>.</p>
 </section>
 <section id="statistical-testing" class="level5" data-number="5.4.6">
 <h5 data-number="5.4.6" class="anchored" data-anchor-id="statistical-testing"><span class="header-section-number">5.4.6</span> Statistical testing</h5>
@@ -1275,9 +1279,9 @@ window.Quarto = {
 <h5 data-number="5.4.8" class="anchored" data-anchor-id="feature-importance-check"><span class="header-section-number">5.4.8</span> Feature importance check</h5>
 <p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in Case Study 3.</p>
 <p>Some filing and governance workflows use a different, variable-level check instead, partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.</p>
-<p><strong>Regulatory example.</strong> <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> discuss variable-level filing review in US insurance. NAIC guidance <span class="citation" data-cites="naic2020predictivemodels naic2022treebased">(<a href="#ref-naic2020predictivemodels" role="doc-biblioref">National Association of Insurance Commissioners 2020</a>, <a href="#ref-naic2022treebased" role="doc-biblioref">2022</a>)</span> describes what state regulators may request when reviewing tree-based auto and homeowners rate filings, partial dependence plots and variable-importance plots for each predictor’s relationship to the target (frequency, severity, loss costs, or expenses), with rational explanations especially for variables of concern. This is review guidance, not a quantitative outcome fairness test like CDP or proxy discrimination.</p>
+<p><strong>Regulatory example.</strong> <span class="citation" data-cites="xin2025partialdependenceplots">Xin et al. (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> discuss variable-level filing review in US insurance. NAIC guidance <span class="citation" data-cites="naic2020predictivemodels naic2022treebased">(<a href="#ref-naic2020predictivemodels" role="doc-biblioref">National Association of Insurance Commissioners 2020</a>, <a href="#ref-naic2022treebased" role="doc-biblioref">2022</a>)</span> describes what state regulators may request when reviewing tree-based auto and homeowners rate filings, partial dependence plots and variable-importance plots for each predictor’s relationship to the target (frequency, severity, loss costs, or expenses), with rational explanations especially for variables of concern. This is review guidance, not a quantitative outcome fairness test like CDP or proxy discrimination.</p>
 <p>Industry reports such as <span class="citation" data-cites="soa2021interpretableml">Society of Actuaries (<a href="#ref-soa2021interpretableml" role="doc-biblioref">2021</a>)</span> catalog similar tools for actuaries and summarize NAIC review practices, but they are practitioner guidance, not regulatory requirements.</p>
-<p>Treat partial dependence plots (and other permutation-based interpretation tools) as an optional supplement for ML model documentation, not a substitute for outcome-based testing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin, Hooker, and Huang (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> argue that black-box models plus interpretability plots should be a last resort, prefer interpretable models such as GLMs or GAMs when they achieve comparable predictive performance (see Step 2). A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. The same paper shows that these tools can be manipulated to hide age- or race-related patterns while retaining almost all predictions on real data. Where they are used in filing or internal review, pair them with outcome audits, examine the underlying data, and use multiple interpretation tools (such as individual conditional expectation curves shown in full, including percentile bands) to help reveal anomalies that averaging hides.</p>
+<p>Treat partial dependence plots (and other permutation-based interpretation tools) as an optional supplement for ML model documentation, not a substitute for outcome-based testing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin et al. (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> argue that black-box models plus interpretability plots should be a last resort, prefer interpretable models such as GLMs or GAMs when they achieve comparable predictive performance (see Step 2). A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. The same paper shows that these tools can be manipulated to hide age- or race-related patterns while retaining almost all predictions on real data. Where they are used in filing or internal review, pair them with outcome audits, examine the underlying data, and use multiple interpretation tools (such as individual conditional expectation curves shown in full, including percentile bands) to help reveal anomalies that averaging hides.</p>
 </section>
 <section id="governance-and-monitoring" class="level5" data-number="5.4.9">
 <h5 data-number="5.4.9" class="anchored" data-anchor-id="governance-and-monitoring"><span class="header-section-number">5.4.9</span> Governance and monitoring</h5>
@@ -1354,7 +1358,7 @@ window.Quarto = {
 <p><strong>Framework scope.</strong> The playbook is designed for operational clarity, not legal determination. It does not prescribe one globally valid fairness criterion, one approved model pipeline, or one set of acceptable rating factors. Legal burden, tolerated disparity, and admissible predictors vary across markets and product lines. The framework should not be treated as a compliance safe harbor in any specific jurisdiction.</p>
 <p><strong>Criterion selection.</strong> The case studies illustrate CDP and PD because these map to current regulatory proposals in Colorado and New York. Many other criteria, including separation, sufficiency, and individual fairness, may be appropriate in other jurisdictions or product contexts. The criterion that is legally binding must be determined by legal and regulatory counsel, not by the playbook.</p>
 <p><strong>Welfare analysis assumptions.</strong> The demand model in Case Study 2 relies on parameters calibrated from published studies and may not reflect the demand structure of other insurance markets, particularly markets with mandatory participation, different competitive structures, or different product types. The 2,000-policyholder subsample used for welfare analysis is a computational limitation.</p>
-<p><strong>Audit applicability.</strong> The HC3 correction and cross-covariance adjustment in Step 4 are designed for deterministic algorithmic outputs. For stochastic pricing systems (e.g., systems that incorporate random draws or exploration), different variance corrections may be needed. The majority-minority zip-code indicator used in Case Study 3 is a geographic proxy for race, not a direct protected-class observation. Proxy-measurement issues affect the interpretation of audit results as discussed in <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin, Hooker, and Huang 2026</a>)</span>.</p>
+<p><strong>Audit applicability.</strong> The HC3 correction and cross-covariance adjustment in Step 4 are designed for deterministic algorithmic outputs. For stochastic pricing systems (e.g., systems that incorporate random draws or exploration), different variance corrections may be needed. The majority-minority zip-code indicator used in Case Study 3 is a geographic proxy for race, not a direct protected-class observation. Proxy-measurement issues affect the interpretation of audit results as discussed in <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>.</p>
 </section>
 <section id="conclusion" class="level3" data-number="9">
 <h3 data-number="9" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">9</span> Conclusion</h3>
@@ -1384,7 +1388,7 @@ window.Quarto = {
 </section>
 <section id="bibtex" class="level4" data-number="12.2">
 <h4 data-number="12.2" class="anchored" data-anchor-id="bibtex"><span class="header-section-number">12.2</span> BibTeX</h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">huang2026fairpricingplaybook</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">huang2026fairpricingplaybook</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {The Fair Pricing Playbook: A practical framework for</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               Responsible AI in algorithmic pricing},</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Huang, Fei},</span>
@@ -1392,7 +1396,7 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {SSRN},</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>       = {10.2139/ssrn.6955039},</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>       = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6955039}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="references" class="level3" data-number="13">
@@ -1402,54 +1406,54 @@ window.Quarto = {
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">13 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">13 References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
-Colorado Division of Insurance. 2023. <span>“Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes.”</span> <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
+Colorado Division of Insurance. 2023. <em>Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes</em>. <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">Https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
 </div>
 <div id="ref-CFA" class="csl-entry" role="listitem">
-Consumer Federation of America. 2014. <span>“Insurance Commissioners Should Bar Industry Practice of Raising Rates on Customers Based on Shopping Habits.”</span> <a href="https://consumerfed.org/press_release/insurance-commissioners-should-bar-industry-practice-of-raising-rates-on-customers-based-on-shopping-habits/" class="uri">https://consumerfed.org/press_release/insurance-commissioners-should-bar-industry-practice-of-raising-rates-on-customers-based-on-shopping-habits/</a>.
+Consumer Federation of America. 2014. <em>Insurance Commissioners Should Bar Industry Practice of Raising Rates on Customers Based on Shopping Habits</em>. <a href="https://consumerfed.org/press_release/insurance-commissioners-should-bar-industry-practice-of-raising-rates-on-customers-based-on-shopping-habits/" class="uri">Https://consumerfed.org/press_release/insurance-commissioners-should-bar-industry-practice-of-raising-rates-on-customers-based-on-shopping-habits/</a>.
 </div>
 <div id="ref-dutang2020package" class="csl-entry" role="listitem">
-Dutang, Christophe, and Arthur Charpentier. 2026. <span>“CASdatasets: Insurance Datasets.”</span> <a href="https://doi.org/10.57745/P0KHAG">https://doi.org/10.57745/P0KHAG</a>.
+Dutang, Christophe, and Arthur Charpentier. 2026. <em>CASdatasets: Insurance Datasets</em>. <a href="https://doi.org/10.57745/P0KHAG">https://doi.org/10.57745/P0KHAG</a>.
 </div>
 <div id="ref-dwork-etal-2012-fairness" class="csl-entry" role="listitem">
-Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. 2012. <span>“Fairness Through Awareness.”</span> In <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em>, 214–26. ITCS ’12. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/2090236.2090255">https://doi.org/10.1145/2090236.2090255</a>.
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. 2012. <span>“Fairness Through Awareness.”</span> <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em> (New York, NY, USA), ITCS ’12, 214–26. <a href="https://doi.org/10.1145/2090236.2090255">https://doi.org/10.1145/2090236.2090255</a>.
 </div>
 <div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
 Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
 </div>
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
-Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
+Huang, Fei, and Giles Hooker. 2026. <em>Fairness Testing for Algorithmic Pricing</em>. <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
 </div>
 <div id="ref-huang2026welfareaccountable" class="csl-entry" role="listitem">
-Huang, Fei, and Hajime Shimao. 2026. <span>“Welfare Implications of Fair and Accountable Insurance Pricing.”</span> <em>Journal of Risk and Insurance</em>. <a href="https://doi.org/10.1111/jori.70051">https://doi.org/10.1111/jori.70051</a>.
+Huang, Fei, and Hajime Shimao. 2026. <span>“Welfare Implications of Fair and Accountable Insurance Pricing.”</span> <em>Journal of Risk and Insurance</em>, ahead of print. <a href="https://doi.org/10.1111/jori.70051">https://doi.org/10.1111/jori.70051</a>.
 </div>
 <div id="ref-huang2026welfarealgorithms" class="csl-entry" role="listitem">
-Huang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. <span>“Do Fair Algorithms Improve Welfare? Evidence from the Insurance Market.”</span> UNSW Business School Research Paper Forthcoming. <a href="https://doi.org/10.2139/ssrn.5112616">https://doi.org/10.2139/ssrn.5112616</a>.
+Huang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. <em>Do Fair Algorithms Improve Welfare? Evidence from the Insurance Market</em>. UNSW Business School Research Paper Forthcoming. <a href="https://doi.org/10.2139/ssrn.5112616">https://doi.org/10.2139/ssrn.5112616</a>.
 </div>
 <div id="ref-kamiran2012data" class="csl-entry" role="listitem">
 Kamiran, Faisal, and Toon Calders. 2012. <span>“Data Preprocessing Techniques for Classification Without Discrimination.”</span> <em>Knowledge and Information Systems</em> 33 (1): 1–33.
 </div>
 <div id="ref-krafcheck2026fairnessmetrics" class="csl-entry" role="listitem">
-Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <span>“Fairness Metrics for Life Insurance.”</span> Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
+Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <em>Fairness Metrics for Life Insurance</em>. Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
 </div>
 <div id="ref-larson-etal-2017-minority" class="csl-entry" role="listitem">
-Larson, Jeff, Julia Angwin, Lauren Kirchner, and Surya Mattu. 2017. <span>“Minority Neighborhoods Pay Higher Car Insurance Premiums Than White Areas with the Same Risk.”</span> ProPublica and Consumer Reports. <a href="https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk">https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk</a>.
+Larson, Jeff, Julia Angwin, Lauren Kirchner, and Surya Mattu. 2017. <em>Minority Neighborhoods Pay Higher Car Insurance Premiums Than White Areas with the Same Risk</em>. ProPublica and Consumer Reports. <a href="https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk">https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk</a>.
 </div>
 <div id="ref-lindholm-etal-2022-discrimination" class="csl-entry" role="listitem">
 Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2022. <span>“Discrimination-Free Insurance Pricing.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 52 (1): 55–89. <a href="https://doi.org/10.1017/asb.2021.23">https://doi.org/10.1017/asb.2021.23</a>.
 </div>
 <div id="ref-POWhitePaper" class="csl-entry" role="listitem">
-NAIC CAS Task Force. 2015. <span>“Casualty Actuarial and Statistical (c) Task Force Price Optimization White Paper.”</span> <a href="https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf" class="uri">https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf</a>.
+NAIC CAS Task Force. 2015. <em>Casualty Actuarial and Statistical (c) Task Force Price Optimization White Paper</em>. <a href="https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf" class="uri">Https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf</a>.
 </div>
 <div id="ref-naic2020predictivemodels" class="csl-entry" role="listitem">
-National Association of Insurance Commissioners. 2020. <span>“Regulatory Review of Predictive Models.”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf</a>.
+National Association of Insurance Commissioners. 2020. <em>Regulatory Review of Predictive Models</em>. <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf" class="uri">Https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf</a>.
 </div>
 <div id="ref-naic2022treebased" class="csl-entry" role="listitem">
-———. 2022. <span>“Regulatory Review of Predictive Models: Appendix b-Trees (Tree-Based Models).”</span> <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf" class="uri">https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf</a>.
+National Association of Insurance Commissioners. 2022. <em>Regulatory Review of Predictive Models: Appendix b-Trees (Tree-Based Models)</em>. <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf" class="uri">Https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf</a>.
 </div>
 <div id="ref-nydfs-2024-proposed" class="csl-entry" role="listitem">
-New York State Department of Financial Services. 2024. <span>“Proposed Insurance Circular Letter: January 17, 2024.”</span> <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
+New York State Department of Financial Services. 2024. <em>Proposed Insurance Circular Letter: January 17, 2024</em>. <a href="https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed" class="uri">Https://www.dfs.ny.gov/industry_guidance/circular_letters/cl2024_nn_proposed</a>.
 </div>
 <div id="ref-prince2019proxy" class="csl-entry" role="listitem">
 Prince, Anya ER, and Daniel Schwarcz. 2019. <span>“Proxy Discrimination in the Age of Artificial Intelligence and Big Data.”</span> <em>Iowa Law Review</em> 105: 1257.
@@ -1458,252 +1462,256 @@ Prince, Anya ER, and Daniel Schwarcz. 2019. <span>“Proxy Discrimination in the
 Schuirmann, Donald J. 1987. <span>“A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.”</span> <em>Journal of Pharmacokinetics and Biopharmaceutics</em> 15 (6): 657–80.
 </div>
 <div id="ref-soa2021interpretableml" class="csl-entry" role="listitem">
-Society of Actuaries. 2021. <span>“Interpretable Machine Learning for Insurance: An Introduction with Examples.”</span> <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf" class="uri">https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
+Society of Actuaries. 2021. <em>Interpretable Machine Learning for Insurance: An Introduction with Examples</em>. <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf" class="uri">Https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
 </div>
 <div id="ref-xin2025partialdependenceplots" class="csl-entry" role="listitem">
 Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
 </div>
 <div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
-———. 2026. <span>“How Proxy Race Distorts Regression-Based Fairness Audits.”</span> <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
+Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regression-Based Fairness Audits</em>. <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
 </div>
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1711,185 +1719,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./index.html" class="pagination-link" aria-label="Overview">
