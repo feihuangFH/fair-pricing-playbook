@@ -82,7 +82,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -136,7 +136,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -546,7 +546,7 @@ window.Quarto = {
 <section id="import-packages-and-define-audit-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="import-packages-and-define-audit-parameters">Import packages and define audit parameters</h3>
 <p>The following code imports the required Python packages and sets the parameters above.</p>
-<div id="setup" class="cell" data-execution_count="2">
+<div id="setup" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show setup code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -574,7 +574,7 @@ window.Quarto = {
 <section id="supporting-functions" class="level3">
 <h3 class="anchored" data-anchor-id="supporting-functions">Supporting functions</h3>
 <p>The following functions implement the calculations used throughout the CDP and PD audits. The code is folded for readability but can be expanded if desired.</p>
-<div id="supporting-functions" class="cell" data-execution_count="3">
+<div id="supporting-functions" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show supporting functions code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ols_fit(X, y):</span>
@@ -688,7 +688,7 @@ window.Quarto = {
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
-<div id="cell-load-data" class="cell" data-execution_count="4">
+<div id="cell-load-data" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show data loading code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_data(path):</span>
@@ -846,7 +846,7 @@ Number of variables: 15</code></pre>
 </div>
 </div>
 <p>The dataset contains zip-code-company observations. Before running company-level audits, we first summarise the unconditional differences between majority-minority and non-majority-minority zip codes.</p>
-<div id="cell-summary-statistics" class="cell" data-execution_count="5">
+<div id="cell-summary-statistics" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show summary statistics code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> table_summary_stats(df):</span>
@@ -1048,7 +1048,7 @@ Note
 + \gamma_{2k} \text{Chicago}_z + r_{kz},
 </span></p>
 <p>where <span class="math inline">P_{kz}</span> is the quoted premium for company <span class="math inline">k</span> in zip code <span class="math inline">z</span>, and <span class="math inline">A_z</span> is the majority-minority zip-code indicator. The coefficient <span class="math inline">\beta_{A,k}</span> measures the conditional log-premium gap for company <span class="math inline">k</span>.</p>
-<div id="design-matrices" class="cell" data-execution_count="6">
+<div id="design-matrices" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show design matrix code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_design_matrices(grp):</span>
@@ -1070,7 +1070,7 @@ Note
 <section id="classical-versus-hc3-standard-errors" class="level3">
 <h3 class="anchored" data-anchor-id="classical-versus-hc3-standard-errors">Classical versus HC3 standard errors</h3>
 <p>The first issue is whether the usual classical OLS standard error is appropriate. Since quoted premiums are deterministic outputs, the residuals are approximation errors rather than independent stochastic noise. We therefore compare the usual classical standard error with the HC3 sandwich standard error. HC3 is a finite-sample heteroskedasticity-consistent sandwich estimator proposed by <span class="citation" data-cites="mackinnon-white-1985">MacKinnon and White (<a href="#ref-mackinnon-white-1985" role="doc-biblioref">1985</a>)</span> and used here as the default corrected standard error.</p>
-<div id="cell-analyse-cdp-company" class="cell" data-execution_count="7">
+<div id="cell-analyse-cdp-company" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show CDP analysis code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyse_cdp_company(company, grp):</span>
@@ -1217,7 +1217,7 @@ Note
 </div>
 </div>
 <p>The next table summarises the company-level comparison between classical and HC3 standard errors.</p>
-<div id="cell-cdp-se-summary" class="cell" data-execution_count="8">
+<div id="cell-cdp-se-summary" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show CDP standard error summary code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>se_summary <span class="op">=</span> pd.DataFrame({</span>
@@ -1263,7 +1263,7 @@ Note
 </div>
 </div>
 <p>The table below reports selected companies where the HC3 correction has the largest and smallest effect on the standard error for the protected-attribute coefficient.</p>
-<div id="cell-cdp-se-selected" class="cell" data-execution_count="9">
+<div id="cell-cdp-se-selected" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show selected CDP standard error results code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>selected_se <span class="op">=</span> pd.concat([</span>
@@ -1369,7 +1369,7 @@ Note
 </div>
 </div>
 </div>
-<div id="cell-fig-cdp-se-ratio" class="cell" data-execution_count="10">
+<div id="cell-fig-cdp-se-ratio" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show CDP standard error ratio plot code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> cdp_results.sort_values(<span class="st">"rho"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -1387,7 +1387,7 @@ Note
 <div id="fig-cdp-se-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cdp-se-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="case_study3_files/figure-html/fig-cdp-se-ratio-output-1.png" class="img-fluid figure-img">
+<img src="case_study3_files/figure-html/fig-cdp-se-ratio-output-1.png" width="758" height="422" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cdp-se-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Ratio of HC3 to classical standard errors for the protected-attribute coefficient.
@@ -1420,7 +1420,7 @@ Note
 <li>the implied dollar gap must lie within 5% of the mean premium.</li>
 </ol>
 <p>A company passes only if both confidence intervals lie entirely within the tolerance bands. It fails if either interval lies entirely outside. Otherwise the verdict is insufficient information the sample is too imprecise to confirm compliance or a material disparity (<span class="citation" data-cites="huanghooker2026fairness">Huang and Hooker (<a href="#ref-huanghooker2026fairness" role="doc-biblioref">2026</a>)</span>).</p>
-<div id="cell-cdp-verdict-summary" class="cell" data-execution_count="11">
+<div id="cell-cdp-verdict-summary" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show CDP verdict summary code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cdp_summary <span class="op">=</span> (</span>
@@ -1456,7 +1456,7 @@ Note
 </div>
 </div>
 </div>
-<div id="cell-cdp-verdict-selected" class="cell" data-execution_count="12">
+<div id="cell-cdp-verdict-selected" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show selected CDP verdict results code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>selected_cdp <span class="op">=</span> pd.concat([</span>
@@ -1554,7 +1554,7 @@ Note
 </div>
 </div>
 </div>
-<div id="cell-fig-cdp-gap" class="cell" data-execution_count="13">
+<div id="cell-fig-cdp-gap" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show CDP premium gap plot code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> audit_results.sort_values(<span class="st">"gap_usd"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -1572,7 +1572,7 @@ Note
 <div id="fig-cdp-gap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cdp-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="case_study3_files/figure-html/fig-cdp-gap-output-1.png" class="img-fluid figure-img">
+<img src="case_study3_files/figure-html/fig-cdp-gap-output-1.png" width="758" height="422" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cdp-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Estimated conditional dollar premium gap across companies.
@@ -1617,7 +1617,7 @@ Note
 <section id="standard-versus-corrected-standard-errors" class="level3">
 <h3 class="anchored" data-anchor-id="standard-versus-corrected-standard-errors">Standard versus corrected standard errors</h3>
 <p>The usual independent-samples formula treats the two coefficient estimates as independent. That is not appropriate here because both regressions are fitted to the same deterministic premium vector. The corrected standard error includes the cross-covariance between the two estimates.</p>
-<div id="cell-analyse-pd-company" class="cell" data-execution_count="14">
+<div id="cell-analyse-pd-company" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show proxy discrimination analysis code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyse_pd_company(company, grp):</span>
@@ -1749,7 +1749,7 @@ Note
 </div>
 </div>
 </div>
-<div id="cell-pd-summary" class="cell" data-execution_count="15">
+<div id="cell-pd-summary" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show proxy discrimination summary code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pd_summary <span class="op">=</span> pd.DataFrame({</span>
@@ -1800,7 +1800,7 @@ Note
 </div>
 </div>
 <p>The table below shows selected companies with the largest relative coefficient shifts. The final flag requires both statistical significance and a relative shift of at least 10%.</p>
-<div id="cell-pd-selected" class="cell" data-execution_count="16">
+<div id="cell-pd-selected" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show selected proxy discrimination results code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>selected_pd <span class="op">=</span> pd_results.nlargest(<span class="dv">10</span>, <span class="st">"shift"</span>)[[</span>
@@ -1954,7 +1954,7 @@ Note
 </div>
 </div>
 </div>
-<div id="cell-fig-pd-z" class="cell" data-execution_count="17">
+<div id="cell-fig-pd-z" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show proxy discrimination z-statistics plot code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plot_df <span class="op">=</span> pd_results.sort_values(<span class="st">"z_full"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -1975,7 +1975,7 @@ Note
 <div id="fig-pd-z" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pd-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="case_study3_files/figure-html/fig-pd-z-output-1.png" class="img-fluid figure-img">
+<img src="case_study3_files/figure-html/fig-pd-z-output-1.png" width="758" height="422" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pd-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Proxy-discrimination z-statistics under independent and corrected standard errors.
@@ -2032,7 +2032,7 @@ Colorado Division of Insurance. 2023. <em>CONCERNING QUANTITATIVE TESTING OF EXT
 </a>.
 </div>
 <div id="ref-huanghooker2026fairness" class="csl-entry" role="listitem">
-Huang, Fei, and Giles Hooker. 2026. <em>Fairness Testing for Algorithmic Pricing</em>.
+Huang, Fei, and Giles Hooker. 2026. <em>Fairness Testing for Algorithmic Pricing</em>. <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
 </div>
 <div id="ref-larson-etal-2017-minority" class="csl-entry" role="listitem">
 Larson, Jeff, Julia Angwin, Lauren Kirchner, and Surya Mattu. 2017. <em>Minority Neighborhoods Pay Higher Car Insurance Premiums Than White Areas with the Same Risk</em>. ProPublica and Consumer Reports. <a href="https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk">https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk</a>.
