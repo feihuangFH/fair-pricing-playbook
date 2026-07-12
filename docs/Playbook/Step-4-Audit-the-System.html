@@ -53,8 +53,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Case Study 3/case_study3.html" rel="next">
-<link href="../Case Study 2/case_study2.html" rel="prev">
+<link href="../Case Study 4/case_study4.html" rel="next">
+<link href="../Case Study 3/case_study3.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -228,13 +228,19 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fairness Metrics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 2 · Design Fair Pricing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Fair Models</span></a>
   </div>
 </li>
@@ -246,7 +252,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Welfare Implications</span></a>
   </div>
 </li>
@@ -258,7 +264,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 4/case_study4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Fairness Testing</span></a>
   </div>
 </li>
@@ -328,8 +334,8 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p><a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a>. Design and welfare analysis should be complete before auditing a deployed system.</p>
 <p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.</p>
-<p><a href="../Case Study 3/case_study3.html">Case Study 3: Fairness testing</a> implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
-<p>Compliance workflow, see <a href="#end-to-end-audit-flow">End-to-end audit flow</a> → <a href="#checklist">Checklist</a>. Statistical detail, see <a href="#deterministic-pricing">Deterministic pricing</a> → <a href="../Case Study 3/case_study3.html">Case Study 3</a>. Proxied attributes (BISG, BIFSG, zip), see <a href="#proxied-protected-attributes">Proxied protected attributes</a>.</p>
+<p><a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a> implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
+<p>Compliance workflow, see <a href="#end-to-end-audit-flow">End-to-end audit flow</a> → <a href="#checklist">Checklist</a>. Statistical detail, see <a href="#deterministic-pricing">Deterministic pricing</a> → <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>. Proxied attributes (BISG, BIFSG, zip), see <a href="#proxied-protected-attributes">Proxied protected attributes</a>.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -390,7 +396,7 @@ window.Quarto = {
 <li>Tolerance margins for CDP, for example a 5% price-gap band and 0.80 adverse-impact ratio</li>
 <li>Corrected inference deterministic algorithm outputs usually require adjusted standard errors (HC3 for CDP. Cross-covariance for PD), not classical OLS defaults</li>
 </ul>
-<p>The <a href="../Case Study 3/case_study3.html">case study</a> applies one illustrative design to Illinois auto quotes. Adapt criteria, data, and escalation rules to your jurisdiction.</p>
+<p>The <a href="../Case Study 4/case_study4.html">case study</a> applies one illustrative design to Illinois auto quotes. Adapt criteria, data, and escalation rules to your jurisdiction.</p>
 </div>
 </div>
 </section>
@@ -554,7 +560,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Regression formulas, corrected standard errors, and TOST decision rules are worked through in <a href="../Case Study 3/case_study3.html">Case Study 3</a>.</p>
+<p>Regression formulas, corrected standard errors, and TOST decision rules are worked through in <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>.</p>
 </div>
 </div>
 </section>
@@ -596,7 +602,7 @@ window.Quarto = {
 </section>
 <section id="feature-importance-check" class="level3">
 <h3 class="anchored" data-anchor-id="feature-importance-check">Feature importance check</h3>
-<p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in <a href="../Case Study 3/case_study3.html">Case Study 3</a>.</p>
+<p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>.</p>
 <p>Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -722,7 +728,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Completed the four steps.</strong> Return to the <a href="../index.html">Overview</a> or see <a href="../Case Study 3/case_study3.html">Case Study 3 · Fairness Testing</a> for implementation in Python.</p>
+<p><strong>Completed the four steps.</strong> Return to the <a href="../index.html">Overview</a> or see <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a> for implementation in Python.</p>
 </div>
 </div>
 </div>
@@ -1165,12 +1171,12 @@ Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regressi
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Case Study 2/case_study2.html" class="pagination-link" aria-label="Case Study · Welfare Implications">
+      <a href="../Case Study 3/case_study3.html" class="pagination-link" aria-label="Case Study · Welfare Implications">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Case Study · Welfare Implications</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Case Study 3/case_study3.html" class="pagination-link" aria-label="Case Study · Fairness Testing">
+      <a href="../Case Study 4/case_study4.html" class="pagination-link" aria-label="Case Study · Fairness Testing">
         <span class="nav-page-text">Case Study · Fairness Testing</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
