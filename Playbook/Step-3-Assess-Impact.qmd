@@ -12,9 +12,9 @@ format:
 
 [Step 2: Design fair pricing](Step-2-Design-Fair-Pricing.html). A fair cost model does not guarantee a fair final price or favourable welfare outcomes.
 
-[Case Study 2: Welfare implications](<../Case Study 2/case_study2.html>) covers demand, price optimisation, and regulation comparison on insurance data.
+[Case Study: Welfare Implications](<../Case Study 3/case_study3.html>) covers demand, price optimisation, and regulation comparison on insurance data.
 
-Policy readers, see [Who gains and loses](#who-gains-and-loses) and [Pricing rules](#pricing-rules). Business readers, see [Measures](#measures) and [Checklist](#checklist). Technical readers, see [Case Study 2](<../Case Study 2/case_study2.html>).
+Policy readers, see [Who gains and loses](#who-gains-and-loses) and [Pricing rules](#pricing-rules). Business readers, see [Measures](#measures) and [Checklist](#checklist). Technical readers, see [Case Study: Welfare Implications](<../Case Study 3/case_study3.html>).
 :::
 
 ::: {.callout-note appearance="simple" icon="false"}
@@ -44,7 +44,7 @@ Welfare assessment compares alternative pricing rules to show who gains and lose
 - Price optimisation may be restricted or prohibited in some jurisdictions. Use it here for policy analysis, not as operational guidance without legal review
 - The regulatory labels used below (PA, POB, and so on) map to different rules in different countries. Treat them as a conceptual taxonomy
 
-The [case study](<../Case Study 2/case_study2.html>) illustrates one insurance market with a real dataset. Your filing or board memo should use your own data and market structure.
+The [case study](<../Case Study 3/case_study3.html>) illustrates one insurance market with a real dataset. Your filing or board memo should use your own data and market structure.
 :::
 
 ::: {.callout-note appearance="simple" icon="false"}
@@ -83,7 +83,7 @@ This technique is common in retail and travel. In insurance it is more contentio
 
 This is why welfare analysis in Step 3 matters even when Step 2 produces a well-designed fair cost model. The model is only the beginning of the pricing pipeline.
 
-Price optimisation is not the only channel that moves a price away from technical premium. Underwriter discretion, competitive positioning against rival quotes, broker or channel negotiation, and portfolio or underwriting-cycle management (deliberately under- or over-pricing a segment to manage growth or capacity) are all subjective, strategic adjustments that insurers make outside any formal demand model. [Case Study 2](<../Case Study 2/case_study2.html>) and the pricing rules below model only the price-optimisation channel. A market-premium fairness review in practice should also account for these other adjustments, since they can reintroduce group disparities that a price-optimisation-only analysis would not catch.
+Price optimisation is not the only channel that moves a price away from technical premium. Underwriter discretion, competitive positioning against rival quotes, broker or channel negotiation, and portfolio or underwriting-cycle management (deliberately under- or over-pricing a segment to manage growth or capacity) are all subjective, strategic adjustments that insurers make outside any formal demand model. [Case Study: Welfare Implications](<../Case Study 3/case_study3.html>) and the pricing rules below model only the price-optimisation channel. A market-premium fairness review in practice should also account for these other adjustments, since they can reintroduce group disparities that a price-optimisation-only analysis would not catch.
 
 ## The full pricing process {#full-pricing-process}
 
@@ -175,5 +175,5 @@ Use this checklist to document welfare findings before auditing. Assign an owner
 ---
 
 ::: {.callout-tip appearance="minimal" icon="false"}
-**Next:** [Step 4 · Audit the System](Step-4-Audit-the-System.html) — test whether the deployed system passes. Or see [Case Study 2 · Welfare Implications](../Case%20Study%202/case_study2.html) for implementation in Python.
+**Next:** [Step 4 · Audit the System](Step-4-Audit-the-System.html) — test whether the deployed system passes. Or see [Case Study: Welfare Implications](../Case%20Study%203/case_study3.html) for implementation in Python.
 :::

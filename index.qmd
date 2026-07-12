@@ -59,7 +59,7 @@ An audit tests whether a deployed system actually meets the standard. All protoc
 :::
 
 ::: {.callout-note appearance="simple" icon="false"}
-Three case studies provide reproducible implementation evidence. Each is linked from the step it illustrates: [Case study 1 · Fair models](<Case Study 1/case_study1.html>) follows Step 2, [Case study 2 · Welfare implications](<Case Study 2/case_study2.html>) follows Step 3, and [Case study 3 · Fairness testing](<Case Study 3/case_study3.html>) follows Step 4. Case studies are technical supplements. The four steps stand alone for non-technical readers.
+Four case studies provide implementation depth. Each is linked from the step it illustrates. [Case study: Fairness Metrics](<Case Study 1/case_study1.html>) follows Step 1 as a qualitative walkthrough with no code. [Case study: Fair Models](<Case Study 2/case_study2.html>) follows Step 2 with a reproducible model pipeline. [Case study: Welfare Implications](<Case Study 3/case_study3.html>) follows Step 3 with a reproducible welfare simulation. [Case study: Fairness Testing](<Case Study 4/case_study4.html>) follows Step 4 with a reproducible audit pipeline. Case studies are technical supplements. The four steps stand alone for non-technical readers.
 :::
 
 # The pathway at a glance

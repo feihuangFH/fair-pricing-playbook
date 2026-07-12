@@ -9,9 +9,11 @@ format:
 ::: {.callout-tip appearance="simple" icon="false"}
 ## Before you start
 
-This step sets the fairness standard for everything that follows. Steps 2–4 each pair with a case study in the sidebar (insurance applications with technical depth).
+This step sets the fairness standard for everything that follows. Each step pairs with a case study in the sidebar (insurance applications with technical depth).
 
-Compliance and policy, see [Anti-discrimination](#anti-discrimination) → [Checklist](#checklist). Product strategy, see [Competing ethical notions](#competing-ethical-notions). Technical readers, see [Step 2](Step-2-Design-Fair-Pricing.html) and [Case Study 1](<../Case Study 1/case_study1.html>).
+[Case Study: Fairness Metrics for Life Insurance](<../Case Study 1/case_study1.html>) applies the individual and group fairness criteria below to a worked life insurance example, qualitatively rather than with code.
+
+Compliance and policy, see [Anti-discrimination](#anti-discrimination) → [Checklist](#checklist). Product strategy, see [Competing ethical notions](#competing-ethical-notions). Technical readers, see [Step 2](Step-2-Design-Fair-Pricing.html) and [Case Study: Fair Models](<../Case Study 2/case_study2.html>).
 :::
 
 ::: {.callout-note appearance="simple" icon="false"}
@@ -118,7 +120,7 @@ These are the criteria **implemented in Steps 2–4** of this playbook [@xin2024
 
 #### Broader taxonomy
 
-@krafcheck2026fairnessmetrics survey a wider set of criteria for life insurance. The taxonomy distinguishes **individual** and **group** fairness.
+@krafcheck2026fairnessmetrics survey a wider set of criteria for life insurance. The taxonomy distinguishes **individual** and **group** fairness. [Case Study: Fairness Metrics](<../Case Study 1/case_study1.html>) works through each of these criteria on a single worked life insurance example.
 
 ![Fairness criteria taxonomy (individual and group fairness). Adapted from @krafcheck2026fairnessmetrics.](plot/fairness1.png){width=85% fig-alt="Fairness criteria taxonomy: individual fairness and group fairness branches"}
 

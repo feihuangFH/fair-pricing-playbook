@@ -14,9 +14,9 @@ format:
 
 This step focuses mainly on the [anti-discrimination lens](Step-1-Define-Fairness.html#anti-discrimination) from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.
 
-[Case Study 3: Fairness testing](<../Case Study 3/case_study3.html>) implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.
+[Case Study: Fairness Testing](<../Case Study 4/case_study4.html>) implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.
 
-Compliance workflow, see [End-to-end audit flow](#end-to-end-audit-flow) → [Checklist](#checklist). Statistical detail, see [Deterministic pricing](#deterministic-pricing) → [Case Study 3](<../Case Study 3/case_study3.html>). Proxied attributes (BISG, BIFSG, zip), see [Proxied protected attributes](#proxied-protected-attributes).
+Compliance workflow, see [End-to-end audit flow](#end-to-end-audit-flow) → [Checklist](#checklist). Statistical detail, see [Deterministic pricing](#deterministic-pricing) → [Case Study: Fairness Testing](<../Case Study 4/case_study4.html>). Proxied attributes (BISG, BIFSG, zip), see [Proxied protected attributes](#proxied-protected-attributes).
 :::
 
 ::: {.callout-note appearance="simple" icon="false"}
@@ -59,7 +59,7 @@ This step describes a regression-based audit protocol, not a substitute for lega
 - Tolerance margins for CDP, for example a 5% price-gap band and 0.80 adverse-impact ratio
 - Corrected inference deterministic algorithm outputs usually require adjusted standard errors (HC3 for CDP. Cross-covariance for PD), not classical OLS defaults
 
-The [case study](<../Case Study 3/case_study3.html>) applies one illustrative design to Illinois auto quotes. Adapt criteria, data, and escalation rules to your jurisdiction.
+The [case study](<../Case Study 4/case_study4.html>) applies one illustrative design to Illinois auto quotes. Adapt criteria, data, and escalation rules to your jurisdiction.
 :::
 
 ## Mini-glossary
@@ -160,7 +160,7 @@ For CDP, a pass requires the confidence interval for the protected-group effect 
 ::: {.callout-note appearance="simple" icon="false"}
 ## Technical detail
 
-Regression formulas, corrected standard errors, and TOST decision rules are worked through in [Case Study 3](<../Case Study 3/case_study3.html>).
+Regression formulas, corrected standard errors, and TOST decision rules are worked through in [Case Study: Fairness Testing](<../Case Study 4/case_study4.html>).
 :::
 
 ## Three outcomes
@@ -175,7 +175,7 @@ On fail or unclear CDP results, a proxy-discrimination screen can identify candi
 
 ## Feature importance check {#feature-importance-check}
 
-The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in [Case Study 3](<../Case Study 3/case_study3.html>).
+The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in [Case Study: Fairness Testing](<../Case Study 4/case_study4.html>).
 
 Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.
 
@@ -227,5 +227,5 @@ This checklist covers audit execution. Roles, monitoring, and remediation owners
 ---
 
 ::: {.callout-tip appearance="minimal" icon="false"}
-**Completed the four steps.** Return to the [Overview](../index.html) or see [Case Study 3 · Fairness Testing](../Case%20Study%203/case_study3.html) for implementation in Python.
+**Completed the four steps.** Return to the [Overview](../index.html) or see [Case Study: Fairness Testing](../Case%20Study%204/case_study4.html) for implementation in Python.
 :::

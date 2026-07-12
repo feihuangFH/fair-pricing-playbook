@@ -53,8 +53,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Case Study 2/case_study2.html" rel="next">
-<link href="../Case Study 1/case_study1.html" rel="prev">
+<link href="../Case Study 3/case_study3.html" rel="next">
+<link href="../Case Study 2/case_study2.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -185,13 +185,19 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fairness Metrics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Step 2 · Design Fair Pricing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Fair Models</span></a>
   </div>
 </li>
@@ -203,7 +209,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Welfare Implications</span></a>
   </div>
 </li>
@@ -215,7 +221,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 4/case_study4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Fairness Testing</span></a>
   </div>
 </li>
@@ -282,8 +288,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </div>
 <div class="callout-body-container callout-body">
 <p><a href="Step-2-Design-Fair-Pricing.html">Step 2: Design fair pricing</a>. A fair cost model does not guarantee a fair final price or favourable welfare outcomes.</p>
-<p><a href="../Case Study 2/case_study2.html">Case Study 2: Welfare implications</a> covers demand, price optimisation, and regulation comparison on insurance data.</p>
-<p>Policy readers, see <a href="#who-gains-and-loses">Who gains and loses</a> and <a href="#pricing-rules">Pricing rules</a>. Business readers, see <a href="#measures">Measures</a> and <a href="#checklist">Checklist</a>. Technical readers, see <a href="../Case Study 2/case_study2.html">Case Study 2</a>.</p>
+<p><a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a> covers demand, price optimisation, and regulation comparison on insurance data.</p>
+<p>Policy readers, see <a href="#who-gains-and-loses">Who gains and loses</a> and <a href="#pricing-rules">Pricing rules</a>. Business readers, see <a href="#measures">Measures</a> and <a href="#checklist">Checklist</a>. Technical readers, see <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a>.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -325,7 +331,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <li>Price optimisation may be restricted or prohibited in some jurisdictions. Use it here for policy analysis, not as operational guidance without legal review</li>
 <li>The regulatory labels used below (PA, POB, and so on) map to different rules in different countries. Treat them as a conceptual taxonomy</li>
 </ul>
-<p>The <a href="../Case Study 2/case_study2.html">case study</a> illustrates one insurance market with a real dataset. Your filing or board memo should use your own data and market structure.</p>
+<p>The <a href="../Case Study 3/case_study3.html">case study</a> illustrates one insurance market with a real dataset. Your filing or board memo should use your own data and market structure.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -371,7 +377,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p>Price optimisation goes further. It incorporates a model of customer demand: how likely each customer is to buy, renew, or leave in response to a price change. An insurer that can predict which customers are price-sensitive and which are price-insensitive can adjust premiums accordingly, maximising revenue or profit rather than simply recovering expected cost. Customers predicted to be loyal and unresponsive to price increases are charged more. Customers predicted to be price-sensitive and likely to shop around are charged less, or offered discounts at renewal.</p>
 <p>This technique is common in retail and travel. In insurance it is more contentious. Around 20 US states have restricted or banned price optimisation in personal lines products since 2015, on the grounds that it creates price differences between customers with identical risks, and that the customers who bear the highest markups (the difference between what they pay and their expected claim cost) tend to be those with fewer choices and less market power <span class="citation" data-cites="POWhitePaper CFA">(<a href="#ref-POWhitePaper" role="doc-biblioref">NAIC CAS Task Force 2015</a>; <a href="#ref-CFA" role="doc-biblioref">Consumer Federation of America 2014</a>)</span>. In the UK, the Financial Conduct Authority banned insurers from charging higher renewal prices than those offered to risk-identical new customers, effective from 1 January 2022, on similar grounds <span class="citation" data-cites="FCA2021Rule">(<a href="#ref-FCA2021Rule" role="doc-biblioref">FCA 2021</a>)</span>. Both restrictions target non-risk pricing, though the UK ban specifically targets the renewal channel. If price sensitivity correlates with income, location, or other characteristics associated with protected groups, optimising on price sensitivity can reproduce group-level disparities through a channel that looks entirely neutral from a cost-modelling perspective.</p>
 <p>This is why welfare analysis in Step 3 matters even when Step 2 produces a well-designed fair cost model. The model is only the beginning of the pricing pipeline.</p>
-<p>Price optimisation is not the only channel that moves a price away from technical premium. Underwriter discretion, competitive positioning against rival quotes, broker or channel negotiation, and portfolio or underwriting-cycle management (deliberately under- or over-pricing a segment to manage growth or capacity) are all subjective, strategic adjustments that insurers make outside any formal demand model. <a href="../Case Study 2/case_study2.html">Case Study 2</a> and the pricing rules below model only the price-optimisation channel. A market-premium fairness review in practice should also account for these other adjustments, since they can reintroduce group disparities that a price-optimisation-only analysis would not catch.</p>
+<p>Price optimisation is not the only channel that moves a price away from technical premium. Underwriter discretion, competitive positioning against rival quotes, broker or channel negotiation, and portfolio or underwriting-cycle management (deliberately under- or over-pricing a segment to manage growth or capacity) are all subjective, strategic adjustments that insurers make outside any formal demand model. <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a> and the pricing rules below model only the price-optimisation channel. A market-premium fairness review in practice should also account for these other adjustments, since they can reintroduce group disparities that a price-optimisation-only analysis would not catch.</p>
 </section>
 <section id="full-pricing-process" class="level3">
 <h3 class="anchored" data-anchor-id="full-pricing-process">The full pricing process</h3>
@@ -558,7 +564,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Next:</strong> <a href="Step-4-Audit-the-System.html">Step 4 · Audit the System</a> — test whether the deployed system passes. Or see <a href="../Case Study 2/case_study2.html">Case Study 2 · Welfare Implications</a> for implementation in Python.</p>
+<p><strong>Next:</strong> <a href="Step-4-Audit-the-System.html">Step 4 · Audit the System</a> — test whether the deployed system passes. Or see <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a> for implementation in Python.</p>
 </div>
 </div>
 </div>
@@ -1001,12 +1007,12 @@ Xin, Xi, and Fei Huang. 2023. <span>“Antidiscrimination Insurance Pricing: Reg
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Case Study 1/case_study1.html" class="pagination-link" aria-label="Case Study · Fair Models">
+      <a href="../Case Study 2/case_study2.html" class="pagination-link" aria-label="Case Study · Fair Models">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Case Study · Fair Models</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Case Study 2/case_study2.html" class="pagination-link" aria-label="Case Study · Welfare Implications">
+      <a href="../Case Study 3/case_study3.html" class="pagination-link" aria-label="Case Study · Welfare Implications">
         <span class="nav-page-text">Case Study · Welfare Implications</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

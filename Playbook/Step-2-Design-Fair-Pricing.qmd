@@ -13,9 +13,9 @@ format:
 
 This step focuses on the [anti-discrimination lens](Step-1-Define-Fairness.html#anti-discrimination) from Step 1. It covers how to build models that meet legal and statistical fairness criteria. For demand modelling, price optimisation, and welfare effects once prices reach the market, see [Step 3](Step-3-Assess-Impact.html).
 
-[Case Study 1: Fair models](<../Case Study 1/case_study1.html>) provides a full insurance implementation using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).
+[Case Study: Fair Models](<../Case Study 2/case_study2.html>) provides a full insurance implementation using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).
 
-Governance readers, see [Implementation](#implementation) and [Checklist](#checklist). Model development, see [Model designs](#model-designs). Full example, see [Case Study 1](<../Case Study 1/case_study1.html>).
+Governance readers, see [Implementation](#implementation) and [Checklist](#checklist). Model development, see [Model designs](#model-designs). Full example, see [Case Study: Fair Models](<../Case Study 2/case_study2.html>).
 :::
 
 ::: {.callout-note appearance="simple" icon="false"}
@@ -29,11 +29,11 @@ Governance readers, see [Implementation](#implementation) and [Checklist](#check
 ::: {#scope-of-this-step .callout-note appearance="simple" icon="false"}
 ## Scope of this step
 
-Before applying any fairness criterion, decide which outcome variable it applies to. Five candidates recur in practice. **Pure premium** is expected claim cost alone, before any loadings, the cost model's output. **Technical premium** is pure premium plus expenses, reinsurance, and cost of capital, minus expected investment income earned on the premium float before claims are paid, the actuarially indicated rate before any demand-based commercial adjustment. **Market premium** is the price actually charged, once demand response, price optimisation, and other commercial adjustments are applied on top of technical premium. **Loss ratio** is claims paid as a share of premium earned. **Profit loading** is cost of capital plus any extra profit captured through commercial adjustments at the market-premium stage, also called **markup**. See [Case Study 2](<../Case Study 2/case_study2.html>) for how this is computed in practice. The five candidate outcome variables are not interchangeable. A pricing rule that equalises one across groups can widen the gap on another. [Step 3](Step-3-Assess-Impact.html#price-markup-tension) works through a case where equalising market premium widens the profit-loading gap. Decide which variable your fairness obligation actually targets before building the model, and revisit the choice explicitly if the model is later repurposed for a different regulatory test.
+Before applying any fairness criterion, decide which outcome variable it applies to. Five candidates recur in practice. **Pure premium** is expected claim cost alone, before any loadings, the cost model's output. **Technical premium** is pure premium plus expenses, reinsurance, and cost of capital, minus expected investment income earned on the premium float before claims are paid, the actuarially indicated rate before any demand-based commercial adjustment. **Market premium** is the price actually charged, once demand response, price optimisation, and other commercial adjustments are applied on top of technical premium. **Loss ratio** is claims paid as a share of premium earned. **Profit loading** is cost of capital plus any extra profit captured through commercial adjustments at the market-premium stage, also called **markup**. See [Case Study: Welfare Implications](<../Case Study 3/case_study3.html>) for how this is computed in practice. The five candidate outcome variables are not interchangeable. A pricing rule that equalises one across groups can widen the gap on another. [Step 3](Step-3-Assess-Impact.html#price-markup-tension) works through a case where equalising market premium widens the profit-loading gap. Decide which variable your fairness obligation actually targets before building the model, and revisit the choice explicitly if the model is later repurposed for a different regulatory test.
 
-This step targets **pure premium**, chosen for simplicity and because claim-level cost data is more readily available than fully loaded technical or market premiums. [Case Study 1](<../Case Study 1/case_study1.html>) applies these models to pure premium. [Case Study 2](<../Case Study 2/case_study2.html>) instead evaluates market premium and markup once demand modelling and price optimisation are layered on top. The models here (MU, MDP, MCDP, MC) all operate on the cost model. Expenses, reinsurance, and cost of capital, net of expected investment income, are added on top of the pure premium to reach technical premium, with cost of capital forming the technical-stage component of profit loading. Fairness criteria can and should be applied there too, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.
+This step targets **pure premium**, chosen for simplicity and because claim-level cost data is more readily available than fully loaded technical or market premiums. [Case Study: Fair Models](<../Case Study 2/case_study2.html>) applies these models to pure premium. [Case Study: Welfare Implications](<../Case Study 3/case_study3.html>) instead evaluates market premium and markup once demand modelling and price optimisation are layered on top. The models here (MU, MDP, MCDP, MC) all operate on the cost model. Expenses, reinsurance, and cost of capital, net of expected investment income, are added on top of the pure premium to reach technical premium, with cost of capital forming the technical-stage component of profit loading. Fairness criteria can and should be applied there too, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.
 
-If the pricing process also includes **demand modelling** (how likely customers are to buy or renew at a given price) and **price optimisation** (setting prices to maximise profit subject to constraints), the outcome variable moves from technical premium toward market premium. Those stages sit outside the cost model and are covered in [Step 3](Step-3-Assess-Impact.html) and [Case Study 2](<../Case Study 2/case_study2.html>). Underwriter discretion, competitive positioning, broker negotiation, and portfolio or cycle management can move the price further still, and [Step 3](Step-3-Assess-Impact.html#price-optimisation) notes that the case study does not model them.
+If the pricing process also includes **demand modelling** (how likely customers are to buy or renew at a given price) and **price optimisation** (setting prices to maximise profit subject to constraints), the outcome variable moves from technical premium toward market premium. Those stages sit outside the cost model and are covered in [Step 3](Step-3-Assess-Impact.html) and [Case Study: Welfare Implications](<../Case Study 3/case_study3.html>). Underwriter discretion, competitive positioning, broker negotiation, and portfolio or cycle management can move the price further still, and [Step 3](Step-3-Assess-Impact.html#price-optimisation) notes that the case study does not model them.
 :::
 
 ## How do you build a fair pricing model? {#how-can-fair-pricing-be-achieved}
@@ -52,7 +52,7 @@ This step describes standard anti-discrimination model designs, not a single app
 - Which intervention stage fits your production system (pre-, in-, or post-processing)
 - Whether to retain a baseline model (M0) for welfare and audit comparisons in Steps 3 and 4
 
-The [case study](<../Case Study 1/case_study1.html>) shows one insurance implementation. Adapt data, variables, and packages to your jurisdiction.
+The [case study](<../Case Study 2/case_study2.html>) shows one insurance implementation. Adapt data, variables, and packages to your jurisdiction.
 :::
 
 ## Mini-glossary
@@ -98,7 +98,7 @@ MCDP is designed for situations where some price differences between groups are 
 
 The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted. One approach is orthogonalisation [@kamiran2012data]; another is optimal transport, which remaps the distribution of each predictor to remove its dependence on the protected attribute [@lindholm2024whatisfair]. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.
 
-This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. [Case Study 1](<../Case Study 1/case_study1.html>) works through a full implementation.
+This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. [Case Study: Fair Models](<../Case Study 2/case_study2.html>) works through a full implementation.
 
 ::: {.callout-note appearance="simple" icon="false"}
 ## What counts as a legitimate factor?
@@ -158,7 +158,7 @@ MDP and MCDP both use pre-processing. In MDP, all non-protected predictors are d
 
 In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model's training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.
 
-In-processing is particularly useful in price optimisation, where the optimiser's goal (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study 2](<../Case Study 2/case_study2.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time [@lindholm2023multitask].
+In-processing is particularly useful in price optimisation, where the optimiser's goal (typically maximising expected profit) can be extended to include a fairness constraint. [Case Study: Welfare Implications](<../Case Study 3/case_study3.html>) implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time [@lindholm2023multitask].
 
 ## Post-processing
 
@@ -197,5 +197,5 @@ Use this checklist to confirm model design choices before welfare analysis. Assi
 ---
 
 ::: {.callout-tip appearance="minimal" icon="false"}
-**Next:** [Step 3 · Assess Impact](Step-3-Assess-Impact.html) — trace price effects through demand and competition after the model is built. Or see [Case Study 1 · Fair Models](../Case%20Study%201/case_study1.html) for implementation in R.
+**Next:** [Step 3 · Assess Impact](Step-3-Assess-Impact.html) — trace price effects through demand and competition after the model is built. Or see [Case Study: Fair Models](../Case%20Study%202/case_study2.html) for implementation in R.
 :::

@@ -17,6 +17,7 @@ project:
     - "Case Study 1/case_study1.qmd"
     - "Case Study 2/case_study2.qmd"
     - "Case Study 3/case_study3.qmd"
+    - "Case Study 4/case_study4.qmd"
     - "!*.ipynb"
     - "!*.md"
   output-dir: docs
@@ -46,17 +47,19 @@ website:
         contents:
           - href: Playbook/Step-1-Define-Fairness.qmd
             text: "Step 1 · Define Fairness"
+          - href: "Case Study 1/case_study1.qmd"
+            text: "Case Study · Fairness Metrics"
           - href: Playbook/Step-2-Design-Fair-Pricing.qmd
             text: "Step 2 · Design Fair Pricing"
-          - href: "Case Study 1/case_study1.qmd"
+          - href: "Case Study 2/case_study2.qmd"
             text: "Case Study · Fair Models"
           - href: Playbook/Step-3-Assess-Impact.qmd
             text: "Step 3 · Assess Impact"
-          - href: "Case Study 2/case_study2.qmd"
+          - href: "Case Study 3/case_study3.qmd"
             text: "Case Study · Welfare Implications"
           - href: Playbook/Step-4-Audit-the-System.qmd
             text: "Step 4 · Audit the System"
-          - href: "Case Study 3/case_study3.qmd"
+          - href: "Case Study 4/case_study4.qmd"
             text: "Case Study · Fairness Testing"
 
 format:

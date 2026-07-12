@@ -53,8 +53,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Case Study 1/case_study1.html" rel="next">
-<link href="../Playbook/Step-1-Define-Fairness.html" rel="prev">
+<link href="../Case Study 2/case_study2.html" rel="next">
+<link href="../Case Study 1/case_study1.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -228,13 +228,19 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fairness Metrics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Step 2 · Design Fair Pricing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Fair Models</span></a>
   </div>
 </li>
@@ -246,7 +252,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Welfare Implications</span></a>
   </div>
 </li>
@@ -258,7 +264,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+  <a href="../Case Study 4/case_study4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Case Study · Fairness Testing</span></a>
   </div>
 </li>
@@ -328,8 +334,8 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p><a href="Step-1-Define-Fairness.html">Step 1: Define fairness</a>. Agree on the fairness criterion before choosing a model.</p>
 <p>This step focuses on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers how to build models that meet legal and statistical fairness criteria. For demand modelling, price optimisation, and welfare effects once prices reach the market, see <a href="Step-3-Assess-Impact.html">Step 3</a>.</p>
-<p><a href="../Case Study 1/case_study1.html">Case Study 1: Fair models</a> provides a full insurance implementation using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).</p>
-<p>Governance readers, see <a href="#implementation">Implementation</a> and <a href="#checklist">Checklist</a>. Model development, see <a href="#model-designs">Model designs</a>. Full example, see <a href="../Case Study 1/case_study1.html">Case Study 1</a>.</p>
+<p><a href="../Case Study 2/case_study2.html">Case Study: Fair Models</a> provides a full insurance implementation using generalised linear models (GLMs) and XGBoost (a machine learning algorithm based on decision trees).</p>
+<p>Governance readers, see <a href="#implementation">Implementation</a> and <a href="#checklist">Checklist</a>. Model development, see <a href="#model-designs">Model designs</a>. Full example, see <a href="../Case Study 2/case_study2.html">Case Study: Fair Models</a>.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -359,9 +365,9 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Before applying any fairness criterion, decide which outcome variable it applies to. Five candidates recur in practice. <strong>Pure premium</strong> is expected claim cost alone, before any loadings, the cost model’s output. <strong>Technical premium</strong> is pure premium plus expenses, reinsurance, and cost of capital, minus expected investment income earned on the premium float before claims are paid, the actuarially indicated rate before any demand-based commercial adjustment. <strong>Market premium</strong> is the price actually charged, once demand response, price optimisation, and other commercial adjustments are applied on top of technical premium. <strong>Loss ratio</strong> is claims paid as a share of premium earned. <strong>Profit loading</strong> is cost of capital plus any extra profit captured through commercial adjustments at the market-premium stage, also called <strong>markup</strong>. See <a href="../Case Study 2/case_study2.html">Case Study 2</a> for how this is computed in practice. The five candidate outcome variables are not interchangeable. A pricing rule that equalises one across groups can widen the gap on another. <a href="Step-3-Assess-Impact.html#price-markup-tension">Step 3</a> works through a case where equalising market premium widens the profit-loading gap. Decide which variable your fairness obligation actually targets before building the model, and revisit the choice explicitly if the model is later repurposed for a different regulatory test.</p>
-<p>This step targets <strong>pure premium</strong>, chosen for simplicity and because claim-level cost data is more readily available than fully loaded technical or market premiums. <a href="../Case Study 1/case_study1.html">Case Study 1</a> applies these models to pure premium. <a href="../Case Study 2/case_study2.html">Case Study 2</a> instead evaluates market premium and markup once demand modelling and price optimisation are layered on top. The models here (MU, MDP, MCDP, MC) all operate on the cost model. Expenses, reinsurance, and cost of capital, net of expected investment income, are added on top of the pure premium to reach technical premium, with cost of capital forming the technical-stage component of profit loading. Fairness criteria can and should be applied there too, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.</p>
-<p>If the pricing process also includes <strong>demand modelling</strong> (how likely customers are to buy or renew at a given price) and <strong>price optimisation</strong> (setting prices to maximise profit subject to constraints), the outcome variable moves from technical premium toward market premium. Those stages sit outside the cost model and are covered in <a href="Step-3-Assess-Impact.html">Step 3</a> and <a href="../Case Study 2/case_study2.html">Case Study 2</a>. Underwriter discretion, competitive positioning, broker negotiation, and portfolio or cycle management can move the price further still, and <a href="Step-3-Assess-Impact.html#price-optimisation">Step 3</a> notes that the case study does not model them.</p>
+<p>Before applying any fairness criterion, decide which outcome variable it applies to. Five candidates recur in practice. <strong>Pure premium</strong> is expected claim cost alone, before any loadings, the cost model’s output. <strong>Technical premium</strong> is pure premium plus expenses, reinsurance, and cost of capital, minus expected investment income earned on the premium float before claims are paid, the actuarially indicated rate before any demand-based commercial adjustment. <strong>Market premium</strong> is the price actually charged, once demand response, price optimisation, and other commercial adjustments are applied on top of technical premium. <strong>Loss ratio</strong> is claims paid as a share of premium earned. <strong>Profit loading</strong> is cost of capital plus any extra profit captured through commercial adjustments at the market-premium stage, also called <strong>markup</strong>. See <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a> for how this is computed in practice. The five candidate outcome variables are not interchangeable. A pricing rule that equalises one across groups can widen the gap on another. <a href="Step-3-Assess-Impact.html#price-markup-tension">Step 3</a> works through a case where equalising market premium widens the profit-loading gap. Decide which variable your fairness obligation actually targets before building the model, and revisit the choice explicitly if the model is later repurposed for a different regulatory test.</p>
+<p>This step targets <strong>pure premium</strong>, chosen for simplicity and because claim-level cost data is more readily available than fully loaded technical or market premiums. <a href="../Case Study 2/case_study2.html">Case Study: Fair Models</a> applies these models to pure premium. <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a> instead evaluates market premium and markup once demand modelling and price optimisation are layered on top. The models here (MU, MDP, MCDP, MC) all operate on the cost model. Expenses, reinsurance, and cost of capital, net of expected investment income, are added on top of the pure premium to reach technical premium, with cost of capital forming the technical-stage component of profit loading. Fairness criteria can and should be applied there too, not only to the underlying cost estimate. The framework and model designs in this step extend to that setting.</p>
+<p>If the pricing process also includes <strong>demand modelling</strong> (how likely customers are to buy or renew at a given price) and <strong>price optimisation</strong> (setting prices to maximise profit subject to constraints), the outcome variable moves from technical premium toward market premium. Those stages sit outside the cost model and are covered in <a href="Step-3-Assess-Impact.html">Step 3</a> and <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a>. Underwriter discretion, competitive positioning, broker negotiation, and portfolio or cycle management can move the price further still, and <a href="Step-3-Assess-Impact.html#price-optimisation">Step 3</a> notes that the case study does not model them.</p>
 </div>
 </div>
 <section id="how-can-fair-pricing-be-achieved" class="level3">
@@ -385,7 +391,7 @@ window.Quarto = {
 <li>Which intervention stage fits your production system (pre-, in-, or post-processing)</li>
 <li>Whether to retain a baseline model (M0) for welfare and audit comparisons in Steps 3 and 4</li>
 </ul>
-<p>The <a href="../Case Study 1/case_study1.html">case study</a> shows one insurance implementation. Adapt data, variables, and packages to your jurisdiction.</p>
+<p>The <a href="../Case Study 2/case_study2.html">case study</a> shows one insurance implementation. Adapt data, variables, and packages to your jurisdiction.</p>
 </div>
 </div>
 </section>
@@ -478,7 +484,7 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="mcdp-separating-legitimate-from-non-legitimate-variation">MCDP: Separating legitimate from non-legitimate variation</h4>
 <p>MCDP is designed for situations where some price differences between groups are legally justified and some are not. A risk-rated insurer will charge higher premiums to customers with more claims history. If those customers happen to be disproportionately from a protected group, that price difference is defensible as long as claims history is accepted as a legitimate factor by the regulator. What is not defensible is a price difference that arises because other variables in the model are acting as proxies for the protected attribute.</p>
 <p>The model works in two stages. First, legitimate predictors (those the regulator accepts as grounds for price variation, such as claims history, vehicle type, or annual mileage) are kept in the model unchanged. Second, other predictors are stripped of their correlation with the protected attribute before the model is fitted. One approach is orthogonalisation <span class="citation" data-cites="kamiran2012data">(<a href="#ref-kamiran2012data" role="doc-biblioref">Kamiran and Calders 2012</a>)</span>; another is optimal transport, which remaps the distribution of each predictor to remove its dependence on the protected attribute <span class="citation" data-cites="lindholm2024whatisfair">(<a href="#ref-lindholm2024whatisfair" role="doc-biblioref">Lindholm et al. 2024b</a>)</span>. A variable that was correlated with race or gender is adjusted so that its value no longer carries that information. Once this pre-processing is complete, the model is trained on the adjusted dataset. The result is a model where price differences between groups can only arise through the legitimate variables.</p>
-<p>This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. <a href="../Case Study 1/case_study1.html">Case Study 1</a> works through a full implementation.</p>
+<p>This is the model design that best maps to conditional demographic parity (CDP), which is the criterion most directly relevant to regulatory proposals in Colorado and New York. <a href="../Case Study 2/case_study2.html">Case Study: Fair Models</a> works through a full implementation.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -575,7 +581,7 @@ window.Quarto = {
 <section id="in-processing" class="level3">
 <h3 class="anchored" data-anchor-id="in-processing">In-processing</h3>
 <p>In-processing builds fairness into the model training step rather than adjusting inputs or outputs. One approach adds a penalty to the model’s training objective — a cost that increases whenever the model violates the chosen fairness criterion. The model then learns to balance predictive accuracy against fairness, with a single parameter controlling how much weight to give each goal.</p>
-<p>In-processing is particularly useful in price optimisation, where the optimiser’s goal (typically maximising expected profit) can be extended to include a fairness constraint. <a href="../Case Study 2/case_study2.html">Case Study 2</a> implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time <span class="citation" data-cites="lindholm2023multitask">(<a href="#ref-lindholm2023multitask" role="doc-biblioref">Lindholm et al. 2024a</a>)</span>.</p>
+<p>In-processing is particularly useful in price optimisation, where the optimiser’s goal (typically maximising expected profit) can be extended to include a fairness constraint. <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a> implements this in the pricing-rule context (PDP and PAF rules in Step 3). A multi-task neural network approach embeds the fairness criterion directly into training, with the advantage that the protected attribute is not required at prediction time <span class="citation" data-cites="lindholm2023multitask">(<a href="#ref-lindholm2023multitask" role="doc-biblioref">Lindholm et al. 2024a</a>)</span>.</p>
 </section>
 <section id="post-processing" class="level3">
 <h3 class="anchored" data-anchor-id="post-processing">Post-processing</h3>
@@ -638,7 +644,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Next:</strong> <a href="Step-3-Assess-Impact.html">Step 3 · Assess Impact</a> — trace price effects through demand and competition after the model is built. Or see <a href="../Case Study 1/case_study1.html">Case Study 1 · Fair Models</a> for implementation in R.</p>
+<p><strong>Next:</strong> <a href="Step-3-Assess-Impact.html">Step 3 · Assess Impact</a> — trace price effects through demand and competition after the model is built. Or see <a href="../Case Study 2/case_study2.html">Case Study: Fair Models</a> for implementation in R.</p>
 </div>
 </div>
 </div>
@@ -1075,12 +1081,12 @@ Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Reg
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Playbook/Step-1-Define-Fairness.html" class="pagination-link" aria-label="Step 1 · Define Fairness">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Step 1 · Define Fairness</span>
+      <a href="../Case Study 1/case_study1.html" class="pagination-link" aria-label="Case Study · Fairness Metrics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Case Study · Fairness Metrics</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Case Study 1/case_study1.html" class="pagination-link" aria-label="Case Study · Fair Models">
+      <a href="../Case Study 2/case_study2.html" class="pagination-link" aria-label="Case Study · Fair Models">
         <span class="nav-page-text">Case Study · Fair Models</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
