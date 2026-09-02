@@ -33,6 +33,10 @@ Her work has been recognised with awards including the Australian Business Deans
 :::
 :::
 
+## Development note
+
+This project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author's own and her responsibility.
+
 ## Acknowledgements
 
 The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.
