@@ -66,10 +66,10 @@ Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsi
 
 ## Open source
 
-This playbook is fully open source under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). All source files — step pages, case study code, bibliography, and site configuration — are available at [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook).
+This playbook is fully open source under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). All source files — step pages, case study code, bibliography, and site configuration — are available at [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook).
 
 You are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.
 
 ## License
 
-Materials are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See LICENSE.
+Materials are licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). See LICENSE.

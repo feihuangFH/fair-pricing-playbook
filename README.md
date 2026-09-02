@@ -1,6 +1,6 @@
 # The Fair Pricing Playbook
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20879782-blue)](https://doi.org/10.5281/zenodo.20879782)
 
 A practical framework for Responsible AI in algorithmic pricing — four linked steps covering fairness definition, model design, welfare assessment, and post-deployment audit. Four case studies provide implementation depth.
@@ -62,4 +62,4 @@ This project was developed with support from AI coding assistants (Claude Code a
 
 ## License
 
-Materials are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Materials are licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
