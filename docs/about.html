@@ -8,7 +8,7 @@
 
 <meta name="author" content="Fei Huang, UNSW Sydney">
 
-<title>About – The Fair Pricing Playbook</title>
+<title>The Fair Pricing Playbook – The Fair Pricing Playbook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -59,7 +59,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -248,8 +267,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./about.html">About</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">About</h1>
-<p class="subtitle lead">A practical framework for Responsible AI in algorithmic pricing</p>
+<h1 class="title">The Fair Pricing Playbook</h1>
+<p class="subtitle lead">A practical framework for Responsible AI in algorithmic pricing (2026)</p>
 </div>
 
 
@@ -307,6 +326,10 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.</p>
 </section>
+<section id="development-note" class="level3">
+<h3 class="anchored" data-anchor-id="development-note">Development note</h3>
+<p>This project was developed with support from AI coding assistants (Claude Code and Cursor). All analysis, content decisions, and conclusions are the author’s own and her responsibility.</p>
+</section>
 <section id="how-to-cite" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-cite">How to cite</h3>
 <section id="citing-the-website-archived-version-on-zenodo" class="level4">
@@ -341,17 +364,211 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </section>
 <section id="open-source" class="level3">
 <h3 class="anchored" data-anchor-id="open-source">Open source</h3>
-<p>This playbook is fully open source under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. All source files — step pages, case study code, bibliography, and site configuration — are available at <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a>.</p>
+<p>This playbook is fully open source under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. All source files — step pages, case study code, bibliography, and site configuration — are available at <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a>.</p>
 <p>You are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.</p>
 </section>
 <section id="license" class="level3">
 <h3 class="anchored" data-anchor-id="license">License</h3>
-<p>Materials are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. See LICENSE.</p>
+<p>Materials are licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. See LICENSE.</p>
 
 
 </section>
+<section id="why-fair-pricing-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-fair-pricing-matters">Why fair pricing matters</h2>
+<p>Algorithmic pricing is now widely used in insurance and financial services, and advances in AI and machine learning have become central to how insurers assess risk, detect patterns in large datasets, and set prices. The fairness concerns this creates are not new, but they take a different form under automated, large-scale systems. Even when protected attributes such as race, gender, and religion are removed from a model, pricing systems can still produce discriminatory outcomes through proxy variables and opaque algorithms that are difficult to trace or challenge. The rapid adoption of AI and big data has created a regulatory grey area: direct discrimination is prohibited, but indirect discrimination through proxies and complex algorithms is not clearly specified or assessed in most markets <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<p>Regulatory attention to these issues has grown substantially. Colorado and New York have each proposed rules requiring insurers to test pricing algorithms for unfair discrimination, and the European Union has enacted broader AI governance frameworks that apply to insurance. The EU AI Act classifies credit scoring and insurance risk assessment as high-risk AI applications, placing fairness obligations alongside broader requirements for transparency, human oversight, and accountability. Firms that cannot demonstrate fairness face legal exposure, reputational risk, and the practical challenge of defending pricing decisions under regulatory examination.</p>
+<p>This playbook translates research from economics, statistics, actuarial science, and machine learning into a concrete four-step workflow that covers the full journey from defining what fairness means, to building fair models, to measuring who actually gains and loses, to auditing a deployed system. While the case studies use insurance data and draw on insurance regulation, the four-step framework applies to any sector where algorithmic pricing raises fairness concerns, including credit, housing, energy, and mobility. Three insurance case studies provide the technical depth needed for implementation.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Two ways to read
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reader</th>
+<th>Recommended path</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Compliance, risk, policy, and management</td>
+<td>Read the four steps. The case studies are optional technical supplements.</td>
+</tr>
+<tr class="even">
+<td>Data science, actuarial, and research</td>
+<td>Read the four steps, then follow the case studies linked in the sidebar for implementation detail.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="watch-introduction-to-anti-discrimination-insurance-pricing" class="level3">
+<h3 class="anchored" data-anchor-id="watch-introduction-to-anti-discrimination-insurance-pricing">Watch: Introduction to anti-discrimination insurance pricing</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/TQU1Coxfg-M" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+</section>
+<section id="four-steps" class="level2">
+<h2 class="anchored" data-anchor-id="four-steps">The four steps</h2>
+<div class="step-grid">
+<section id="step-1-define-fairness" class="level4 step-card">
+<h4 class="anchored" data-anchor-id="step-1-define-fairness"><a href="Playbook/Step-1-Define-Fairness.html">Step 1 · Define fairness</a></h4>
+<p>This step surveys the different lenses of fairness and the criteria they imply. They cannot all be satisfied simultaneously, and the choice is a legal and policy decision, not a technical default.</p>
+</section>
+<section id="step-2-design-fair-pricing" class="level4 step-card">
+<h4 class="anchored" data-anchor-id="step-2-design-fair-pricing"><a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2 · Design fair pricing</a></h4>
+<p>Once a criterion is chosen, this step maps it to a concrete model design and shows where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.</p>
+</section>
+<section id="step-3-assess-impact" class="level4 step-card">
+<h4 class="anchored" data-anchor-id="step-3-assess-impact"><a href="Playbook/Step-3-Assess-Impact.html">Step 3 · Assess impact</a></h4>
+<p>A fair cost model does not guarantee a fair market outcome. This step traces price effects through demand and competition, quantifying consumer welfare and firm profit by group after prices are set.</p>
+</section>
+<section id="step-4-audit-the-system" class="level4 step-card">
+<h4 class="anchored" data-anchor-id="step-4-audit-the-system"><a href="Playbook/Step-4-Audit-the-System.html">Step 4 · Audit the system</a></h4>
+<p>An audit tests whether a deployed system actually meets the standard. All protocol choices (criterion, tolerances, sample design) are fixed before examining any data. Results are pass, fail, or insufficient information.</p>
+</section>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Four case studies provide implementation depth. Each is linked from the step it illustrates. <a href="Case Study 1/case_study1.html">Case study: Fairness Metrics</a> follows Step 1 as a qualitative walkthrough with no code. <a href="Case Study 2/case_study2.html">Case study: Fair Models</a> follows Step 2 with a reproducible model pipeline. <a href="Case Study 3/case_study3.html">Case study: Welfare Implications</a> follows Step 3 with a reproducible welfare simulation. <a href="Case Study 4/case_study4.html">Case study: Fairness Testing</a> follows Step 4 with a reproducible audit pipeline. Case studies are technical supplements. The four steps stand alone for non-technical readers.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-pathway-at-a-glance" class="level2">
+<h2 class="anchored" data-anchor-id="the-pathway-at-a-glance">The pathway at a glance</h2>
+<p><img src="Playbook/plot/pathway-towards-fairness.png" class="img-fluid" style="width:100.0%" alt="Pathway towards fairness from model inputs and design through outputs, welfare, and fairness testing to pass, unclear, or fail"></p>
+<p>The diagram shows how the four steps connect across model design, welfare assessment, and fairness testing. Steps 1 through 3 work together to inform a single decision, which fairness criterion fits a specific application or line of business. Step 2 shows the accuracy-fairness trade-off, how much predictive power a fairness constraint costs at the model level. Step 3 shows the welfare-fairness trade-off, how a fair cost model can still produce unequal market outcomes once price optimisation and demand enter the picture. Neither trade-off has a universal answer, which is exactly why these steps matter. Seeing both is what lets stakeholders choose a criterion in Step 1 that fits their product, market, and regulatory context, rather than defaulting to whichever criterion is easiest to implement.</p>
+</section>
+<section id="what-the-research-shows" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-research-shows">What the research shows</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Key findings from the research
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Fairness through unawareness is not enough.</strong> Removing the protected attribute leaves proxy effects intact. Indirect discrimination can survive even when all obvious proxies are excluded. See <a href="Playbook/Step-1-Define-Fairness.html">Step 1 →</a></li>
+<li><strong>Fair models are feasible.</strong> Four model families (MU, MDP, MCDP, MC) implement four distinct criteria with manageable accuracy trade-offs. On benchmark data, proxy removal (MCDP) reduced adverse selection risk more than simple exclusion (MU). See <a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2 →</a></li>
+<li><strong>Fair models do not guarantee fair outcomes.</strong> Price optimisation and competitive dynamics reintroduce group disparities after cost-level fairness is achieved. Demographic parity on premiums can widen markup disparities even as it closes price gaps. When all firms in the market adopt the same fairness rule, welfare losses for female customers are nearly eightfold larger than when only one firm is regulated ($101.67 vs $13.43 per female customer), because consumers can no longer avoid the impact by switching to an unregulated competitor. See <a href="Playbook/Step-3-Assess-Impact.html">Step 3 →</a></li>
+<li><strong>Standard statistical tests are unreliable for auditing algorithmic pricing.</strong> Corrected inference, equivalence testing, and (where race is unobserved) ethnicity-estimation corrections are all required for a valid audit. Insufficient data yields an inconclusive result, not a pass. See <a href="Playbook/Step-4-Audit-the-System.html">Step 4 →</a></li>
+</ul>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Key references</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 · Define fairness</td>
+<td><span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span></td>
+</tr>
+<tr class="even">
+<td>2 · Design fair pricing</td>
+<td><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td>3 · Assess impact</td>
+<td><span class="citation" data-cites="huang2026welfarealgorithms">Huang et al. (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span>; <span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span></td>
+</tr>
+<tr class="even">
+<td>4 · Audit the system</td>
+<td><span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span>; <span class="citation" data-cites="xin2026proxyrace">Xin et al. (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>; <span class="citation" data-cites="xin2025partialdependenceplots">Xin et al. (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="end-to-end-audit-flow" class="level2">
+<h2 class="anchored" data-anchor-id="end-to-end-audit-flow">End-to-end audit flow</h2>
+<p>Step 4 follows an integrated Plan, Audit, Decide, and Improve protocol <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. All design choices are fixed before examining data.</p>
+<p><img src="Playbook/plot/audit-flow.png" class="img-fluid" style="width:100.0%" alt="End-to-end fairness audit flow: Plan, Audit, Decide, Improve"></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plan</td>
+<td>Select criterion (PD or CDP), legitimate factors, tolerance bands, representative sample</td>
+</tr>
+<tr class="even">
+<td>Audit</td>
+<td>Collect prices and run statistical fairness tests with corrected inference</td>
+</tr>
+<tr class="odd">
+<td>Decide</td>
+<td>Pass, insufficient information, or fail (equivalence testing)</td>
+</tr>
+<tr class="even">
+<td>Improve</td>
+<td>Remediate and re-test. Collect more data if result is unclear</td>
+</tr>
+</tbody>
+</table>
+<p>Full detail is in <a href="Playbook/Step-4-Audit-the-System.html">Step 4: Audit the system</a>.</p>
+<p>See the <a href="about.html">About</a> page for author bio, acknowledgements, citation, and licence.</p>
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
+Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
+</div>
+<div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
+Huang, Fei, and Giles Hooker. 2026. <em>Fairness Testing for Algorithmic Pricing</em>. <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
+</div>
+<div id="ref-huang2026welfareaccountable" class="csl-entry" role="listitem">
+Huang, Fei, and Hajime Shimao. 2026. <span>“Welfare Implications of Fair and Accountable Insurance Pricing.”</span> <em>Journal of Risk and Insurance</em>, ahead of print. <a href="https://doi.org/10.1111/jori.70051">https://doi.org/10.1111/jori.70051</a>.
+</div>
+<div id="ref-huang2026welfarealgorithms" class="csl-entry" role="listitem">
+Huang, Fei, Hajime Shimao, and Warut Khern-am-nuai. 2026. <em>Do Fair Algorithms Improve Welfare? Evidence from the Insurance Market</em>. UNSW Business School Research Paper Forthcoming. <a href="https://doi.org/10.2139/ssrn.5112616">https://doi.org/10.2139/ssrn.5112616</a>.
+</div>
+<div id="ref-krafcheck2026fairnessmetrics" class="csl-entry" role="listitem">
+Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <em>Fairness Metrics for Life Insurance</em>. Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
+</div>
+<div id="ref-xin2025partialdependenceplots" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regression-Based Fairness Audits</em>. <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -771,7 +988,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Open source · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a></p>
+<p>Open source · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> · <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a></p>
 <div class="toc-actions"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/blob/main/about.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

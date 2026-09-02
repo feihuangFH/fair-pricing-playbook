@@ -10,7 +10,7 @@ version: "1.0.0"
 date-released: 2026-06-16
 url: "https://fair.feihuang.org"
 repository-code: "https://github.com/feihuangFH/fair-pricing-playbook"
-license: CC-BY-4.0
+license: CC-BY-NC-ND-4.0
 doi: 10.5281/zenodo.20879782
 abstract: >
   A four-step framework linking fairness definition, model design, welfare
