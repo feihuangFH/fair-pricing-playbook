@@ -339,9 +339,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "The Fair Pricing Playbook",
     "section": "",
-    "text": "About the author\n\n\n\n\n\n\nTipGet in touch\n\n\n\nFirms, regulators, and policymakers who want to discuss fair pricing, audits, or policy applications are welcome to contact Dr Fei Huang.\n\n\n\n\n\n\n\nDr. Fei Huang\n\nSchool of Risk and Actuarial Studies, UNSW Business School\nEmail: feihuang@unsw.edu.au · Website: feihuang.org\n\nDr. Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.\nHer work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean’s Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.\n\n\n\n\n\nAcknowledgements\nThe author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.\n\n\nHow to cite\n\nCiting the website (archived version on Zenodo)\nHuang, F. (2026). The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.20879782\n\n\n\n\n\n\nNoteShow BibTeX\n\n\n\n\n\n@misc{huang2026fairpricingplaybook_website,\n  title     = {The Fair Pricing Playbook: A practical framework for\n               Responsible AI in algorithmic pricing},\n  author    = {Huang, Fei},\n  year      = {2026},\n  version   = {v1.0.0},\n  publisher = {Zenodo},\n  doi       = {10.5281/zenodo.20879782},\n  url       = {https://doi.org/10.5281/zenodo.20879782}\n}\n\n\n\n\n\n\nOpen source\nThis playbook is fully open source under CC BY 4.0. All source files — step pages, case study code, bibliography, and site configuration — are available at github.com/feihuangFH/fair-pricing-playbook.\nYou are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.\n\n\nLicense\nMaterials are licensed under CC BY 4.0. See LICENSE.",
+    "text": "TipGet in touch\n\n\n\nFirms, regulators, and policymakers who want to discuss fair pricing, audits, or policy applications are welcome to contact Dr Fei Huang.\n\n\n\n\n\n\n\n\n\nSchool of Risk and Actuarial Studies, UNSW Business School\nEmail: feihuang@unsw.edu.au · Website: feihuang.org\n\nDr. Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.\nHer work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean’s Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.",
     "crumbs": [
       "Introduction",
       "About"
@@ -576,6 +576,61 @@
     "crumbs": [
       "The Playbook",
       "Case Study · Welfare Implications"
+    ]
+  },
+  {
+    "objectID": "about.html#why-fair-pricing-matters",
+    "href": "about.html#why-fair-pricing-matters",
+    "title": "The Fair Pricing Playbook",
+    "section": "Why fair pricing matters",
+    "text": "Why fair pricing matters\nAlgorithmic pricing is now widely used in insurance and financial services, and advances in AI and machine learning have become central to how insurers assess risk, detect patterns in large datasets, and set prices. The fairness concerns this creates are not new, but they take a different form under automated, large-scale systems. Even when protected attributes such as race, gender, and religion are removed from a model, pricing systems can still produce discriminatory outcomes through proxy variables and opaque algorithms that are difficult to trace or challenge. The rapid adoption of AI and big data has created a regulatory grey area: direct discrimination is prohibited, but indirect discrimination through proxies and complex algorithms is not clearly specified or assessed in most markets (Frees and Huang 2023; Xin and Huang 2024).\nRegulatory attention to these issues has grown substantially. Colorado and New York have each proposed rules requiring insurers to test pricing algorithms for unfair discrimination, and the European Union has enacted broader AI governance frameworks that apply to insurance. The EU AI Act classifies credit scoring and insurance risk assessment as high-risk AI applications, placing fairness obligations alongside broader requirements for transparency, human oversight, and accountability. Firms that cannot demonstrate fairness face legal exposure, reputational risk, and the practical challenge of defending pricing decisions under regulatory examination.\nThis playbook translates research from economics, statistics, actuarial science, and machine learning into a concrete four-step workflow that covers the full journey from defining what fairness means, to building fair models, to measuring who actually gains and loses, to auditing a deployed system. While the case studies use insurance data and draw on insurance regulation, the four-step framework applies to any sector where algorithmic pricing raises fairness concerns, including credit, housing, energy, and mobility. Three insurance case studies provide the technical depth needed for implementation.\n\n\n\n\n\n\nTipTwo ways to read\n\n\n\n\n\n\n\n\n\n\nReader\nRecommended path\n\n\n\n\nCompliance, risk, policy, and management\nRead the four steps. The case studies are optional technical supplements.\n\n\nData science, actuarial, and research\nRead the four steps, then follow the case studies linked in the sidebar for implementation detail.\n\n\n\n\n\n\nWatch: Introduction to anti-discrimination insurance pricing",
+    "crumbs": [
+      "Introduction",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#four-steps",
+    "href": "about.html#four-steps",
+    "title": "The Fair Pricing Playbook",
+    "section": "The four steps",
+    "text": "The four steps\n\n\nStep 1 · Define fairness\nThis step surveys the different lenses of fairness and the criteria they imply. They cannot all be satisfied simultaneously, and the choice is a legal and policy decision, not a technical default.\n\n\nStep 2 · Design fair pricing\nOnce a criterion is chosen, this step maps it to a concrete model design and shows where in the pipeline (inputs, training, or outputs) to enforce fairness, based on what regulation requires.\n\n\nStep 3 · Assess impact\nA fair cost model does not guarantee a fair market outcome. This step traces price effects through demand and competition, quantifying consumer welfare and firm profit by group after prices are set.\n\n\nStep 4 · Audit the system\nAn audit tests whether a deployed system actually meets the standard. All protocol choices (criterion, tolerances, sample design) are fixed before examining any data. Results are pass, fail, or insufficient information.\n\n\n\n\n\n\n\n\nFour case studies provide implementation depth. Each is linked from the step it illustrates. Case study: Fairness Metrics follows Step 1 as a qualitative walkthrough with no code. Case study: Fair Models follows Step 2 with a reproducible model pipeline. Case study: Welfare Implications follows Step 3 with a reproducible welfare simulation. Case study: Fairness Testing follows Step 4 with a reproducible audit pipeline. Case studies are technical supplements. The four steps stand alone for non-technical readers.",
+    "crumbs": [
+      "Introduction",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#the-pathway-at-a-glance",
+    "href": "about.html#the-pathway-at-a-glance",
+    "title": "The Fair Pricing Playbook",
+    "section": "The pathway at a glance",
+    "text": "The pathway at a glance\n\nThe diagram shows how the four steps connect across model design, welfare assessment, and fairness testing. Steps 1 through 3 work together to inform a single decision, which fairness criterion fits a specific application or line of business. Step 2 shows the accuracy-fairness trade-off, how much predictive power a fairness constraint costs at the model level. Step 3 shows the welfare-fairness trade-off, how a fair cost model can still produce unequal market outcomes once price optimisation and demand enter the picture. Neither trade-off has a universal answer, which is exactly why these steps matter. Seeing both is what lets stakeholders choose a criterion in Step 1 that fits their product, market, and regulatory context, rather than defaulting to whichever criterion is easiest to implement.",
+    "crumbs": [
+      "Introduction",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#what-the-research-shows",
+    "href": "about.html#what-the-research-shows",
+    "title": "The Fair Pricing Playbook",
+    "section": "What the research shows",
+    "text": "What the research shows\n\n\n\n\n\n\nNoteKey findings from the research\n\n\n\n\nFairness through unawareness is not enough. Removing the protected attribute leaves proxy effects intact. Indirect discrimination can survive even when all obvious proxies are excluded. See Step 1 →\nFair models are feasible. Four model families (MU, MDP, MCDP, MC) implement four distinct criteria with manageable accuracy trade-offs. On benchmark data, proxy removal (MCDP) reduced adverse selection risk more than simple exclusion (MU). See Step 2 →\nFair models do not guarantee fair outcomes. Price optimisation and competitive dynamics reintroduce group disparities after cost-level fairness is achieved. Demographic parity on premiums can widen markup disparities even as it closes price gaps. When all firms in the market adopt the same fairness rule, welfare losses for female customers are nearly eightfold larger than when only one firm is regulated ($101.67 vs $13.43 per female customer), because consumers can no longer avoid the impact by switching to an unregulated competitor. See Step 3 →\nStandard statistical tests are unreliable for auditing algorithmic pricing. Corrected inference, equivalence testing, and (where race is unobserved) ethnicity-estimation corrections are all required for a valid audit. Insufficient data yields an inconclusive result, not a pass. See Step 4 →\n\n\n\n\n\n\n\n\n\n\nStep\nKey references\n\n\n\n\n1 · Define fairness\nFrees and Huang (2023); Xin and Huang (2024); Krafcheck et al. (2026)\n\n\n2 · Design fair pricing\nXin and Huang (2024)\n\n\n3 · Assess impact\nHuang et al. (2026); Huang and Shimao (2026)\n\n\n4 · Audit the system\nHuang and Hooker (2026); Xin et al. (2026); Xin et al. (2025)",
+    "crumbs": [
+      "Introduction",
+      "About"
+    ]
+  },
+  {
+    "objectID": "about.html#end-to-end-audit-flow",
+    "href": "about.html#end-to-end-audit-flow",
+    "title": "The Fair Pricing Playbook",
+    "section": "End-to-end audit flow",
+    "text": "End-to-end audit flow\nStep 4 follows an integrated Plan, Audit, Decide, and Improve protocol (Huang and Hooker 2026). All design choices are fixed before examining data.\n\n\n\n\n\n\n\n\nPhase\nActions\n\n\n\n\nPlan\nSelect criterion (PD or CDP), legitimate factors, tolerance bands, representative sample\n\n\nAudit\nCollect prices and run statistical fairness tests with corrected inference\n\n\nDecide\nPass, insufficient information, or fail (equivalence testing)\n\n\nImprove\nRemediate and re-test. Collect more data if result is unclear\n\n\n\nFull detail is in Step 4: Audit the system.\nSee the About page for author bio, acknowledgements, citation, and licence.",
+    "crumbs": [
+      "Introduction",
+      "About"
     ]
   }
 ]
