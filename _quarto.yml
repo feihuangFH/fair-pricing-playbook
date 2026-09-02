@@ -30,7 +30,7 @@ website:
   repo-url: https://github.com/feihuangFH/fair-pricing-playbook
   repo-actions: [source, issue]
   page-footer:
-    center: "Open source · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)"
+    center: "Open source · [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) · [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook)"
   sidebar:
     style: docked
     contents:
