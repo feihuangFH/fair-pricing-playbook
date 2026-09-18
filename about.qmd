@@ -41,10 +41,6 @@ This project was developed with support from AI coding assistants. All analysis,
 
 The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.
 
-## Development note
-
-This project was developed with support from AI coding assistants (Claude Code and Cursor). All analysis, content decisions, and conclusions are the author's own and her responsibility.
-
 ## How to cite
 
 ### Citing the website (archived version on Zenodo)
@@ -67,12 +63,6 @@ Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsi
 ```
 
 :::
-
-## Open source
-
-This playbook is fully open source under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). All source files — step pages, case study code, bibliography, and site configuration — are available at [github.com/feihuangFH/fair-pricing-playbook](https://github.com/feihuangFH/fair-pricing-playbook).
-
-You are free to fork the repository, adapt the framework for your own market or product, and reproduce or extend the case studies. Attribution is required.
 
 ## License
 
