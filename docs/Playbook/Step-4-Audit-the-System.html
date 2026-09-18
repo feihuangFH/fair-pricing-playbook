@@ -368,7 +368,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
+<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-proposed">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-proposed" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency, may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
@@ -597,7 +597,7 @@ window.Quarto = {
 <section id="feature-importance-check" class="level3">
 <h3 class="anchored" data-anchor-id="feature-importance-check">Feature importance check</h3>
 <p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>.</p>
-<p>Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.</p>
+<p>Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check asks whether a rating factor influences model predictions. It does not establish whether average outcomes are equal across protected groups.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1182,7 +1182,7 @@ Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regressi
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Open source · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a></p>
+<p>Open source · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> · <a href="https://github.com/feihuangFH/fair-pricing-playbook">github.com/feihuangFH/fair-pricing-playbook</a></p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/blob/main/Playbook/Step-4-Audit-the-System.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/feihuangFH/fair-pricing-playbook/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
