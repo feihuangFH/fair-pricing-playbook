@@ -83,13 +83,13 @@ What makes a price fair? @frees2023discriminating frame the question as follows:
 
 @xin2024antidiscrimination formalize anti-discrimination principles for insurance pricing, distinguishing direct discrimination (explicit use of protected attributes) from indirect discrimination (disparate outcomes through proxy variables or complex model interactions). They propose a taxonomy of model designs (M0, MU, MDP, MCDP, MC) that links specific fairness criteria to concrete modeling interventions. They also show that omitting protected attributes (fairness through unawareness) does not prevent indirect discrimination if correlated proxies remain.
 
-@krafcheck2026fairnessmetrics extend this taxonomy to life insurance, surveying a broader set of individual and group fairness criteria and mapping them to the independence, separation, and sufficiency frameworks from the algorithmic fairness literature. A key finding is that individual and group fairness criteria are often mutually incompatible, satisfying one typically requires violating another.
+@krafcheck2026fairnessmetrics extend this taxonomy to life insurance, surveying a broader set of individual and group fairness criteria and mapping them to the independence, separation, and sufficiency frameworks from the algorithmic fairness literature. Individual and group fairness criteria are often mutually incompatible. Satisfying one typically requires violating another.
 
 ### Welfare and Market Effects of Fairness Interventions
 
 A separate literature examines what happens to consumers and insurers when fairness constraints are applied. @huang2026welfarealgorithms show that fairness interventions at the cost-model stage do not translate uniformly into welfare improvements at the market stage. Using a discrete-choice demand framework applied to French motor insurance data, they find that some standard fairness metrics can *reduce* welfare for the protected group after selection effects and demand response are taken into account, and that firm-versus-consumer trade-offs vary substantially by intervention type.
 
-@huang2026welfareaccountable develop a complete pricing pipeline model that incorporates cost modeling, demand modeling, price optimization, and regulatory constraints, and evaluate five pricing regulations (P0, PA, POB, PDP, PAF) in terms of premium gaps, markup gaps, consumer welfare, and insurer profit. A central finding is that premium fairness and markup fairness are in tension, no single regulation achieves both simultaneously. PDP closes premium gaps but can widen markup disparities for the group it is designed to protect.
+@huang2026welfareaccountable develop a complete pricing pipeline model that incorporates cost modeling, demand modeling, price optimization, and regulatory constraints, and evaluate five pricing regulations (P0, PA, POB, PDP, PAF) in terms of premium gaps, markup gaps, consumer welfare, and insurer profit. Premium fairness and markup fairness are in tension. No single regulation achieves both simultaneously. PDP closes premium gaps but can widen markup disparities for the group it is designed to protect.
 
 ### Audit Methodology for Algorithmic Pricing
 
@@ -99,7 +99,7 @@ A separate literature examines what happens to consumers and insurers when fairn
 
 ### Positioning
 
-Compared with these contributions, the playbook's role is integrative. It provides an operational bridge from policy framing to modeling choices, welfare analysis, and audit execution for practitioners across compliance, actuarial, data science, and governance functions, assembling the decisions that must be made in sequence and in a coherent order to produce a defensible fair-pricing system.
+Compared with these contributions, the playbook's role is integrative. It provides an operational bridge from policy framing to modeling choices, welfare analysis, and audit execution for practitioners across compliance, actuarial, data science, and governance functions, assembling the decisions that must be made in sequence to produce a defensible fair-pricing system.
 
 ## Framework Overview
 

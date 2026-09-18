@@ -44,7 +44,7 @@ An audit tests whether a deployed pricing system meets the fairness standard fro
 ::: {.callout-note appearance="simple" icon="false"}
 ## Example criteria (CDP and PD)
 
-This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria [@huang2026fairtesting; @doradoi-2023-concerning; @nydfs-2024-proposed]. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from [Step 1](Step-1-Define-Fairness.html), such as demographic parity, separation, or sufficiency - may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.
+This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado and New York regulatory proposals operationalise tests that map directly to these criteria [@huang2026fairtesting; @doradoi-2023-concerning; @nydfs-2024-proposed]. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from [Step 1](Step-1-Define-Fairness.html), such as demographic parity, separation, or sufficiency, may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.
 :::
 
 ::: {.callout-important appearance="simple" icon="false"}
@@ -177,7 +177,7 @@ On fail or unclear CDP results, a proxy-discrimination screen can identify candi
 
 The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in [Case Study: Fairness Testing](<../Case Study 4/case_study4.html>).
 
-Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check is not the same as CDP, demographic parity, or proxy discrimination on quoted premiums. It does not test whether average outcomes are equal across protected groups.
+Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check asks whether a rating factor influences model predictions. It does not establish whether average outcomes are equal across protected groups.
 
 ::: {.callout-note appearance="simple" icon="false"}
 ## Regulatory example

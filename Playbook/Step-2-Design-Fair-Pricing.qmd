@@ -40,7 +40,7 @@ If the pricing process also includes **demand modelling** (how likely customers 
 
 Step 1 established what fairness means for your product and which criterion you are required to meet. Step 2 is about building a model that actually achieves it. That sounds straightforward but involves a decision most modelling teams do not make explicit: at what stage in the pricing pipeline do you enforce fairness?
 
-There are three points at which you can intervene. You can adjust the data before the model sees it (pre-processing). You can build fairness directly into the model's training objective (in-processing). Or you can adjust the model's predictions after training is complete (post-processing). Each approach works best for different fairness criteria, and the choice should follow from what Step 1 decided, not from what is easiest to implement.
+There are three points at which you can intervene. You can adjust the data before the model sees it (pre-processing). You can build fairness directly into the model's training objective (in-processing). Or you can adjust the model's predictions after training is complete (post-processing). Each approach works best for different fairness criteria, The choice should follow from Step 1, not from what is easiest to implement.
 
 ::: {.callout-important appearance="simple" icon="false"}
 ## For practitioners
