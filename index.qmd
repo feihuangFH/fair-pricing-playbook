@@ -28,6 +28,8 @@ This playbook translates research from economics, statistics, actuarial science,
 
 {{< video https://youtu.be/TQU1Coxfg-M >}}
 
+Huang, F. (2026). [AI doesn't need your race to discriminate against you](https://www.afr.com/companies/financial-services/ai-doesn-t-need-your-race-to-discriminate-against-you-20260902-p60tqq). *Australian Financial Review*, 3 September.
+
 # The four steps {#four-steps}
 
 ::: {.step-grid}
