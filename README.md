@@ -58,7 +58,7 @@ A `CITATION.cff` file is included for one-click citation from the GitHub interfa
 
 ## Development note
 
-This project was developed with support from AI coding assistants (Claude Code and Cursor). All analysis, content decisions, and conclusions are the author's own and her responsibility.
+This project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author's own and her responsibility.
 
 ## License
 
