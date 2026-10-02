@@ -37,6 +37,20 @@ Her work has been recognised with awards including the Australian Business Deans
 
 This project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author's own and her responsibility.
 
+## Selected talks
+
+| Year | Event | Links |
+|------|-------|-------|
+| 2026 | Invited Speaker, [IAIS – International Association of Insurance Supervisors Market Conduct Working Group](https://lnkd.in/p/gMXiwWev) | |
+| 2026 | Plenary Speaker, [Actuarial Research Conference](https://math.osu.edu/2026ARC), Ohio State University | |
+| 2026 | Plenary Speaker, [China International Conference on Insurance and Risk Management (CICIRM)](https://ccirm.sem.tsinghua.edu.cn/ccirm/index.html), Tsinghua University | |
+| 2026 | Insight Session, Actuaries Institute of Australia | [Recording](https://www.youtube.com/watch?v=GlMdu3s5unI&feature=youtu.be) · [Slides](https://content.actuaries.asn.au/resources/resource-ce6yyqn64sx3-786882053-16968) |
+| 2026 | [Responsible AI and Analytics for Insurance Workshop](https://ai-analytics.wharton.upenn.edu/responsible-ai-analytics-for-insurance-workshop/), Wharton School, University of Pennsylvania | [Recording](https://youtu.be/aGLZ_mUkrtQ?si=sI6c3Uo574ewfsZ7) |
+
+## Media coverage
+
+Huang, F. (2026). [Insurance pricing: fair tests for algorithm discrimination](https://www.businessthink.unsw.edu.au/articles/insurance-pricing-fairness-tests-algorithm-discrimination). *BusinessThink*, UNSW Sydney.
+
 ## Acknowledgements
 
 The author thanks Xi Xin for his support in preparing these materials, and acknowledges co-authors and collaborators Giles Hooker, Hajime Shimao, Warut Khern-am-nuai, Eric Krafcheck, and Igor Balnozan.
