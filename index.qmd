@@ -28,6 +28,8 @@ This playbook translates research from economics, statistics, actuarial science,
 
 {{< video https://youtu.be/TQU1Coxfg-M >}}
 
+Xin, X. & Huang, F. (2024). [Antidiscrimination insurance pricing: Regulations, fairness criteria, and models](https://doi.org/10.1080/10920277.2023.2190528). *North American Actuarial Journal*, 28(2), 285–319.
+
 Huang, F. (2026). [AI doesn't need your race to discriminate against you](https://www.afr.com/companies/financial-services/ai-doesn-t-need-your-race-to-discriminate-against-you-20260902-p60tqq). *Australian Financial Review*, 3 September.
 
 # The four steps {#four-steps}
