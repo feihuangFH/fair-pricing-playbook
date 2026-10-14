@@ -327,6 +327,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <p><a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a>. Design and welfare analysis should be complete before auditing a deployed system.</p>
+<p>The audit protocol here is written for deployed systems, but it can also be applied earlier. Running fairness tests on training data or candidate models during Step 2 can reveal problems before they are built into the final model.</p>
 <p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.</p>
 <p><a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a> implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
 <p>Compliance workflow, see <a href="#end-to-end-audit-flow">End-to-end audit flow</a> → <a href="#checklist">Checklist</a>. Statistical detail, see <a href="#deterministic-pricing">Deterministic pricing</a> → <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>. Proxied attributes (BISG, BIFSG, zip), see <a href="#proxied-protected-attributes">Proxied protected attributes</a>.</p>
