@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Fei Huang">
-<meta name="dcterms.date" content="2026-07-12">
+<meta name="dcterms.date" content="2026-10-14">
 
 <title>Case Study: Fairness Metrics for Life Insurance – The Fair Pricing Playbook</title>
 <style>
@@ -277,7 +277,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 12, 2026</p>
+      <p class="date">October 14, 2026</p>
     </div>
   </div>
   
@@ -304,7 +304,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </div>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>Life insurance fairness raises different questions from the motor insurance case studies elsewhere in this playbook. Underwriting draws on medical, mortality, and lifestyle information rather than claims history and vehicle characteristics, and policies can run for decades before an outcome is observed. Rather than proposing a single fairness definition for life insurers, <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> address this directly by setting out a framework for choosing among competing definitions and understanding what each one trades away.</p>
+<p>Life insurance fairness raises different questions from the motor insurance case studies elsewhere in this playbook. Underwriting draws on medical, mortality, and lifestyle information rather than claims history and vehicle characteristics, and policies can run for decades before an outcome is observed. Rather than proposing a single fairness definition for life insurers, <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> address this directly by explaining how to choose among competing definitions and what each one trades away.</p>
 <p>The report starts from one distinction that recurs throughout this playbook. <strong>Individual fairness</strong> asks whether similar people are treated similarly. <strong>Group fairness</strong> asks whether outcomes are equal across groups. These are not the same question, and satisfying one does not guarantee the other. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> stress that this split is unrelated to the difference between individual and group insurance products. An individual fairness criterion can be tested on a group life policy, and a group fairness criterion can be tested on an individually underwritten policy. What “individual” means here is the most granular risk class the underwriting process actually uses, for example a unique combination of age, sex, and smoking status. What “group” means is any cohort defined for the purpose of the fairness test, whether or not the defining attribute is a protected characteristic.</p>
 <p>The report also revisits <strong>actuarial fairness</strong>, the idea that outcomes should be proportionate to expected claim cost. Actuarial fairness can be tested at the individual level, does each policyholder’s premium match their own expected cost, or the group level, is the loss ratio consistent across groups. Achieving actuarial fairness at the individual level generally implies it holds at the group level too, but the reverse does not follow. Several of the criteria below sit at different distances from this actuarial fairness benchmark, a point the report returns to throughout.</p>
 </section>
