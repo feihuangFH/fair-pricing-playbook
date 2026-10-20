@@ -275,6 +275,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#what-is-fair" id="toc-what-is-fair" class="nav-link active" data-scroll-target="#what-is-fair">What is fair?</a></li>
+  <li><a href="#how-to-define-fairness-for-your-product" id="toc-how-to-define-fairness-for-your-product" class="nav-link" data-scroll-target="#how-to-define-fairness-for-your-product">How to define fairness for your product</a></li>
   <li><a href="#anti-discrimination" id="toc-anti-discrimination" class="nav-link" data-scroll-target="#anti-discrimination">Anti-discrimination</a></li>
   <li><a href="#competing-ethical-notions" id="toc-competing-ethical-notions" class="nav-link" data-scroll-target="#competing-ethical-notions">Competing ethical notions</a></li>
   <li><a href="#consumer-trust" id="toc-consumer-trust" class="nav-link" data-scroll-target="#consumer-trust">Consumer trust</a></li>
@@ -374,21 +375,21 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="how-to-define-fairness-for-your-product" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-define-fairness-for-your-product">How to define fairness for your product</h3>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>How to define fairness for your product
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p>There is no single answer. The right standard depends on line of business, jurisdiction, and how the product sits between social good and economic commodity (see below). In practice, most frameworks combine two complementary approaches.</p>
 <p><strong>Inputs: are the rating factors defensible?</strong> Apply the six principles discussed below (control, mutability, statistical discrimination, causality, past discrimination, and socially valuable behaviour) to assess whether each factor is appropriate to use. This guards against building unfairness into the model from the start.</p>
 <p><strong>Outputs: do the outcomes treat protected groups fairly?</strong> Choose a fairness criterion and test whether the predicted outcome meets it. Even a model that uses no protected attribute directly can produce discriminatory outcomes through proxy effects. The criterion chosen here governs Steps 2, 3, and 4.</p>
 <p><strong>How to choose the right criterion?</strong> Three considerations shape the choice. First, check whether your jurisdiction specifies it. Some regulators prescribe a particular fairness metric or prohibit certain types of disparate impact, narrowing the practical options before any modelling begins. Second, the competing ethical notions discussed below (actuarial fairness, solidarity, and choice-sensitive fairness) offer normative grounding. They indicate whether your product should lean toward individual or group fairness criteria. Third, Step 3 can test the market-level consequences. By modelling customer and firm behaviour, it reveals the welfare implications of each criterion (who gains, who loses, and by how much) and can prompt a revision if the outcomes are unacceptable. In practice, the three considerations often point in different directions. The final choice is a legal, ethical, and commercial judgement.</p>
 <p><strong>Step 4 can also come earlier.</strong> The audit protocol in Step 4 is not only for deployed systems. Running fairness tests on existing pricing models or outcomes before deployment can reveal problems early and shape model design choices in Step 2.</p>
+</div>
 </div>
 </div>
 <p>These lenses do not always point in the same direction. A pricing system can be legally compliant and still strike many customers as unfair. A system built on actuarial fairness (each customer pays their own expected cost) may produce outcomes that disadvantage historically marginalised groups. A system designed to achieve group parity may charge some customers more than their expected cost warrants, raising questions of efficiency and adverse selection. Working through these lenses makes the trade-offs visible so the right people in your organisation can decide before any model is built.</p>
