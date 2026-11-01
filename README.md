@@ -3,7 +3,7 @@
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20879782-blue)](https://doi.org/10.5281/zenodo.20879782)
 
-A practical framework for Responsible AI in algorithmic pricing — four linked steps covering fairness definition, model design, welfare assessment, and post-deployment audit. Four case studies provide implementation depth.
+Responsible AI for Algorithmic Insurance Pricing — four linked steps covering fairness definition, model design, welfare assessment, and post-deployment audit. Four case studies provide implementation depth.
 
 **Live site: [fair.feihuang.org](https://fair.feihuang.org)**
 
@@ -52,7 +52,7 @@ Requires [Quarto](https://quarto.org/docs/get-started/), R (with `CASdatasets`, 
 
 ## How to cite
 
-Huang, F. (2026). *The Fair Pricing Playbook: A practical framework for Responsible AI in algorithmic pricing* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.20879782
+Huang, F. (2026). *The Fair Pricing Playbook: Responsible AI for Algorithmic Insurance Pricing* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.20879782
 
 A `CITATION.cff` file is included for one-click citation from the GitHub interface.
 
