@@ -416,7 +416,7 @@ window.Quarto = {
 <thead>
 <tr class="header">
 <th>Symbol</th>
-<th>Plain language</th>
+<th>What it means</th>
 </tr>
 </thead>
 <tbody>
@@ -437,13 +437,13 @@ window.Quarto = {
 <p>Model labels follow <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
+<col style="width: 33%">
+<col style="width: 66%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Label</th>
-<th>Plain language</th>
+<th>Model</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
@@ -467,17 +467,32 @@ window.Quarto = {
 <td>MC (CPV)</td>
 <td>Full model (M0) fitted, then predictions averaged over protected groups at scoring time</td>
 </tr>
-<tr class="even">
-<td>Pre-processing</td>
-<td>Change inputs before model training (used by MDP and MCDP)</td>
+</tbody>
+</table>
+<p>Fairness can be enforced at three stages of the pipeline.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>What it does</th>
 </tr>
+</thead>
+<tbody>
 <tr class="odd">
+<td>Pre-processing</td>
+<td>Adjust inputs before model training (used by MDP and MCDP)</td>
+</tr>
+<tr class="even">
 <td>In-processing</td>
 <td>Enforce fairness constraints during training (e.g.&nbsp;regularisation or penalty terms in the objective)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Post-processing</td>
-<td>Change outputs after model training (used by MC)</td>
+<td>Adjust outputs after model training (used by MC)</td>
 </tr>
 </tbody>
 </table>
