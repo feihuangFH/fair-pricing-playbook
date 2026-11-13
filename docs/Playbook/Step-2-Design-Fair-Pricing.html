@@ -488,7 +488,7 @@ window.Quarto = {
 <section id="m0-the-baseline" class="level4">
 <h4 class="anchored" data-anchor-id="m0-the-baseline">M0: The baseline</h4>
 <p>Before building any fair model, fit a baseline that uses all available variables including the protected attribute. This is M0. You will not deploy M0 in a market where discrimination is prohibited, but you need it for two reasons. First, it gives you the best available estimate of the true expected cost for each group, which you need for welfare analysis in Step 3. Second, it provides the benchmark against which to measure how much fairness constraints affect accuracy and pricing.</p>
-<p><strong>When to build it.</strong> Always. M0 is a prerequisite for Steps 3 and 4, not a deployment option.</p>
+<p><strong>When to build it.</strong> Always, as a baseline for comparison. M0 gives the best available estimate of true expected costs by group and sets the benchmark against which fair models are measured in Steps 3 and 4. It is not deployed.</p>
 </section>
 <section id="mu-removing-the-protected-attribute" class="level4">
 <h4 class="anchored" data-anchor-id="mu-removing-the-protected-attribute">MU: Removing the protected attribute</h4>
