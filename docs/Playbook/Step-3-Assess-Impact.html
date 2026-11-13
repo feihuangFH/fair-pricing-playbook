@@ -346,14 +346,16 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Firms without price optimisation
+<span class="screen-reader-only">Note</span>Firms without price optimisation (click to expand)
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Welfare analysis applies even if your pricing process does not include a demand model or optimisation layer. Without price optimisation, the pipeline simplifies to expected cost plus a loading for expenses and profit. The welfare questions remain the same. The analysis is more straightforward.</p>
 <p><strong>What to measure.</strong> For each model design from Step 2 (M0, MU, MCDP, MC), compute average premiums and markups by protected group. The markup is the difference between the premium charged and the expected claim cost: the loading the customer pays above their risk. Check whether the loading is applied uniformly across groups or whether it varies by factors that correlate with protected attributes, even unintentionally.</p>
@@ -362,6 +364,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p><strong>Cross-subsidy under fairness rules.</strong> The five pricing rules below (P0 through PAF) can be read as a policy analysis frame rather than an operational description. For example, asking what demographic parity on premiums (PDP) would require tells you which group would cross-subsidise the other and by how much, even if you never run an optimisation model to implement it.</p>
 <p><strong>Participation effects.</strong> Without a demand model, participation effects cannot be quantified precisely, but they should still be considered qualitatively: are there groups for whom the fair-model premium is substantially higher than under the baseline, and might that affect their ability or willingness to retain cover?</p>
 <p><strong>Practical output.</strong> A welfare memo for a non-optimising insurer can compare premium and markup distributions by group across model designs, document any cross-subsidy implications, and note participation risks (without requiring demand data or an optimisation solver).</p>
+</div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -471,17 +474,105 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
-<p><strong>P0: The unconstrained benchmark.</strong> The insurer maximises expected profit, charging each customer based on expected cost and predicted price sensitivity. No fairness constraint applies. This produces the widest disparities between groups and the highest average profit for the insurer. It is the baseline against which all constrained rules are compared.</p>
-<p><strong>Accountable pricing (PA).</strong> This requires a transparent, decomposable rating structure: a base rate plus explicit relativities for each factor, similar to how most traditional filed rate plans work (rate structures submitted to and approved by state insurance regulators) <span class="citation" data-cites="POWhitePaper NAIC2012">(<a href="#ref-POWhitePaper" role="doc-biblioref">NAIC CAS Task Force 2015</a>; <a href="#ref-NAIC2012" role="doc-biblioref">NAIC 2012</a>)</span>. The insurer cannot add a hidden demand-based surcharge on top of the filed rate. PA limits the ability to exploit information asymmetries but does not directly constrain group-level outcomes. The empirical results in <span class="citation" data-cites="huang2026welfarealgorithms">Huang et al. (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> find that PA nearly eliminates the markup gap between genders, reducing the female-to-male markup ratio from 1.21 under unconstrained pricing to 1.07 (a ratio above 1.0 means females are paying more in markup per unit of expected cost than males; 1.21 means 21 per cent more), because the accountability requirement prevents fine-tuned individual exploitation. This improvement comes at a substantial profit cost. In voluntary insurance markets, the insurer’s profit falls by around 42 per cent under PA, making the fairness gain expensive from the insurer’s perspective.</p>
-<p><strong>Price optimisation ban (POB).</strong> POB requires that premiums track estimated cost closely, restricting the insurer from adding demand-based markups. The effect on group disparities depends on market structure. In voluntary markets with active competition, POB tends to benefit groups that were previously paying inflated renewal premiums. In mandatory markets where customers cannot easily leave, the dynamics differ and POB’s benefits are less predictable. Across the scenarios studied in <span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span>, POB produces moderate profit losses of around 5 to 8 per cent.</p>
-<p><strong>Demographic parity on premiums (PDP).</strong> PDP directly constrains average premiums to be equal across protected groups <span class="citation" data-cites="xin2022">(<a href="#ref-xin2022" role="doc-biblioref">Xin and Huang 2023</a>)</span>. It is the most direct regulatory response to an observed price gap. It works at the price level, not the cost level, which creates a structural tension described in the next section. Community rating schemes in some jurisdictions apply similar logic: private health insurance in Australia and compulsory third-party auto insurance in the Australian Capital Territory both mandate price parity across risk groups <span class="citation" data-cites="ausGovt2023">(<a href="#ref-ausGovt2023" role="doc-biblioref">Commonwealth of Australia 2021</a>)</span>. The research finds that while PDP achieves near-perfect price equality, it substantially widens the markup gap, raising the female-to-male markup ratio from 1.21 to 1.66 in the baseline market. In the empirical study, females experience welfare losses under PDP even as their prices become equal to males, because the insurer compensates for the price constraint by extracting more profit from the lower-cost group.</p>
-<p><strong>Group fairness on cost estimates (PAF).</strong> Rather than equalising average premiums across groups, PAF requires that within each cost stratum (customers grouped by their estimated claim cost level), customers from different groups receive the same premium on average <span class="citation" data-cites="dolman2018algorithmicIFOA dolman2019summit">(<a href="#ref-dolman2018algorithmicIFOA" role="doc-biblioref">Dolman and Semenovich 2018</a>, <a href="#ref-dolman2019summit" role="doc-biblioref">2019</a>)</span>. This is tighter than PDP in some respects (it controls for risk level) and looser in others (it does not constrain the overall average). The research suggests PAF performs better than PDP on markup fairness for some market structures, at a comparable cost to firm profit, though females can still face welfare losses under PAF where markup differentials remain.</p>
+<p><strong>P0: The unconstrained benchmark.</strong> <em>Everyone pays what the firm can extract.</em> The insurer maximises expected profit, charging each customer based on expected cost and predicted price sensitivity. No fairness constraint applies. This produces the widest disparities between groups and the highest average profit for the insurer. It is the baseline against which all constrained rules are compared.</p>
+<p><strong>Accountable pricing (PA).</strong> <em>Prices are transparent and decomposable. No hidden surcharges.</em> This requires a transparent, decomposable rating structure: a base rate plus explicit relativities for each factor, similar to how most traditional filed rate plans work (rate structures submitted to and approved by state insurance regulators) <span class="citation" data-cites="POWhitePaper NAIC2012">(<a href="#ref-POWhitePaper" role="doc-biblioref">NAIC CAS Task Force 2015</a>; <a href="#ref-NAIC2012" role="doc-biblioref">NAIC 2012</a>)</span>. The insurer cannot add a hidden demand-based surcharge on top of the filed rate. PA limits the ability to exploit information asymmetries but does not directly constrain group-level outcomes. The empirical results in <span class="citation" data-cites="huang2026welfarealgorithms">Huang et al. (<a href="#ref-huang2026welfarealgorithms" role="doc-biblioref">2026</a>)</span> find that PA nearly eliminates the markup gap between genders, reducing the female-to-male markup ratio from 1.21 under unconstrained pricing to 1.07 (a ratio above 1.0 means females are paying more in markup per unit of expected cost than males; 1.21 means 21 per cent more), because the accountability requirement prevents fine-tuned individual exploitation. This improvement comes at a substantial profit cost. In voluntary insurance markets, the insurer’s profit falls by around 42 per cent under PA, making the fairness gain expensive from the insurer’s perspective.</p>
+<p><strong>Price optimisation ban (POB).</strong> <em>Prices track cost. Demand-based markups are banned.</em> POB requires that premiums track estimated cost closely, restricting the insurer from adding demand-based markups. The effect on group disparities depends on market structure. In voluntary markets with active competition, POB tends to benefit groups that were previously paying inflated renewal premiums. In mandatory markets where customers cannot easily leave, the dynamics differ and POB’s benefits are less predictable. Across the scenarios studied in <span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span>, POB produces moderate profit losses of around 5 to 8 per cent.</p>
+<p><strong>Demographic parity on premiums (PDP).</strong> <em>Average prices are equal across protected groups, regardless of risk.</em> PDP directly constrains average premiums to be equal across protected groups <span class="citation" data-cites="xin2022">(<a href="#ref-xin2022" role="doc-biblioref">Xin and Huang 2023</a>)</span>. It is the most direct regulatory response to an observed price gap. It works at the price level, not the cost level, which creates a structural tension described in the next section. Community rating schemes in some jurisdictions apply similar logic: private health insurance in Australia and compulsory third-party auto insurance in the Australian Capital Territory both mandate price parity across risk groups <span class="citation" data-cites="ausGovt2023">(<a href="#ref-ausGovt2023" role="doc-biblioref">Commonwealth of Australia 2021</a>)</span>. The research finds that while PDP achieves near-perfect price equality, it substantially widens the markup gap, raising the female-to-male markup ratio from 1.21 to 1.66 in the baseline market. In the empirical study, females experience welfare losses under PDP even as their prices become equal to males, because the insurer compensates for the price constraint by extracting more profit from the lower-cost group.</p>
+<p><strong>Group fairness on cost estimates (PAF).</strong> <em>Within each risk band, groups pay the same average price.</em> Rather than equalising average premiums across groups, PAF requires that within each cost stratum (customers grouped by their estimated claim cost level), customers from different groups receive the same premium on average <span class="citation" data-cites="dolman2018algorithmicIFOA dolman2019summit">(<a href="#ref-dolman2018algorithmicIFOA" role="doc-biblioref">Dolman and Semenovich 2018</a>, <a href="#ref-dolman2019summit" role="doc-biblioref">2019</a>)</span>. This is tighter than PDP in some respects (it controls for risk level) and looser in others (it does not constrain the overall average). The research suggests PAF performs better than PDP on markup fairness for some market structures, at a comparable cost to firm profit, though females can still face welfare losses under PAF where markup differentials remain.</p>
 </section>
 <section id="price-markup-tension" class="level3">
 <h3 class="anchored" data-anchor-id="price-markup-tension">The price-fairness and markup-fairness tension</h3>
 <p><a href="Step-2-Design-Fair-Pricing.html#scope-of-this-step">Step 2</a> flagged that a fairness criterion has to target a specific outcome variable (pure premium, technical premium, market premium, loss ratio, or profit loading) and that the choice is not incidental. This section works through the sharpest version of that problem. One of the most important findings of this research is that price fairness and markup fairness pull in opposite directions, and no single pricing rule achieves both at once.</p>
 <p><strong>Price fairness</strong> means that two groups are charged similar premiums on average. <strong>Markup fairness</strong> means that two groups are charged a similar margin above their expected claim cost. If the groups have genuinely different expected costs (which is common in motor or health insurance), you cannot achieve both simultaneously. The same logic carries over to loss ratio. Because loss ratio and markup move inversely for a given cost level, equalising premiums across groups with different costs opens a loss-ratio gap as well as a markup gap, not a markup gap alone.</p>
 <p>To see why, consider a simple illustration. Group A has an expected cost of 800 and Group B has an expected cost of 1,000. A regulation that requires equal premiums might set the price at 900 for both. Group A now pays a markup of 100 above their expected cost. Group B pays 100 below theirs. The price gap has been closed. A markup gap has opened. The insurer is effectively cross-subsidising Group B using premiums from Group A.</p>
+<figure style="margin: 1.5em 0;" class="figure">
+<svg viewbox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;font-family:inherit;">
+  <style>
+    .label { font-size: 13px; fill: currentColor; }
+    .small  { font-size: 11px; fill: currentColor; }
+    .head   { font-size: 13px; font-weight: 600; fill: currentColor; }
+    .gap0   { fill: #d1fae5; stroke: #6ee7b7; stroke-width:1; }
+    .gap1   { fill: #fee2e2; stroke: #fca5a5; stroke-width:1; }
+    .cost   { fill: #e0e7ff; stroke: #a5b4fc; stroke-width:1; }
+    .price  { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .arrow  { stroke: currentColor; stroke-width: 1.2; marker-end: url(#arr); }
+  </style>
+  <defs>
+    <marker id="arr" markerwidth="6" markerheight="6" refx="3" refy="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="currentColor"></path>
+    </marker>
+  </defs>
+
+  <!-- Column headers -->
+  <text x="170" y="22" text-anchor="middle" class="head">No pricing rule</text>
+  <text x="510" y="22" text-anchor="middle" class="head">Equal-price rule (PDP)</text>
+
+  <!-- ── LEFT PANEL ── -->
+  <!-- Group A bar -->
+  <text x="60" y="58" text-anchor="end" class="label">Group A</text>
+  <text x="60" y="72" text-anchor="end" class="small">(lower cost)</text>
+  <!-- cost segment -->
+  <rect x="70" y="48" width="160" height="22" class="cost"></rect>
+  <text x="150" y="63" text-anchor="middle" class="small">Cost 800</text>
+  <!-- markup segment -->
+  <rect x="230" y="48" width="20" height="22" class="gap0"></rect>
+  <text x="240" y="63" text-anchor="middle" class="small">+20</text>
+
+  <!-- Group B bar -->
+  <text x="60" y="118" text-anchor="end" class="label">Group B</text>
+  <text x="60" y="132" text-anchor="end" class="small">(higher cost)</text>
+  <rect x="70" y="108" width="200" height="22" class="cost"></rect>
+  <text x="170" y="123" text-anchor="middle" class="small">Cost 1000</text>
+  <rect x="270" y="108" width="20" height="22" class="gap0"></rect>
+  <text x="280" y="123" text-anchor="middle" class="small">+20</text>
+
+  <!-- Price gap label -->
+  <line x1="250" y1="70" x2="250" y2="108" class="arrow"></line>
+  <text x="258" y="93" class="small">Price gap</text>
+  <text x="258" y="105" class="small">≈ 200</text>
+
+  <!-- ── RIGHT PANEL ── -->
+  <!-- equal price line at 900 -->
+  <line x1="390" y1="45" x2="640" y2="45" class="price"></line>
+  <text x="645" y="49" class="small">Price = 900</text>
+
+  <!-- Group A bar: cost 800 -->
+  <text x="400" y="58" text-anchor="start" class="label">Group A</text>
+  <rect x="390" y="62" width="160" height="22" class="cost"></rect>
+  <text x="470" y="77" text-anchor="middle" class="small">Cost 800</text>
+  <!-- markup: 900-800=100 -->
+  <rect x="550" y="62" width="68" height="22" class="gap1"></rect>
+  <text x="584" y="77" text-anchor="middle" class="small">+100</text>
+
+  <!-- Group B bar: cost 1000, capped at 900 shown as deficit -->
+  <text x="400" y="118" text-anchor="start" class="label">Group B</text>
+  <rect x="390" y="122" width="200" height="22" class="cost"></rect>
+  <text x="490" y="137" text-anchor="middle" class="small">Cost 1000</text>
+  <!-- deficit: 900 - 1000 = -100 -->
+  <rect x="590" y="122" width="28" height="22" class="gap0"></rect>
+  <text x="604" y="137" text-anchor="middle" class="small">−100</text>
+
+  <!-- Price gap label right -->
+  <line x1="620" y1="84" x2="620" y2="122" class="arrow"></line>
+  <text x="628" y="107" class="small">Price gap</text>
+  <text x="628" y="119" class="small">= 0 ✓</text>
+
+  <!-- Markup gap annotation -->
+  <line x1="584" y1="84" x2="604" y2="122" style="stroke:currentColor;stroke-width:1.2;stroke-dasharray:3 2;"></line>
+  <text x="560" y="175" class="small" style="fill:#dc2626;">Markup gap opens: +100 vs −100</text>
+
+  <!-- Legend -->
+  <rect x="70" y="195" width="12" height="12" class="cost"></rect>
+  <text x="86" y="206" class="small">Expected cost</text>
+  <rect x="180" y="195" width="12" height="12" class="gap0"></rect>
+  <text x="196" y="206" class="small">Profit (markup)</text>
+  <rect x="295" y="195" width="12" height="12" class="gap1"></rect>
+  <text x="311" y="206" class="small">Excess markup (Group A overpays)</text>
+</svg>
+<figcaption style="font-size:0.85em;color:var(--bs-secondary-color,#666);margin-top:0.4em;">
+Closing the price gap opens a markup gap. Group A's markup rises to 100; Group B's turns negative (cross-subsidy). Same logic applies in lending: equalising interest rates across risk groups shifts who bears the profit burden.
+</figcaption>
+</figure>
 <p>The PDP rule in <span class="citation" data-cites="huang2026welfareaccountable">Huang and Shimao (<a href="#ref-huang2026welfareaccountable" role="doc-biblioref">2026</a>)</span> achieves exactly this. It closes the premium gap between groups but widens the markup gap. Whether that cross-subsidy is acceptable is not a statistical question. It is a question about whether insurance for this product is being treated as a commercial product (in which case actuarial fairness says each group should pay its own expected cost) or as something closer to a social service (in which case some cross-subsidy is appropriate). That conversation belongs in Step 1, before the model is built and before a pricing rule is chosen.</p>
 </section>
 <section id="key-findings" class="level3">
