@@ -303,23 +303,6 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p>Policy readers, see <a href="#who-gains-and-loses">Who gains and loses</a> and <a href="#pricing-rules">Pricing rules</a>. Business readers, see <a href="#measures">Measures</a> and <a href="#checklist">Checklist</a>. Technical readers, see <a href="../Case Study 3/case_study3.html">Case Study: Welfare Implications</a>.</p>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Key insights from this step
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>A fair cost model does not guarantee a fair outcome. Price optimisation, demand elasticity (how sensitive customers are to price changes), and competitive dynamics can reintroduce group disparities after cost-level fairness is achieved. Prediction-level fairness is a necessary starting point. It does not guarantee fair market outcomes.</li>
-<li>Demographic parity on premiums (PDP) closes price gaps between protected groups but can simultaneously widen markup disparities, resolving one form of inequality while creating another. The trade-off is structural.</li>
-<li>No single pricing rule achieves both price fairness and markup fairness at the same time. Which trade-off is acceptable is ultimately a policy decision that actuaries and compliance teams must make explicit, not a parameter to optimise away.</li>
-</ul>
-</div>
-</div>
 <section id="who-gains-and-loses" class="level3">
 <h3 class="anchored" data-anchor-id="who-gains-and-loses">Who gains and loses?</h3>
 <p>Steps 1 and 2 focus on the model: what it predicts and how it treats different groups at the point of estimation. Step 3 asks a different question. Once fair predicted costs leave the model and enter the market, who actually benefits and who ends up worse off?</p>
@@ -346,7 +329,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -355,7 +338,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Welfare analysis applies even if your pricing process does not include a demand model or optimisation layer. Without price optimisation, the pipeline simplifies to expected cost plus a loading for expenses and profit. The welfare questions remain the same. The analysis is more straightforward.</p>
 <p><strong>What to measure.</strong> For each model design from Step 2 (M0, MU, MCDP, MC), compute average premiums and markups by protected group. The markup is the difference between the premium charged and the expected claim cost: the loading the customer pays above their risk. Check whether the loading is applied uniformly across groups or whether it varies by factors that correlate with protected attributes, even unintentionally.</p>
