@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Fei Huang">
-<meta name="dcterms.date" content="2026-07-12">
+<meta name="dcterms.date" content="2026-11-13">
 
 <title>Case Study: Fairness Testing for Algorithmic Pricing – The Fair Pricing Playbook</title>
 <style>
@@ -89,6 +89,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../Applications/Banking.html" rel="next">
 <link href="../Playbook/Step-4-Audit-the-System.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -302,6 +303,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Applications/Banking.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Banking and Lending</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -349,7 +367,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Case Study 4/case_study4.html">Case Study · Fairness Testing</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Case Study: Fairness Testing for Algorithmic Pricing</h1>
-<p class="subtitle lead">A practical framework for Responsible AI in algorithmic pricing</p>
+<p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
 </div>
 
 
@@ -366,7 +384,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 12, 2026</p>
+      <p class="date">November 13, 2026</p>
     </div>
   </div>
   
@@ -402,7 +420,7 @@ window.Quarto = {
 </ul>
 <p>A distinctive feature of algorithmic pricing systems is that they are often deterministic. The same profile submitted to the same algorithm produces the same price. As a result, residuals from an audit regression represent approximation error rather than sampling variability. This distinction has important implications for statistical inference and forms the central motivation for the empirical analysis in this case study.</p>
 <p>To illustrate the audit framework, we use the ProPublica Illinois auto insurance dataset <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>, which contains quoted premiums from multiple insurers across Illinois zip codes. Download the <a href="http://propublica.s3.amazonaws.com/projects/carinsurance/car-insurance-public.zip">public data release</a>, extract <code>car-insurance-public/data/il-per-zip.csv</code>, and place it in this case study folder before running the code. See <a href="#data">Data</a> for details.</p>
-<p>The analysis is designed to show how to run a regression-based fairness audit, not to deliver filing-ready compliance conclusions for any named insurer.</p>
+<p>The analysis shows how to run a regression-based fairness audit, not to deliver filing-ready compliance conclusions for any named insurer.</p>
 </section>
 <section id="how-to-read-this-case-study" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-this-case-study">How to Read This Case Study</h2>
@@ -1387,7 +1405,7 @@ Note
 <div id="fig-cdp-se-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cdp-se-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="case_study4_files/figure-html/fig-cdp-se-ratio-output-1.png" width="758" height="422" class="figure-img">
+<img src="case_study4_files/figure-html/fig-cdp-se-ratio-output-1.png" width="757" height="420" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cdp-se-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Ratio of HC3 to classical standard errors for the protected-attribute coefficient.
@@ -1572,7 +1590,7 @@ Note
 <div id="fig-cdp-gap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cdp-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="case_study4_files/figure-html/fig-cdp-gap-output-1.png" width="758" height="422" class="figure-img">
+<img src="case_study4_files/figure-html/fig-cdp-gap-output-1.png" width="757" height="420" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cdp-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Estimated conditional dollar premium gap across companies.
@@ -1975,7 +1993,7 @@ Note
 <div id="fig-pd-z" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pd-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="case_study4_files/figure-html/fig-pd-z-output-1.png" width="758" height="422" class="figure-img">
+<img src="case_study4_files/figure-html/fig-pd-z-output-1.png" width="757" height="420" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pd-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Proxy-discrimination z-statistics under independent and corrected standard errors.
@@ -2457,6 +2475,9 @@ Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regressi
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../Applications/Banking.html" class="pagination-link" aria-label="Banking and Lending">
+        <span class="nav-page-text">Banking and Lending</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
