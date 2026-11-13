@@ -289,7 +289,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">Step 1 · Define Fairness</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Step 1: Define fairness</h1>
-<p class="subtitle lead">A practical framework for Responsible AI in algorithmic pricing</p>
+<p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
 </div>
 
 
@@ -528,56 +528,7 @@ window.Quarto = {
 </section>
 <section id="fairness-criteria" class="level4">
 <h4 class="anchored" data-anchor-id="fairness-criteria">Fairness criteria</h4>
-<p>The criteria below are <strong>illustrative examples</strong> used in this playbook and in much insurance fairness work. They are not an exhaustive list. Your jurisdiction, product line, and regulator may require a different criterion.</p>
-<p>Let <span class="math inline">X_P</span> be a protected attribute, <span class="math inline">X_{NP}</span> other features, and <span class="math inline">\hat{Y}</span> the predicted price (or cost estimate used to set price) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
-<section id="playbook-criteria" class="level5">
-<h5 class="anchored" data-anchor-id="playbook-criteria">Playbook criteria</h5>
-<p>These are the criteria <strong>implemented in Steps 2–4</strong> of this playbook <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 37%">
-<col style="width: 41%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Criterion</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Individual</td>
-<td>Fairness through unawareness (FTU)</td>
-<td><span class="math inline">\hat{Y}</span> does not use <span class="math inline">X_P</span></td>
-</tr>
-<tr class="even">
-<td>Individual</td>
-<td>Controlling for the protected variable (CPV)</td>
-<td>Average full-model predictions over <span class="math inline">X_P</span> at scoring time (sometimes called a discrimination-free price <span class="citation" data-cites="lindholm-etal-2022-discrimination">(<a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>)</span>)</td>
-</tr>
-<tr class="odd">
-<td>Group</td>
-<td>Demographic parity (DP)</td>
-<td>Equal distribution of <span class="math inline">\hat{Y}</span> across protected groups</td>
-</tr>
-<tr class="even">
-<td>Group</td>
-<td>Conditional demographic parity (CDP)</td>
-<td>Equal distribution of <span class="math inline">\hat{Y}</span> across groups within each legitimate subgroup</td>
-</tr>
-<tr class="odd">
-<td>Group</td>
-<td>Separation / sufficiency</td>
-<td>Equalised prediction errors across groups (separation) or equal calibration of <span class="math inline">\hat{Y}</span> to outcomes (sufficiency)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="broader-taxonomy" class="level5">
-<h5 class="anchored" data-anchor-id="broader-taxonomy">Broader taxonomy</h5>
-<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> survey a wider set of criteria for life insurance. The taxonomy distinguishes <strong>individual</strong> and <strong>group</strong> fairness. <a href="../Case Study 1/case_study1.html">Case Study: Fairness Metrics</a> works through each of these criteria on a single worked life insurance example.</p>
+<p>The criteria below are <strong>illustrative examples</strong> used in this playbook and in much insurance fairness work. They are not an exhaustive list. Your jurisdiction, product line, and regulator may require a different criterion. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> survey a wider set of criteria for life insurance. <a href="../Case Study 1/case_study1.html">Case Study: Fairness Metrics</a> works through each of these criteria on a single worked life insurance example.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="plot/fairness1.png" class="img-fluid figure-img" style="width:85.0%" alt="Fairness criteria taxonomy: individual fairness and group fairness branches"></p>
@@ -600,7 +551,7 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Fairness through unawareness</td>
+<td>Fairness through unawareness (FTU)</td>
 <td>Leave protected or sensitive variables out of the model</td>
 <td>No sensitive rating variables used in underwriting</td>
 </tr>
@@ -610,7 +561,7 @@ window.Quarto = {
 <td>Same premium for applicants with the same risk score within a group, after adjusting the score for known disparities (e.g.&nbsp;healthcare access by race or ethnicity)</td>
 </tr>
 <tr class="odd">
-<td>No omitted-variable bias (proxy discrimination) <span class="citation" data-cites="prince2019proxy pope2011implementing lindholm-etal-2022-discrimination">(<a href="#ref-prince2019proxy" role="doc-biblioref">Prince and Schwarcz 2019</a>; <a href="#ref-pope2011implementing" role="doc-biblioref">Pope and Sydnor 2011</a>; <a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>)</span></td>
+<td>No omitted-variable bias / controlling for the protected variable (CPV) <span class="citation" data-cites="prince2019proxy pope2011implementing lindholm-etal-2022-discrimination">(<a href="#ref-prince2019proxy" role="doc-biblioref">Prince and Schwarcz 2019</a>; <a href="#ref-pope2011implementing" role="doc-biblioref">Pope and Sydnor 2011</a>; <a href="#ref-lindholm-etal-2022-discrimination" role="doc-biblioref">Lindholm et al. 2022</a>)</span></td>
 <td>Diagnose proxy relationships with protected attributes and adjust for their effect on outputs</td>
 <td>Remove the effect of race or ethnicity on model outputs after diagnosing proxy relationships</td>
 </tr>
@@ -637,61 +588,28 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Independence</td>
+<td>Independence / demographic parity (DP)</td>
 <td><span class="math inline">\hat{Y}</span> is statistically independent of the protected attribute</td>
-<td>Equal rejection rates for life insurance applications across race and ethnicity classes</td>
+<td>Equal average premiums across race and ethnicity groups</td>
 </tr>
 <tr class="even">
-<td>Separation</td>
-<td>After conditioning on the true outcome, <span class="math inline">\hat{Y}</span> is independent of the protected attribute</td>
-<td>Equal likelihood of fraud investigation or policy rescission across groups, once controlling for whether fraud was ultimately detected</td>
+<td>Conditional independence / conditional demographic parity (CDP)</td>
+<td><span class="math inline">\hat{Y}</span> is statistically independent of the protected attribute within each legitimate subgroup</td>
+<td>Equal average premiums across groups within each age band</td>
 </tr>
 <tr class="odd">
+<td>Separation</td>
+<td>After conditioning on the true outcome, <span class="math inline">\hat{Y}</span> is independent of the protected attribute</td>
+<td>Equal likelihood of fraud investigation across groups, once controlling for whether fraud was ultimately detected</td>
+</tr>
+<tr class="even">
 <td>Sufficiency</td>
 <td>After conditioning on <span class="math inline">\hat{Y}</span>, the true outcome is independent of the protected attribute</td>
 <td>Equal distribution of claims across groups at each estimated mortality risk score</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="how-the-frameworks-relate" class="level5">
-<h5 class="anchored" data-anchor-id="how-the-frameworks-relate">How the frameworks relate</h5>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 72%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Playbook criterion</th>
-<th>Related criterion in <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Fairness through unawareness (FTU)</td>
-<td>Fairness through unawareness</td>
-</tr>
-<tr class="even">
-<td>Controlling for the protected variable (CPV)</td>
-<td>No omitted-variable bias — both target proxy discrimination (PD); CPV is the playbook term, no omitted-variable bias is the SoA term for the same idea</td>
-</tr>
-<tr class="odd">
-<td>Demographic parity (DP)</td>
-<td>Closely related to independence</td>
-</tr>
-<tr class="even">
-<td>Conditional demographic parity (CDP)</td>
-<td>Special case of independence, conditioning on legitimate factors</td>
-</tr>
-<tr class="odd">
-<td>Separation / sufficiency</td>
-<td>Same names in the SoA taxonomy</td>
-</tr>
-</tbody>
-</table>
 <p>Achieving individual and group fairness simultaneously is often impossible <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck et al. 2026</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. The trade-off between criteria is itself part of the fairness discussion.</p>
-</section>
 <section id="choosing-a-criterion-for-your-regime" class="level5">
 <h5 class="anchored" data-anchor-id="choosing-a-criterion-for-your-regime">Choosing a criterion for your regime</h5>
 <p>Regulation can constrain <strong>inputs</strong> (which variables or pricing procedures are allowed) or <strong>outputs</strong> (quantitative tests on premiums or costs) <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Most regimes still emphasise inputs (prohibited or restricted variables). Effects-oriented rules are growing, including unisex pricing in the EU, disparate-impact-style tests in some U.S. proposals, and bans on non-risk price optimization. Prohibition on protected variables often points toward individual criteria (FTU, CPV); disparate-impact or community-rating rules often point toward group criteria (DP, CDP). Causal approaches offer a third path: rather than removing the protected attribute or constraining group averages, they block specific causal pathways from the protected attribute to the price while allowing others <span class="citation" data-cites="araiza2022discrimination cote2025fair">(<a href="#ref-araiza2022discrimination" role="doc-biblioref">Araiza Iturria et al. 2024</a>; <a href="#ref-cote2025fair" role="doc-biblioref">Côté et al. 2025</a>)</span>. See <a href="Step-2-Design-Fair-Pricing.html#causal-approaches">Step 2: Causal approaches</a> for implementation detail. Match the criterion you adopt to your regime before modelling in <a href="Step-2-Design-Fair-Pricing.html">Step 2</a>.</p>
