@@ -8,7 +8,7 @@
 
 <meta name="author" content="Fei Huang, UNSW Sydney">
 
-<title>About</title>
+<title>The Fair Pricing Playbook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -283,7 +248,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html">Overview</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">The Fair Pricing Playbook</h1>
 <p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
 </div>
 
@@ -389,8 +354,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p><img src="Playbook/plot/pathway-towards-fairness.png" class="img-fluid" style="width:100.0%" alt="Pathway towards fairness from model inputs and design through outputs, welfare, and fairness testing to pass, unclear, or fail"></p>
 <p>The diagram shows how the four steps connect across model design, welfare assessment, and fairness testing. Steps 1 through 3 work together to inform a single decision, which fairness criterion fits a specific application or line of business. Step 2 shows the accuracy-fairness trade-off, how much predictive power a fairness constraint costs at the model level. Step 3 shows the welfare-fairness trade-off, how a fair cost model can still produce unequal market outcomes once price optimisation and demand enter the picture. Neither trade-off has a universal answer, which is exactly why these steps matter. Seeing both allows stakeholders to choose a criterion in Step 1 that fits their product, market, and regulatory context, rather than defaulting to whichever criterion is easiest to implement.</p>
 </section>
-<section id="what-the-research-shows" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-research-shows">What the research shows</h2>
+<section id="key-findings" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings">Key findings</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -404,7 +369,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <ul>
 <li><strong>Fairness through unawareness is not enough.</strong> Removing the protected attribute leaves proxy effects intact. Indirect discrimination can survive even when all obvious proxies are excluded. See <a href="Playbook/Step-1-Define-Fairness.html">Step 1 →</a></li>
 <li><strong>Fair models are feasible.</strong> Four model families (MU, MDP, MCDP, MC) implement four distinct criteria with manageable accuracy trade-offs. On benchmark data, proxy removal (MCDP) reduced adverse selection risk more than simple exclusion (MU). See <a href="Playbook/Step-2-Design-Fair-Pricing.html">Step 2 →</a></li>
-<li><strong>Fair models do not guarantee fair outcomes.</strong> Price optimisation and competitive dynamics reintroduce group disparities after cost-level fairness is achieved. Demographic parity on premiums can widen markup disparities even as it closes price gaps. When all firms in the market adopt the same fairness rule, welfare losses for female customers are nearly eightfold larger than when only one firm is regulated ($101.67 vs $13.43 per female customer), because consumers can no longer avoid the impact by switching to an unregulated competitor. See <a href="Playbook/Step-3-Assess-Impact.html">Step 3 →</a></li>
+<li><strong>Fair models do not guarantee fair outcomes.</strong> Price optimisation and competitive dynamics reintroduce group disparities after cost-level fairness is achieved. Demographic parity on premiums can widen markup disparities even as it closes price gaps. In an insurance dataset, when all firms in the market adopt the same fairness rule, welfare losses for female customers are nearly eightfold larger than when only one firm is regulated ($101.67 vs $13.43 per female customer), because consumers can no longer avoid the impact by switching to an unregulated competitor. See <a href="Playbook/Step-3-Assess-Impact.html">Step 3 →</a></li>
 <li><strong>Standard statistical tests are unreliable for auditing algorithmic pricing.</strong> Corrected inference, equivalence testing, and (where race is unobserved) ethnicity-estimation corrections are all required for a valid audit. Insufficient data yields an inconclusive result. See <a href="Playbook/Step-4-Audit-the-System.html">Step 4 →</a></li>
 </ul>
 </div>
@@ -478,128 +443,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p>See the <a href="about.html">About</a> page for author bio, acknowledgements, citation, and licence.</p>
 
 
-<section id="about-the-author" class="level3">
-<h3 class="anchored" data-anchor-id="about-the-author">About the author</h3>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Get in touch
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Firms, regulators, and policymakers who want to discuss fair pricing, audits, or policy applications are welcome to contact <a href="mailto:feihuang@unsw.edu.au">Dr Fei Huang</a>.</p>
-</div>
-</div>
-<div class="columns about-author">
-<div class="column" style="width:30%;">
-<p><img src="Fei_Huang.jpeg" class="about-author-photo img-fluid"></p>
-</div><div class="column" style="width:70%;">
-<section id="dr.-fei-huang" class="level4">
-<h4 class="anchored" data-anchor-id="dr.-fei-huang"><a href="https://www.unsw.edu.au/staff/fei-huang">Dr.&nbsp;Fei Huang</a></h4>
-<div class="about-author-contact">
-<p>School of Risk and Actuarial Studies, UNSW Business School</p>
-<p>Email: <a href="mailto:feihuang@unsw.edu.au">feihuang@unsw.edu.au</a> · Website: <a href="https://www.feihuang.org">feihuang.org</a></p>
-</div>
-<p>Dr.&nbsp;Fei Huang is an Associate Professor (with tenure) in Risk and Actuarial Studies at UNSW Business School. She holds degrees from Xiamen University (BSc), the University of Hong Kong (MPhil), and the Australian National University (PhD). Her research sits at the intersection of responsible AI, insurance, and data-driven decision-making, with emphasis on insurance and retirement systems that stay fair, sustainable, and resilient amid technological and climate change. She draws on statistics, machine learning, economics, and actuarial science to develop approaches that are accurate, interpretable, and equitable.</p>
-<p>Her work has been recognised with awards including the Australian Business Deans Council Award for Innovation and Excellence in Research, the Dean’s Award for Distinction, the North American Actuarial Journal Best Paper Award, and the Actuaries Institute Volunteer of the Year Award, and is supported by competitive funding such as Australian Research Council Discovery Projects and the National Industry PhD Program. She is a columnist for Actuaries Digital, works with industry and government on topics from fair pricing to longevity and climate resilience, and has advised regulators internationally, including as an invited expert at the New York State Assembly public hearing on AI in insurance. At UNSW she teaches actuarial data science and responsible AI and has received multiple teaching excellence awards.</p>
-</section>
-</div>
-</div>
-</section>
-<section id="invited-talks-on-this-playbook" class="level3">
-<h3 class="anchored" data-anchor-id="invited-talks-on-this-playbook">Invited talks on this playbook</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Year</th>
-<th>Event</th>
-<th>Links</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2026</td>
-<td>Invited Speaker, Swiss Re Atelier Program</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>2026</td>
-<td>Invited Speaker, International Association of Insurance Supervisors (IAIS) Market Conduct Working Group</td>
-<td><a href="https://lnkd.in/p/gMXiwWev">Event</a></td>
-</tr>
-<tr class="odd">
-<td>2026</td>
-<td>Plenary Speaker, Actuarial Research Conference, Ohio State University</td>
-<td><a href="https://math.osu.edu/2026ARC">Event</a></td>
-</tr>
-<tr class="even">
-<td>2026</td>
-<td>Plenary Speaker, China International Conference on Insurance and Risk Management (CICIRM), Tsinghua University</td>
-<td><a href="https://ccirm.sem.tsinghua.edu.cn/ccirm/index.html">Event</a></td>
-</tr>
-<tr class="odd">
-<td>2026</td>
-<td>Insight Session, Actuaries Institute of Australia</td>
-<td><a href="https://www.youtube.com/watch?v=GlMdu3s5unI&amp;feature=youtu.be">Recording</a> · <a href="https://content.actuaries.asn.au/resources/resource-ce6yyqn64sx3-786882053-16968">Slides</a></td>
-</tr>
-<tr class="even">
-<td>2026</td>
-<td>Responsible AI and Analytics for Insurance Workshop, Wharton School, University of Pennsylvania</td>
-<td><a href="https://ai-analytics.wharton.upenn.edu/responsible-ai-analytics-for-insurance-workshop/">Event</a> · <a href="https://youtu.be/aGLZ_mUkrtQ?si=sI6c3Uo574ewfsZ7">Recording</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="media-coverage" class="level3">
-<h3 class="anchored" data-anchor-id="media-coverage">Media coverage</h3>
-<p>Huang, F. (2026). <a href="https://www.businessthink.unsw.edu.au/articles/insurance-pricing-fairness-tests-algorithm-discrimination">A four-step framework: improving fairness in insurance pricing</a>. <em>BusinessThink</em>, UNSW Sydney.</p>
-<p>Wharton AI &amp; Analytics Initiative (2026). <a href="https://ai-analytics.wharton.upenn.edu/news/lessons-from-the-responsible-ai-analytics-for-insurance-workshop/">Lessons from the Responsible AI &amp; Analytics for Insurance Workshop</a>. Wharton School, University of Pennsylvania.</p>
-<p>Huang, F. (2026). <a href="https://www.actuaries.asn.au/research-analysis/ai-insurance-pricing-fairness">When algorithms set your premium</a>. <em>Actuaries Digital</em>, Actuaries Institute of Australia.</p>
-</section>
-<section id="how-to-cite" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-cite">How to cite</h3>
-<section id="citing-the-website-archived-version-on-zenodo" class="level4">
-<h4 class="anchored" data-anchor-id="citing-the-website-archived-version-on-zenodo">Citing the website (archived version on Zenodo)</h4>
-<p>Huang, F. (2026). <em>The Fair Pricing Playbook: Responsible AI for Algorithmic Pricing</em> (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.20879782</p>
-<div class="callout callout-style-simple callout-note callout-titled" title="Show BibTeX">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Show BibTeX
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">huang2026fairpricingplaybook_website</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {The Fair Pricing Playbook: A practical framework for</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               Responsible AI in algorithmic pricing},</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Huang, Fei},</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2026},</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">version</span>   = {v1.0.0},</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Zenodo},</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>       = {10.5281/zenodo.20879782},</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>       = {https://doi.org/10.5281/zenodo.20879782}</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="license" class="level3">
-<h3 class="anchored" data-anchor-id="license">License</h3>
-<p>Materials are licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. See LICENSE.</p>
-</section>
-<section id="development-note" class="level3">
-<h3 class="anchored" data-anchor-id="development-note">Development note</h3>
-<p>This project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author’s own and her responsibility.</p>
 
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
