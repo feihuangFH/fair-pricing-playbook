@@ -248,7 +248,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-3-Assess-Impact.html">Step 3 · Assess Impact</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Step 3: Assess impact</h1>
-<p class="subtitle lead">A practical framework for Responsible AI in algorithmic pricing</p>
+<p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
 </div>
 
 
@@ -306,8 +306,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <section id="who-gains-and-loses" class="level3">
 <h3 class="anchored" data-anchor-id="who-gains-and-loses">Who gains and loses?</h3>
 <p>Steps 1 and 2 focus on the model: what it predicts and how it treats different groups at the point of estimation. Step 3 asks a different question. Once fair predicted costs leave the model and enter the market, who actually benefits and who ends up worse off?</p>
-<p>The distinction matters because insurance prices are not simply the output of a cost model. They also reflect demand, competition, customer behaviour, and the insurer’s commercial objectives. A pricing system that achieves cost-level fairness can still produce unfair market outcomes if the firm’s pricing strategy shifts the burden in ways the fairness constraint did not cover.</p>
-<p>Consider a simple example. An insurer builds a model that produces equal average predicted costs for two groups. It then applies a price optimisation layer that raises prices for customers who are likely to renew regardless of cost. If one protected group is disproportionately represented among those low-switching customers, perhaps because of fewer alternatives in their local market or lower financial literacy, the final premiums will be higher for that group even though the cost model was fair. The fairness constraint was applied at the wrong stage of the pipeline. It addressed the model but not the market outcome.</p>
+<p>The distinction matters because prices are not simply the output of a cost model. They also reflect demand, competition, customer behaviour, and the firm’s commercial objectives. A pricing system that achieves cost-level fairness can still produce unfair market outcomes if the firm’s pricing strategy shifts the burden in ways the fairness constraint did not cover.</p>
+<p>Consider a simple example. A firm builds a model that produces equal average predicted costs for two groups. It then applies a price optimisation layer that raises prices for customers who are likely to renew regardless of cost. If one protected group is disproportionately represented among those low-switching customers, perhaps because of fewer alternatives in their local market or lower financial literacy, the final premiums will be higher for that group even though the cost model was fair. The fairness constraint was applied at the wrong stage of the pipeline. It addressed the model but not the market outcome.</p>
 <p>This step asks you to trace the impact of pricing decisions through to the customer, measuring welfare and profit by protected group rather than stopping at whether predicted costs are equal.</p>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -334,7 +334,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Insurers without price optimisation
+<span class="screen-reader-only">Note</span>Firms without price optimisation
 </div>
 </div>
 <div class="callout-body-container callout-body">

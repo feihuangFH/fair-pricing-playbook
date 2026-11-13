@@ -293,7 +293,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-4-Audit-the-System.html">Step 4 · Audit the System</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Step 4: Audit the system</h1>
-<p class="subtitle lead">A practical framework for Responsible AI in algorithmic pricing</p>
+<p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
 </div>
 
 
@@ -345,7 +345,7 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <ul>
 <li>Standard statistical methods are unreliable for auditing algorithmic pricing systems. Because the same customer profile always returns the same price from a deterministic algorithm, the usual assumptions behind regression-based tests break down. Corrected standard errors (HC3) are required to draw valid conclusions.</li>
-<li>A clean audit must demonstrate that pricing is fair, not merely fail to find a violation. Equivalence testing asks whether the observed disparity falls within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass. The burden of proof lies with the insurer, not the regulator.</li>
+<li>A clean audit must demonstrate that pricing is fair, not merely fail to find a violation. Equivalence testing asks whether the observed disparity falls within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass. The burden of proof lies with the firm, not the regulator.</li>
 <li>All audit design choices (fairness criterion, which factors to control for, what tolerance band counts as a pass, and sample size) must be fixed and signed off before examining any data. Changing the design after seeing the results invalidates the audit.</li>
 </ul>
 </div>
@@ -355,9 +355,9 @@ window.Quarto = {
 <section id="what-makes-an-audit-different-from-a-test" class="level4">
 <h4 class="anchored" data-anchor-id="what-makes-an-audit-different-from-a-test">What makes an audit different from a test</h4>
 <p>An audit is different from testing, and the difference is not primarily statistical. It is procedural. A test asks whether you can find a problem. An audit asks whether you can demonstrate compliance. The distinction changes what a clean result actually means.</p>
-<p>Consider a parallel from clinical medicine. A pharmaceutical company that analyses its trial data and then decides which outcomes to report and which statistical tests to apply has not run a clinical trial in any meaningful sense. It has run a search for a favourable result. The statistical methods may be identical, but the process is not, and regulators do not accept it as evidence that a drug works. The same logic applies to insurance fairness audits. An insurer that looks at pricing data, notices which analysis produces the most comfortable result, and then presents that analysis has not audited its system. It has searched for the best story.</p>
+<p>Consider a parallel from clinical medicine. A pharmaceutical company that analyses its trial data and then decides which outcomes to report and which statistical tests to apply has not run a clinical trial in any meaningful sense. It has run a search for a favourable result. The statistical methods may be identical, but the process is not, and regulators do not accept it as evidence that a drug works. The same logic applies to algorithmic pricing audits. A firm that looks at pricing data, notices which analysis produces the most comfortable result, and then presents that analysis has not audited its system. It has searched for the best story.</p>
 <p>Pre-commitment solves this problem. Every decision about what to test, how to test it, what response variable to use, which factors to control for, and what tolerance band defines a pass must be fixed before the data is examined. The audit then follows the pre-specified protocol regardless of what it finds. Only then does the result constitute evidence rather than advocacy.</p>
-<p>In practice this means the audit protocol is written, reviewed, and signed off by the accountable technical owner and an independent reviewer before the quote sample is collected or the pricing data is extracted. Changes to the protocol after data has been seen must be documented and disclosed. This is standard practice in pharmaceutical trials and clinical research; it is increasingly what insurance regulators expect as well.</p>
+<p>In practice this means the audit protocol is written, reviewed, and signed off by the accountable technical owner and an independent reviewer before the quote sample is collected or the pricing data is extracted. Changes to the protocol after data has been seen must be documented and disclosed. This is standard practice in pharmaceutical trials and clinical research; it is increasingly what regulators expect as well.</p>
 <p>An audit tests whether a deployed pricing system meets the fairness standard from Step 1. All design choices are fixed before examining data, then each test is classified as pass, fail, or insufficient information <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -387,7 +387,7 @@ window.Quarto = {
 <li>Fairness criterion conditional demographic parity (CDP) for system-level price gaps after legitimate controls. Proxy discrimination (PD) when screening a suspect rating variable. Or another rule from Step 1 if required by law</li>
 <li>Protected attribute directly observed or responsibly proxied</li>
 <li>Legitimate rating factors as recognised by your regulator</li>
-<li>Response variable quoted premium, pure premium, or loss ratio, matching the regulatory question</li>
+<li>Response variable quoted premium (or loan rate in lending), pure premium, or loss ratio, matching the regulatory question</li>
 <li>Tolerance margins for CDP, for example a 5% price-gap band and 0.80 adverse-impact ratio</li>
 <li>Corrected inference deterministic algorithm outputs usually require adjusted standard errors (HC3 for CDP. Cross-covariance for PD), not classical OLS defaults</li>
 </ul>
@@ -450,7 +450,7 @@ window.Quarto = {
 <li>Select a fairness criterion: proxy discrimination (PD) when auditing specific rating variables suspected of proxying the protected attribute; conditional demographic parity (CDP) when evaluating the system-level price gap after controlling for legitimate risk factors. Other criteria from Step 1 may apply in your jurisdiction.</li>
 <li>Specify the protected attribute <span class="math inline">A</span> - document the attribute and, if proxied, the inference method and its limitations.</li>
 <li>Specify legitimate rating factors <span class="math inline">X_\ell</span> aligned with Step 1 and regulatory guidance.</li>
-<li>Define the response variable <span class="math inline">P</span> - quoted premium, pure premium, or loss ratio (claims paid as a share of premiums earned). The choice sets the economic meaning of any disparity.</li>
+<li>Define the response variable <span class="math inline">P</span> - quoted premium (or loan rate in lending), pure premium, or loss ratio (claims paid as a share of premiums earned). The choice sets the economic meaning of any disparity.</li>
 <li>Set tolerance margins for CDP: level-gap margin <span class="math inline">\delta</span>, ratio margin <span class="math inline">\tau</span> (e.g.&nbsp;5% gap, 0.80 adverse impact ratio), significance level <span class="math inline">\alpha</span>. For PD: <span class="math inline">\alpha</span> and minimum relative shift <span class="math inline">\rho_{\min}</span> (e.g.&nbsp;10%).</li>
 <li>Specify the standard error estimator HC3 for CDP by default. Full cross-covariance for the PD coefficient-shift test.</li>
 <li>Design a representative quote sample stratified profiles submitted within a short time window. Plan sample size for adequate power (insufficient data yields insufficient information, not a pass).</li>
