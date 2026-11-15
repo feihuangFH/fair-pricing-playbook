@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang, UNSW Sydney">
+
+<title>Step 4: Audit the system – The Fair Pricing Playbook</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Case Study 4/case_study4.html" rel="next">
+<link href="../Case Study 3/case_study3.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f5027254edf60712a57a618aca8afeff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-4-Audit-the-System.html">Step 4 · Audit the System</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Fair Pricing Playbook</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Playbook</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 1 · Define Fairness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fairness Metrics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 2 · Design Fair Pricing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fair Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 3 · Assess Impact</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Welfare Implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Step 4 · Audit the System</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 4/case_study4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fairness Testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Applications/Banking.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Banking and Lending</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-do-we-test-fairness" id="toc-how-do-we-test-fairness" class="nav-link active" data-scroll-target="#how-do-we-test-fairness">How do we test fairness?</a></li>
+  <li><a href="#mini-glossary" id="toc-mini-glossary" class="nav-link" data-scroll-target="#mini-glossary">Mini-glossary</a></li>
+  <li><a href="#end-to-end-audit-flow" id="toc-end-to-end-audit-flow" class="nav-link" data-scroll-target="#end-to-end-audit-flow">End-to-end audit flow</a></li>
+  <li><a href="#pre-audit-setup" id="toc-pre-audit-setup" class="nav-link" data-scroll-target="#pre-audit-setup">Pre-audit setup</a></li>
+  <li><a href="#proxied-protected-attributes" id="toc-proxied-protected-attributes" class="nav-link" data-scroll-target="#proxied-protected-attributes">Proxied protected attributes</a></li>
+  <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical testing</a></li>
+  <li><a href="#three-outcomes" id="toc-three-outcomes" class="nav-link" data-scroll-target="#three-outcomes">Three outcomes</a></li>
+  <li><a href="#feature-importance-check" id="toc-feature-importance-check" class="nav-link" data-scroll-target="#feature-importance-check">Feature importance check</a></li>
+  <li><a href="#governance-and-monitoring" id="toc-governance-and-monitoring" class="nav-link" data-scroll-target="#governance-and-monitoring">Governance and monitoring</a></li>
+  <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Playbook/Step-4-Audit-the-System.html">Step 4 · Audit the System</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Step 4: Audit the system</h1>
+<p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang, UNSW Sydney </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Prerequisite
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="Step-3-Assess-Impact.html">Step 3: Assess impact</a>. Design and welfare analysis should be complete before auditing a deployed system.</p>
+<p>The audit protocol here is written for deployed systems, but it can also be applied earlier. Running fairness tests on existing pricing models or outcomes during Step 2 can reveal problems before they are built into the final model.</p>
+<p>This step focuses mainly on the <a href="Step-1-Define-Fairness.html#anti-discrimination">anti-discrimination lens</a> from Step 1. It covers pre-committed statistical tests of whether a deployed pricing system meets regulatory fairness standards (for example CDP and PD). It does not replace welfare analysis in Step 3 or broader questions about product promises and market conduct in Step 1.</p>
+<p><a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a> implements conditional demographic parity (CDP) and proxy discrimination (PD) audits with corrected inference.</p>
+<p>Compliance workflow, see <a href="#end-to-end-audit-flow">End-to-end audit flow</a> → <a href="#checklist">Checklist</a>. Statistical detail, see <a href="#deterministic-pricing">Deterministic pricing</a> → <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>. Proxied attributes (BISG, BIFSG, zip), see <a href="#proxied-protected-attributes">Proxied protected attributes</a>.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Key insights from this step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Standard statistical methods are unreliable for auditing algorithmic pricing systems. Because the same customer profile always returns the same price from a deterministic algorithm, the usual assumptions behind regression-based tests break down. For the regression-based audit design described here, corrected standard errors (HC3) are appropriate to draw valid conclusions.</li>
+<li>A clean audit must demonstrate that pricing is fair, not merely fail to find a violation. Equivalence testing asks whether the observed disparity falls within a pre-specified tolerance band. Insufficient data yields an inconclusive result, not a pass. Under this audit design, the burden of demonstrating compliance lies with the firm; the legal allocation of burden varies by jurisdiction.</li>
+<li>All audit design choices (fairness criterion, which factors to control for, what tolerance band counts as a pass, and sample size) must be fixed and signed off before examining any data. Changing the design after seeing the results invalidates the audit.</li>
+</ul>
+</div>
+</div>
+<section id="how-do-we-test-fairness" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-we-test-fairness">How do we test fairness?</h3>
+<section id="what-makes-an-audit-different-from-a-test" class="level4">
+<h4 class="anchored" data-anchor-id="what-makes-an-audit-different-from-a-test">What makes an audit different from a test</h4>
+<p>An audit is different from testing, and the difference is not primarily statistical. It is procedural. A test asks whether you can find a problem. An audit asks whether you can demonstrate compliance. The distinction changes what a clean result actually means.</p>
+<p>Consider a parallel from clinical medicine. A pharmaceutical company that analyses its trial data and then decides which outcomes to report and which statistical tests to apply has not run a clinical trial in any meaningful sense. It has run a search for a favourable result. The statistical methods may be identical, but the process is not, and regulators do not accept it as evidence that a drug works. The same logic applies to algorithmic pricing audits. A firm that looks at pricing data, notices which analysis produces the most comfortable result, and then presents that analysis has not audited its system. It has searched for the best story.</p>
+<p>Pre-commitment solves this problem. Every decision about what to test, how to test it, what response variable to use, which factors to control for, and what tolerance band defines a pass must be fixed before the data is examined. The audit then follows the pre-specified protocol regardless of what it finds. Only then does the result constitute evidence rather than advocacy.</p>
+<p>In practice this means the audit protocol is written, reviewed, and signed off by the accountable technical owner and an independent reviewer before the quote sample is collected or the pricing data is extracted. Changes to the protocol after data has been seen must be documented and disclosed. This is standard practice in pharmaceutical trials and clinical research; it is increasingly what regulators expect as well.</p>
+<p>An audit tests whether a deployed pricing system meets the fairness standard from Step 1. All design choices are fixed before examining data, then each test is classified as pass, fail, or insufficient information <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example criteria (CDP and PD)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This step focuses on conditional demographic parity (CDP) and proxy discrimination (PD) because Colorado (SB21-169, enacted) and New York (Circular Letter No.&nbsp;7, 2024, final) have operationalised tests that overlap with these criteria <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning nydfs-2024-final">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-nydfs-2024-final" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>. They are illustrative examples, not an exhaustive list. Depending on your jurisdiction and the outcome you need to defend (premium, markup, approval rate, calibration), other fairness notions from <a href="Step-1-Define-Fairness.html">Step 1</a>, such as demographic parity, separation, or sufficiency, may be required instead. Choose the criterion that aligns with your regulatory obligation. Testing one criterion while implicitly targeting another can produce conflicting verdicts on the same data.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>For practitioners
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This step describes a regression-based audit protocol, not a substitute for legal advice or a regulator’s full examination. In your market you must pre-specify:</p>
+<ul>
+<li>Fairness criterion conditional demographic parity (CDP) for system-level price gaps after legitimate controls. Proxy discrimination (PD) when screening a suspect rating variable. Or another rule from Step 1 if required by law</li>
+<li>Protected attribute directly observed or responsibly proxied</li>
+<li>Legitimate rating factors as recognised by your regulator</li>
+<li>Response variable quoted premium (or loan rate in lending), pure premium, or loss ratio, matching the regulatory question</li>
+<li>Tolerance margins for CDP (illustrative choices: a level margin <span class="math inline">\delta</span> such as 5% of mean price, and a ratio margin such as the 0.80 adverse-impact benchmark drawn from US employment law)</li>
+<li>Corrected inference deterministic algorithm outputs usually require adjusted standard errors (HC3 for CDP. Cross-covariance for PD), not classical OLS defaults</li>
+</ul>
+<p>The <a href="../Case Study 4/case_study4.html">case study</a> applies one illustrative design to Illinois auto quotes. Adapt criteria, data, and escalation rules to your jurisdiction.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="mini-glossary" class="level3">
+<h3 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Conditional demographic parity (CDP)</td>
+<td>After controlling for legitimate risk factors, are average prices equal across protected groups?</td>
+</tr>
+<tr class="even">
+<td>Proxy discrimination (PD)</td>
+<td>Does a rating variable’s role change when a protected attribute enters the model?</td>
+</tr>
+<tr class="odd">
+<td>Legitimate factors (<span class="math inline">X_\ell</span>)</td>
+<td>Risk-related controls the regulator accepts in an audit regression</td>
+</tr>
+<tr class="even">
+<td>TOST</td>
+<td>Equivalence testing - pass only if evidence shows the disparity is within tolerance (used for CDP)</td>
+</tr>
+<tr class="odd">
+<td>HC3 / corrected SE</td>
+<td>Sandwich standard errors for deterministic pricing outputs. Classical OLS defaults are unreliable when residuals are approximation error</td>
+</tr>
+<tr class="even">
+<td>Proxy-imputed protected class</td>
+<td>Race or ethnicity inferred from name, geography, or similar when direct collection is restricted (e.g.&nbsp;BISG, BIFSG, zip composition)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="end-to-end-audit-flow" class="level3">
+<h3 class="anchored" data-anchor-id="end-to-end-audit-flow">End-to-end audit flow</h3>
+<p>End-to-end flow for the fairness audit protocol <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p><img src="plot/audit-flow.png" class="img-fluid" style="width:100.0%" alt="End-to-end fairness audit flow: Plan, Audit, Decide, Improve"></p>
+<p>All design choices must be fixed before examining data. Post-hoc changes to criteria, margins, or samples undermine auditability and stated error control.</p>
+</section>
+<section id="pre-audit-setup" class="level3">
+<h3 class="anchored" data-anchor-id="pre-audit-setup">Pre-audit setup</h3>
+<p>All notation below is defined in the mini-glossary above. Complete and sign off steps 1–8 before any pricing data is extracted or examined.</p>
+<ol type="1">
+<li><strong>Select a fairness criterion.</strong> Use proxy discrimination (PD) when auditing specific rating variables suspected of proxying the protected attribute. Use conditional demographic parity (CDP) when evaluating the system-level price gap after controlling for legitimate risk factors. Other criteria from Step 1 may apply in your jurisdiction.</li>
+<li><strong>Specify the protected attribute.</strong> Document the attribute and, if proxied (e.g.&nbsp;race inferred from name and geography), the inference method and its known limitations.</li>
+<li><strong>Specify legitimate rating factors.</strong> Align with Step 1 and regulatory guidance. These become the controls in the audit regression.</li>
+<li><strong>Define the response variable.</strong> Choose quoted premium (or loan rate in lending), pure premium, or loss ratio. The choice sets the economic meaning of any disparity found.</li>
+<li><strong>Set tolerance margins.</strong> For CDP: a level-gap margin (e.g.&nbsp;5% price gap) and a ratio margin (e.g.&nbsp;0.80 adverse impact ratio), plus a significance level. For PD: a significance level and a minimum relative shift (e.g.&nbsp;10%).</li>
+<li><strong>Specify the standard error estimator.</strong> Use HC3 for CDP by default. Use the full cross-covariance correction for the PD coefficient-shift test. Do not use classical OLS standard errors.</li>
+<li><strong>Design the quote sample.</strong> Stratified profiles submitted within a short time window. Plan sample size for adequate statistical power — insufficient data yields an inconclusive result, not a pass.</li>
+<li><strong>Define test scope.</strong> Per company, per product, or per line. Document whether multiple proxy variables are tested and how multiplicity is handled.</li>
+</ol>
+</section>
+<section id="proxied-protected-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="proxied-protected-attributes">Proxied protected attributes</h3>
+<p>When race or ethnicity cannot be observed directly, regulators and firms sometimes infer it using BISG (Bayesian Improved Surname Geocoding), BIFSG (Bayesian Improved First Name Surname Geocoding), zip composition, or similar methods. If that proxy enters the audit regression as a categorical protected attribute, the estimated disparity for the proxy group is not the same quantity as the true disparity between groups <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>.</p>
+<p>Misclassification distorts the results. Estimated gaps can shrink toward zero even when the overall accuracy of the proxy looks high. Proxy errors can also be correlated with geography, income, and the pricing residuals after legitimate controls are applied, causing estimated disparities to be either understated or overstated relative to what a true-group analysis would show.</p>
+<p>Treat proxy-based results as diagnostic signals, not definitive proof of compliance or discrimination. Document the proxy method, its known error rates where available, and these limitations in the audit protocol. Colorado draft quantitative-testing guidance proposes BIFSG as the proxy method for inferred race in regression-based assessments for life insurance <span class="citation" data-cites="doradoi-2023-concerning xin2026proxyrace">(<a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>; <a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>. New York Circular Letter No.&nbsp;7 (2024) addresses proxy variables and predictive models more broadly but does not prescribe a specific estimation method <span class="citation" data-cites="nydfs-2024-final">(<a href="#ref-nydfs-2024-final" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span>.</p>
+</section>
+<section id="statistical-testing" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-testing">Statistical testing</h3>
+<p>The key problem in auditing algorithmic pricing is that standard statistical tests give the wrong answer. Algorithmic pricing systems are deterministic — the same customer always receives the same price — and standard statistical formulas assume randomness that is not there. This section explains what goes wrong and what to do instead.</p>
+<p>Fairness audits typically regress quoted premiums on a protected attribute and legitimate rating factors, then read off confidence intervals for the protected-group effect. That workflow is only valid if the standard errors are correct. For algorithmic pricing, deterministic outputs invalidate classical variance formulas, and CDP calls for equivalence testing rather than conventional significance testing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<section id="deterministic-pricing" class="level4">
+<h4 class="anchored" data-anchor-id="deterministic-pricing">Deterministic pricing and corrected inference</h4>
+<p>Pricing algorithms are usually deterministic. The same profile always returns the same price, so the audit response is a fixed function of the inputs, not a random draw <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>The audit fits a statistical model to approximate the pricing algorithm. The gaps between the model’s approximation and the actual prices are approximation errors, not random sampling noise. Standard statistical formulas assume random noise and can therefore produce wrong confidence intervals: sometimes too narrow (flagging fair systems as failing), sometimes too wide (letting genuine violations through). In the Illinois application in <span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span>, corrected and uncorrected standard errors for the same insurers differed by large factors, and the direction of the bias could not be predicted in advance.</p>
+<p>The practical fix is to use corrected standard errors (HC3) that are built from the actual residuals at each observation rather than a single average error estimate. HC3 also reduces the influence of unusual customer profiles that can otherwise distort the results, particularly when the audit sample is not spread evenly across all risk types and territories.</p>
+<p>The proxy discrimination test introduces a further complication. It compares a rating variable’s influence across two different models fitted to the same pricing data. Treating those two estimates as if they came from independent samples overstates uncertainty and makes the test too conservative. A cross-covariance correction is needed to account for the shared data <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>.</p>
+<p>Getting the standard errors wrong changes the audit verdict. Corrected inference should be pre-specified before examining outcomes.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What the inference correction changes in practice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span> applied both the standard and corrected methods to publicly available quoted premiums from 34 Illinois auto insurers <span class="citation" data-cites="larson-etal-2017-minority">(<a href="#ref-larson-etal-2017-minority" role="doc-biblioref">Larson et al. 2017</a>)</span>. Under the proxy discrimination test, the standard formula flagged <strong>zero</strong> of 34 companies. The corrected formula found statistically significant shifts in all 34; of those, <strong>16</strong> also exceeded the 10 per cent substantive shift threshold required for the full two-part PD verdict. The average corrected standard error was roughly one-twelfth the size of the uncorrected one. The choice of method determined whether the entire industry appeared clean or showed substantial statistical disparities under the audit’s criteria.</p>
+<p>Under conditional demographic parity (CDP), the picture was equally stark: every one of the 34 insurers failed. Minority zip codes paid between $34 and $158 more per year than comparable-risk white zip codes after controlling for risk and geography.</p>
+<p>Three individual examples illustrate the proxy discrimination result:</p>
+<ul>
+<li>Farmers Automobile Insurance: a 22 per cent coefficient shift appeared insignificant under the standard formula (z = 1.07). Under the corrected formula, z = 12.59.</li>
+<li>Metropolitan Property &amp; Casualty: a 12.5 per cent shift had z = 1.34 under the standard formula and z = 15.73 under the corrected formula.</li>
+<li>Geico Indemnity: z = 0.58 (comfortably non-significant) under the standard formula; z = 7.09 under the corrected formula.</li>
+</ul>
+<p>For the CDP test, standard error ratios shifted by as much as a factor of 2.6 in either direction within the same audit, varying across companies even in the same dataset. Because the direction of the bias cannot be predicted without computing the correction, an insurer cannot know whether the classical test is making it easier or harder to pass. The corrected method should be treated as the default, not the exception.</p>
+</div>
+</div>
+<ul>
+<li>Conditional demographic parity (CDP). Regress the pricing outcome on the protected attribute and legitimate factors. Test whether the protected-group coefficient lies within pre-specified ratio and level-gap bands using equivalence testing (TOST). A pass requires positive evidence of compliance within tolerance, not merely failing to detect a disparity.</li>
+<li>Proxy discrimination (PD). Compare a rating variable’s coefficient in a restricted model (without the protected attribute) and an extended model (with it). Use the corrected cross-covariance for the coefficient shift. PD uses a two-part rule (statistical significance plus a minimum relative shift), not TOST in the same form as CDP.</li>
+</ul>
+</section>
+<section id="tost-equivalence" class="level4">
+<h4 class="anchored" data-anchor-id="tost-equivalence">Why equivalence testing is required</h4>
+<p>The most widely understood statistical test asks a simple question: is there evidence of a difference? You set a threshold (typically a 5 per cent p-value) and report whether the data provide enough evidence to reject the hypothesis that the difference is zero. If the p-value is above the threshold, the result is “no significant difference found.”</p>
+<p>This framing is a poor fit for compliance auditing <span class="citation" data-cites="huang2026fairtesting">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>)</span>. “No significant difference found” is not the same as “the system is fair.” With a small sample, even a large and practically important disparity might not reach significance, simply because you do not have enough data to detect it reliably. A non-significant result is absence of evidence, not evidence of absence. Under this approach, the practical burden falls on the regulator or reviewer to find a violation. An insurer with a small dataset or a poorly designed quote sample can effectively pass every test without demonstrating anything.</p>
+<p>Equivalence testing (TOST, or two one-sided tests) reverses the burden. Developed originally in pharmaceutical regulation to demonstrate bioequivalence rather than merely the absence of a detectable difference <span class="citation" data-cites="schuirmann-1987-comparison">(<a href="#ref-schuirmann-1987-comparison" role="doc-biblioref">Schuirmann 1987</a>)</span>, TOST asks not whether you can find a difference, but whether you can demonstrate that any difference is small enough to be within an acceptable tolerance. The null hypothesis is that the difference is large (at least as large as the tolerance band), and you reject it only if the data give you strong positive evidence that the gap falls inside the band. Insufficient data yields an “insufficient information” verdict, not a pass. Under this design, the firm must provide positive evidence that any gap lies within tolerance, rather than merely an absence of detected unfairness.</p>
+<p>The idea of a pre-specified tolerance region appears in regulatory guidance, though the specific figures there serve different purposes. Colorado’s 2023 draft quantitative-testing guidance for life insurance proposes two separate triggers for further investigation: a five-percentage-point difference in approval rates between groups, and a premium rate at least 5% above the market average. These are screening thresholds, not a general TOST tolerance band. The 0.80 adverse-impact ratio (drawn from US employment law and used here as an illustrative benchmark) similarly defines a threshold, not a legal safe harbour. The playbook uses an analogous level margin <span class="math inline">\delta</span> as one illustrative audit choice. TOST is the statistical procedure that properly interrogates whether that choice has been met.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 17%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Null hypothesis</th>
+<th>What a “pass” means</th>
+<th>Who must prove what</th>
+<th>Large samples</th>
+<th>Small samples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Significance testing</td>
+<td>Gap <span class="math inline">= 0</span></td>
+<td>Failed to detect a violation (not necessarily fair)</td>
+<td>Regulator or reviewer must detect a violation</td>
+<td>Flag trivial gaps as violations</td>
+<td>Miss genuine gaps</td>
+</tr>
+<tr class="even">
+<td>TOST equivalence testing</td>
+<td>Gap <span class="math inline">\geq</span> tolerance</td>
+<td>Positive evidence the gap is within tolerance</td>
+<td>Insurer must demonstrate compliance within tolerance</td>
+<td>Narrower CIs help confirm fairness</td>
+<td>Wide CIs yield insufficient information</td>
+</tr>
+</tbody>
+</table>
+<p>Under significance testing, the practical burden falls on the regulator or reviewer to find a material violation. A non-significant result only means no gap was detected in that sample. It does not show that pricing is fair. Under TOST, the burden shifts to the insurer (or model owner) to provide positive evidence that any gap lies within pre-specified tolerance bands. Insufficient information is not a pass.</p>
+<p>The level margin <span class="math inline">\delta</span> and ratio margin <span class="math inline">\tau</span> define the equivalence region. Colorado’s 2023 draft quantitative-testing guidance uses separate approval-rate and premium-level triggers to screen for further investigation; the playbook’s <span class="math inline">\delta</span> is an illustrative choice informed by that approach, not a direct transcription of those screening thresholds. The 0.80 adverse-impact ratio, used here as an illustrative benchmark drawn from US employment law, maps to <span class="math inline">\tau</span>. TOST matches how pre-committed audit protocols are meant to work <span class="citation" data-cites="huang2026fairtesting doradoi-2023-concerning">(<a href="#ref-huang2026fairtesting" role="doc-biblioref">Huang and Hooker 2026</a>; <a href="#ref-doradoi-2023-concerning" role="doc-biblioref">Colorado Division of Insurance 2023</a>)</span>. Exact legal allocation of burden varies by jurisdiction. This describes one audit design, not legal advice.</p>
+<p>For CDP, a pass requires the confidence interval for the protected-group effect to lie entirely inside both the level-gap band <span class="math inline">(-\delta, +\delta)</span> and the log-ratio band implied by <span class="math inline">\tau</span>. A fail requires the interval to lie entirely outside. If the interval is too wide to settle either case, the verdict is insufficient information. That outcome is not a pass and should trigger more data or a pre-specified escalation step.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Technical detail
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Regression formulas, corrected standard errors, and TOST decision rules are worked through in <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="three-outcomes" class="level3">
+<h3 class="anchored" data-anchor-id="three-outcomes">Three outcomes</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 34%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pass</td>
+<td>Confidence interval lies entirely within the tolerance band (positive evidence of compliance)</td>
+<td>Document. Proceed with monitoring</td>
+</tr>
+<tr class="even">
+<td>Insufficient information</td>
+<td>Interval too wide to confirm pass or fail. Reflects limited data, not a pass</td>
+<td>Collect more data or follow a pre-specified escalation procedure</td>
+</tr>
+<tr class="odd">
+<td>Fail</td>
+<td>Confidence interval lies entirely outside the tolerance band (material disparity)</td>
+<td>Remediate, then re-test (return to Step 2 or Step 1)</td>
+</tr>
+</tbody>
+</table>
+<p>On fail or unclear CDP results, a proxy-discrimination screen can identify candidate driver variables. Remediation may include recalibration, fairness constraints at retraining, or ongoing monitoring with re-audit triggers.</p>
+</section>
+<section id="feature-importance-check" class="level3">
+<h3 class="anchored" data-anchor-id="feature-importance-check">Feature importance check</h3>
+<p>The primary audit path is the outcome-based test above (CDP or proxy discrimination). Some filing workflows also use variable-level checks such as partial dependence plots. These are supplementary and do not substitute for outcome testing.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Detail: partial dependence plots and variable-level review (click to expand)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The protocol above tests whether premiums or prices meet quantitative fairness criteria such as CDP or proxy discrimination after legitimate controls. That is the primary audit path in this playbook and in <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a>.</p>
+<p>Some filing and governance workflows use a different, variable-level check instead: partial dependence plots and related interpretability tools ask whether a given rating factor appears to influence model predictions. This variable-level check asks whether a rating factor influences model predictions. It does not establish whether average outcomes are equal across protected groups.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Regulatory example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="xin2025partialdependenceplots">Xin et al. (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> discusses variable-level filing review in US insurance. NAIC guidance <span class="citation" data-cites="naic2020predictivemodels naic2022treebased">(<a href="#ref-naic2020predictivemodels" role="doc-biblioref">National Association of Insurance Commissioners 2020</a>, <a href="#ref-naic2022treebased" role="doc-biblioref">2022</a>)</span> describes what state regulators may request when reviewing tree-based auto and homeowners rate filings: partial dependence plots and variable-importance plots for each predictor’s relationship to the target (frequency, severity, loss costs, or expenses), with rational explanations especially for variables of concern. This is review guidance, not a quantitative outcome fairness test like CDP or proxy discrimination.</p>
+</div>
+</div>
+<p>Industry reports such as <span class="citation" data-cites="soa2021interpretableml">Society of Actuaries (<a href="#ref-soa2021interpretableml" role="doc-biblioref">2021</a>)</span> catalog similar tools for actuaries and summarize NAIC review practices, but they are practitioner guidance, not regulatory requirements.</p>
+<p>Treat partial dependence plots (and other permutation-based interpretation tools) as an optional supplement for ML model documentation, not a substitute for outcome-based testing. <span class="citation" data-cites="xin2025partialdependenceplots">Xin et al. (<a href="#ref-xin2025partialdependenceplots" role="doc-biblioref">2025</a>)</span> argue that black-box models plus interpretability plots should be a last resort: prefer interpretable models such as GLMs or generalised additive models (GAMs) when they achieve comparable predictive performance (see <a href="Step-2-Design-Fair-Pricing.html">Step 2</a>). A plot that shows little marginal effect for a sensitive factor does not prove fair group-level pricing. The same paper shows that these tools can be manipulated to hide age- or race-related patterns while retaining almost all predictions on real data. Where they are used in filing or internal review, pair them with outcome audits, examine the underlying data, and use multiple interpretation tools (such as individual conditional expectation curves shown in full, including percentile bands) to help reveal anomalies that averaging hides.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="governance-and-monitoring" class="level3">
+<h3 class="anchored" data-anchor-id="governance-and-monitoring">Governance and monitoring</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Accountable technical owner (e.g.&nbsp;chief actuary or model validation lead)</td>
+<td>Sign off the audit protocol before data is examined</td>
+</tr>
+<tr class="even">
+<td>Independent reviewer</td>
+<td>Replicate the analysis from raw data and confirm the verdict</td>
+</tr>
+<tr class="odd">
+<td>Model owner</td>
+<td>Remediate on fail or insufficient information; own re-test timeline</td>
+</tr>
+<tr class="even">
+<td>Legal and compliance</td>
+<td>Confirm that the pre-specified criterion and tolerance bands align with current regulatory requirements</td>
+</tr>
+<tr class="odd">
+<td>Senior management or board</td>
+<td>Receive the audit verdict and approve any remediation plan</td>
+</tr>
+</tbody>
+</table>
+<p>Re-audit whenever the pricing model changes, a new regulatory requirement takes effect, or audit statistics show material drift from the baseline. Store the complete quote dataset and a reproducibility manifest (code, package versions, random seeds) so the result can be independently replicated.</p>
+<p>If filing documentation relies on partial dependence plots or variable-importance plots for ML models, treat them as supplementary narrative evidence only. Outcome-based CDP and proxy-discrimination tests remain the primary compliance path (see <a href="#feature-importance-check">Feature importance check</a>).</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Practical note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The accountable technical owner may be a chief actuary or model validation lead. Regulators in several US states now require documented fairness testing of pricing algorithms.</p>
+</div>
+</div>
+</section>
+<section id="checklist" class="level3">
+<h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
+<p>This checklist covers audit execution. Roles, monitoring, and remediation ownership are in <a href="#governance-and-monitoring">Governance and monitoring</a>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Typical owner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Protocol written and signed off before data extraction</td>
+<td>Compliance / Model risk</td>
+</tr>
+<tr class="even">
+<td>Protected attribute, legitimate factors, and response variable documented</td>
+<td>Legal / Actuarial</td>
+</tr>
+<tr class="odd">
+<td>Tolerance margins and significance level fixed in advance</td>
+<td>Compliance / Actuarial</td>
+</tr>
+<tr class="even">
+<td>Corrected inference (HC3 for CDP, cross-covariance for PD) pre-specified</td>
+<td>Actuarial / Data science</td>
+</tr>
+<tr class="odd">
+<td>CDP (TOST) and/or PD (two-part) tests applied as pre-specified</td>
+<td>Actuarial / Data science</td>
+</tr>
+<tr class="even">
+<td>Three-outcome classification documented (insufficient information ≠ pass)</td>
+<td>Compliance</td>
+</tr>
+<tr class="odd">
+<td>Audit dataset and reproducibility manifest stored</td>
+<td>Data science / MLOps</td>
+</tr>
+<tr class="even">
+<td>Verdict and any remediation plan escalated to senior management</td>
+<td>Model risk / Legal</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Completed the four steps.</strong> Return to the <a href="../index.html">Overview</a> or see <a href="../Case Study 4/case_study4.html">Case Study: Fairness Testing</a> for implementation in Python.</p>
+</div>
+</div>
+</div>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-doradoi-2023-concerning" class="csl-entry" role="listitem">
+Colorado Division of Insurance. 2023. <em>Concerning Quantitative Testing of External Consumer Data and Information Sources, Algorithms, and Predictive Models Used for Life Insurance Underwriting for Unfairly Discriminatory Outcomes</em>. <a href="https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view" class="uri">Https://drive.google.com/file/d/1BMFuRKbh39Q7YckPqrhrCRuWp29vJ44O/view</a>.
+</div>
+<div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
+Huang, Fei, and Giles Hooker. 2026. <em>Fairness Testing for Algorithmic Pricing</em>. <a href="https://arxiv.org/abs/2605.11614">https://arxiv.org/abs/2605.11614</a>.
+</div>
+<div id="ref-larson-etal-2017-minority" class="csl-entry" role="listitem">
+Larson, Jeff, Julia Angwin, Lauren Kirchner, and Surya Mattu. 2017. <em>Minority Neighborhoods Pay Higher Car Insurance Premiums Than White Areas with the Same Risk</em>. ProPublica and Consumer Reports. <a href="https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk">https://www.propublica.org/article/minority-neighborhoods-higher-car-insurance-premiums-white-areas-same-risk</a>.
+</div>
+<div id="ref-naic2020predictivemodels" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2020. <em>Regulatory Review of Predictive Models</em>. <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf" class="uri">Https://content.naic.org/sites/default/files/inline-files/CASTF%20Predictive%20Models%20White%20Paper.pdf</a>.
+</div>
+<div id="ref-naic2022treebased" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2022. <em>Regulatory Review of Predictive Models: Appendix b-Trees (Tree-Based Models)</em>. <a href="https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf" class="uri">Https://content.naic.org/sites/default/files/inline-files/CASTF%20Tree-based%20Model%20Appendix%20%28B-Trees%29.pdf</a>.
+</div>
+<div id="ref-nydfs-2024-final" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024. <em>Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing</em>. <a href="https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07" class="uri">Https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07</a>.
+</div>
+<div id="ref-schuirmann-1987-comparison" class="csl-entry" role="listitem">
+Schuirmann, Donald J. 1987. <span>“A Comparison of the Two One-Sided Tests Procedure and the Power Approach for Assessing the Equivalence of Average Bioavailability.”</span> <em>Journal of Pharmacokinetics and Biopharmaceutics</em> 15 (6): 657–80.
+</div>
+<div id="ref-soa2021interpretableml" class="csl-entry" role="listitem">
+Society of Actuaries. 2021. <em>Interpretable Machine Learning for Insurance: An Introduction with Examples</em>. <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf" class="uri">Https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
+</div>
+<div id="ref-xin2025partialdependenceplots" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regression-Based Fairness Audits</em>. <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Case Study 3/case_study3.html" class="pagination-link" aria-label="Case Study · Welfare Implications">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Case Study · Welfare Implications</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Case Study 4/case_study4.html" class="pagination-link" aria-label="Case Study · Fairness Testing">
+        <span class="nav-page-text">Case Study · Fairness Testing</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Open-access materials · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

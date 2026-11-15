@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang">
+
+<title>Case Study: Fairness Metrics for Life Insurance – The Fair Pricing Playbook</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Playbook/Step-2-Design-Fair-Pricing.html" rel="next">
+<link href="../Playbook/Step-1-Define-Fairness.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f5027254edf60712a57a618aca8afeff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Case Study 1/case_study1.html">Case Study · Fairness Metrics</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The Fair Pricing Playbook</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Playbook</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-1-Define-Fairness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 1 · Define Fairness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 1/case_study1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Case Study · Fairness Metrics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 2 · Design Fair Pricing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 2/case_study2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fair Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-3-Assess-Impact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 3 · Assess Impact</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 3/case_study3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Welfare Implications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Playbook/Step-4-Audit-the-System.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Step 4 · Audit the System</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Case Study 4/case_study4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study · Fairness Testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Applications/Banking.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Banking and Lending</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#running-example" id="toc-running-example" class="nav-link" data-scroll-target="#running-example">A running example</a></li>
+  <li><a href="#individual-fairness-criteria" id="toc-individual-fairness-criteria" class="nav-link" data-scroll-target="#individual-fairness-criteria">Individual fairness criteria</a>
+  <ul class="collapse">
+  <li><a href="#fairness-through-unawareness" id="toc-fairness-through-unawareness" class="nav-link" data-scroll-target="#fairness-through-unawareness">Fairness through unawareness</a></li>
+  <li><a href="#fairness-through-awareness" id="toc-fairness-through-awareness" class="nav-link" data-scroll-target="#fairness-through-awareness">Fairness through awareness</a></li>
+  <li><a href="#no-omitted-variable-bias" id="toc-no-omitted-variable-bias" class="nav-link" data-scroll-target="#no-omitted-variable-bias">No omitted-variable bias</a></li>
+  </ul></li>
+  <li><a href="#group-fairness-criteria" id="toc-group-fairness-criteria" class="nav-link" data-scroll-target="#group-fairness-criteria">Group fairness criteria</a>
+  <ul class="collapse">
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence">Independence (demographic parity)</a></li>
+  <li><a href="#sufficiency" id="toc-sufficiency" class="nav-link" data-scroll-target="#sufficiency">Sufficiency</a></li>
+  <li><a href="#separation" id="toc-separation" class="nav-link" data-scroll-target="#separation">Separation</a></li>
+  </ul></li>
+  <li><a href="#trade-offs" id="toc-trade-offs" class="nav-link" data-scroll-target="#trade-offs">Trade-offs and conclusion</a>
+  <ul class="collapse">
+  <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Playbook/Step-1-Define-Fairness.html">The Playbook</a></li><li class="breadcrumb-item"><a href="../Case Study 1/case_study1.html">Case Study · Fairness Metrics</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Case Study: Fairness Metrics for Life Insurance</h1>
+<p class="subtitle lead">Responsible AI for Algorithmic Pricing</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Before you start
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read <a href="../Playbook/Step-1-Define-Fairness.html">Step 1: Define fairness</a> first for the individual and group fairness taxonomy this case study works through. This case study is a qualitative walkthrough based entirely on <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>, a Society of Actuaries Research Institute report on fairness metrics for life insurance. It uses one worked example throughout, showing how the same three hypothetical applicants are treated differently depending on which fairness criterion is applied.</p>
+</div>
+</div>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Life insurance fairness raises different questions from the motor insurance case studies elsewhere in this playbook. Underwriting draws on medical, mortality, and lifestyle information rather than claims history and vehicle characteristics, and policies can run for decades before an outcome is observed. Rather than proposing a single fairness definition for life insurers, <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> address this directly by explaining how to choose among competing definitions and what each one trades away.</p>
+<p>The report starts from one distinction that recurs throughout this playbook. <strong>Individual fairness</strong> asks whether similar people are treated similarly. <strong>Group fairness</strong> asks whether outcomes are equal across groups. These are not the same question, and satisfying one does not guarantee the other. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> stress that this split is unrelated to the difference between individual and group insurance products. An individual fairness criterion can be tested on a group life policy, and a group fairness criterion can be tested on an individually underwritten policy. What “individual” means here is the most granular risk class the underwriting process actually uses, for example a unique combination of age, sex, and smoking status. What “group” means is any cohort defined for the purpose of the fairness test, whether or not the defining attribute is a protected characteristic.</p>
+<p>The report also revisits <strong>actuarial fairness</strong>, the idea that outcomes should be proportionate to expected claim cost. Actuarial fairness can be tested at the individual level, does each policyholder’s premium match their own expected cost, or the group level, is the loss ratio consistent across groups. Achieving actuarial fairness at the individual level generally implies it holds at the group level too, but the reverse does not follow. Several of the criteria below sit at different distances from this actuarial fairness benchmark, a point the report returns to throughout.</p>
+</section>
+<section id="running-example" class="level2">
+<h2 class="anchored" data-anchor-id="running-example">A running example</h2>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> illustrate each criterion using the same three hypothetical life insurance applicants, and this case study follows the same example throughout so the criteria can be compared directly.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Applicant</th>
+<th>Age</th>
+<th>Sex</th>
+<th>Smoking</th>
+<th>Notable activity</th>
+<th>Mortality risk score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gertrude Goodrisk</td>
+<td>34</td>
+<td>Female</td>
+<td>Non-smoker</td>
+<td>Jogging</td>
+<td>0.80</td>
+</tr>
+<tr class="even">
+<td>Paula Prudence</td>
+<td>36</td>
+<td>Female</td>
+<td>Non-smoker</td>
+<td>Yoga and pilates</td>
+<td>0.85</td>
+</tr>
+<tr class="odd">
+<td>Ricky Riskseeker</td>
+<td>23</td>
+<td>Male</td>
+<td>Smoker</td>
+<td>Rock climbing, motorcycle racing</td>
+<td>1.60</td>
+</tr>
+</tbody>
+</table>
+<p>Gertrude and Paula have relatively low, similar mortality risk. Ricky’s risk score is roughly double theirs, reflecting his smoking and higher-risk activities. The report uses this example to ask a simple question with several different answers. What should each of these three people pay for life insurance? The answer depends entirely on which fairness criterion is applied.</p>
+</section>
+<section id="individual-fairness-criteria" class="level2">
+<h2 class="anchored" data-anchor-id="individual-fairness-criteria">Individual fairness criteria</h2>
+<section id="fairness-through-unawareness" class="level3">
+<h3 class="anchored" data-anchor-id="fairness-through-unawareness">Fairness through unawareness</h3>
+<p>The most direct interpretation of individual fairness is to leave sensitive characteristics out of the pricing model entirely, so that no protected attribute can directly affect an applicant’s premium. <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> call this fairness through unawareness, also known as fairness through blindness, and note that many insurers already satisfy it by default, either because they do not collect certain protected attributes or because the law prevents them from using it.</p>
+<p>Omitting a sensitive attribute does not remove its influence if other variables the model does use are correlated with it. The report’s illustration is historical redlining in property and auto insurance, where insurers declined coverage or charged higher rates in zip codes with large racial and ethnic minority populations. No protected characteristic was used directly. Zip code alone drove the outcome, but zip code was correlated with race, so the outcome was still discriminatory. Fairness through unawareness would have been satisfied, and the result was still unfair. For a mortality risk score built from medical claims data, the same risk applies. A diagnosis code correlated with race or ethnicity can carry that information into the score even though race was never an input.</p>
+</section>
+<section id="fairness-through-awareness" class="level3">
+<h3 class="anchored" data-anchor-id="fairness-through-awareness">Fairness through awareness</h3>
+<p>Fairness through awareness asks a sharper question. Do similar individuals receive similar treatment, where similarity is measured by a chosen metric rather than by group membership? Applied to Gertrude, Paula, and Ricky, the natural similarity metric is the mortality risk score itself, adjusted for any known disparities in access to care.</p>
+<p>On this criterion, Gertrude and Paula, with risk scores of 0.80 and 0.85, should be treated similarly, while Ricky, with a risk score of 1.60, should be treated differently and pay a materially higher premium. A pricing pattern where premiums rise smoothly with risk score, Gertrude lowest, Paula slightly higher, Ricky highest, satisfies fairness through awareness. A pattern where Ricky pays the same as or less than Gertrude and Paula, despite his higher score, would not.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/awareness-premium-vs-risk.png" class="img-fluid figure-img" style="width:75.0%" alt="Premium rising with mortality risk score for Gertrude, Paula, and Ricky"></p>
+<figcaption>A premium that tracks the risk score satisfies fairness through awareness. Illustrative chart based on <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>.</figcaption>
+</figure>
+</div>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> note that fairness through awareness was developed partly as a response to a weakness in group fairness definitions such as demographic parity, covered below. It evaluates whether people who receive the same outcome are actually similar on a task-relevant measure, not whether they belong to the same demographic group. For many insurance applications, this makes it closer in spirit to actuarial fairness than to demographic parity. Its main practical difficulty is choosing the right similarity metric. If the metric itself is blind to group-level disparities, for example if it does not adjust for unequal access to healthcare, fairness through awareness collapses back into fairness through unawareness and provides no additional protection.</p>
+</section>
+<section id="no-omitted-variable-bias" class="level3">
+<h3 class="anchored" data-anchor-id="no-omitted-variable-bias">No omitted-variable bias</h3>
+<p>Fairness through awareness still leaves an opening. If the similarity metric or other model inputs correlate with a protected attribute, indirect bias can reappear. The report’s response is a criterion it terms no omitted-variable bias. Rather than excluding the protected attribute, this approach includes it directly so that its indirect, proxy effect on other variables can be identified and removed.</p>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> extend the running example to illustrate this. Suppose an insurer wants to confirm that its mortality risk score is not acting as a proxy for sex. Smoking is more common among men, and yoga participation is more than twice as common among women. A model that uses smoking and yoga participation as predictors, without using sex directly, will still partly capture the effect of sex, simply through these correlated variables. Including sex directly as a control variable lets the model separate the pure effect of smoking and yoga participation from the effect that is really attributable to sex.</p>
+<p>Diagnosing and correcting for proxy effects requires the direct use of the sensitive characteristic somewhere in the modelling process, whether as a control variable, in an iterative adjustment, or as a post-processing correction. Some stakeholders view any direct use of a protected attribute as inappropriate in itself, even when the purpose is to remove bias rather than introduce it. No single one of the three individual fairness criteria escapes this tension.</p>
+<p>This is the same problem this playbook calls proxy discrimination, and the same criterion this playbook calls controlling for the protected variable, CPV (see <a href="../Playbook/Step-1-Define-Fairness.html#how-the-frameworks-relate">Step 1: How the frameworks relate</a>). <a href="../Playbook/Step-2-Design-Fair-Pricing.html#mc-averaging-over-the-protected-attribute">Step 2’s MC model</a> implements CPV as a post-processing correction, fitting a full model that includes the protected attribute and then averaging predictions over it at scoring time.</p>
+</section>
+</section>
+<section id="group-fairness-criteria" class="level2">
+<h2 class="anchored" data-anchor-id="group-fairness-criteria">Group fairness criteria</h2>
+<section id="independence" class="level3">
+<h3 class="anchored" data-anchor-id="independence">Independence (demographic parity)</h3>
+<p>Independence, also called demographic parity or statistical parity, asks whether an outcome is statistically independent of group membership. In practice, this means testing whether the group averages match. Continuing the running example, suppose Gertrude, Paula, and Ricky are charged premiums of $10.50, $11.00, and $15.00. The average premium for the two female applicants is $10.75. The average for the one male applicant is $15.00, a gap of $4.25, or about 39.5%. This does not satisfy independence by sex.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/independence-average-premium.png" class="img-fluid figure-img" style="width:65.0%" alt="Bar chart of average premium for females versus males, 10.75 dollars versus 15.00 dollars"></p>
+<figcaption>Average premium by sex, using the running example’s premiums. Illustrative chart based on <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>.</figcaption>
+</figure>
+</div>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> work through what closing that gap would require. One option is a single, shared underwriting cutoff applied to a risk score, which independence alone does not achieve if the two groups’ risk distributions differ, because a shared cutoff will reject a higher share of whichever group has the riskier distribution. Equalising the rejection rate requires setting different cutoffs for different groups, so that two individuals with the same risk score in different groups can receive different decisions, which most people would regard as a new kind of unfairness, and which some state statutes prohibit outright. The alternative is to strip the model of whatever variables are driving the group difference, which sacrifices predictive accuracy and introduces cross-subsidy. Lower-risk individuals pay more than their own expected cost to offset higher-risk individuals in the same group. Taken to its extreme, community rating removes the variation entirely, which brings its own risk of adverse selection, healthier policyholders exiting the pool as the shared premium rises, driving the premium higher still.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/independence-risk-distribution.png" class="img-fluid figure-img" style="width:80.0%" alt="Two overlapping risk-score distributions for Group A and Group B with a shared cutoff line rejecting more of Group B"></p>
+<figcaption>A shared underwriting cutoff rejects a larger share of the higher-risk group. Illustrative distributions based on <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>.</figcaption>
+</figure>
+</div>
+<p>Because strict independence is demanding, the report also sets out several relaxed versions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Relaxed criterion</th>
+<th>Relaxes</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Relaxed demographic parity</td>
+<td>Independence, by allowing group averages to differ within a stated bound</td>
+<td>One group’s price cannot fall below 80% of the other’s</td>
+</tr>
+<tr class="even">
+<td>Conditional demographic parity</td>
+<td>Independence, by allowing some correlated but actuarially justified variables to remain in the model</td>
+<td>An underwriting model may use a mortality risk score based on prescription and medical claims data, so long as that data is shown to be actuarially relevant</td>
+</tr>
+<tr class="odd">
+<td>Conditional disparate impact</td>
+<td>Conditional demographic parity further, by permitting a defined group difference conditional on matching non-sensitive attributes</td>
+<td>The expected mortality risk score between two groups, conditional on the same prescription and medical claims data, is permitted to differ by up to 10%</td>
+</tr>
+</tbody>
+</table>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> note that fairness through unawareness and independence are, in effect, the two extremes of conditional demographic parity. One treats every non-sensitive attribute as legitimate, the other treats none as legitimate.</p>
+</section>
+<section id="sufficiency" class="level3">
+<h3 class="anchored" data-anchor-id="sufficiency">Sufficiency</h3>
+<p>Independence says nothing about accuracy. Sufficiency, also called predictive parity, fills that gap. After conditioning on the model’s prediction, does the true outcome remain independent of group membership? Applied to the running example, sufficiency asks whether male and female applicants with the same mortality risk score go on to experience the same actual mortality rate. If they do, the model’s predictions carry the same meaning for both sexes at any given score, even though the average score, and therefore the average premium, may legitimately differ between them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/sufficiency-mortality-by-score.png" class="img-fluid figure-img" style="width:75.0%" alt="Actual mortality rate against predicted mortality risk score, with male and female lines coinciding"></p>
+<figcaption>Males and females with the same predicted risk score have the same actual mortality rate. Illustrative chart based on <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>.</figcaption>
+</figure>
+</div>
+<p>The report ties sufficiency closely to actuarial fairness, since it is testing whether the model is equally well-calibrated across groups rather than whether outcomes are equal. Typical metrics are positive and negative predictive value, compared across groups. Its main limitation for life insurance is practical. Long-duration products with rare, distant claim events make it hard to accumulate enough experience to test calibration reliably at every score level, so testing sufficiency usually requires grouping applicants into broader score bands. The report also notes that sufficiency is a poor fit for any product deliberately designed to cross-subsidise, since sufficiency effectively requires the absence of the very cross-subsidy such products intend to provide.</p>
+</section>
+<section id="separation" class="level3">
+<h3 class="anchored" data-anchor-id="separation">Separation</h3>
+<p>Separation flips the conditioning around. After conditioning on the true outcome, is the model’s prediction independent of group membership? Because it depends on knowing the true outcome, separation is easier to illustrate with a shorter-tailed process than mortality. The report’s example is fraud detection. Take the claims that were actually fraudulent and the claims that were not, and within each set, compare the rate at which the model flagged a claim as fraudulent, by sex. If the flagging rate is similar for men and women within both the fraudulent and the non-fraudulent groups, separation is satisfied. Formally, this means true positive rates and false positive rates that are equal across groups, also called equalised odds.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot/separation-fraud-rate.png" class="img-fluid figure-img" style="width:75.0%" alt="Grouped bar chart of the percentage flagged as fraud by the model, for males and females, split by actual fraud status"></p>
+<figcaption>The model’s fraud-flagging rate does not vary by sex, within either the fraudulent or non-fraudulent group. Illustrative chart based on <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>.</figcaption>
+</figure>
+</div>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> are clear that separation trades on the same weakness as sufficiency in the life insurance context, but in the opposite direction. Because it conditions on the observed outcome, it fits classification tasks with observable outcomes, like fraud detection, far better than pricing, where the entire point of the model is to estimate an expected cost that has not yet been, and may never be, observed for a given policyholder.</p>
+</section>
+</section>
+<section id="trade-offs" class="level2">
+<h2 class="anchored" data-anchor-id="trade-offs">Trade-offs and conclusion</h2>
+<p>Applied to Gertrude, Paula, and Ricky, the criteria above do not converge on one answer. Fairness through awareness and sufficiency point toward premiums that track the risk score closely, Ricky paying materially more than Gertrude and Paula. Independence points toward equalising the average premium by sex, which, holding the underlying risk difference constant, requires cross-subsidy in one direction or the other. No omitted-variable bias and separation sit somewhere in between, addressing indirect bias in the inputs or the errors rather than the headline outcome itself.</p>
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> draw out why this is unavoidable rather than a flaw in any one criterion. Individual and group fairness are not generally achievable together whenever a group difference is correlated with expected cost. The report’s example is male and female life expectancy. Life expectancy differs between men and women in nearly every population, so an insurer cannot simultaneously price everyone according to their own expected cost, actuarial and individual fairness, and hold average premiums equal across sex, independence. One of the two must give way, and which one should give way is a policy and product decision, not a modelling one. The report is equally clear that individual and group fairness are not always in conflict. If the two criteria are defined so that they measure the same underlying quantity, for example equal average premiums and equal accuracy of expected claim cost, and if the underlying risk distributions happen to be similar across groups, both can hold together. Whether they do is a property of the data and the product, not something the choice of metric alone can guarantee.</p>
+<p>The report’s own conclusion is not a recommendation for one criterion over another. It is a caution against treating any single metric as a complete answer. A model can pass a chosen fairness test and still fail to achieve the ethical outcome stakeholders actually intended, since a technical criterion captures only part of what “fair” means to any given stakeholder. Fairness metrics can also reveal that a disparity exists without explaining why, so passing or failing a test is usually the start of an investigation, not the end of one. And the choice of which model or process to test matters as much as the choice of metric. If a pricing model feeds into a rate that is then adjusted by manual overrides or non-modelled expense loadings, testing the model alone can miss where the actual disparity is introduced, a point that connects directly to the pure premium, technical premium, and market premium distinctions in <a href="../Playbook/Step-2-Design-Fair-Pricing.html#scope-of-this-step">Step 2</a> of this playbook.</p>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>For practitioners
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span> do not endorse a specific fairness definition for life insurance, and neither does this case study. Before selecting a criterion for your own product:</p>
+<ul>
+<li>Confirm whether your regulatory environment or stated product philosophy points toward individual fairness, group fairness, or an explicit combination of both, and note that the two are not always simultaneously achievable when a group difference correlates with expected cost, so a genuine conflict may force a choice rather than a combination (see <a href="../Playbook/Step-1-Define-Fairness.html#social-good-or-economic-commodity">Step 1: Social good or economic commodity?</a>)</li>
+<li>Identify which correlated, non-sensitive variables in your data you consider actuarially legitimate, since this determines where you sit between fairness through unawareness and independence on the conditional demographic parity spectrum</li>
+<li>Decide whether you are testing the underlying model, the final rate, or both, since manual overrides and non-modelled loadings can reintroduce disparities a model-level test will not catch</li>
+<li>Treat a fairness metric result as the start of a due-diligence process, not a compliance conclusion. A pass does not confirm the ethical outcome was achieved, and a fail does not by itself identify the cause</li>
+</ul>
+</div>
+</div>
+<section id="checklist" class="level3">
+<h3 class="anchored" data-anchor-id="checklist">Checklist</h3>
+<p>Use this checklist alongside <a href="../Playbook/Step-1-Define-Fairness.html#checklist">Step 1’s checklist</a> when applying these criteria to a real product.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Typical owner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Confirm which fairness criterion, or criteria, apply to this product, and document the case for compatibility if more than one is claimed</td>
+<td>Executive sponsor / Product</td>
+</tr>
+<tr class="even">
+<td>Validate the similarity metric or proxy-diagnosis approach the chosen criterion depends on</td>
+<td>Actuarial / Data science</td>
+</tr>
+<tr class="odd">
+<td>Identify which correlated, non-sensitive variables you treat as actuarially legitimate, and document why</td>
+<td>Legal / Compliance, actuarial</td>
+</tr>
+<tr class="even">
+<td>Confirm whether fairness testing covers the model, the final rate, or both</td>
+<td>Actuarial / Model risk</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="further-reading" class="level3">
+<h3 class="anchored" data-anchor-id="further-reading">Further reading</h3>
+<ul>
+<li><span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>, full framework, worked example, and literature review this case study is based on</li>
+<li><a href="../Playbook/Step-1-Define-Fairness.html#fairness-criteria">Step 1: Fairness criteria</a>, how these criteria map onto the playbook criteria used in Steps 2 through 4</li>
+<li><a href="../Case Study 2/case_study2.html">Case Study: Fair Models</a>, a data-driven implementation of the same individual and group fairness criteria on motor insurance data</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-krafcheck2026fairnessmetrics" class="csl-entry" role="listitem">
+Krafcheck, Eric, Igor Balnozan, and Fei Huang. 2026. <em>Fairness Metrics for Life Insurance</em>. Society of Actuaries Research Institute. <a href="https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/">https://www.soa.org/resources/research-reports/2026/fairness-metrics-life-insurance/</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fair\.feihuang\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Playbook/Step-1-Define-Fairness.html" class="pagination-link" aria-label="Step 1 · Define Fairness">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Step 1 · Define Fairness</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Playbook/Step-2-Design-Fair-Pricing.html" class="pagination-link" aria-label="Step 2 · Design Fair Pricing">
+        <span class="nav-page-text">Step 2 · Design Fair Pricing</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Open-access materials · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
