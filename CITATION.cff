@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "The Fair Pricing Playbook: Responsible AI for Algorithmic Pricing"
+version: v1.0.0
+doi: 10.5281/zenodo.20879782
+url: "https://fair.feihuang.org"
+repository-code: "https://github.com/feihuang-org/fair-pricing-playbook"
+date-released: 2026-01-01
+license: CC-BY-NC-ND-4.0
+authors:
+  - family-names: Huang
+    given-names: Fei
+    affiliation: "School of Risk and Actuarial Studies, UNSW Business School"
+    orcid: "https://orcid.org/0000-0002-1930-0748"
+abstract: >
+  A practical framework for responsible AI in algorithmic pricing. The
+  playbook provides a four-step workflow covering fairness criterion
+  selection, fair model design, welfare impact assessment, and deployed
+  system auditing. Three reproducible insurance case studies provide
+  implementation depth. The framework applies to any sector where
+  algorithmic pricing raises fairness concerns.
+keywords:
+  - algorithmic fairness
+  - insurance pricing
+  - responsible AI
+  - fair machine learning
+  - actuarial science
+preferred-citation:
+  type: software
+  title: "The Fair Pricing Playbook: Responsible AI for Algorithmic Pricing"
+  authors:
+    - family-names: Huang
+      given-names: Fei
+  year: 2026
+  version: v1.0.0
+  publisher:
+    name: Zenodo
+  doi: 10.5281/zenodo.20879782
+  url: "https://doi.org/10.5281/zenodo.20879782"
