@@ -583,7 +583,7 @@
     "href": "index.html#the-playbook-in-the-ai-lifecycle",
     "title": "The Fair Pricing Playbook",
     "section": "The playbook in the AI lifecycle",
-    "text": "The playbook in the AI lifecycle\nThe four steps map onto the Ethical AI Lifecycle (Huang 2025). Step 1 addresses the problem statement phase, where the fairness criterion is chosen. Step 2 spans data collection, exploratory analysis, and modelling. Step 3 sits in the evaluation phase, tracing welfare effects before deployment. Step 4 covers evaluation, deployment, and ongoing monitoring, with audit findings feeding back into Step 1.\n\nLifecycle: Huang, F. (2025) Check your AI. The Actuary.",
+    "text": "The playbook in the AI lifecycle\nThe four steps map onto the Ethical AI Lifecycle (Huang 2025). Step 1 addresses the problem statement phase, where the fairness criterion is chosen. Step 2 spans data collection, exploratory analysis, and modelling. Step 3 sits in the evaluation phase, tracing welfare effects before deployment. Step 4 covers evaluation, deployment, and ongoing monitoring, with audit findings feeding back into Step 1.",
     "crumbs": [
       "Introduction",
       "Overview"
