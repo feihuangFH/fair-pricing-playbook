@@ -508,7 +508,10 @@ window.Quarto = {
 <section id="risk-based-pricing" class="level4">
 <h4 class="anchored" data-anchor-id="risk-based-pricing">Risk-based and non-risk differentiation</h4>
 <p>Not every price difference reflects expected claim cost. <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023</a>)</span> distinguishes risk-based differentiation (premiums that differ because expected losses differ) from non-risk differentiation (premiums that differ for the same underlying risk, for example because of retention modelling, willingness to pay, or price optimization).</p>
-<p>Risk-based rating is the norm in actuarial pricing and is usually defended on efficiency grounds. Non-risk differentiation is more contested. It can be lawful in some markets yet still raise fairness concerns when loyal or less sophisticated customers pay more than risk-identical shoppers, or when behavioural factors reproduce group disparities <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Several U.S. states restrict price optimization for this reason. <a href="Step-3-Assess-Impact.html">Step 3</a> examines welfare effects when pricing moves beyond technical costs.</p>
+<p>Risk-based rating is the norm in actuarial pricing and is defended on efficiency grounds: customers pay for their own risk. Non-risk differentiation is more contested. Premiums may vary across customers with identical risk profiles because of behavioural factors such as the likelihood of switching providers, online activity, or inertia — a practice known as price optimisation <span class="citation" data-cites="thomas2012nonrisk xin2024antidiscrimination">(<a href="#ref-thomas2012nonrisk" role="doc-biblioref">Thomas 2012</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</p>
+<p>Price discrimination of this kind raises specific concerns in insurance that do not apply with the same force in other markets <span class="citation" data-cites="huang2025loyalty thomas2012nonrisk">(<a href="#ref-huang2025loyalty" role="doc-biblioref">Huang 2025</a>; <a href="#ref-thomas2012nonrisk" role="doc-biblioref">Thomas 2012</a>)</span>. Insurance relies on the doctrine of utmost good faith: customers disclose personal information for risk assessment, not to have their retention likelihood priced. Adding behaviour-based adjustments to that exchange alters its terms in ways customers rarely understand or can verify. Complexity compounds the problem: most policyholders do not know that behavioural factors influence their premium, and so cannot make informed comparisons or respond. There is also a proxy discrimination concern. Behavioural variables such as digital engagement and shopping frequency correlate with age, income, and financial literacy. Customers who are older, less digitally active, or facing financial pressure may pay higher premiums not because they represent higher risk but because they are less likely to switch — a form of indirect discrimination that survives the removal of protected attributes from the rating model.</p>
+<p>Regulatory responses vary by jurisdiction. Around twenty U.S. states have restricted price optimisation in personal lines since 2015 <span class="citation" data-cites="POWhitePaper">(<a href="#ref-POWhitePaper" role="doc-biblioref">NAIC CAS Task Force 2015</a>)</span>. The UK Financial Conduct Authority banned price walking — charging renewing customers more than new ones for equivalent cover — in 2021, citing a lack of pricing transparency and harm to loyal customers <span class="citation" data-cites="FCA2021Rule">(<a href="#ref-FCA2021Rule" role="doc-biblioref">FCA 2021</a>)</span>. The European Insurance and Occupational Pensions Authority issued a recommendation in 2023 advocating for a similar ban on unjustified price walking across EU member states.</p>
+<p><a href="Step-3-Assess-Impact.html">Step 3</a> examines welfare effects when pricing moves beyond technical costs, including the market-wide consequences when fairness rules interact with price optimisation.</p>
 </section>
 <section id="mini-glossary" class="level4">
 <h4 class="anchored" data-anchor-id="mini-glossary">Mini-glossary</h4>
@@ -827,11 +830,17 @@ Dworkin, Ronald. 1981. <span>“What Is Equality? Part 2: Equality of Resources.
 <div id="ref-ECJ2011testac" class="csl-entry" role="listitem">
 ECJ. 2011. <em>Judgment of the Court (Grand Chamber) of 1 March 2011</em>. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236" class="uri">Https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>, Judgement of the Court, Case C-236/09.
 </div>
+<div id="ref-FCA2021Rule" class="csl-entry" role="listitem">
+FCA. 2021. <span>“General Insurance Pricing Practices Market Study Feedback to CP20/19 and Final Rules.”</span> <em>Financial Conduct Authority (FCA) MS</em>, no. PS21/5. <a href="https://www.fca.org.uk/publication/policy/ps21-5.pdf">https://www.fca.org.uk/publication/policy/ps21-5.pdf</a>.
+</div>
 <div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
 Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
 </div>
 <div id="ref-fuster2022predictably" class="csl-entry" role="listitem">
 Fuster, Andreas, Paul Goldsmith-Pinkham, Tarun Ramadorai, and Ansgar Walther. 2022. <span>“Predictably Unequal? The Effects of Machine Learning on Credit Markets.”</span> <em>Journal of Finance</em> 77 (1): 5–47. <a href="https://doi.org/10.1111/jofi.13090">https://doi.org/10.1111/jofi.13090</a>.
+</div>
+<div id="ref-huang2025loyalty" class="csl-entry" role="listitem">
+Huang, Fei. 2025. <span>“The Price of Loyalty: Rethinking Optimisation in Insurance Pricing.”</span> <em>Actuaries Digital</em>.
 </div>
 <div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
 Kiviat, Barbara. 2019. <span>“The Moral Limits of Predictive Practices: The Case of Credit-Based Insurance Scores.”</span> <em>American Sociological Review</em> 84 (6): 1134–58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
@@ -854,6 +863,9 @@ Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2022
 <div id="ref-mehrabi2021survey" class="csl-entry" role="listitem">
 Mehrabi, Ninareh, Fred Morstatter, Nakul Saxena, Kristina Lerman, and Aram Galstyan. 2021. <span>“A Survey on Bias and Fairness in Machine Learning.”</span> <em>ACM Computing Surveys</em> 54 (6): 1–35. <a href="https://doi.org/10.1145/3457607">https://doi.org/10.1145/3457607</a>.
 </div>
+<div id="ref-POWhitePaper" class="csl-entry" role="listitem">
+NAIC CAS Task Force. 2015. <em>Casualty Actuarial and Statistical (c) Task Force Price Optimization White Paper</em>. <a href="https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf" class="uri">Https://www.naic.org/documents/committees_c_catf_related_price_optimization_white_paper.pdf</a>.
+</div>
 <div id="ref-pope2011implementing" class="csl-entry" role="listitem">
 Pope, Devin G, and Justin R Sydnor. 2011. <span>“Implementing Anti-Discrimination Policies in Statistical Profiling Models.”</span> <em>American Economic Journal: Economic Policy</em> 3 (3): 206–31.
 </div>
@@ -862,6 +874,9 @@ Prince, Anya ER, and Daniel Schwarcz. 2019. <span>“Proxy Discrimination in the
 </div>
 <div id="ref-stone1999moralhazard" class="csl-entry" role="listitem">
 Stone, Deborah A. 1999. <span>“Beyond Moral Hazard: Insurance as Moral Opportunity.”</span> <em>Connecticut Insurance Law Journal</em> 6 (1): 11–46.
+</div>
+<div id="ref-thomas2012nonrisk" class="csl-entry" role="listitem">
+Thomas, R. Guy. 2012. <span>“Non-Risk Price Discrimination in Insurance: Market Outcomes and Public Policy.”</span> <em>The Geneva Papers on Risk and Insurance – Issues and Practice</em> 37 (1): 27–46. <a href="https://doi.org/10.1057/gpp.2011.31">https://doi.org/10.1057/gpp.2011.31</a>.
 </div>
 <div id="ref-xin2026proxyrace" class="csl-entry" role="listitem">
 Xin, Xi, Giles Hooker, and Fei Huang. 2026. <em>How Proxy Race Distorts Regression-Based Fairness Audits</em>. <a href="https://arxiv.org/abs/2603.17106">https://arxiv.org/abs/2603.17106</a>.
