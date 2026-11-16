@@ -478,32 +478,32 @@ window.Quarto = {
 </div>
 </div>
 <p>Whether a variable is ultimately acceptable depends on line of business and jurisdiction <span class="citation" data-cites="frees2023discriminating xin2024antidiscrimination">(<a href="#ref-frees2023discriminating" role="doc-biblioref">Frees and Huang 2023</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Gender in pricing is routine in US motor insurance yet prohibited across the EU. Genetic information is a prohibited underwriting factor in health insurance in many countries but remains largely unregulated in life insurance in others. The principles provide the vocabulary for that discussion. Legal and compliance teams supply the jurisdiction-specific answer.</p>
-<div class="callout callout-style-simple callout-important no-icon callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Direct and indirect discrimination (click to expand)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Following <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>, direct discrimination (or disparate treatment) occurs when a person is treated less favourably because a protected characteristic differs. Excluding the protected attribute from the rating model addresses the most direct form of this, though other aspects of a decision process may still produce differential treatment.</p>
-<p>Indirect discrimination arises after direct discrimination is ruled out. A person may still be treated disproportionately because protected status is inferred through an apparently neutral practice. Two channels matter in modern pricing:</p>
+</section>
+<section id="direct-indirect" class="level4">
+<h4 class="anchored" data-anchor-id="direct-indirect">Direct and indirect discrimination</h4>
+<p><strong>Direct discrimination</strong> (or disparate treatment) occurs when a person is treated less favourably because a protected characteristic differs <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>. Excluding the protected attribute from the rating model addresses the most direct form of this, though other aspects of a decision process may still produce differential treatment.</p>
+<p><strong>Indirect discrimination</strong> arises after direct discrimination is ruled out. A person may still be treated disproportionately because protected status is inferred through an apparently neutral practice. Two channels matter in modern pricing:</p>
 <ul>
-<li>Identifiable proxies. Facially neutral variables that stand in for a protected attribute (for example, geographic area correlated with race, or variables correlated with gender)</li>
-<li>Unidentifiable proxies. Opaque models that combine many variables and reproduce protected-group disparities without a single obvious surrogate</li>
+<li><em>Identifiable proxies.</em> Facially neutral variables that stand in for a protected attribute (for example, geographic area correlated with race, or variables correlated with gender)</li>
+<li><em>Unidentifiable proxies.</em> Opaque models that combine many variables and reproduce protected-group disparities without a single obvious surrogate</li>
 </ul>
-<p>Rating variables sit along a spectrum. Some are clearly legitimate: car make, engine size, and claims history predict risk directly and have no plausible connection to protected status. Others are prohibited outright: race, sex, and religion are barred regardless of predictive value. A third group is contested: postcode, occupation, and credit score carry genuine risk signal and correlate with protected attributes. The proxy problem is concentrated in this contested group, where the risk information and the discriminatory signal cannot be cleanly separated.</p>
-<p>Restricting inputs addresses direct discrimination and some proxy effects, but it does not resolve the problem fully. Discriminatory outputs can arise through three distinct routes <span class="citation" data-cites="mehrabi2021survey">(<a href="#ref-mehrabi2021survey" role="doc-biblioref">Mehrabi et al. 2021</a>)</span>. First, contested variables act as proxies, recovering protected-attribute information that was removed from the feature set. Second, historical data encode past discriminatory practices — a model trained on data from an era of biased decisions learns from a selection-distorted sample, even when every input variable is individually legitimate. Third, deployed models shape future training data: applicants who are denied never enter the outcome dataset, so successive models are calibrated on an increasingly distorted pool. Output-based criteria address the first two at the point of model building; Step 4 addresses the third through ongoing monitoring.</p>
+<p>Algorithmic discrimination is generally a form of indirect discrimination. Omitting protected variables from a model (<a href="#fairness-criteria">fairness through unawareness (FTU)</a>) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
+<section id="why-inputs-not-enough" class="level5">
+<h5 class="anchored" data-anchor-id="why-inputs-not-enough">Why restricting inputs is not enough</h5>
+<p>Rating variables sit along a spectrum. Some are clearly legitimate: car make, engine size, and claims history predict risk directly and have no plausible connection to protected status. Others are prohibited outright: race, sex, and religion are barred regardless of predictive value. A third group is contested: postcode, occupation, and credit score carry genuine risk signal and also correlate with protected attributes. The proxy problem is concentrated in this contested group, where the risk information and the discriminatory signal cannot be cleanly separated.</p>
+<p>Restricting inputs addresses direct discrimination and some proxy effects, but it does not resolve the problem fully. Discriminatory outputs can arise through three distinct routes <span class="citation" data-cites="mehrabi2021survey">(<a href="#ref-mehrabi2021survey" role="doc-biblioref">Mehrabi et al. 2021</a>)</span>:</p>
+<ol type="1">
+<li><strong>Proxy variables.</strong> Contested variables recover protected-attribute information that was removed from the feature set <span class="citation" data-cites="prince2019proxy xin2024antidiscrimination">(<a href="#ref-prince2019proxy" role="doc-biblioref">Prince and Schwarcz 2019</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin and Huang 2024</a>)</span>.</li>
+<li><strong>Historically biased data.</strong> A model trained on data from an era of biased decisions learns from a selection-distorted sample, even when every input variable is individually legitimate <span class="citation" data-cites="fuster2022predictably">(<a href="#ref-fuster2022predictably" role="doc-biblioref">Fuster et al. 2022</a>)</span>.</li>
+<li><strong>Feedback loops.</strong> Deployed models shape future training data: applicants who are denied never enter the outcome dataset, so successive models are calibrated on an increasingly distorted pool.</li>
+</ol>
+<p>Output-based criteria address routes 1 and 2 at the point of model building. Step 4 addresses route 3 through ongoing monitoring.</p>
+<p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation <span class="citation" data-cites="xin2026proxyrace">(<a href="#ref-xin2026proxyrace" role="doc-biblioref">Xin et al. 2026</a>)</span>. Steps 2–4 describe technical options for mitigation and audit.</p>
+</section>
+<section id="legal-framework" class="level5">
+<h5 class="anchored" data-anchor-id="legal-framework">Legal framework</h5>
 <p>EU and Australian law often define indirect discrimination through three elements: a facially neutral provision, criterion, or practice; a connection to a protected characteristic in law; and disproportionate disadvantage for people with that characteristic. That is usually only the first stage. The practice may still be lawful if it is objectively justified (EU) or reasonable in the circumstances (Australia). In the United States, disparate impact plays a parallel role: a neutral policy or practice that disproportionately harms a protected group, often without intent to discriminate. US law does not use the term indirect discrimination, but the structure is similar, including defences such as business necessity where applicable. In all three traditions, disproportionate impact alone does not automatically mean unlawful discrimination; legitimacy and justification also matter.</p>
-<p>Algorithmic discrimination (biased outcomes from analytics or machine learning) is generally a form of indirect discrimination. Omitting protected variables from a model (<a href="#fairness-criteria">fairness through unawareness (FTU)</a>) does not guarantee fair outputs if proxies or complex algorithms remain.</p>
-<p>In insurance, some jurisdictions restrict or scrutinise certain proxy variables (such as zip code, credit information, occupation, or education), but rules vary by market and product. Formal approaches to assessing indirect discrimination in quoted premiums are still developing in many places. Where direct protected-class data are unavailable, some regulatory frameworks allow inferred race or ethnicity for quantitative testing. Regression disparities based on such proxies require careful interpretation. See <a href="Step-4-Audit-the-System.html#proxied-protected-attributes">Step 4</a> and <span class="citation" data-cites="xin2026proxyrace">Xin et al. (<a href="#ref-xin2026proxyrace" role="doc-biblioref">2026</a>)</span>. Steps 2–4 describe technical options for mitigation and audit that you can adapt to your jurisdiction and governance needs.</p>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="risk-based-pricing" class="level4">
 <h4 class="anchored" data-anchor-id="risk-based-pricing">Risk-based and non-risk differentiation</h4>
@@ -829,6 +829,9 @@ ECJ. 2011. <em>Judgment of the Court (Grand Chamber) of 1 March 2011</em>. <a hr
 </div>
 <div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
 Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
+</div>
+<div id="ref-fuster2022predictably" class="csl-entry" role="listitem">
+Fuster, Andreas, Paul Goldsmith-Pinkham, Tarun Ramadorai, and Ansgar Walther. 2022. <span>“Predictably Unequal? The Effects of Machine Learning on Credit Markets.”</span> <em>Journal of Finance</em> 77 (1): 5–47. <a href="https://doi.org/10.1111/jofi.13090">https://doi.org/10.1111/jofi.13090</a>.
 </div>
 <div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
 Kiviat, Barbara. 2019. <span>“The Moral Limits of Predictive Practices: The Case of Credit-Based Insurance Scores.”</span> <em>American Sociological Review</em> 84 (6): 1134–58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
