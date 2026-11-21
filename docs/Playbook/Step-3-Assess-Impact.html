@@ -469,7 +469,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p><strong>Price fairness</strong> means that two groups are charged similar prices on average. <strong>Markup fairness</strong> means that two groups are charged a similar margin above their expected cost. If the groups have genuinely different expected costs (which is common in motor or health insurance, and in consumer lending), you cannot achieve both simultaneously. The same logic carries over to loss ratio. Because loss ratio and markup move inversely for a given cost level, equalising prices across groups with different costs opens a loss-ratio gap as well as a markup gap, not a markup gap alone.</p>
 <p>To see why, consider a simple illustration. Group A has an expected cost of 800 and Group B has an expected cost of 1,000. A regulation that requires equal premiums might set the price at 900 for both. Group A now pays a markup of 100 above their expected cost. Group B pays 100 below theirs. The price gap has been closed. A markup gap has opened. The insurer is effectively cross-subsidising Group B using premiums from Group A.</p>
 <figure style="margin: 1.5em 0;" class="figure">
-<svg viewbox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;font-family:inherit;">
+<svg viewbox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;font-family:inherit;">
   <style>
     .label { font-size: 13px; fill: currentColor; }
     .small  { font-size: 11px; fill: currentColor; }
@@ -487,8 +487,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   </defs>
 
   <!-- Column headers -->
-  <text x="170" y="22" text-anchor="middle" class="head">No pricing rule</text>
-  <text x="510" y="22" text-anchor="middle" class="head">Equal-price rule (PDP)</text>
+  <text x="170" y="22" text-anchor="middle" class="head">P0: Unconstrained (benchmark)</text>
+  <text x="530" y="22" text-anchor="middle" class="head">PDP: Equal-price rule</text>
 
   <!-- ── LEFT PANEL ── -->
   <!-- Group A bar -->
@@ -517,7 +517,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   <!-- ── RIGHT PANEL ── -->
   <!-- equal price line at 900 -->
   <line x1="390" y1="45" x2="640" y2="45" class="price"></line>
-  <text x="645" y="49" class="small">Price = 900</text>
+  <text x="644" y="40" class="small">Price = 900</text>
 
   <!-- Group A bar: cost 800 -->
   <text x="400" y="58" text-anchor="start" class="label">Group A</text>
